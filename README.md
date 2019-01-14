@@ -20,3 +20,8 @@ Space Crusade (tm) HTML Canvas Clone.
   * lib -> libraries (js)
   * res -> resources (css, woff, png)
   * src -> sources (js)
+
+### Libraries
+
+  * [A* algorithm](https://github.com/bgrins/javascript-astar) by Brian Grinstead
+
