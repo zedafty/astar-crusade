@@ -1,0 +1,171 @@
+================================================================================
+--------------------------------------------------------------------------------
+# Sources
+--------------------------------------------------------------------------------
+================================================================================
+
+  lang.js                 core ; language variables
+  conf.js                 core ; configuration variables
+  util.js                 core ; utility functions
+
+  ents.js                 definitions ; entities
+    ^ furn.js             definitions ; furnitures
+    ^ char.js             definitions ; characters child entities
+
+  maps.js                 main game ; maps variables
+
+  game.js                 main game ; game variables and functions
+    | mupt.js             main game ; computer gaming script and functions
+
+  main.js                 main container ; global events and functions
+    ^ keys.js             main container ; keymapping functions
+    | scen.js             primary screen ; scene related functions
+      ^ scrl.js           primary screen ; scrolling functions
+      ^ zoom.js           primary screen ; zooming functions
+    | moni.js             auxiliary screen ; textual and visual informations
+    | term.js             auxiliary screen ; minimap and user interactions
+    | ctrl.js             user controls ; members actions and buttons
+
+================================================================================
+--------------------------------------------------------------------------------
+# JavaScript
+--------------------------------------------------------------------------------
+================================================================================
+
+WARNING
+  > Breaking loops
+    be cautious with 'break' instruction in nested 'for' loops
+    instruction 'break' only exit current loop ; we need to use 'labels' for properly exit nested 'for' loops
+  > Null value
+    use '===' operator for exact match against 'null' value ; otherwise 'null' value is equal to 'undefined'
+    | null == undefined => true
+    | null === undefined => false
+    + typeof(null) => "object"
+
+NOTE
+  > Functions parameters
+    functions arguments are newly declared variables in local scope ; it is useless to redeclare it
+    argument value of missing parameter is always 'undefined' ; it is useless to use 'typeof' unless an error is expected
+    extra parameters can be retrieved using the 'arguments' object
+
+THINK
+  * Literals
+    'const'
+    'let'
+    'class' statement + 'instanceof' method
+    'call' ?
+    'yield' => generator function
+    'import' / 'export' => modules
+    + namespaces ?
+  * Identifiers
+    WeakMap()
+    Symbol()
+
+================================================================================
+--------------------------------------------------------------------------------
+# Regularly Used Function Verbal Prefix
+--------------------------------------------------------------------------------
+================================================================================
+
+  draw() >> clear()
+  init() >> spawn() >> update() >> delete()
+  start() >> cancel() >> do() >> end() ! begin() ! make() ! exec() ! run()
+  play() >> stop() >> continue()
+! confirm() / valid() >> proceed()
+
+================================================================================
+--------------------------------------------------------------------------------
+# Consideration About Used Function Parameters
+--------------------------------------------------------------------------------
+================================================================================
+
+  Usual flag interpretation (boolean)
+    | true  => on  <=> condition must be verified
+    | false => *   <=> condition is ignored (same as undefined)
+    | null  => *   <=> condition is ignored (used as undefined because it's shorter to write)
+
+  When 'null' is used as a unique '*' flag value, 'false' is interpretated strictly
+  Plus, function parameter indicates 'flag*' (asterik pointing out that special case)
+    | true  => on  <=> condition must be verified
+    | false => off <=> condition must NOT be verified
+    | null  => *   <=> condition is ignored (same as undefined)
+
+================================================================================
+--------------------------------------------------------------------------------
+# Renaming
+--------------------------------------------------------------------------------
+================================================================================
+
+  ? hasMeleeWeapon()        => canAttackRange() != cantShoot()
+  ? hasAttack()             => canAttack()
+  ! adjacent                => around (dist == 1)
+  ! near                    => nearby (dist <= 2-4) [very near for dist <= 2]
+  ! getPath                 => findPath()
+  ! findPath                => getPath()
+  ! pass through / exclude  => hover / block >>> (typeList)
+  ! last_tile               => hover / hover_tile / last_cell
+  ! flash grenade           => blind device / blur system / invisibilitizer
+  ! play()                  => playAnim()
+  ! stop()                  => stopAnim()
+  ! targett(ing|ed|er)      => target(ing|ed|er)
+
+================================================================================
+--------------------------------------------------------------------------------
+# Refactoring
+--------------------------------------------------------------------------------
+================================================================================
+
+  ! Use color names when possible
+
+  * Simplify buttons state change procedures
+
+  ! Reduce utilitary functions parameters
+    ! remove unecessary 'game.grid' parameters ; all functions not under GRID section should always refer to 'game.grid'
+    ! replace 'plinth.width' and 'plinth.height' parameters by a 'plinth' object
+
+  ? Uniformize entity position handling
+    * replace 'ti(o.x)' and 'ti(o.y)' by 'o.getTiX()' and 'o.getTiY()'
+      > NO : not exactly the same way of handling position ; methods return the cornered position while properties return the base position
+    * use 'o.width' and 'o.height' instead of 'o.plinth.width' and 'o.plinth.height' => same logic as x, y ; initial width, height is px and when tile unit is required we do an explicit cast
+      > NO : if bleep, a four tiles char has a width of 32px while its plinth still has a width of 64px (not visible)
+
+  ? Track strict equality for 'undefined' and replace by loose equality when 'null' can be used instead
+
+================================================================================
+--------------------------------------------------------------------------------
+# Optimization
+--------------------------------------------------------------------------------
+================================================================================
+
+  ? Put characters drawing methods out of character class or set them as static
+    > QUESTION : do the methods set that way overload memory ?
+    > ANSWER   : YES
+    > SOLUTION : all methods that are not superseeded should be considered as stand alone and can be set as static
+
+  ? Remove 'doors' from pawns ? => reduce pawn iteration computing time
+    ? ALTERNATIVELY : simply append doors at LAST of pawn instead of FIRST
+
+  ? Optimize grid checking computing time
+    ? when an iteration grid is done from a char below the <20,20> tile, reverse grid array (i.e. start from END instead of from START)
+
+================================================================================
+--------------------------------------------------------------------------------
+# Ideas
+--------------------------------------------------------------------------------
+================================================================================
+
+  ! IDEA : add get<Entity>Type(), instead of using raw values ; idea is ability to change type once and for all only by changing getters
+  ! IDEA : getDestToTarget() => either returns a point list of possible destinations, either randomize during process instead of only nearest point
+  ! IDEA : check emptyTileAround() in radius
+
+================================================================================
+--------------------------------------------------------------------------------
+# Important
+--------------------------------------------------------------------------------
+================================================================================
+
+  * Ensure 'last_tile' compatibility
+    For now, one-tile pawns uses single array last_tile while four-tiles pawns uses four arrays
+    >> last_tile[2] != last_tile[0][2]
+    Idea is simply add a level array to last_tile
+

@@ -1,0 +1,21 @@
+<svg width="64" height="64" version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+		<g id="layer1" display="none">
+				<rect x="40" width="20" height="64"/>
+				<rect x="4" width="20" height="64"/>
+		</g>
+		<g id="layer2" display="none">
+				<path d="m8 24c-4.432 0-8 3.568-8 8v24c0 4.432 3.568 8 8 8h32c4.432 0 8-3.568 8-8v-2l16 10v-40l-16 10v-2c0-4.432-3.568-8-8-8z"/>
+				<circle cx="36" cy="12" r="12"/>
+				<circle cx="12" cy="12" r="12"/>
+		</g>
+		<g id="layer3" display="none">
+				<path d="m32 0-8 16-16-8 8 16-16 8 16 8-8 16 16-8 8 16 8-16 16 8-8-16 16-8-16-8 8-16-16 8zm-6 19h12l-2 17h-8zm2 21h8v8h-8z"/>
+		</g>
+		<g id="layer4" display="none">
+				<path d="m24 0v8h-8v8h-8v8h-8v16h16v8h8v-8h16v8h8v-8h16v-16h-8v-8h-8v-8h-8v-8zm24 48v8h8v-8zm8 8v8h8v-8zm-8 0h-8v8h8zm-8 0v-8h-16v8zm-16 0h-8v8h8zm-8 0v-8h-8v8zm-8 0h-8v8h8zm8-32h8v8h-8zm24 0h8v8h-8z"/>
+		</g>
+		<g id="layer5" display="none">
+				<rect y="52" width="64" height="12" rx="6" ry="6"/>
+				<path d="m24 0v32h-8l16 16 16-16h-8v-32z"/>
+		</g>
+</svg>

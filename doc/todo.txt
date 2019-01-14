@@ -1,0 +1,477 @@
+================================================================================
+--------------------------------------------------------------------------------
+# Todo
+--------------------------------------------------------------------------------
+================================================================================
+
+# Components
+  ° Events
+  ° Reinforcement
+  ° Score
+  ! Game Manager (savegame)
+  ! Sounds
+  ! Tooltips
+  ! Team Configuration
+  ! Game Configuration
+  ! Debrief
+  ! Maps
+  ! Intro
+  ! Outro
+
+  * Muppets
+  ! BUG  : Char.sortHostile (see code)
+  ! BUG  : muppet don't act when a target is unaccessible due to another hostile blocking the passage => should attack the nearest hostile in path *** IMPORTANT
+  ! BUG  : frenzy ; when no path is available, an alien can still be considered preferable to an in path alien (e.g. blocked by boulders)
+  ! BUG  : invisible marine while focused by alien event (like out_of_ammo) => update sprite transparent
+  ! BUG  : alien move and put another pawn into visibility of a marine => detect hostile for all marine
+  ! BUG  : movement path line when bleep is revealed and character movement greater to bleep movement
+  ! ENH  : alien elite attack twice at once (do not wait for another loop) + if is rusher, first attack is a shot instead of a melee attack
+  ! ENH  : newly spawned fleshripper plays first
+
+  * Controllers
+  * ENH  : clear select tile on pause => need to differ scen.stop at frame+1...
+  ? ENH  : hide focus reticle during attack (obstruct character animation) OR change its display
+  ? ENH  : cancel reroll/chained attack when click on view
+  ? ALT  : always center on select ?
+  ? ALT  : update mouse pointer only on tile change => on range start/end => check mouse tile (an hovered tile can be blocked while an action is running and then unblocked when it is over)
+  ! IDEA : dock/undock screen : hold shift to bypass magnet + show 'toaster/infobar' to advise user of that feature
+  ! IDEA : zoom only at 50% (1px), 100% (2px), 150% (3px) and maybe 200% (4px) => exact pixel match + gameplay improvement (i.e. is it really usefull to be able to zoom at 69.756% ? => what we want to do is to fit view according to gameplay, not the reverse [i want to see whole map for strategy planification, i want to see where the character can move, i want to see what the character is doing {animation}])
+
+  * Graphics
+  ! ENH  : position muzzle ajustement toward radian rotation
+  ! IDEA : draw an aim reticle when a [target/focus] is out of screen
+
+  * Performance
+  ! IDEA : use a web worker for tile scan triggered at move start instead of at move end
+  ? IDEA : save/restore canvas on scroll
+
+# Core
+
+  > Enhancements
+    ° update minimap only one time per frame update
+      > if arguments are passed to function
+        * case 1 : privilegiate first arguments passed
+        ° case 2 : privilegiate last arguments passed
+        * case 3 : merge arguments
+        * case 4 : draw minimap at once
+    ° map grid values stored as octal positive integer
+      > on game load, map grid is converted to game grid
+    * door position not set at creation => instead of creating each door panel on map load, only create one and duplicate the other on init
+      > this will require to write only one door on minimap bitmap, that will complicate the map creation process for a not so great enhancement
+    ? move range enhancement
+      > reduce path finding to the only tiles in a (10-20) radius ; if above, set up closest flag OR skip move
+      > need to check what happen for long path with closest flag
+    ? scan rect draw ; create a proper method instead of whole execution block under function
+    ? canvas performance
+      > do not update sprites whose bitmap hasn't changed
+      > instead, make a save of current frame at each scene update
+      > then restore at the next scene update
+      > and clear/update only tile of focused char when needed
+
+  > Ideas
+    ? move all muppets blocks contained in Char class under child class Alien
+    ? use a web worker for tile detection and muppet action computing 
+      > no obvious use for that now ; scriptflow is strictly sequential, no asynchronous features can be implemented right now with real performance gain
+
+  > Bugs
+    ° out of sight hidden character revealed => use two arc circles clockwise and counter-clockwise from starting radian for scanning instead of only one clockwise
+    ° radial scan not accurate => check all tiles in a strict tile radius instead of all tiles in a loose pixel radius
+    ~ hidden characters can shoot while not being visible => fixed by using a strict line of sight check instead of a loose one ; downside is a discontinuous line of sight
+
+# User Interface
+
+  > Tooltips
+    ! custom tooltip box that replace native tooltips
+
+  > Modal
+    ~ keymap
+    ! settings
+    ! load game
+
+  > Tool
+    ° off-canvas panel
+    ° detect tool box
+      > 1 - draw sight range
+      > 2 - draw sense range
+      > 3 - draw line of sight
+
+  > Main
+    ^ browser fullscreen (default is 'false' ; configuration setting)
+    ° scalable screen (i.e. enlarge or reduce)
+    ° draggable screen (i.e. move by mouse)
+    ° dockable screen (i.e. stick position)
+    ! scale screen for low-res devices (for now, screen is cropped and scroll bars are disabled ; out of screen elements are unaccessible)
+
+  > Icons (top-left)
+    ° Pause (double bar)
+    ° Cinematic (camera)
+    ° Alien Event (8-sided star with exclamation point)
+    ° Alien Play (monster head, space invader alike)
+    ° Alien Reinforcement (down arrow surrounded)
+
+  > Notifs (bottom-left)
+    ! Game save forbidden
+    ! Game save prevented
+    ! Game saved
+    ! Game loaded
+
+  > Inputs
+    * find a way to replay ':active' visual effect for focused buttons which are clicked again + do the same on keyboard (i.e. keydown event)
+      > NOFIX : not the way a web page handle controls
+    ~ register keys in a keymap in order to detect multiple keys pressed at the same time (e.g. keyboard arrows diagonal)
+      > ISSUE : keydown event breaks down if a key (A) is pressed, then a key (B) is pressed, and last the key (B) released
+    ° bind 'space' + 'enter' + 'left mouse button' as 'fire' command (should only be used for validating remaining turns)
+    ° bind 'escape' + 'backspace' + 'right mouse button' as 'cancel' command (should only be used for cancelling members actions)
+    ° increase scroll by keyboard power when 'shift' key is held
+    ° attach 'fire' command to confirm reroll and stop chained attack => focus button when it appears
+    ? get focus on first selectable element when focus is lost due to button deactivation
+
+  > Scroll
+    ° prevent click on screen when scroll by mouse active (click on buttons still possible)
+    ? press 'S' toggle scroll by mouse instead of scroll by when 'S' is pressed
+    ? display a visual indicator when scroll by mouse is active (like arrows in screen corners)
+
+  > Enhancements
+    ? always start game enlarged => wait until other pages done ; if enlarged activated in a previous page, then the new page starts enlarged
+    ? check if fullscreen mode activated/deactivated in browser and enlarge/reduce main screen accordingly
+    ! change keys by settings ; optionally register them in a human-readable format
+
+  > Bugs
+    ° keys still considered as pressed when window is unfocused then focused => pressed key is released out of window
+      > reset keymap on document blur
+    ~ font dither on scale screen => PixelGoSub is a pixel font based on a line height of 7px
+      * try to match a multiple of 7 when screen is scaled (like 600+7+7 etc.) => incorrect in any way ; forgive that
+      ? use another font, like a 10px based one or a full scalable one (SVG or TrueType WoFF)
+      > margin removed on fullscreen which result in a maximum affordable compatibility ; for other enlarged screen case (like menu bar or console shown), the issue won't be fixed (too complex)
+    ° Webkit die roll zero animation glitch => border-color with !important flag set to initial in animation flaws
+      > added specific die roll zero animation with fixed border-color property
+    ° Webkit mouse third button event not triggered => mouse event 'click' is only fired with left mouse button
+      > use mouse event 'mouseup' instead of 'click'
+    ! Webkit CORS policy with local hosted images
+      * use --allow-file-access-from-files argument on browser (only dev)
+      ! encode images which are to affected by pixel manipulation into base64 (i.e. embedded in script ; no conflict)
+    ! Firefox Choice arrows misplacement while on fullscreen => transform scale mess with border based arrow ; no fix for now
+    ? Firefox SVG misplacement while screen is resized => transform scale mess with SVG
+      ? use full joined path instead of multiple squares
+      ? draw icon into canvas instead of external div
+
+# Juggernaut
+  > Features
+    ° four-tiles plinth
+      | plinth = space occupied by the character (used by grid)
+      | corner = any one tile of the plinth (used by sight and los)
+      | base   = top-left corner of the plinth (used by move)
+    ° four-tiles move
+      | path finding restricted to a grid quaded to top-left tiles
+    ° four-tiles sight
+      | sight is restricted to a 90 degrees angle per corner ; which is lower than a 360 degrees angle per corner
+    ° four-tiles los
+      * 1 - check los from nearest corner to target
+      > 2 - check los to target for each corner
+    ° four-tiles reticle while moving
+    ° one-tile reticle while attacking (focused on active corner)
+    ° one-tile bleep
+    ° cannot stop on door rail
+    * can split range attack => no obvious use for that now
+
+# Muppets
+  > Features
+    ~ hidden characters move instantly (actually move at a speed of one tile per frame)
+    ^ hidden characters are able to pass through doors (default is 'false' ; configuration setting)
+    ° muppets remember any hostile spotted and pursue it until death or out of track range
+      | muppets do not 'see' or 'sense' hostiles during hostile turn (i.e. they are 'blinded')
+      | this means that if an hostile pass through a muppet sight or sense range at once, that muppet cannot remember it
+    ° bleeps movement is fixed to 5 tiles ; if a bleep is revealed during move, then it moves at full speed (or stops if on floor tile and cannot move anymore)
+    ° muppets acting is checked in loop until no action can be taken by any muppet
+    ° muppets target nearest accessible hostile (i.e. if nearest hostile inaccessible, then try to target next nearest hostile)
+    ° snipers move back when target is very near (radius of 2)
+    ° limbo_hw do not shoot when friend around target
+    ° safety loop end for being sure that the muppet check is broken
+    * safety timeout for being sure that a muppet action is completed
+      > NO  => script should be BUGLESS!
+      * YES => not so sure about yourself dude? huh?
+    * alien player uses members stack (should be feed on map launch)
+      > NO  => aliens have no member states because they are not set before game start (i.e. team settings) and useless after game (no debrief)
+      * YES => aliens use member actions which need to be reset on player switch
+      * YES => may be better to ensure compatibility between marine and alien teams handling (e.g. a human player plays alien)
+
+  > Complications
+    ° sniper around surrounded target => backward move impossible because hostile has no sight
+      * 1 - move by 1 tile if possible
+      > 2 - ignore sniper for hostile sight scan
+    ° hostile sight length equal to one => limbo_hw shoots itself because move at sight result in ajacent position
+      > 1 - skip action (move and attack)
+      * 2 - attack melee if lineal, skip attack if diagonal
+    ° target not reachable (e.g. surrounded) => actor stay where it is because hostile cannot be targetted
+      * 1 - actor use getPath(closest)
+      * 2 - actor move to nearest friend near target
+      > 3 - actor don't move at all
+
+  > Enhancements
+    ° prioritize muppets actions depending on acting loop cycle
+      ° loop 0  : muppets adjacent to hostiles attack target in melee
+      ° loop 1+ : muppets take any possible action
+      * loop 2- : muppets whose move action was prompted due to path finding failure try to move again
+      * loop 9- : muppets that have not taken action due to target out of range try to act again
+    ! when multiple nearest target, choose random
+    ! use shout (using moveRange) along with sense
+    ! limbo_hw adjust shoot to the most damaging position => need to get all hostile in sight separated by less than 1 tile
+
+  > Controllers
+    ° buttons activated when aliens are visible (e.g. move button hilighted during move)
+    ° mouse update skipped during alien turn (including monitor identify and hilite)
+    ° marine status shown when marine do defense roll
+    ° lock minimap during alien turn
+    * hide miniscope during alien turn
+
+  > Bugs
+    ° aliens stop after opened door and not on door rail when a door is opened => unexpected smart move
+      > aliens (except juggernaut) can now stop on door rail
+    ~ aliens move back when rerouted due to move end on pass through tile
+      => partially corrected by removing the reroute block in reset path
+    ° roll dice are visible almost all the time due to increased terminal noise duration and increased character move speed compared to original
+      * 1 - hide minimap during alien turn
+      * 2 - suppress noise during alien turn
+      * 3 - reduce noise duration during alien turn
+      > 4 - minimal noise duration during alien turn
+
+# Save
+  > Modes
+    ° Quicksave on key press (only during marine turn)
+    ° Autosave at turn end (only after alien turn)
+    ! Export/Import saved game (i.e. save/load a specific file from/onto drive)
+      ? 1 - Any kind of saves (i.e. during game and during menu)
+      ? 2 - Only team progression (i.e. ranks and honors)
+  > Features
+    ° forbid save during alien turn (no save allowed between turn start and turn end)
+    ° reset monitor and terminal on load
+    ° re-toggle action buttons on load
+    ° redraw ranges on load
+  > Enhancements
+    ! prevent save between marine turns instead of forbid
+    ! use counter for main.save.prevent instead of boolean (case of multiple prevented save occurences ; e.g. scroll + switching door at same time)
+
+# Log
+  * retrieve last 5 to 10 log lines when savegame loaded
+  ~ put 'actions' into var and output to console: move (from to), attack (fail, success, dice)
+
+================================================================================
+--------------------------------------------------------------------------------
+# Standby (i.e. questions raised during coding)
+--------------------------------------------------------------------------------
+================================================================================
+
+  ° When a character movement is interrupted due to an hidden character, the hidden character turn toward the moving character
+  ° Extend screen.max_x and screen.max_y on zoom in or out
+  ° Cancel pending action on Enter or Backspace key pressed or on right mouse click
+  * Cancel pending action when left clicked on anything but range instead of shaking screen => mouse scroll
+  ? Look at the most interesting object in vicinity at move end
+    > Hostile
+    > Item
+    > Door
+    * Ally
+    > Longest line of sight (i.e. corridor)
+  ? Equipment 'med_pack' usable only if commander selected
+  ? Scroll center on focused character when a button action is activated or deactivated while the focus is out of screen
+
+================================================================================
+--------------------------------------------------------------------------------
+# Modification (i.e. changes that shouldn't be considered as an improvement)
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Display
+  ° Screen follows characters and projectiles smoothly and not in fits and starts (i.e. scroll updated every 1 pixel instead of every n tiles)
+  ° Scroll locked while a character is moving or a projectile is firing (n.b. user cannot move screen but can stil zoom)
+  ° Scroll inputs enabled during alien turn (n.b. screen 'sticks' to any acting entity)
+
+  # Gameplay
+  ° Sight is strictly interpreted as per core rules ("line of sight between any two miniatures is found by tracing a straight line from the center of one square to the other")
+  ° Two diagonal blocks obstruct sight as per core rules ("line of sight may not be traced between two miniatures that are diagonally adjacent"), but only for unreachable tiles (i.e. if a character is adjacent to diagonal blocks, then line sight isn't obstructed)
+  ! Map size reduced (30x30 tiles excluding docking claws instead of 40x40 tiles including docking claws)
+  ° Scan radius reduced (commander 9 instead of 12, trooper 6 instead of 7)
+  ° Maximum number of turns reduced (28 instead of 40)
+  * Doors can be closed (and kill things on rail) * DEPRECATED
+  * Only hostiles can be targetted * DEPRECATED
+
+  # Orders
+  ° Fire: can only FIRE twice (i.e. cannot attack twice in melee ; but can attack in melee AND fire) [strict interpretation of original rules]
+  ° Heavy Weapon: can only FIRE twice (i.e. cannot attack twice in melee ; but can attack in melee AND fire) [strict interpretation of original rules]
+
+  # Equipments
+  * Flash Grenade: any alien in a range of 7 tiles loses its next actions (can be used at any time during playing turn)
+  ° Fission Bomb: lasts until next melee attack (no time limit)
+
+  # Events
+  * Airlock Control: only one door per member can be switched at distance (due to the switch_door action count) * REMOVED
+  * Mothership Scan: scan almost all map instead of scan twice per turn * UNUSED
+  ° Mothership Scan: all bleeps on map are revealed (almost as per board card)
+  ° Equipment Malfunction: only useable equipment can be lost (Flash Grenade, Fission Bomb, Xeno Sensor or Med-Pack)
+  ° Out of Ammo: affected trooper becomes unarmed if no bloter is available for replacement (as per board card)
+  ° Gremkin Grenater: lasts until next range attack (no time limit)
+  ° Scrof Mechatek: lasts until next range attack (no time limit)
+  ° Self-Destruction: event effect is applied instantly (played during event time and not play time)
+
+  # Ranges
+  ° Replace move range and <xeno_sensor> darkened unselected tiles by colored selectable tiles
+  ! Alien shoot range not displayed instead only target is shown
+
+  # Monitor
+  ! Only one type of 'interference' (noise or scanline) => unable to determine under which condition a graphic is displayed and not the other...
+
+  # Marine Out
+  ° Text displayed on report instead of terminal
+
+  # Sprites
+  ° Revert <pistol_axe> weapons (pistol in right hand, axe in left hand instead of pistol in left hand, axe in right hand) => face not hidden by axe
+  ° Revert <glove_sword> weapons (glove in right hand, sword in right hand instead of glove in left hand, sword in right hand) => face not hidden by sword
+  ° Gremkin drawn with random drab colors instead of blue coat
+  ° Scrof drawn with random drab colors instead of red and gold armor
+  ° Juggernaut recolored (dark gray, orange and red instead of blue, green and red)
+
+================================================================================
+--------------------------------------------------------------------------------
+# Enhancement (i.e. changes that should be considered as an improvement)
+--------------------------------------------------------------------------------
+================================================================================
+
+  # User Interface
+  ° Invert action and select boxes position (i.e. select at left and action at right instead of action at left and select at right)
+  ? Invert marine and alien colors on minimap (red = alien, green = marine instead of red = marine, green = alien)
+
+  # MiniMap
+  ° Add a box on minimap for showing where on map the screen actually is (i.e. MiniScope)
+  ° Show focused character (i.e. game actor) on MiniMap
+
+  # Identify
+  ° Show Identify in Monitor instead of Terminal
+  ° Identify non playing marine team members
+  * Identify Method
+    ° Org: Hold Click => Show Identify, Release Click => Hide Identify
+    * New: Click on sprite => Show Identify, Click out of sprite => Hide Identify
+
+  # Status
+  ° Add <bloter_pistol> and <bloter_blade_pistol> images
+  ° Add gold and blue <glove_sword> images
+
+  # Sprites
+  ° Add different marine bitmaps for each base weapon
+  ° Change commanders hair color (white instead of yellow)
+  ° Change sprite weapon color (same as avatar in identify => gray bloter, gray machine_gun, gray plasma_cannon, green rocket_launcher)
+  ° Edit character's sprites (pixel color correction and avatar consistency)
+
+  # Animations
+  ! Add 2D attack animations on board instead of isometric 3D attack cutscenes
+  * Add an animation when a bleep or an hidden alien becomes visible * DEPRECATED
+
+  # Roll
+  ° Change roll dice layout (sci-fi font instead of digital display, green line borders instead of plain gray borders)
+
+  # Controls
+  ° Change member select light
+    > Issue: it's hard to see which member is currently selected (especially for red)
+    * Fix_1: remove member select light and enable same glow effect as action button on member face
+    * Fix_2: add a glow effect on member select light
+    ° Fix_3: redo bitmap (set to green instead of red)
+  ° Change dead and left members select light
+    Org: select light is unactive (i.e. grayished)
+    New: select light is disabled (i.e. invisible)
+  ° Add hilight to buttons
+    ° Focus : flash
+    ! Hover : none
+  ? Add hilight to faces
+
+  # Action Buttons
+  ° Action buttons toggle
+    Org: disable all other action buttons and lock select buttons (i.e. nothing can be done except confirm or cancel the action)
+    New: clear current action (i.e. action is automatically canceled when any other button action is pressed or when any other member is selected)
+
+  # Equipments
+  ° Flash Grenade: usable at any time ; attacking while affected removes condition ; characters displayed half-transparent when affected
+
+  # Events
+  ° Add unimplemented original board game events (New Order, Battle Plan, Scrof Mechatek, Re-Deploy, Alien Teleporter, Alien Task Force)
+  ° Add events effects textual reporting (known effects explicitly, unknown effects and events failures generally)
+  ° Out of Ammo: heavy weapon lost is replaced with a bloter affected by weapon modifications (targetter, blade and blot_pistol)
+  ° Frenzy: affected character displayed with red skin
+  ° Alien Elite: affected character displayed with blue skin
+
+  # Ranges
+  ° Show targets on minimap
+  ° Show <rocket_launcher> and <plasma_cannon> area of effect (scene and minimap)
+
+  # Bug Fixes
+  ° <bloter_pistol> roll properly rolls three dice (instead of three times one die roll)
+  ° <targeter> icon is also displayed on commanders weapons (instead of no icon)
+  ° <close_assault> properly works on any trooper in team equipped with <bloter> which can fire then attack in melee or attack in melee twice (instead of only first trooper attacking)
+  ° <assault_blade> propery works on a non team target that also as an <assault_blade> equipped (instead of giving benefit of the equipment only to defender)
+
+================================================================================
+--------------------------------------------------------------------------------
+# Keymap
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Key     Command                         Activation                      Browser
+  ~ Space   fire                            trigger                         Click (trigger/impulse)
+  ~ Enter   fire                            trigger                         Click (press/repeat)
+  ~ Escape  cancel                          trigger                         *
+  ~ Back    cancel                          trigger                         *
+  ~ Shift   scroll key increase             repeat                          *
+  - F1      show keymap                     trigger                         *
+  - F2      show tool                       trigger                         *
+  * F5      quicksave game (override)       trigger                         Reload Page (standard)
+  - F8      quicksave game (override)       trigger                         *
+  - F9      quickload game                  trigger                         *
+  * F10     toggle sound/music              trigger                         Show Menu (Firefox)
+  * F12     quit                            trigger                         Console (Firefox)
+    Plus    zoom in                         repeat                          *
+    Minus   zoom out                        repeat                          *
+    Star    reset zoom                      trigger                         *
+  ! PageUp  next member                     trigger                         *
+  ! PageDn  previous member                 trigger                         *
+  - Up      scroll up one tile              repeat                          *
+  - Left    scroll left one tile            repeat                          *
+  - Right   scroll right one tile           repeat                          *
+  - Down    scroll down one tile            repeat                          *
+  - Pause   [Pause] game                    trigger                         *
+  - Key P   [P]ause game (bis)              trigger                         *
+  - Key F   [F]ullscreen                    trigger                         *
+  - Key C   [C]enter to focus               trigger                         *
+  - Key S   [S]croll by mouse               repeat                          *
+  - Key 1   select member [1]               trigger + double-trigger        *
+  - Key 2   select member [2]               trigger + double-trigger        *
+  - Key 3   select member [3]               trigger + double-trigger        *
+  - Key 4   select member [4]               trigger + double-trigger        *
+  - Key 5   select member [5]               trigger + double-trigger        *
+  - Key M   [M]oVe                          trigger                         *
+  - Key R   attack [R]ange                  trigger                         *
+  - Key A   [A]ttack melee                  trigger                         *
+  - Key O   give [O]rder                    trigger                         *
+  - Key E   use [E]quipment                 trigger                         *
+  - Key D   switch [D]oor                   trigger                         *
+  - Key K   s[K]an                          trigger                         *
+  - End     [End] turn                      trigger                         *
+
+================================================================================
+--------------------------------------------------------------------------------
+# Variables
+--------------------------------------------------------------------------------
+================================================================================
+
+        ______________________________________________________
+  _____/                                                      \_____
+  \                        -- Variables --                         /
+   \                                                              /
+    \_°    SCRIPT <- should not be edited passed test stage    °_/
+   /  |    > unaccessible from game                            |  \
+   \  |    > registered in file (src folder)                   |  /
+    \_°    CONFIGURATION <- may be edited at own risks         °_/
+   /  |    > unaccessible from game                            |  \
+   \  |    > registered in file (cfg folder)                   |  /
+    \_°    SETTINGS <- may be edited without any risk          °_/
+      |    > accessible from game                              |
+      |    > registered in local storage                       |
+       \__ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ ___/
+          \________________________________________________/
+

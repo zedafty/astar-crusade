@@ -1,0 +1,717 @@
+================================================================================
+--------------------------------------------------------------------------------
+# Objects Types
+--------------------------------------------------------------------------------
+================================================================================
+
+  NOTE : Types are registered as integers ; key strings are retrieved by calling a function.
+
+  # Type    Value   Key         Color       Desc
+  ! -8      nil     spawn       none        alien spawn
+    -7      nil     dock        none        docking claws blue
+    -6      nil     dock        none        docking claws gold
+    -5      nil     dock        none        docking claws red
+    -1      nil     door        none        opened door
+     0      nil     floor       none        *
+     1      nil     void        none        *
+     2      nil     wall        gray        *
+     3      str     door        gold        closed door
+     4      str     item        aqua        any inanimate thing movable or destructible (i.e. placeable)
+     5      str     red         red         *
+     6      str     gold        red         *
+     7      str     blue        red         *
+     8      str     alien       green       identified alien
+
+   v = nil <- Flat   : Dock, Floor, Void, Wall = Fixed    (i.e. always in place and unaltered)
+   v = str <- Pawn   : Furn, Char              = Variable (i.e. can be moved or destroyed)
+
+================================================================================
+--------------------------------------------------------------------------------
+# Pawns Subtypes
+--------------------------------------------------------------------------------
+================================================================================
+
+  NOTE : Subtypes are registered as key strings.
+
+  # N       DOOR        ITEM        RED         GOLD        BLUE        BLEEP       ALIEN
+    1       airlock     boulder     commander   commander   commander   gremkin     gremkin
+    2       *           c_panel_1   trooper     trooper     trooper     scrof       scrof
+    3       *           c_panel_2   *           *           *           limbo_lw    limbo_lw
+    4       *           weapon      *           *           *           limbo_hw    limbo_hw
+    5       *           brain       *           *           *           limbo_cc    limbo_cc
+    6       *           nuke        *           *           *           fleshripper fleshripper
+    7       *           egg         *           *           *           cyborg      cyborg
+    8       *           breach      *           *           *           juggernaut  juggernaut
+    9       *           cube        *           *           *           *           *
+
+================================================================================
+--------------------------------------------------------------------------------
+# Pages (i.e. program structure)
+--------------------------------------------------------------------------------
+================================================================================
+
+  1. Home
+      Intro
+
+  2. Menu
+      Mission
+      Teams
+      > Weapon
+      > Order
+      > Equipment
+
+  3. Game
+      Main
+      > Scene                                           scen.js
+        | View                                          *
+        | Transmission                                  *
+      > Monitor => ouput (no interaction)               moni.js
+        | Report                                        *
+        | Status                                        *
+        | Identify                                      *
+        | Turn                                          *
+        | Alien                                         *
+      > Terminal => input (interaction)                 term.js
+        | Noise                                         *
+        | MiniMap                                       *
+        | MiniScope                                     *
+        | Choice                                        *
+          ^ Order                                       *
+          ^ Equipment                                   *
+          ^ Dual-Weapon                                 *
+        | Roll                                          *
+      > Controls                                        ctrl.js
+        | Action                                        *
+        | Select                                        *
+
+  4. Game Over
+      Debrief (i.e. mission recap)
+      Outro
+
+  5. Map
+
+================================================================================
+--------------------------------------------------------------------------------
+# Maps
+--------------------------------------------------------------------------------
+================================================================================
+
+  Size       : always 40x40 tiles
+  Background : one image
+  |          : splitting the map results in performance decrease ; best to have one big bitmap than several little ones (due to redraw update)
+  Walls      : walls are directly drawn on map background ; the map grid is held on a static array (loaded first)
+  |          : feeding the walls array before loading is not a good idea,
+  |          : as the array content does not change during game, it's better to have it set once and for all
+
+================================================================================
+--------------------------------------------------------------------------------
+# Tilesets
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Floors
+    A = Base
+    B = Variant 1
+    C = Variant 2
+    D = Variant 3
+    E = Variant 4
+    F = Variant 5
+
+    e.g. 'SC - Tile - Floor 2 - C'
+
+  # Walls
+    D = (D)oors         => Shape of 'D'
+    L = Ang(L)es        => Shape of 'L'
+    T = In(T)ersections => Shape of 'T'
+    I = L(I)nes         => Shape of 'I'
+
+    e.g. 'SC - Tile - Wall 1 - I - Horizontal'
+
+================================================================================
+--------------------------------------------------------------------------------
+# Colors
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Base palette = 32 colors
+
+    00 : Black           #000000       0,   0,   0
+    01 : White           #ffffff     255, 255, 255
+    02 : Transparency    #009999       0, 153, 153
+    03 : Shadow          #ff6666     255, 102, 102
+    04 : Gray Darkest    #111111      17,  17,  17
+    05 : Gray Darker     #222222      34,  34,  34
+    06 : Gray Dark       #444444      68,  68,  68
+    07 : Gray            #666666     102, 102, 102
+    08 : Gray Light      #888888     136, 136, 136
+    09 : Gray Lighter    #bbbbbb     187, 187, 187
+    10 : Gray Lightest   #cccccc     204, 204, 204
+    11 : Flesh Darker    #552200      85,  34,   0
+    12 : Flesh Dark      #994400     154,  68,   0
+    13 : Flesh           #ee7755     238, 119,  85
+    14 : Flesh Light     #ff9966     255, 153, 102
+    15 : Purple          #663366     102,  51, 102
+    16 : Red Dark        #880000     136,   0,   0
+    17 : Red             #bb0000     187,   0,   0
+    18 : Red Light       #ee5522     238,  85,  34
+    19 : Gold Dark       #775500     119,  85,   0
+    20 : Gold            #aa7700     170, 119,   0
+    21 : Gold Light      #bb9900     187, 153,   0
+    22 : Gold Lighter    #ccbb66     204, 187, 102
+    23 : Blue Dark       #001199       0,  17, 153
+    24 : Blue            #1122dd      17,  34, 221
+    25 : Blue Light      #4466dd      68, 102, 221
+    26 : Green Dark      #224400      34,  68,   0
+    27 : Green           #116600      17, 102,   0
+    28 : Green Light     #119933      17, 153,  51
+    29 : Teal Darker     #002222       0,  34,  34
+    30 : Teal Dark       #005555       0,  85,  85
+    31 : Teal            #446666      68, 102, 102
+
+  # Extended palette = 32+9 colors
+
+    32 : Cyan Dark       #008888       0, 136, 136
+    33 : Cyan            #00cccc       0, 204, 204
+    34 : Cyan Light      #00ffff       0, 255, 255
+    35 : Magenta Dark    #880088     136,   0, 136
+    36 : Magenta         #cc00cc     204,   0, 204
+    37 : Magenta Light   #ff00ff     255,   0, 255
+    38 : Yellow Dark     #888800     136, 136,   0
+    39 : Yellow          #cccc00     204, 204,   0
+    40 : Yellow Light    #ffff00     255, 255,   0
+
+  # Extend palette color affectation
+    Cyan    <- Major -> Marine = armor, Alien = skin
+    Magenta <- Minor -> Marine = strap, Alien = UNUSED
+    Yellow  <- UNUSED
+
+  # Weapon                  Subtype
+    unarmed                 trooper, gremkin
+    pistol_knife            scrof
+    pistol_axe              commander
+    glove_sword             commander
+    heavy_bloter            commander, limbo_cc
+    bloter                  trooper, gremkin, limbo_lw, cyborg
+    machine_gun             trooper
+    rocket_launcher         trooper, limbo_hw
+    plasma_cannon           trooper, scrof
+    grenade                 gremkin
+    claw                    fleshripper
+
+  # Kind        Major       Minor       Third
+    red         [red]       [gold]      *
+    gold        [gold       [blue]      *
+    blue        [blue]      [red]       *
+  ! green       [green]     random      random
+  ! limbo       [green]     *           *
+  ! robot       [gray]      *           *
+  ! xeno        [teal]      *           *
+
+  # Kind        Major       Minor       Third
+  + Code        [dk,md,lt]  [dk,md,lt]  [dk,md,lt]
+    red         [16,17,18]  [19,21,22]  *
+    gold        [19,21,22]  [23,24,25]  *
+    blue        [23,24,25]  [16,17,18]  *
+  ! green       [26,27,28]  random      random
+  ! limbo       [26,27,28]  *           *
+  ! robot       [06,08,10]  *           *
+  ! xeno        [29,30,31]  *           *
+
+================================================================================
+--------------------------------------------------------------------------------
+# Buffet Animations
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Reference
+    Dir      : Omni
+    Size     : 48x48
+    Frames   : 8
+    Tracks   : 1
+
+  # Index   Key
+    0       blast
+
+================================================================================
+--------------------------------------------------------------------------------
+# Effect Animations
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Reference
+    Dir      : Omni
+    Size     : 24x24
+    Frames   : 8
+    Tracks   : 8
+
+  # Index   Key
+    0       explode
+    1       hit
+    2       wound
+    3       wound_green
+    4       wound_xeno
+    5       wound_robot
+    6       reveal
+    7       UNUSED
+
+================================================================================
+--------------------------------------------------------------------------------
+# Muzzle Animations
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Reference
+    Dir      : Octo
+    Size     : 12x12
+    Frames   : 6
+    Tracks   : 4
+
+  # Index   Key
+    0       Bullet (lineal)
+    1       Bullet (diagonal)
+    2       Rocket (lineal)
+    3       Rocket (diagonal)
+    4       Plasma (lineal)
+    5       Plasma (diagonal)
+
+================================================================================
+--------------------------------------------------------------------------------
+# Characters Animations
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Reference
+    Dir      : Octo
+    Size     : 32x32
+    Frames   : up to 4
+    Tracks   : variable
+    Slides   : variable
+    Transl.  : depending on slide
+    Callback : depending on slide
+
+  # Index   Key
+    0       Move (idle)
+    1       Attack Range
+    2       Attack Melee
+  * 3       Hit / Die / Dodge
+
+  # Definitions
+    A character animation set is composed of 'n' tracks
+    A character animation track is composed of 'n' slides
+    A character animation slide is composed of bitmap (x,y) positions, a duration in frames and eventually a translation modifier
+
+  # Animation Slide Format
+    [src_x, src_y, wrc_x, wrc_y, dur, trs, cbk, rep]
+    | src_x = character bitmap x-position (px) [line/diag]
+    | src_y = character bitmap y-position (px)
+    | wrc_x = weapon bitmap x-position (px) [line/diag]
+    | wrc_y = weapon bitmap y-position (px)
+    | dur = slide duration (frames)
+    | trs = slide translation regarding current direction (px)
+    | cbk = trigger callback function at slide start (bool)
+    | rep = repeat animation at slide end (bool)
+    > [2, 1, 1, 3, 15, -10, true, true]
+      | set character sprite located at row 4 (line) or 5 (diag) and line 1 on character bitmap source
+      | set weapon sprite located at row 2 (line) or 3 (diag) and line 3 on weapon bitmap source
+      | the slide will be shown on next 15 scene frames updates (i.e. approximatively 1/4 second)
+      | the slide will be translated of 10 pixels in the opposite character direction
+      | the function associated with animation will be triggered when this slide is first displayed (e.g. 'fire' for 'attack_range')
+      | the animation will be restarted to its first slide when this slide is last displayed (e.g. 'move')
+
+================================================================================
+--------------------------------------------------------------------------------
+# Characters Identify
+--------------------------------------------------------------------------------
+================================================================================
+
+# Principle
+  Weapons are centered from left hand center at (24,24), then an adjustement depending on subtype is added
+
+# Size
+  Item            32x32 + 32x64
+  Character       48x48
+  Character Large 64x64
+
+# Subtype         Weap_X  Weap_Y
+  Commander       *       *
+  Trooper         *       *
+  Gremkin         -3      +4
+  Scrof           *       +6
+  Limbo_tr        *       *
+  Limbo_cc        *       *
+  Fleshripper     *       *
+  Cyborg          +3      *
+  Juggernaut      *       *
+
+================================================================================
+--------------------------------------------------------------------------------
+# Doors
+--------------------------------------------------------------------------------
+================================================================================
+
+  WHAT? <- Entity in Grid : 1 tile = 1 entity ; 1 door is composed of 2 entities (i.e. 2 panels) qualifying a 'door set'
+
+  For the double door check to work, we need to first create entities, and only after that initialize them
+  This means we need to create appropriate method for initializing doors, or, like Char, add a first update block w/ once flag (could even be better)
+  It also means that no door set should be placed next to another door set (i.e. respect a 1-tile distance between each door when mapping ; this seems to be OK)
+
+  On map load, each door is affected to one cell (at this time, it is not possible to determine the panels composing a door)
+  At door spawn (i.e. first update), the script checks the four lineal directions in search of other door entity
+  The resultat is registered as 'opposite' setter
+
+  How to get direction ?
+
+  When the script has found the opposite door, it should have found only one other door in any lineal direction
+  As the maps shouldn't be buggy, we only search for the first other door (i.e. stop search at the first found)
+  To get the door direction, we check opposite door position:
+    - if up, then dir = north (slide toward south)
+    - if down, then dir = south (slide toward north)
+    - if left, then dir = west (slide toward east)
+    - if right, then dir = east (slide toward west)
+
+  Door state:
+    1. Closed: obstruct sight BUT not move ; any move beyond is possible - in that case, the door is automatically opened during move
+    2. Opened: sight and move allowed over ; a char can stop at the door position ; a char in any tile adjacent (including door) can close it
+
+    NOTE: All doors spawn closed and remain visible until opened
+
+  Door switch:
+    Org:
+      when close to door (only lineal), button is enable ; on click, the door is opened ; it is not possile to close the door
+      on move range, the passage is clear beyond the door and the door is automatically opened while char stop by
+    New: when close to door (including diagonal), button is enable ; on click, the is hilighted ; on click on the door, the door is opened ; it is possible to close the door again with another 'switch_door' action
+
+  Behaviour                 Org         New         Req
+  | Switch on diagonal      -           +           Confirm switch
+  | Closeable               +*          +           *
+  | Kill on close           -/+*        +           Closeable
+  | Confirm switch          -           +           *
+  | Move beyond             +           -?          *
+  | Open on click           -           -?          *
+  | Close on click          -           -           *
+  | Count as action         -           +           *
+    * Only during airlock_control event
+
+  The original game let the user do things silly without warning, like shoot at friends or commit suicide by jumping into the void
+  We want to keep that spirit, which is cool, but we don't want to keep the original door behaviour
+  Because it appears weird that a marine can open an airlock but can not close it (and that's a matter when the void enters the map)
+  Plus, it's just really fun to kill aliens with doors ^^
+  So in order to make it more fun and a little bit 'strategic' to play with door, we need to do some little adjustment...
+  1)  Opening a door count as an action ; this means a char can only open or close one door per turn
+      It also means that it is possible to do really dumb things like blocking the team (marine 1 open the door and don't move, marine 2 close the door)
+  2)  It's no more possible to move beyond door ; this means it will eventually reduce one action move to stop at one door to open it
+      This also means that is no more possible to rush into aliens (which is something silly, so fun)
+  3)  It's possible to close doors, even if the char doing that is on the door rail (he will eventually die in that case)
+  4)  Any char, except the juggernaut, on a door rail while it is closed will be instantly killed
+      This sounds like a terrible punishment, so maybe a defense will be allowed
+      For the AI, intelligent chars will avoid stopping on door rail while dumb chars won't care at all
+  5)  Airlock control: any member of the team which gains airlock control can use his switch door action to open/close any door on the map
+      For this, we need to confirm the door opening/close (door button is no more trigger, but switch)
+
+================================================================================
+--------------------------------------------------------------------------------
+# Alien Reinforcements
+--------------------------------------------------------------------------------
+================================================================================
+
+  1) Difficulty
+
+  Matter is that the alien reinforcement system is not really proper for a well-balanced game.
+  Original concept is to increase the number of alien reinforcements when the number of marine teams increases.
+  This mechanic is good if all the missions are supposed to have an equivalent difficulty (i.e. 'single-map' mode).
+  But in addition to that mechanic, the number of alien reinforcements is also increased for difficulty progression (i.e. 'campaign' mode).
+  It seems that the same lever was used to produce different effects.
+  In the end, this tends to makes things really harder for single-team marine players.
+
+  IDEA 1 : change the number of 'miniatures' instead of changing the number 'reinforcements' according to the number of marine teams
+  * ORG  : less reinforcements if less marine teams (e.g. only Green and Blue instead of Green, Blue and Gray)
+  * NEW  : less miniatures if less marines teams (e.g. 31 instead of 35 / 27 instead of 31)
+  * RSLT : this way, reinforcements are only used to adjust mission difficulty
+  * CONC : bad idea ; if the map isn't resized, this will result in almost 'empty' maps on early missions
+
+  IDEA 2 : re-design campaign system (see 'Project' section)
+  > PRO1 : permits to solve the difficulty balancing issue (by defining a 'wise' blips/tokens/rank setup)
+  > PRO2 : prevents weakest team left behind strategy (i.e. choosing of only the strongest team)
+  > PRO3 : prevents boring 'farming' capability (i.e. replay an easy mission until a team has reached highest rank)
+  > CONT : breaks the board game original gameplay... but this project is a video game, right?
+
+  2) Spawn points
+
+  The way the alien reinforcements come into the game can be problematic for a video game.
+  Human players are not assumed to be 'reasonable', as should gentle friends gathered around a table may be.
+  Original missions have few delimited and invariable spawn points which are unusable when a marine member is at sight.
+  The result is that the marine players can deliberatly 'flood' those reinforcing areas (i.e. let a marine idle near any of the spawn points to prevent alien reinforcements).
+
+  IDEA 1 : allow alien reinforcements spawning even when a marine is at sight (play 'teleport' animation)
+  * RES1 : bad idea ; since alien reinforcements do not play at once (spawned at the end of the alien turn), marine members can shoot them 'freely' (i.e. automatic 'first blood')
+  * RES2 : bad idea ; assuming marine players know the alien spawns locations, then marine members can also 'camp' at spawning areas in order to mark 'easy' points
+
+  IDEA 2 : put reinforcement stage before acting stage (i.e. reinforce, then play)
+
+  IDEA 3 : use dispatched spawn points all over the map instead of big spawning areas (or maybe a mix of both ; which should be even better)
+
+================================================================================
+--------------------------------------------------------------------------------
+# Alien Event Cards (rank bonus)
+--------------------------------------------------------------------------------
+================================================================================
+
+  The event is retained and played first (i.e. no random pick up).
+
+  # Event                           Probability
+    lure_of_limbo                   40%
+    out_of_ammo                     30%
+    equipment_malfunc               15%
+    intercom_malfunc                5%
+    fleshripper                     4%
+    fleshripper                     3%
+    fleshripper                     3%
+
+================================================================================
+--------------------------------------------------------------------------------
+# Team Definition
+--------------------------------------------------------------------------------
+================================================================================
+
+  "team" : {
+    // -------------------------------------------------------------------------
+    // * Red Team
+    // -------------------------------------------------------------------------
+    "red" : {
+      "state" : null,
+      "members" : [
+        {"id" : "red01" , "subt" : "commander", "weapon" : "glove_sword"        , "name" : "Mason"    , "state" : null},
+        {"id" : "red02" , "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Connor"   , "state" : null},
+        {"id" : "red03" , "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Teller"   , "state" : null},
+        {"id" : "red04" , "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Dogget"   , "state" : null},
+        {"id" : "red05" , "subt" : "trooper"  , "weapon" : "machine_gun"        , "name" : "Brian "   , "state" : null}
+      ],
+      "order" : {
+        "fire" : true,
+        "move_it" : true,
+        "close_assault" : true,
+        "photon_grenades" : true
+      },
+      "equipment" : {
+        "flash_grenade" : true,
+        "fission_bomb" : true,
+        "bionic_arm" : true,
+        "force_field" : true,
+        "assault_blades" : true,
+        "blot_pistol" : true,
+        "targeter_1" : "bloter",
+        "targeter_2" : "machine_gun"
+      },
+      "action" : {
+        "order" : 1,
+        "scan" : 1,
+      },
+      "active" : {
+        "order" : [],
+        "equipment" : [],
+        "event" : []
+      }
+    },
+    // -------------------------------------------------------------------------
+    // * Gold Team
+    // -------------------------------------------------------------------------
+    "gold" : {
+      "state" : null,
+      "members" : [
+        {"id" : "gold01", "subt" : "commander", "weapon" : "heavy_bloter"       , "name" : "Kellog"   , "state" : null},
+        {"id" : "gold02", "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Bergson"  , "state" : null},
+        {"id" : "gold03", "subt" : "trooper"  , "weapon" : "machine_gun"        , "name" : "Cooker"   , "state" : null},
+        {"id" : "gold04", "subt" : "trooper"  , "weapon" : "rocket_launcher"    , "name" : "Reyce"    , "state" : null},
+        {"id" : "gold05", "subt" : "trooper"  , "weapon" : "plasma_cannon"      , "name" : "Clark"    , "state" : null}
+      ],
+      "order" : {
+        "fire" : true,
+        "move_it" : true,
+        "by_sections" : true,
+        "heavy_weapon" : true
+      },
+      "equipment" : {
+        "flash_grenade" : true,
+        "fission_bomb" : true,
+        "bionic_eye" : true,
+        "dual_weapon" : true,
+        "suspensors" : true,
+        "blot_pistol" : true,
+        "targeter_1" : "rocket_launcher",
+        "targeter_2" : "plasma_cannon"
+      },
+      "action" : {
+        "order" : 1,
+        "scan" : 1,
+      },
+      "active" : {
+        "order" : [],
+        "equipment" : [],
+        "event" : []
+      }
+    },
+    // -------------------------------------------------------------------------
+    // * Blue Team
+    // -------------------------------------------------------------------------
+    "blue" : {
+      "state" : null,
+      "members" : [
+        {"id" : "blue01", "subt" : "commander", "weapon" : "pistol_axe"         , "name" : "Lockhart" , "state" : null},
+        {"id" : "blue02", "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Pfeifer"  , "state" : null},
+        {"id" : "blue03", "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Bolton"   , "state" : null},
+        {"id" : "blue04", "subt" : "trooper"  , "weapon" : "rocket_launcher"    , "name" : "Quaker"   , "state" : null},
+        {"id" : "blue05", "subt" : "trooper"  , "weapon" : "plasma_cannon"      , "name" : "Hartman"  , "state" : null}
+      ],
+      "order" : {
+        "fire" : true,
+        "move_it" : true,
+        "by_sections" : true,
+        "close_assault" : true
+      },
+      "equipment" : {
+        "flash_grenade" : true,
+        "fission_bomb" : true,
+        "bionic_hand" : true,
+        "xeno_sensor" : true,
+        "med_pack" : true,
+        "blot_pistol" : true,
+        "targeter_1" : "rocket_launcher",
+        "targeter_2" : "plasma_cannon"
+      },
+      "action" : {
+        "order" : 1,
+        "scan" : 1,
+      },
+      "active" : {
+        "order" : [],
+        "equipment" : [],
+        "event" : []
+      }
+    },
+    // -------------------------------------------------------------------------
+    // * Alien Team
+    // -------------------------------------------------------------------------
+    "alien" : {
+      "event" : {
+        "choice" : [],
+        "random" : [
+          "mothership_trans",
+          "mothership_scan",
+          "airlock_control",
+          "auto_defence",
+          "exploding_trap",
+          "new_order",
+          "battle_plan",
+          "intercom_malfunc",
+          "equipment_malfunc",
+          "report_in",
+          "weapons_jammed",
+          "out_of_ammo",
+          "lure_of_limbo",
+          "psychic_attack",
+          "robotic_fault",
+          "robotic_assault",
+          "frenzy",
+          "alien_elite",
+          "self_destruction",
+          "gremkin_grenater",
+          "scrof_mechatek",
+          "re_deploy",
+          "alien_teleporter",
+          "alien_task_force",
+          "fleshripper",
+          // EXTRAS
+          "auto_defence",
+          "fleshripper",
+          "fleshripper"
+        ]
+      },
+      "active" : {
+        "event" : []
+      },
+      "reinforcement" : {
+        "token" : {
+          "gremkin"     : 0, // green
+          "scrof"       : 0, // green
+          "limbo_lw"    : 0, // blue
+          "limbo_hw"    : 0, // blue
+          "limbo_cc"    : 0, // blue
+          "fleshripper" : 0, // none
+          "cyborg"      : 0, // gray
+          "juggernaut"  : 0  // juggernaut
+        },
+        "pawn" : {
+          "gremkin"     : [],
+          "scrof"       : [],
+          "limbo_lw"    : [],
+          "limbo_hw"    : [],
+          "limbo_cc"    : [],
+          "fleshripper" : [],
+          "cyborg"      : [],
+          "juggernaut"  : []
+        }
+      }
+    }
+  }
+
+================================================================================
+--------------------------------------------------------------------------------
+# Member Action Definition
+--------------------------------------------------------------------------------
+================================================================================
+
+  ents.Char.red01.action.move = 2            >> 2 move actions left for that char
+  ents.Char.red01.action.attack = 0          >> 0 attack action left for that char
+
+    ents : {
+      Char : {
+        red01 : {
+          action : {
+            "move" : 1,
+            "attack_range" : 1,
+            "attack_melee" : 1
+          }
+        }
+      }
+    }
+
+================================================================================
+--------------------------------------------------------------------------------
+# Team Action Definition
+--------------------------------------------------------------------------------
+================================================================================
+
+  game.team.red.action.order = true          >> order can be given for that team and that turn
+  game.team.red.action.scan = false          >> scan done for that team and that turn
+
+    team : {
+      red : {
+        action : { // can action be started ?
+          order : true,
+          scan : false
+        }
+      }
+    }
+
+================================================================================
+--------------------------------------------------------------------------------
+# Weapon Definition
+--------------------------------------------------------------------------------
+================================================================================
+
+  ents.Char.red01.attack.melee[0][0] = 2     >> 2 dice attack roll for this weapon first attack
+  ents.Char.red01.attack.melee[0][1] = true  >> heavy weapon die for this weapon first attack
+
+    attack = {
+      "melee" : [[2, true], [2, false]],
+      "range" : [[2, true], [2, true], [ 2, false]],
+      "assault_blade" : false, // melee diagonal + reduce one die on defenser defense roll
+      "fission_bomb" : false, // two additional dice on next melee attack roll
+      "reroll_melee" : false,
+      "reroll_range" : false
+    }
+
+    {{melee|range}}.length = number of attacks
+    {{melee|range}}[0][0] = number of dice for first attack (1 to 3)
+    {{melee|range}}[1][0] = light weapon die for second attack #1 (true = heavy weapon, false = light weapon)
+

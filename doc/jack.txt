@@ -1,0 +1,241 @@
+================================================================================
+--------------------------------------------------------------------------------
+# Hijack : Space Mogette
+--------------------------------------------------------------------------------
+================================================================================
+
+# Pitch
+  "Year 10492 in a galaxy far far away"
+  "All was for the best in the known universe before the Space Mogette sprung out from <limbo/outer space/the expanse>"
+  "Popping from the Space Mogette like acne from a teenage face, aliens <took place> in abandoned ships and <forsaken/derelicted> stations, making a mess of it"
+  "...by playing baby foot..."
+  "...smoking weed..."
+  "...and listening to demoscene music all night long"
+  "--NO! That can't be!--"
+  "Pissed of by aliens' presence and lifestyle, A* fleet goes on war to eradicate the Space Mogette spawns"
+  "Now, A* troopers are the last resort of humankind to restore public safety and morale rights in the galaxy"
+  "--C'mon boyz! Time to shoot greenies!--"
+
+# Game Modes
+  > hellobigbadworld => hijack mode
+  > hugeissargestick => cheat mode
+  > gimmedamnbeernow => tool mode
+
+# Explicit Content
+  If you're a teen, ask your papa before playing this game
+  Or ask him to join
+
+# Transm. Intercep.
+  Did you smell that?
+  Is that goo?
+  Smells like poop
+  Neeeed to peeee!
+  Just walked on sumthing sticky...
+  Did you see that?
+  I swear it was HUGE!
+  Dude... really?
+  Tell me more 'bout your sis'!
+  Don't give a shit 'bout that
+  Bullshit in the air, oh yeah
+  Oooh... so CUTE!
+  Hello KITTY!
+  Did you see this one?
+  Creepier than aunt Sally in the bathroom
+  Tate? That's no fu**ing name!
+  Forget your pussy hat kiddies?
+  OMG..
+  WTF??
+  That's exactly what she said
+  Ho crap...
+  Hasta la vista Bobby
+  El Rey Amiga! El Rey!
+  That damn Yoshi poop again...
+  Hey! Get that Yoshi out of deck!
+  Don't want to see that Yoshi pooping here again
+  That Game Tiger makes me nut!
+  Quartex's the BEST!
+  Silver Surfer incoming!
+  Big and blue... Mr. Manhattan?
+  H3ll0 <L0S3Rz/L4M3Rz>!!
+  Desert Rangers', do you copy?
+  Je s'appelle Groot !
+  BUT WHERE ARE THE GIRLS???
+  D'you think they ate the women?
+  All marine requested for rectal investigation
+  Don't get cocky you bunch of titty twisters
+  Reinforcement not coming
+  Come with me if you want to live <Viens avec moi si tu veux vivre>
+  In space no one can hear your scream <Dans l'espace, personne ne vous entend(ra) crier>
+  Wiiiiilll!
+  Demogorgon spawned in area 51
+  Who you gonna call? Space Busters!
+  Don't forget to bring back some food
+  Only old white guys commanding here?
+  What exactly did she meant by "anal frustration"?
+  Is that a real WOMBAT!?
+  GOGO WOMBAT COMBAT!!
+  DnD? Did no Damage?
+  Men'o'war don't fear the reaper!
+  Orgazmo rays spotted!
+  Megaman-X ? Porn again?
+  Hey girls! T'was a pushy riot! Hehehe!
+  Oh my God! They killed Lenny!
+  Lucky Strike! You're toasted!
+  Pretty sure that LoL means League of Lamas...
+  WoW? World of Warming?
+  Mine Craft is greater that yours!
+  Listening to Lionel Richie Fort-all-nite-long !
+  Purple is the new black
+  I don't like cocktails, keep your miso-gin stuff...
+
+# Entering map text
+  C'mon boyz! Let's dance! <David Bowie>
+  C'mon boyz! It's the final countdown! <Europe>
+  C'mon boyz! Welcome to the jungle! <Guns'n'Roses>
+  C'mon boyz! We will rock them! <Queen>
+  C'mon boyz! Show must go on! <Queen>
+  C'mon boyz! Kill'em all! <Metallica>
+  C'mon boyz! Don't fear of the dark! <Iron Maiden>
+  C'mon boyz! It's a highway to hell! <AC/DC>
+  C'mon boyz! Enjoy the silence! <Depeche Mode>
+  C'mon boyz! Just another brick in the wall! <Pink Flyod>
+  C'mon boyz! Carry on my wayward sons! <Kansas>
+  C'mon boyz! With the rebell yell! <Billy Idol>
+  C'mon boyz! It's a man-man's world! <James Brown>
+  C'mon boyz! Cry me a river! <Julie London>
+  C'mon boyz! GL&HF!
+  C'mon boyz! Time to frag!
+  C'mon boyz! Got the flag!
+  C'mon boyz! Defuse the bomb!
+  C'mon boyz! Cowabunga!
+  C'mon boyz! Yakalelo!
+  C'mon boyz! Viva la bamba!
+  C'mon boyz! No mercy for pastries! <Pas de pitié pour les croissants!>
+
+# UNUSED
+
+  * Come on boys!
+  * C'mon beasties!
+  * This one hurts
+  * Tis' a master PISS!
+  * Me do dat
+  * Yes master
+  * Kick my ack mothakisser!
+  * Me head messy...
+
+# Pop-hover attack texts
+
+  * Gremkin
+    Kilakiki!
+    Zigazizi!
+    Bigatiti!
+    Loremipsumdolorsitamet! (rare)
+
+  * Scrof
+    Me BIG!
+    Me SMART!
+    Me STRONG!
+    Me NO ELEPHANT! (rare)
+
+  * Limbo Marine
+    For Limbo!
+    Fire in da hole!
+    There 'ill be blood
+    Oh... I'll touch your tralala (rare)
+
+  * Limbo BFG
+    Take that!
+    Meet thou maker!
+    A bullet for my valentine
+    My patator will pound you! (rare)
+
+  * Limbo Commander
+    Whose the BOSS?
+    Burn bunny burn!
+    Mine's bigger than yours!
+    All of your base are belong to us! (rare)
+
+  * Fleshripper
+    *lash-hack*
+    *lash-lash*
+    *hack-hack*
+    oO> tender godmother! in your name i shall die with honor! <Oo (rare)
+
+  * Android
+    Termination.
+    Ending process.
+    Destroy and return.
+    --An assertion failed in chitin.cpp::1788-- (rare)
+
+  * Juggernaut
+    *clang-bruik-wiiiz*
+    *bruik-bruik-wiiiz*
+    *clang-clang-wiiiz*
+    ] changelevel de_aztec (rare)
+
+  Marine      -> Marine      => Never like him that much
+  Marine      -> Commandant  => Dreamt about that so many times!
+
+# Pop-over identify texts
+
+  Commander   -> Gremkin     => Something I can chew up with my ass
+  Commander   -> Scorf       => Just a regular dumbass
+  Commander   -> Limbo LW    => Traitor. Again!
+  Commander   -> Limbo HW    => Oh my! Such a large thing!
+  Commander   -> Limbo CC    => Hey Roger! What's up wiz yu besterd?
+  Commander   -> Fleshripper => Those ones used to make me shit in my pants
+  Commander   -> Cyborg      => I hate robots... must be the eyes
+  Commander   -> Juggernaut  => Like mommy used to say... DAMN F**K IT BILL!
+
+  Marine      -> Gremkin     => Is that a joke?
+  Marine      -> Scorf       => Seems well fed
+  Marine      -> Limbo LW    => O' bro'!
+  Marine      -> Limbo HW    => Nice gun
+  Marine      -> Limbo CC    => Looks badass...
+  Marine      -> Fleshripper => Beurk!
+  Marine      -> Cyborg      => So cute!
+  Marine      -> Juggernaut  => Run?
+
+# Weapon Hover Texts
+	"bloter"              : <Perfect/The right tool> for <cleaning the mess/wiping the dirt> / The <dirt wiper> yur mama liked so much
+	"bloter_pistol"       : Just a little more firepower / That and a pack o' six for a long staruday night
+	"bloter_blade"        : Long knife! That's what they like
+	"bloter_blade_pistol" : Don't mess with <marines/Texas/Chuck/Morris>
+	"machine_gun"         : Big bullets for big uglies
+	"rocket_launcher"     : Beware that red button
+	"plasma_cannon"       : The laser gun your daddy always dreamt of / Come out and play, twisted sissy
+	"heavy_bloter"        : Everything is a matter of size / The bigger the greater
+	"heavy_bloter_plasma" : Double the barrel, double the <pleasure/joy>
+	"pistol_axe"          : Slasher-gunner on the kill floor / Barbarian v.2.0 <genuine/legacy/OEM> gear
+	"glove_sword"         : Some like it close
+
+# Screen Effects
+  Fade
+  Blood
+  Shake
+  Pixelate
+  Airlock (à la Street Fighter Alpha)
+
+# Character Effects
+  Whiten
+  Blink
+  Disintegrate
+
+# Tribute
+  ! Billy Idol
+  ! Scooter (song)
+  ! Terminator (song)
+  ! Ghost (text -> If you have goats you have everything)
+  - Günter (text -> Ho... you touch my tralala!)
+  - Meme (text -> All of your base are belong to us)
+  + Daft Punk -> Around the Wold
+  + Prodigy -> Outer Space (https://www.youtube.com/watch?v=FnYXxkN0cBE)
+  + Sauerbraten?
+  + UB40 / M83?
+
+# Heroic Commanders Cameos
+  > Red Angels  => Sarge (Quake 3)
+  > Golden Arms => Jax (Mortal Kombat)
+  > Hyperblue   => [Cammy] White (Street Fighter)
+  + Heroes are diamond and for that reason they never die ; instead they spring out from the void where their remains lie, fresh and ready to fight again and again and again!
+

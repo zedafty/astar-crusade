@@ -1,0 +1,206 @@
+/*
+
+	tool.css
+
+*/
+
+/* ========================================================================== */
+/* -------------------------------------------------------------------------- */
+/* # Tool */
+/* -------------------------------------------------------------------------- */
+/* ========================================================================== */
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Basics */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#tool_content button {
+	padding: 6px 12px;
+	color: #222;
+	font-size: 12px;
+	border: 0;
+	background-color: rgb(176,176,224);
+	background-color: rgba(192,192,240,.625);
+	transition: opacity .375s;
+}
+
+#tool button:focus {
+	background-color: rgb(224,224,255);
+	outline: 0;
+}
+
+#tool button:hover {
+	background-color: mediumspringgreen;
+}
+
+#tool button:active {
+	background-color: mediumseagreen;
+}
+
+#tool button::-moz-focus-inner {
+	border: 0;
+}
+
+#tool button[disabled] {
+	background-color: rgb(168,168,240);
+	opacity: .1875;
+}
+
+#tool button[data-state='activated'] {
+	color: whitesmoke;
+	background-color: #222;
+}
+
+#tool h4 {
+	line-height: 40px;
+	font-family: 'Segoe UI Semibold', sans-serif;
+}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Container */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#tool {
+	display: inline-block;
+	position: absolute;
+	width: 320px;
+	height: 100%;
+	left: -320px;
+	top: 0;
+	text-align: center;
+	font-family: 'Segoe UI', sans-serif;
+	background-color: transparent;
+	transition: left .375s;
+	z-index: 10;
+}
+
+#tool.open {
+	position: relative;
+	left: 0;
+}
+
+#tool_menu {
+	position: absolute;
+	width: 48px;
+	height: 44px;
+	right: -48px;
+	top: 0;
+	background-color: rgba(255,255,0,.5);
+	background-color: transparent;
+	transition: right .375s;
+	z-index: 1;
+}
+
+.open #tool_menu {
+	right: 0;
+}
+
+#tool_menu span {
+	position: absolute;
+	width: 28px;
+	height: 4px;
+	left: 10px;
+	background-color: white;
+	transition: top .375s, right .375s, left .375s, transform .375s, opacity .375s;
+}
+
+#tool_menu span:nth-of-type(1) {top: 10px; transform-origin: top left;}
+#tool_menu span:nth-of-type(2) {top: 20px;}
+#tool_menu span:nth-of-type(3) {top: 30px; transform-origin: bottom left;}
+
+.open #tool_menu span:nth-of-type(1) {left: 16px; top: 10px; transform: rotate(45deg);}
+.open #tool_menu span:nth-of-type(2) {opacity: 0;}
+.open #tool_menu span:nth-of-type(3) {left: 16px; top: 29px; transform: rotate(-45deg);}
+
+#tool_menu:hover span,
+#tool_menu:focus span {
+	background-color: #222;
+}
+
+#tool_content {
+	width: inherit;
+	height: inherit;
+	left: 0;
+	top: 0;
+	padding-top: 44px;
+	background-color: red;
+	background-color: rgb(88,40,104);
+	background-color: rgba(144,64,176,.625);
+	box-sizing: border-box;
+}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Boxes */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#tool_scroll,
+#tool_zoom,
+#tool_move,
+#tool_detect,
+#tool_other {
+	position: relative;
+	margin: 20px 10px 0 10px;
+	padding: 0 16px 16px;
+	border-radius: 8px;
+	background-color: rgb(112,96,160);
+	background-color: rgba(120,112,176,.625);
+}
+
+#tool_scroll > div,
+#tool_move > div {
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	position: relative;
+}
+
+#tool_scroll > div > button,
+#tool_move > div > button {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	padding: 0;
+	font-weight: bold;
+}
+
+[id^=tool_] > div > button[id$=_nn] {left: 50%; top: 0; margin-left: -15px;}
+[id^=tool_] > div > button[id$=_ww] {left: 0; top: 50%; margin-top: -15px;}
+[id^=tool_] > div > button[id$=_ee] {right: 0; top: 50%; margin-top: -15px;}
+[id^=tool_] > div > button[id$=_ss] {left: 50%; bottom: 0; margin-left: -15px;}
+[id^=tool_] > div > button[id$=_nw] {left: 0; top: 0;}
+[id^=tool_] > div > button[id$=_ne] {right: 0; top: 0;}
+[id^=tool_] > div > button[id$=_sw] {left: 0; bottom: 0;}
+[id^=tool_] > div > button[id$=_se] {right: 0; bottom: 0;}
+[id^=tool_] > div > button[id$=_cc] {left: 50%; top: 50%; margin-top: -15px; margin-left: -15px;}
+
+[id^=tool_] > div > button:before {
+	content: '';
+	display: inline-block;
+	position: absolute;
+	left: 7px;
+	top: 7px;
+	width: 16px;
+	height: 16px;
+	border: 8px solid transparent;
+	box-sizing: border-box;
+}
+
+[id^=tool_] > div > button[id$=_nn]:before {height: 8px; left: 7px; top: 11px; border-top-width: 0; border-bottom-color: #222;}
+[id^=tool_] > div > button[id$=_ww]:before {width: 8px; left: 11px; top: 7px; border-left-width: 0; border-right-color: #222;}
+[id^=tool_] > div > button[id$=_ee]:before {width: 8px; left: 11px; top: 7px; border-right-width: 0; border-left-color: #222;}
+[id^=tool_] > div > button[id$=_ss]:before {height: 8px; left: 7px; top: 11px; border-bottom-width: 0; border-top-color: #222;}
+
+[id^=tool_] > div > button[id$=_nw]:before,
+[id^=tool_] > div > button[id$=_ne]:before,
+[id^=tool_] > div > button[id$=_sw]:before,
+[id^=tool_] > div > button[id$=_se]:before {
+	width: 12px;
+	height: 12px;
+	border: 6px solid transparent;
+}
+
+[id^=tool_] > div > button[id$=_nw]:before {left: 11px; top: 11px; border-top-color: #222; border-left-color: #222;}
+[id^=tool_] > div > button[id$=_ne]:before {left: 7px; top: 11px; border-top-color: #222; border-right-color: #222;}
+[id^=tool_] > div > button[id$=_sw]:before {left: 11px; top: 7px; border-bottom-color: #222; border-left-color: #222;}
+[id^=tool_] > div > button[id$=_se]:before {left: 7px; top: 7px; border-bottom-color: #222; border-right-color: #222;}
+

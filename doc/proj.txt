@@ -1,0 +1,522 @@
+================================================================================
+--------------------------------------------------------------------------------
+# A* Crusade
+--------------------------------------------------------------------------------
+================================================================================
+
+  Tags: Fan-work, HTML Canvas, JavaScript DOM, Clone, Fork
+
+  Space Crusade (tm) HTML Canvas Clone.
+
+    Original video game produced by Gremlin Interactive (tm) in 1992.
+    Original product rights owned by Milton Bradley (tm) & Games Workshop (tm) since 1990.
+
+  "Space Crusade is an adventure board game produced by Milton Bradley together with Games Workshop and was first made in 1990."
+  "While produced in the UK and available in some other countries including Finland, Ireland, France, Spain, Denmark, Australia and New Zealand, it was never sold in North America."
+  "In Germany, Italy, Belgium and the Netherlands, it is known as Star Quest."
+  -- Wikipedia
+
+  A* Crusade is an HTML <retro-gaming> experiment based upon <1992> <Gremlin Graphics' [https://en.wikipedia.org/wiki/Gremlin_Interactive]> <Space Crusade [https://en.wikipedia.org/wiki/Space_Crusade]> on <Amiga [http://www.mobygames.com/game/amiga/space-crusade]>.
+  Thought as a <respectful/humble/modest> <tribute/revival/reboot/clone/fork>,
+  this project <simply> intents to provide a <pleasant/modern> <gaming experience> to <abandonwares'> <fans>.
+  In order to protect original product rights' owner, <all names> have been changed.
+
+  this.is (
+    <Amateur> fan-work,
+    Written in JavaScript (not jQuery),
+    Modern browsers oriented (no pollyfills),
+    Aimed at web standards (almost no cross-browser prefixes),
+    Kind of minimalist (no fancy frameworks, no trendy libraries),
+    Open-source licensed under <CC/GPL> (code and only code)
+    Draftly made with time, love and patience :D
+  );
+
+  this.uses (
+    A* algorithm by Brian Grinstead, [https://github.com/bgrins/javascript-astar]
+    Pixel Sagas GoSub font by Neale Davidson, [http://www.pixelsagas.com/]
+    SF Electrotome font by Derek Vogelpohl [http://www.shyfoundry.com/]
+  );
+
+  this.isCraftedWith (
+    Firefox, [https://www.mozilla.org/firefox/]
+    Notepad++, [https://notepad-plus-plus.org/]
+  * GIMP, [https://www.gimp.org/]
+  ! Photoshop [https://www.adobe.com/]
+  ? Audacity, [https://www.audacityteam.org/]
+    Kindness [https://en.wikipedia.org/wiki/Kindness]
+  );
+
+  this.canBeThanksTo (
+    MDN, [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference]
+    W3CSchools, [https://www.w3schools.com/jsref/default.asp]
+    StackOverflow [https://stackoverflow.com/]
+  );
+
+================================================================================
+--------------------------------------------------------------------------------
+# History
+--------------------------------------------------------------------------------
+================================================================================
+
+  Project started on April 29th, 2018
+  Coding pursued until September 9th, 2018
+  Coding continued on November 16th, 2018
+  Coding stopped on November 20th, 2018
+
+================================================================================
+--------------------------------------------------------------------------------
+# Words
+--------------------------------------------------------------------------------
+================================================================================
+
+  Space Crusade           >>  A* Crusade [Wreckage/Rampage/Rummage/Plunder/Crawling/Fleet/War]
+  Space Marine            >>  A* <Marine/Trooper/Mariner/Fleet>
+
+  * Space Crusade + Star Quest => Space Quest | Star Crusade |=> A* Crusade (search algorithm name)
+
+  Blip                    >>  Bleep                   >>  Blip
+  Gretchin                >>  Gremkin                 >>  Gremkin
+  Ork                     >>  Scrof                   >>  Scrof
+  Soulsucker              >>  Fleshripper             >>  Écorcheur
+  Chaos Marine            >>  Limbo Trooper           >>  Soldat des Limbes
+  Chaos Commandant        >>  Limbo Commander         >>  Commandant des Limbes
+  Android                 >>  Cyborg                  >>  Cyborg
+  Dreadnought             >>  Juggernaut              >>  Juggernaut
+
+  Marine                  >>  Trooper                 >>  Soldat
+  Commandant              >>  Commander               >>  Commandant
+  Sergeant                >>  Sergeant                >>  Sergent
+  Lieutenant              >>  Lieutenant              >>  Lieutenant
+  Captain                 >>  Captain                 >>  Capitaine
+  Chapter                 >>  Division                >>  Division
+
+  Blood Angels            >>  Red Angels              >>  Anges rouges
+  Imperial Fists          >>  Golden Arms             >>  Bras dorés
+  Ultramarines            >>  Hyperblue               >>  Hyperbleus
+
+  Bolter                  >>  Bloter*                 >>  Détâcheur
+  Bolt Gun                >>  Blot  Pistol            >>  Pistolet détâcheur
+  Heavy Bolter            >>  Heavy Bloter            >>  Détâcheur lourd
+  Assault Cannon          >>  Machine Gun             >>  Mitrailleuse
+  Missile Launcher        >>  Rocket Launcher         >>  Lance-roquettes
+  Plasma Gun              >>  Plasma Cannon           >>  Canon à plasma
+  Energy Axe              >>  Power Axe               >>  Hache de force
+  Energy Glove            >>  Power Glove             >>  Gant de force
+  Energy Sword            >>  Power Sword             >>  Épée de force
+
+  * Blot+er <- (dé)tâcheur ; a blot = tâche ; to blot = éponger/essuyer ; blotter => buvard
+
+  Fielding                >>  Mason                   >>  Mason
+  Ordellen                >>  Connor                  >>  Connor
+  Tenzer                  >>  Teller                  >>  Teller
+  Ozman                   >>  Dogget                  >>  Dogget
+  Fargo                   >>  Brian                   >>  Brian
+
+  Meller                  >>  Kellog                  >>  Kellog
+  Steinburg               >>  Bergson                 >>  Bergson
+  Reice                   >>  Cooker                  >>  Cooker
+  Shellam                 >>  Reyce                   >>  Reyce
+  Price                   >>  Clark                   >>  Clark
+
+  Goldstock               >>  Lockhart                >>  Lockhart
+  Keifer                  >>  Pfeifer                 >>  Pfeifer
+  Brekken                 >>  Bolton                  >>  Bolton
+  Harris                  >>  Quaker                  >>  Quaker
+  Hart                    >>  Hartman                 >>  Hartman
+
++ Fire!                   >>  Fire!                   >>  Feu à volonté !
++ Move It!                >>  Move It!                >>  Bougez-vous !
++ By Sections!            >>  By Sections!            >>  Sections groupées !
++ Close Assault!          >>  Close Assault!          >>  À l'assaut !
+  Photon Grenades!        >>  Photon Grenades!        >>  Grenades à photons !
+  Heavy Weapon!           >>  Heavy Weapon!           >>  Arme lourde !
+
++ Blind Grenades          >>  Flash Grenade           >>  Grenade aveuglante
++ Melta Bomb              >>  Fission Bomb            >>  Bombe à fission
++ Bolt Pistol             >>  Blot Pistol             >>  Pistolet Blot
++ Targeter                >>  Targeter                >>  Cibleur
+  Close Assault Blades    >>  Assault Blades          >>  Lames d'assaut
+  Force Field             >>  Force Field             >>  Champ de force
+  Bionic Arm              >>  Bionic Arm              >>  Bras bionique
+  Suspensors              >>  Suspensors              >>  Suspenseurs
+  Combi-Weapon            >>  Dual-Weapon             >>  Arme double
+  Bionic Eye              >>  Bionic Eye              >>  Oeil bionique
+  Bio-Scanner             >>  Xeno-Sensor             >>  Xeno-Capteur
+  Digital Weapons         >>  Bionic Hand             >>  Main bionique
+  Medi-kit                >>  Med-Pack                >>  Med-Pack
+
+  Mothership Commo.       >>  Mothership Transmission >>  Trans. vaisseau mère
+  Mothership Scan         >>  Mothership Scan         >>  Scan vaisseau mère
+  Master Controls         >>  Airlock Control         >>  Contrôle des sas
+  Auto-Defence            >>  Auto-Defence            >>  Auto-défense
+  Booby Trap              >>  Exploding Trap          >>  Piège explosif
++ New Orders              >>  New Order               >>  Nouvel ordre
++ Battle Plan             >>  Battle Plan             >>  Plan de bataille
+  Communications Malfunc. >>  Intercom Malfunction    >>  Défaillance Intercom
+  Equipment Malfunc.      >>  Equipment Malfunction   >>  Défaillance équipement
+  Report In               >>  Report In               >>  Au rapport
+  Weapons Jammed          >>  Weapons Jammed          >>  Armes enrayées
+  Out of Ammo             >>  Out of Ammo             >>  Plus de munitions
+  Lure of Chaos           >>  Lure of Limbo           >>  Appel des Limbes
+  Psychic Attack          >>  Psychic Attack          >>  Attaque psychique
+  Android Fault           >>  Robotic Fault           >>  Défaut robotique
+  Mech. Assault           >>  Robotic Assault         >>  Assaut robotique
+  Frenzy                  >>  Frenzy                  >>  Frénésie
+  Alien Elite             >>  Alien Elite             >>  Alien d'élite
+  Suicide Android         >>  Self-Destruction        >>  Auto-destruction
+  Gretchin Bomber         >>  Gremkin Grenater        >>  Grenadier gremkin
++ Ork Mekaniak            >>  Scrof Mechatek          >>  Mécatek scrof
++ Re-Deploy               >>  Re-Deploy               >>  Re-déploiement
++ Alien Teleporter        >>  Alien Teleporter        >>  Téléporteur alien
++ Alien Task Force        >>  Alien Task Force        >>  Force opérationnelle
+  Soulsucker              >>  Fleshripper             >>  Écorcheur
+
++ Reinforcement           >>  Reinforcement           >>  Renfort
+
+================================================================================
+--------------------------------------------------------------------------------
+# Weapons (marine)
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Weapon              Melee   Range
+    bloter              2L      2L
+    bloter_pistol       3L      2L
+    bloter_blade        2L/d    2L
+    bloter_blade_pistol 3L/d    2L
+    machine_gun         2L      2H
+    rocket_launcher     2L      2H
+    plasma_cannon       2L      2H
+    heavy_bloter        2L      2H
+    heavy_bloter_plasma 2L      2H
+    pistol_axe          2H      2L
+    glove_sword         2L+2H   *
+
+================================================================================
+--------------------------------------------------------------------------------
+# Attributes (alien)
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Subtype             Melee   Range   Armor   Move    Life
+    gremkin             1L      2L      0       8       1
+    scrof               2L      2L      1       6       1
+    limbo_lw            2L      2L      2       6       1
+    limbo_hw            2L      2H      2       4       1
+    limbo_cc            2L      2H      2       6       1
+    fleshripper         2H      *       3       8       1
+    cyborg              2H      3L      2       4       1
+    juggernaut          2H+2L   2x2H+2L 4       4       3
+
+================================================================================
+--------------------------------------------------------------------------------
+# Equipment
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Equipment           Red     Gold    Blue    Usable
+    flash_grenade       [x]     [x]     [x]     [x]
+    fission_bomb        [x]     [x]     [x]     [x]
+    blot_pistols        [x]     [x]     [x]     *
+    targeter            [x]     [x]     [x]     *
+    assault_blades      [x]      *       *      *
+    bionic_arm          [x]      *       *      *
+    force_field         [x]      *       *      *
+    suspensors           *      [x]      *      *
+    bionic_eye           *      [x]      *      *
+    dual_weapon          *      [x]      *      *
+    xeno_sensor          *       *      [x]     [x]
+    bionic_hand          *       *      [x]     *
+    med_pack             *       *      [x]     [x]
+
+================================================================================
+--------------------------------------------------------------------------------
+# Orders
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Order               Red     Gold    Blue
+    fire                [x]     [x]     [x]
+    move_it             [x]     [x]     [x]
+    by_sections          *      [x]     [x]
+    close_assault       [x]      *      [x]
+    photon_grenades     [x]      *       *
+    heavy_weapon         *      [x]      *
+
+================================================================================
+--------------------------------------------------------------------------------
+# Events
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Event                   N (cards)       Duration        Condition                       Effect
+    mothership_trans        1               instant         alive marine                    secondary mission objective is displayed
+    mothership_scan         1               instant         alive marine                    all bleeps are revealed
+    airlock_control         1               permanent       alive marine                    one marine player may open or close any door
+    auto_defence            2               instant         alive marine                    one marine is shot with 1HD
+    exploding_trap          1               instant         alive trooper                   one trooper is shot with <rocket_launcher>
+  + new_order               1               instant         order spent or unavailable      one extra order for one marine player
+  + battle_plan             1               instant         order spent or unavailable      one extra order for all marine players
+    intercom_malfunc        1               1 turn          order available                 one marine player can't give any order this turn
+    equipment_malfunc       1               1 turn          equipment available             one marine player loses one equipment
+    report_in               1               1 turn          alive commander                 one marine commander can't play this turn
+    weapons_jammed          1               1 turn          alive marine <heavy_weapon>     one marine player can't fire any heavy weapon this turn
+    out_of_ammo             1               permanent       alive trooper <heavy_weapon>    one trooper <heavy_weapon> is replaced by <bloter> (if none available, then unarmed)
+    lure_of_limbo           1               instant         alive marine trooper            one marine trooper becomes limbo_marine if 3 on 1HD
+    psychic_attack          1               1 turn          alive gremkin, scrof            all gremkins and scrofs can't play this turn
+    robotic_fault           1               1 turn          alive cyborg, android           all androids and juggernauts can't play this turn
+    robotic_assault         1               1 turn          alive cyborg, android           all androids and juggernauts can play twice this turn
+    frenzy                  1               1 turn          alive gremkin, scrof            one gremkin or scrof can attack twice in melee
+    alien_elite             1               1 turn          alive alien                     one alien can play twice this turn
+    self_destruction        1               instant         alive cyborg                    one cyborg move and blows himself inflicting 2HD to any adjacent
+    gremkin_grenater        1               permanent       alive gremkin                   one gremkin gets a <rocket_launcher> for its next range attack
+  + scrof_mechatek          1               permanent       alive scrof                     one scrof gets a <plasma_cannon> and explodes himself on its next range attack
+  + re_deploy               1               instant         alive alien                     up to three bleeps can be moved to <an already scanned area>
+  + alien_teleporter        1               instant         alive alien                     one alien can be swapped with another
+  + alien_task_force        1               instant         *                               alien player gets two random reinforcements <from unused tokens>
+    fleshripper             3               instant         *                               one fleshripper spawns next to any marine
+  > TOTAL                   28 (25)
+
+================================================================================
+--------------------------------------------------------------------------------
+# Reinforcement [Board Game]
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Reinforcement           Miniatures  Tokens      Color       Percentage  Points
+    gremkin                 14          14          green       40%         28 <= 14*2
+    scrof                   8           8           green       23%         24 <= 8*3
+    limbo_lw                3           3           blue        8%          15 <= 3*5
+    limbo_hw                1           1           blue        3%          10 <= 1*10
+    limbo_cc                1           1           blue        3%          10 <= 1*10
+    fleshripper             3           0           *           8%          0  <= 3*0
+    cyborg                  4           4           gray        12%         40 <= 4*10
+    juggernaut              1           1           gray        3%          25 <= 1*25
+  > TOTAL                   35          32          *           100%        152*2 + 30 + 15 = 349
+
+  # Rebalancing (1)         Pawns       Tokens      Color       Percentage  Points
+    gremkin                 12          12          green       32%         24 <= 12*2
+    scrof                   8           8           green       21%         24 <= 8*3
+    limbo_lw                6           6           blue        16%         30 <= 6*5
+    limbo_hw                2           2           blue        5%          20 <= 2*10
+    limbo_cc                2           2           blue        5%          20 <= 2*10
+    fleshripper             3           0           *           8%          0  <= 3*0
+    cyborg                  4           4           gray        10%         40 <= 4*10
+    juggernaut              1           1           gray        3%          25 <= 1*25
+  > TOTAL                   38          35          *           100%        183*2 + 30 + 15 = 411
+
+================================================================================
+--------------------------------------------------------------------------------
+# Scores [Board Game]
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Token                   Points  Loss
+    pri_obj                 30      *
+    sec_obj                 15      *
+    commander               10     [x]
+    trooper_lw              5      [x]
+    trooper_hw              10     [x]
+    gremkin                 2       *
+    scrof                   3       *
+    limbo_lw                5       *
+    limbo_hw                10      *
+    limbo_cc                10      *
+    fleshripper             0       *
+    cyborg                  10      *
+    juggernaut              25      *
+
+  # Marine Combat Effectiveness Table (CET)
+    Points Scored           Honour Badges           Awards
+    10 or less              0                       You have done very badly.  In an attempt to redeem yourself you re-enter the Alien spacecraft on your won.  You are killed by die gloriously.  In your next game you must start off with a new Sergeant and no Honour badges.
+    11-30                   1                       An acceptable performance.  You are awarded one Honour badge.
+    31-50                   2                       A commendable performance.  You are awarded two Honour badges.
+    51 or more              3                       A heroic performance.  You are awarded three Honour badges.
+
+  # Alien Combat Effectiveness Table (CET)
+    Points Scored           Marks of Chaos          Awards
+    29 or less              0                       You have done very badly.  The powers of Chaos are displeased with you and transform you into a Chaos Spawn.  In the next game you must start off with a Chaos Renegade.
+    30-60                   1                       An acceptable performance.  You are awarded one Mark of Chaos.
+    61-80                   2                       A commendable performance.  You are awarded two Marks of Chaos.
+    81 or more              3                       A heroic performance.  You are awarded three Marks of Chaos.
+
+    The player with the most points, at the end of each mission, wins.
+    The player who won the game moves up in rank by one level.
+    If one of the players reaches the highest rank he will have won the campaign game.
+
+================================================================================
+--------------------------------------------------------------------------------
+# Ranks and Awards [Board Game]
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Marine Rank             Order Cards     Rank Index
+    Sergeant                1               0
+    Lieutenant Primus       2               1
+    Lieutenant Senioris     3               2
+    Captain Primus          4               3
+    Captain Senioris        4               4
+
+  # Alien Rank              Event Cards     Rank Index
+    Chaos Renegade          0               0
+    Chaos Warrior           1               1
+    Champion of Chaos       2               2
+    Chaos Commander         3               3
+    Lord of Chaos           3               4
+
+  # Honour Badges           Equipment Cards
+    None                    4
+    One                     5
+    Two                     6
+    Three                   7
+    Four                    8
+
+    Four Honour Badges can be turned in to move up one rank (but not to Captain Senioris).
+
+  # Marks of Chaos          Extra Reinforcement Tokens
+    None                    0
+    One                     1
+    Two                     2
+    Three                   3
+    Four                    4
+
+    For each Mark of Chaos he has been awarded, the Alien player may add one to the number of Reinforcement tokens he is allowed to use for this mission.
+    The extra tokens should be chosen randomly from those Reinforcement tokens not listed for the mission to be played.
+    If the mission lists all the Reinforcement tokens, the Alien player will not receive any extra token.
+
+  # Marine Awards           Min             Max
+    Equipment Cards         4               8
+    Order Cards             1               4
+
+  # Alien Awards            Min             Max
+    Event Cards             0               3
+    Extra Reinf. Tokens     0               4
+
+================================================================================
+--------------------------------------------------------------------------------
+# Campaign Settings [Board Game]
+--------------------------------------------------------------------------------
+================================================================================
+
+    Blips  : All placed up but some exceptions depending on the mission.
+    Reinf. : None on easiest missions, all on hardest missions with all three marine teams.
+
+  # Mission Marine                  Alien                   Reinforcement
+    01      1 to 3 teams (choice)   Rank ? (? card, ? mark) None
+    02      1 to 3 teams (choice)   Rank ? (? card, ? mark) None
+    03      1 to 3 teams (choice)   Rank ? (? card, ? mark) Green
+    04      1 to 3 teams (choice)   Rank ? (? card, ? mark) Green
+    05      1 to 3 teams (choice)   Rank ? (? card, ? mark) 1P = Green, 2P or 3P = Green + Blue
+    06      1 to 3 teams (choice)   Rank ? (? card, ? mark) 1P = Blue, 2P or 3P = Blue + Gray
+    07      1 to 3 teams (choice)   Rank ? (? card, ? mark) 1P = Green, 2P or 3P = Green + Blue
+    08      1 to 3 teams (choice)   Rank ? (? card, ? mark) Green + Blue + Gray
+    09      1 to 3 teams (choice)   Rank ? (? card, ? mark) 1P = Blue, 2P or 3P = Blue + Gray
+    10      1 to 3 teams (choice)   Rank ? (? card, ? mark) 1P = Blue, 2P or 3P = Blue + Gray
+    11      1 to 3 teams (choice)   Rank ? (? card, ? mark) 1P = Green, 2P = Green + Gray, 3P = Green + Blue + Gray
+    12      1 to 3 teams (choice)   Rank ? (? card, ? mark) 1P = Green, 2P = Green + Blue, 3P = Green + Blue + Gray
+
+    Whenever a mission is win or lost, it can be replayed.
+    Mission order is INDICATIVE ; first mission MUST NOT be played before second mission.
+    Campaign is WIN by the first marine player which attains the HIGHEST RANK.
+    Campaign is lost if the alien player attains the highest rank (i.e. if the marine players lose 5 missions).
+
+================================================================================
+--------------------------------------------------------------------------------
+# Campaign Settings [HTML Game]
+--------------------------------------------------------------------------------
+================================================================================
+
+    Blips  : All placed up.
+    Reinf. : 1P = Green, 2P = Green + Blue, 3P = Green + Blue + Gray.
+
+  # Mission Marine                  Alien                   Reinforcement
+    01      Red                     Rank 1 (0 card, 0 mark) None
+    02      Gold                    Rank 1 (0 card, 2 mark) None
+    03      Blue                    Rank 1 (0 card, 4 mark) None
+    04      Red + Gold              Rank 2 (1 card, 0 mark) Green
+    05      Gold + Blue             Rank 2 (1 card, 2 mark) Green
+    06      Red + Blue              Rank 2 (1 card, 4 mark) Green
+    07      2 teams (choice)        Rank 3 (2 card, 0 mark) Green + Blue
+    08      2 teams (choice)        Rank 3 (2 card, 2 mark) Green + Blue
+    09      2 teams (choice)        Rank 3 (2 card, 4 mark) Green + Blue
+    10      Red + Gold + Blue       Rank 4 (3 card, 0 mark) Green + Blue + Gray
+    11      Red + Gold + Blue       Rank 4 (3 card, 2 mark) Green + Blue + Gray
+    12      Red + Gold + Blue       Rank 4 (3 card, 4 mark) Green + Blue + Gray
+
+    Whenever a mission is win or lost, it CAN NOT be replayed.
+    Mission order is COMPULSORY ; first mission must be played before second mission.
+    Campaign is WIN when the marine players complete the LAST MISSION.
+    Campaign is lost if the alien player attains the highest rank (i.e. if the marine players lose 5 missions).
+
+    If the marine players have won all the previous missions, then the 12th mission can be replayed up to 4 times.
+
+================================================================================
+--------------------------------------------------------------------------------
+# Campaign Settings Comparison
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Setting               Board Game         Video Game
+    Mission Replay        any mission        last mission (up to 4 times)
+    Mission Order         false              true
+    Campaign Win          5 win (marine)     last mission
+    Campaign Lost         5 win (alien)      5 win (alien)
+
+================================================================================
+--------------------------------------------------------------------------------
+# Maps
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Board Game
+    Four boards of 12 tiles each separated by 3 line walls ; docking claws outside
+      > 4x12x12 = 24x24 with line walls
+      > 4x15x15 = 30x30 with tile walls
+
+  # Video Game
+    One board of 40x40 tiles separated by n tile walls ; docking claws inside
+
+  # HTML Game
+    One board of 30x30 tiles separated by n tile walls ; docking claws outside
+    Map id suffixed with 's' for 'small'
+
+================================================================================
+--------------------------------------------------------------------------------
+# Missions [Board Game]
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Id      Name        Number  Description
+    *       m547-02     01      Mission 547/2-Sector 57 — Seek and Destroy
+    *       m547-03     02      Mission 547/3-Sector 58 — Clearing Action
+    *       m547-04     03      Mission 547/4-Sector 105 — Interception
+    *       m547-05     04      Mission 547/5-Sector 112 — Diversionary Action
+    *       m547-06     05      Mission 547/6-Sector 734 — Clearing Up
+    *       m547-07     06      Mission 547/7-Sector 734 — Chaos Marines
+    *       m547-08     07      Mission 547/8-Sector 879 — Secure Loading Bay
+    *       m547-09     08      Mission 547/9-Sector 880 — Withdrawal
+    *       m547-10     09      Mission 547/10-Sector 881 — Destroy Command Centre
+    *       m547-11     10      Mission 547/11-Sector 897 — Disable Defense Shield
+    *       m547-12     11      Mission 547/12-Sector 953 — Eliminate Alien Command
+    *       m547-13     12      Mission 547/13-Sector 978 — Assault
+
+================================================================================
+--------------------------------------------------------------------------------
+# Missions [Video Game]
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Id      Name        Number   Description
+    m01     m653-04     01       Mission 653/04. Chercher et détruire
+    m02     m653-05     02       Mission 653/05. Éliminer et survivre
+    m03     m653-06     03       Mission 653/06. Mettre vaisseau alien hors-service
+    m04     m653-07     04       Mission 653/07. Localiser et sauver
+    m05     m653-08     05       Mission 653/08. Localiser et récupérer
+    m06     m653-09     06       Mission 653/09. Purge et repli
+    m07     m653-10     07       Mission 653/10. Interception
+    m08     m653-11     08       Mission 653/11. Exterminer
+    m09     m653-12     09       Mission 653/12. Localiser et exterminer
+    m10     m653-13     10       Mission 653/13. Sabotage et repli
+    m11     m653-14     11       Mission 653/14. Détruire vaisseau alien
+    m12     m653-15     12       Mission 653/15. Détruire cube <des limbes>
+

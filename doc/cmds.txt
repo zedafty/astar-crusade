@@ -1,0 +1,167 @@
+================================================================================
+--------------------------------------------------------------------------------
+# Commands
+--------------------------------------------------------------------------------
+================================================================================
+
+  // actor loop
+    pawn.red01.teleport(1,38)
+    pawn.gremkin01.teleport(8,38)
+    pawn.scrof01.teleport(3,36)
+    pawn.fleshripper01.teleport(4,35)
+    pawn.fleshripper02.teleport(1,37)
+    pawn.fleshripper03.teleport(2,38)
+    pawn.cyborg01.teleport(1,32)
+    pawn.red01.life = 100
+    unhide()
+
+  // sniper move backward
+    pawn.red01.teleport(1,38)
+    pawn.gremkin01.teleport(2,38)
+    pawn.red01.life = 100
+    unhide()
+
+  // don't move if adjacent
+    pawn.red01.teleport(1,38)
+    pawn.scrof01.teleport(2,38)
+    pawn.gremkin01.teleport(7,36)
+    pawn.red01.life = 100
+    unhide()
+
+  // move range null
+    pawn.red01.teleport(13,32)
+    pawn.red02.teleport(14,32)
+    pawn.gremkin01.teleport(14,33)
+    pawn.gremkin02.teleport(13,33)
+    pawn.limbo_lw01.teleport(15,32)
+    pawn.limbo_lw02.teleport(15,33)
+    pawn.red01.life = 100
+    pawn.red02.life = 100
+    pawn.gremkin01.reveal()
+    pawn.gremkin02.reveal()
+    pawn.limbo_lw01.reveal()
+    pawn.limbo_lw02.reveal()
+    term.updateMiniMap()
+
+  // line of sight + target
+    pawn.red01.teleport(13,32)
+    pawn.red02.teleport(11,29)
+    pawn.red03.teleport(15,30)
+    pawn.gremkin01.teleport(13,33)
+    pawn.gremkin02.teleport(14,32)
+    pawn.limbo_lw01.teleport(14,33)
+    pawn.limbo_lw02.teleport(15,34)
+    pawn.limbo_hw02.teleport(10,38)
+    pawn.gremkin01.reveal()
+    pawn.gremkin02.reveal()
+    pawn.limbo_lw01.reveal()
+    pawn.limbo_lw02.reveal()
+    pawn.limbo_hw02.reveal()
+    term.updateMiniMap()
+
+  // move in sight
+    pawn.red01.teleport(13,32)
+    pawn.red02.teleport(13,29)
+    pawn.red03.teleport(15,30)
+    pawn.limbo_hw02.teleport(10,38)
+    pawn.limbo_hw02.reveal()
+    term.updateMiniMap()
+
+  // rusher/walker move to nearest in sight or in sense, gunner/sniper shoot at nearest in sight
+    pawn.door47.open()
+    pawn.red01.teleport(10,29)
+    pawn.red02.teleport(13,35)
+    pawn.gremkin01.teleport(11,38)
+    pawn.scrof01.teleport(10,38)
+    pawn.gremkin01.reveal()
+    pawn.scrof01.reveal()
+    term.updateMiniMap()
+
+  // limbo_hw shoot when adjacent
+    pawn.red01.teleport(13,32)
+    pawn.scrof01.teleport(13,33)
+    pawn.limbo_hw01.teleport(14,32)
+    pawn.limbo_lw01.teleport(15,34)
+    pawn.scrof01.reveal()
+    pawn.limbo_lw01.reveal()
+    pawn.limbo_hw01.reveal()
+    term.updateMiniMap()
+
+  // bleep revealed during move lower than bleep movement
+    pawn.door47.open()
+    pawn.red01.teleport(10,37)
+    pawn.cyborg01.teleport(15,36)
+    pawn.scrof01.teleport(11,36)
+    pawn.fleshripper01.teleport(5,30)
+    pawn.cyborg01.hidden = false;
+    pawn.scrof01.reveal();
+    pawn.fleshripper01.hidden = false;
+    term.updateMiniMap()
+
+  // target not reachable
+    pawn.red01.teleport(13,32)
+    pawn.scrof01.teleport(13,33)
+    pawn.scrof02.teleport(14,33)
+    pawn.scrof03.teleport(14,32)
+    pawn.fleshripper01.teleport(16,35)
+    pawn.scrof01.reveal();
+    pawn.scrof02.reveal();
+    pawn.scrof03.reveal();
+    pawn.fleshripper01.reveal();
+    term.updateMiniMap()
+
+  // line of sight between two tiles diagonally adjacent
+    pawn.gremkin01.teleport(14,34)
+    pawn.gremkin02.teleport(15,33)
+    pawn.item01.teleport(18,38)
+    pawn.item02.teleport(19,37)
+    // pawn.scrof01.teleport(13,32)
+    pawn.red01.teleport(16,35)
+    term.updateMiniMap()
+
+  // juggernaut
+    pawn.red01.teleport(14,27)
+    pawn.red02.teleport(25,21)
+    pawn.red03.teleport(25,27)
+    pawn.red04.teleport(26,27)
+    pawn.red05.teleport(25,23)
+    pawn.juggernaut01.teleport(19,24)
+    pawn.cyborg01.teleport(17,25)
+    term.updateMiniMap()
+
+  // alien event
+    pawn.red01.teleport(21,35)
+    pawn.red04.teleport(13,32)
+    pawn.gold01.teleport(10,38)
+    pawn.gold02.teleport(11,34)
+    pawn.blue01.teleport(11,33)
+    pawn.blue02.teleport(8,38)
+    // pawn.cyborg01.teleport(23,35,true)
+    // pawn.gremkin01.teleport(23,36)
+    // pawn.scrof01.teleport(15,32)
+    term.updateMiniMap()
+
+  // marine weapon animation
+    pawn.gold01.teleport(6,29)
+    pawn.gold02.teleport(6,33)
+    pawn.gold03.teleport(10,29)
+    pawn.gold04.teleport(10,33)
+    pawn.gold05.teleport(11,31)
+
+  // alien reinforcement (controlling all alien spawning areas)
+    pawn.red01.teleport(14,22)
+    pawn.red02.teleport(25,22)
+    pawn.red03.teleport(7,30)
+    pawn.red04.teleport(17,30)
+    pawn.red05.teleport(29,30)
+    pawn.gold01.teleport(15,15)
+    pawn.gold02.teleport(15,16)
+    pawn.gold03.teleport(15,17)
+    pawn.gold04.teleport(15,18)
+    pawn.gold05.teleport(15,19)
+    pawn.blue01.teleport(16,15)
+    pawn.blue02.teleport(16,16)
+    pawn.blue03.teleport(16,17)
+    pawn.blue04.teleport(16,18)
+    pawn.blue05.teleport(16,19)
+

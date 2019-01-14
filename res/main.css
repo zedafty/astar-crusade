@@ -1,0 +1,1247 @@
+/*
+
+	base.css
+
+*/
+
+/* ========================================================================== */
+/* -------------------------------------------------------------------------- */
+/* # Fonts */
+/* -------------------------------------------------------------------------- */
+/* ========================================================================== */
+
+/*
+
+	Whoever you are, you may not have stumbled in there by chance...
+	So, will you help yourself by stop snooping in places of no importance
+	and take a look at the impressive and handyfull job of the late Neale Davidson?
+	http://www.pixelsagas.com/
+
+*/
+
+@font-face {  /* Pixel GoSub by Pixel Sagas */
+	font-family: 'pixel_gosub'; /* Base 7px */
+	font-weight: normal;
+	font-style: normal;
+	src: url('../res/ui/fnt/pixel_gosub.woff') format('woff');
+}
+
+/*
+
+	Amiga 1000 the real Amiga....
+	....do you remember the SCA Virus? or the first 11k Boot intro by HQC?
+	http://www.freakyfonts.de/
+
+*/
+
+@font-face {  /* Amiga 4ever Pro2 by Freaky Fonts */
+	font-family: 'amiga_4ever_pro2'; /* Base 8px */
+	font-weight: normal;
+	font-style: normal;
+	src: url('../res/ui/fnt/amiga4ever_pro2.woff') format('woff');
+}
+
+/*
+
+	Don't forget to get by Derek Vogelpohl's website ; the guy didn't met the success
+	he deserved, but his amazing fonts met a lot of flyers and printworks, though.
+	http://www.shyfoundry.com/
+
+*/
+
+@font-face { /* SF Electrotome Bold by Shy Foundry */
+	font-family: 'electrotome';
+	font-weight: normal;
+	font-style: normal;
+	src: url(data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAf8ABEAAAAADLgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAABgAAAABwAAAAcY4tbE0dERUYAAAGcAAAAHAAAAB4AJwAPT1MvMgAAAbgAAABLAAAAVnbWM7RjbWFwAAACBAAAAFkAAAFaUh7lUWN2dCAAAAJgAAAAFgAAABYFXghmZnBnbQAAAngAAAD7AAABU8lgsZtnYXNwAAADdAAAAAgAAAAIAAAAEGdseWYAAAN8AAAB4gAAAtB3bqa5aGVhZAAABWAAAAA1AAAANvFMEG9oaGVhAAAFmAAAAB4AAAAkC7QD0GhtdHgAAAW4AAAAJAAAACQf0gLJbG9jYQAABdwAAAAUAAAAFAJWAyxtYXhwAAAF8AAAABsAAAAgAhYAkm5hbWUAAAYMAAABkgAABEZKIpZlcG9zdAAAB6AAAAA6AAAAS8eH+SxwcmVwAAAH3AAAABUAAAAVt31xjndlYmYAAAf0AAAABgAAAAaxGlsVAAAAAQAAAADV7pT1AAAAALZhZIYAAAAA1zthl3jaY2BkYGDgAWIxIGZiYARCDiBmAfMYAAP2ADd42mNgZFFg2sPAysDCOovVmIGBUQ1CMy9gSGNiYGBgYmBlA1MsDQwM6gxIINgj0o1BgYFX9Q9r+b9Ohix2BsZyBQYGQZAcAJCHCiwAeNpjYGBgZoBgGQZGBhAIAfIYwXwWBgsgzcXAwcAEhLwMCgzGqn/+/weKgdgGIPb/r/8f/79yiweqFwoY2RjgAoxMQIKJARUwQqxEBiysbOwMwwgAAF2MDpwAAAAAKgAAACL+iQAABCIAAAV3AAAARAURAAB42j2Pv07EMAzGk0s56BsgRUixot5wyomdqUNaCXUplCFe+CPdSfTeAYmFJQPPYraw9cUQuKG6xf782frpcxLCdUmUffiS8hOT/P1Iwl99i1Kop8ddEtIZ04ye5DMPK8fGFlgpZ1pSVXsfLJpo4u0+mta8vuypqHLnxSHitSExhJHrQwCqUZ/kAfGGOcXMKTInIhOOC+GYCQz44aMz1xlSmz7cBXr3mmqPGsA0NPWBJq8Bka/Wp6Tc38bLJfM5Z15vWVz8UwZmMAJjXKbVBmiKUUf+JDsWkhSLwZ/ON6pqkqz7vKot6NmwYIFzoGd26bohNJwEcPcH/1tiLgAAAQAB//8AD3jadZFBaxNBGIbfmZ3dSUKJO5tYhF7cbfQi2NpUQyEIwmY8FI8L5tZDthH/QBT/gndtT70vCAkIcSn0Fwj5AUv9BabgsU22frMbc7ILM/Px7sf3Pu8MOEKAD+wIFiSejhl2uhMpqr/3xo6ddScWpxJjy8i2kSfSqS26E2b0tvLVI1/5IX+Yt9jX/J0dXSeh+AkaidntpXhvj3APDbxJ4UHAejKF56bYgFvUGy6mQO/tFJWdrR+oQL7srwQYAWBGqLhTuBlpdHrZ7jPbDx4/V/sv2v7e5n3VdCxCsC6W5zqONQ9p/5XPmRfEWoR6MNA39EMkixAMh7eX/JCYbByktKGgsNcUljG17qCwyJ0Zd7Xd8RWT50fsLBDJ/HoI04ILyvuJZjfRTykyK2Y3KG0dTlHX1z5VM7b6X5+UmlXR7pBflZZcJW8UyYvYyu+som9TLbYW32PNkuXJET8zd5BHfBjwEx2z4Xygc6Xj/LRkTIixT4yb+JgSqFUYNd0ynJyVdX2WGgQ0lXdQKg+yf+Q1A1q7g1yunli6JTEn8hqdlcwMFJA00GToFAHWIWT5iN8WyxH7k7/6wF4vv4z4Zx33enFwxY6vyhjHUXs/yoc6phz0iZZoESSUuYHWTWYW8BfkIrDEAAB42mNgZGBgAOJHVh8WxfPbfGWQ52AAgW2JKW0g+rp14nQGhv/3WKpZy4HqOBiYQKIASsQLZQAAAHjaY2BkYGBn+NfJYM5qywAELNUMjAyogBMARD8CkgAAAuwARAAAAAAEAAAAAgAAAAU9ANADJABLBTgAvwUpAKsEJAAAAAAALAAsACwALAB2AKQA9gFaAWh42mNgZGBg4GQQZ2BiAAEIyQVmVIKYAAacAKsAeNrFUk1LAkEYfnbHSq1Ll4joMIRERa2rBZWdKpIIgkAhiC6Wa0rWWprmJfwdHfs1fdy69U86Rc/MjotJgZ5i2Jnn/XrmeXdeAJN4h4AViQF44BdgC7O0AmwjikeDBU7xZHAE8/gyeASulTB4FAkrb/AYOta9wTEsWZ8Gx9Gx5wweh2t3OSeIu3qeMSVsg1/gimmDXxEV+wa/IS6OAvwhMCNOsAsfNbRxiwouUEYDEgs4xyLPHO02ssy4pr9OT552DR6R8t7RX2RlG8v0pOHq5RBvo8ole1jr2vJ4ejyb3IvMzJFHYo+5Hu9sMOJz93FFe4dnlVn9KroafirIaL1/s8mQL9OjdbCKptYskaJiF1t9vWZ1Xx5aKGgUdPU750pPV4PcLPn/1J8r8FM5Bfo85qibLunzUdKRsq4a/L2cIXL/W6mangZjGSS5Wno5rFEMpZDBoTalKTl0/jFvPQsj3Vc+1LbEgdYiudZ0bJ28q3pPY9NMQgob7FHNQI1VauZVbTZkzOGGLBVG1HxUvwFxD6u+AAB42mNgYgCD/9oMIgzYACcDAyMTIzMDM4MwUIUogxgjC1t6TmVBhiF7aV6mgYGBC4g2MnVzBgC0XghwAAC4AAArugABAAQAByu4AAAgRX1pGEQAAAAAAVsVsRkAAA==) format('woff');
+}
+
+/* ========================================================================== */
+/* -------------------------------------------------------------------------- */
+/* # HTML */
+/* -------------------------------------------------------------------------- */
+/* ========================================================================== */
+
+html {}
+
+body {
+	overflow: hidden; /* VERY TEMP : prevent main from overflowing when enlarged and window is resized (i.e. during 100ms main is out of window edges) */
+	margin: auto;
+	color: white;
+	background-color: black;
+}
+
+div, span {
+	display: inline-block;
+	font-size: 0;
+}
+
+div {
+	position: absolute;
+}
+
+span {
+	position: relative;
+}
+
+h1, h2, h3, h4, p {
+	margin: 0;
+	font-size: 14px;
+}
+
+h1, h2, h3, h4 {
+	font-weight: normal;
+	line-height: 28px;
+}
+
+p {
+	line-height: 14px;
+}
+
+button {
+	cursor: inherit;
+	position: relative;
+	margin: 0;
+	padding: 0;
+	border: none;
+	background: transparent;
+}
+
+/* ========================================================================== */
+/* -------------------------------------------------------------------------- */
+/* # Game */
+/* -------------------------------------------------------------------------- */
+/* ========================================================================== */
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Cursors */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+/* Green */
+
+.pointer {cursor: url('../res/ui/cur/green_pointer.png') 2 0, auto;}
+.click {cursor: url('../res/ui/cur/green_click.png') 2 0, auto;}
+.grab {cursor: url('../res/ui/cur/green_grab.png') 2 0, auto;}
+.grabbing {cursor: url('../res/ui/cur/green_grabbing.png') 2 0, auto;}
+
+/* Red */
+
+.red.pointer {cursor: url('../res/ui/cur/red_pointer.png') 2 0, auto;}
+.red.click {cursor: url('../res/ui/cur/red_click.png') 2 0, auto;}
+.red.grab {cursor: url('../res/ui/cur/red_grab.png') 2 0, auto;}
+.red.grabbing {cursor: url('../res/ui/cur/red_grabbing.png') 2 0, auto;}
+
+/* Gold */
+
+.gold.pointer {cursor: url('../res/ui/cur/gold_pointer.png') 2 0, auto;}
+.gold.click {cursor: url('../res/ui/cur/gold_click.png') 2 0, auto;}
+.gold.grab {cursor: url('../res/ui/cur/gold_grab.png') 2 0, auto;}
+.gold.grabbing {cursor: url('../res/ui/cur/gold_grabbing.png') 2 0, auto;}
+
+/* Blue */
+
+.blue.pointer {cursor: url('../res/ui/cur/blue_pointer.png') 2 0, auto;}
+.blue.click {cursor: url('../res/ui/cur/blue_click.png') 2 0, auto;}
+.blue.grab {cursor: url('../res/ui/cur/blue_grab.png') 2 0, auto;}
+.blue.grabbing {cursor: url('../res/ui/cur/blue_grabbing.png') 2 0, auto;}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Components */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#spin {
+	position: absolute;
+	left: 28px;
+	top: 28px;
+	width: 784px;
+	height: 584px;
+	background-color: rgba(255,255,0,.25);
+	background-color: transparent;
+	transition: opacity .125s ease-in;
+}
+#spin span {
+	position: absolute;
+	display: inline-block;
+	transition: width .125s, height .125s;
+}
+#spin span:nth-of-type(1),
+#spin span:nth-of-type(3) {width: 0; height: 4px;}
+#spin span:nth-of-type(2),
+#spin span:nth-of-type(4) {width: 4px; height: 0;}
+#spin span:nth-of-type(1) {left: 0; top: 0;}
+#spin span:nth-of-type(2) {left: 780px; top: 0;}
+#spin span:nth-of-type(3) {right: 0; top: 580px;}
+#spin span:nth-of-type(4) {left: 0; bottom: 0;}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Containers */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#page {
+	width: 100%;
+	height: 100%;
+	background-color: rgb(24,32,56);
+	transition: background-color 1s ease-out;
+}
+
+#main {
+	position: absolute;
+	left: 20px;
+	top: 20px;
+	width: 800px;
+	height: 600px;
+	font-family: pixel_gosub;
+	background-repeat: no-repeat;
+	background-image: url('../res/ui/main.png');
+	transition: opacity .25s ease-in;
+}
+
+#scene {
+	left: 32px;
+	top: 32px;
+	width: 480px;
+	height: 480px;
+}
+
+#monitor {
+	right: 32px;
+	top: 32px;
+	width: 200px;
+	height: 250px;
+	background-color: black;
+}
+
+#terminal {
+	right: 32px;
+	top: 312px;
+	width: 200px;
+	height: 200px;
+}
+
+#controls {
+	left: 0px;
+	top: 530px;
+	width: 800px;
+	height: 70px;
+}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Main */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#main {
+
+	/* No user select*/
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	/*user-select: none;*/
+
+	/* Sharp rendering */
+	/* image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+	/* image-rendering: -moz-crisp-edges;          /* Firefox                        */
+	/* image-rendering: -o-crisp-edges;            /* Opera                          */
+	/* image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+	/* image-rendering: pixelated; /* Chrome */
+	/* image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+	/* -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+
+}
+
+#main button {
+	outline: 0;
+}
+
+#main button::-moz-focus-inner {
+	border: 0;
+}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Title */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#title {
+	top: 8px;
+	left: 32px;
+	height: 14px;
+	line-height: 14px;
+	color: white;
+}
+
+#title span {
+	font-size: 14px;
+}
+
+#stage {
+	color: rgb(144,112,0);
+}
+
+#version {
+	color: rgb(144,144,144);
+}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Scroll */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#scroll_up,
+#scroll_lt,
+#scroll_rt,
+#scroll_dn {
+	background-color: rgba(255,255,0,.5);
+	background-color: transparent;
+	z-index: 1;
+}
+
+#scroll_up {left: 246px; top: 0;}
+#scroll_dn {left: 246px; top: 512px;}
+#scroll_lt {left: 0; top: 248px;}
+#scroll_rt {left: 512px; top: 248px;}
+#scroll_up,
+#scroll_dn {width: 48px; height: 32px;}
+#scroll_lt,
+#scroll_rt { width: 32px; height: 48px;}
+
+#scroll_up span,
+#scroll_lt span,
+#scroll_rt span,
+#scroll_dn span {
+	position: absolute;
+	width: inherit;
+	height: inherit;
+	background-image: url('../res/ui/scroll.png');
+	background-position: 48px 48px;
+}
+#scroll_up span {background-position: 0 0;}
+#scroll_dn span {background-position: -48px 0;}
+#scroll_lt span {background-position: 0 -32px;}
+#scroll_rt span {background-position: -32px -32px;}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Scene */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+/* Pointer Events */
+
+#icon,
+#hint,
+#wait {
+	pointer-events: none;
+}
+
+/* Z-Index */
+
+#transmission {z-index: 1;}
+#icon,
+#hint,
+#wait {
+	z-index: 2;
+}
+
+/* Icon */
+
+#icon {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 32px;
+	height: 32px;
+	margin: 16px;
+}
+
+#icon_pause,
+#icon_cinematic,
+#icon_alien_event,
+#icon_alien_play,
+#icon_alien_reinforcement {
+	fill: transparent;
+	animation-name: pulse;
+	animation-direction: alternate;
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+}
+
+@keyframes pulse {
+	0%   {fill: rgba(255,255,255,.9375);}
+	100% {fill: rgba(255,255,255,.75);}
+}
+
+/* Hint */
+
+#hint {
+	left: 16px;
+	top: 16px;
+	max-width: 470px;
+	height: 24px;
+	line-height: 24px;
+	padding: 0 10px;
+	color: #333;
+	font-size: 14px;
+	font-family: 'Segoe UI Semibold', sans-serif;
+	border-radius: 16px;
+	background: rgba(255,224,24,.875);
+	transition: opacity .5s ease-in;
+	opacity: 1;
+}
+
+#icon.active + #hint {
+	left: 64px;
+	top: 20px;
+}
+
+/* Wait */
+
+#wait {
+	left: 0;
+	bottom: 0;
+	width: 128px;
+	height: 64px;
+	background-color: rgba(255,255,0,.25);
+	background-color: transparent;
+}
+#wait span {
+	position: absolute;
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	top: 50%;
+	margin-top: -8px;
+	background-color: rgba(255,255,255,.875);
+	border-radius: 100%;
+}
+#wait span:nth-of-type(2),
+#wait span:nth-of-type(3),
+#wait span:nth-of-type(4),
+#wait span:nth-of-type(5),
+#wait span:nth-of-type(6),
+#wait span:nth-of-type(7) {
+	animation-name: spin;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+}
+#wait span:nth-of-type(1) {left: 56px;}
+#wait span:nth-of-type(2),
+#wait span:nth-of-type(3),
+#wait span:nth-of-type(4) {left: 24px; animation-direction: alternate;}
+#wait span:nth-of-type(5),
+#wait span:nth-of-type(6),
+#wait span:nth-of-type(7) {left: 88px; animation-direction: alternate-reverse;}
+#wait span:nth-of-type(3),
+#wait span:nth-of-type(6) {opacity: .375; animation-delay: 125ms;}
+#wait span:nth-of-type(4),
+#wait span:nth-of-type(7) {opacity: .125; animation-delay: 250ms;}
+
+@keyframes spin {
+	0%   {left: 24px;}
+	100% {left: 88px;}
+}
+
+/* Load */
+
+#load {
+	top: 202px;
+	left: 80px;
+	width: 320px;
+	height: 48px;
+	background-color: rgba(255,255,0,.5);
+	background-color: transparent;
+}
+
+#load p {
+	margin: 2px 0 8px;
+	text-align: center;
+	color: #393;
+	animation-name: blink;
+	animation-direction: alternate;
+	animation-duration: .5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+}
+
+#load .progress {
+	width: inherit;
+	height: 24px;
+	background-color: #393;
+}
+
+#load .progress div {
+	width: 0;
+	height: inherit;
+	background-color: #262;
+	border: 2px solid #393;
+	box-sizing: border-box;
+}
+
+@keyframes blink {
+	0%   {color: #393;}
+	49%  {color: #393;}
+	50%  {color: transparent;}
+	100% {color: transparent;}
+}
+
+#transmission {
+	width: inherit;
+	height: inherit;
+	font-family: amiga_4ever_pro2;
+	background-color: black;
+}
+
+#transmission p {
+	position: absolute;
+	font-size: 16px;
+	line-height: 16px;
+	text-transform: uppercase;
+}
+
+#transmission p:nth-of-type(1) {
+	left: 0;
+	top: 0;
+	padding: 16px 8px;
+	color: forestgreen;
+	background-color: rgb(255,255,0,.5);
+	background-color: transparent;
+}
+
+#transmission p:nth-of-type(2) {
+	left: 0;
+	bottom: 0;
+	padding: 0 48px;
+	color: teal;
+	background-color: rgb(255,0,0,.5);
+	background-color: transparent;
+}
+
+/* View */
+
+#view {
+	background-color: black;
+}
+
+@keyframes fadeout {
+	0%   {opacity: 1;}
+	100% {opacity: 0;}
+}
+
+@keyframes fadein {
+	0%   {opacity: 0;}
+	100% {opacity: 1;}
+}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Monitor */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#status,
+#identify,
+#turn,
+#alien {
+	width: inherit;
+	height: inherit;
+	background-color: rgba(0,255,0,.5);
+	background-color: black;
+}
+
+#alien {z-index: 1;}
+#status {z-index: 2;}
+#identify {z-index: 3;}
+#turn {z-index: 4;}
+#report {z-index: 5;}
+
+/* Report */
+
+#report {
+	width: inherit;
+	height: 24px;
+	left: 0;
+	bottom: 0;
+	font-size: 14px;
+	line-height: 14px;
+	color: goldenrod;
+	text-align: center;
+	background-color: rgba(0,0,255,.5);
+	background-color: transparent;
+}
+#report.mult {height: 40px;}
+#report.dark {color: darkgoldenrod;}
+#report.blue {color: royalblue;}
+#report.teal {color: teal;}
+#report.green {color: forestgreen;}
+#report.red {color: crimson;}
+#report.gray {color: gray;}
+
+/* Status */
+
+#status {}
+#status_insignia {
+	right: 0;
+	top: 0;
+	width: 64px;
+	height: 48px;
+	background-image: url('../res/ui/moni/insignia.png');
+	background-repeat: no-repeat;
+	background-position: 64px 48px;
+}
+.red #status_insignia {background-position: 0 0;}
+.gold #status_insignia {background-position: -64px 0;}
+.blue #status_insignia {background-position: -128px 0;}
+#status_rank,
+#status_name {
+	left: 8px;
+	width: 128px;
+	height: 14px;
+	font-size: 14px;
+	line-height: 14px;
+}
+#status_rank {
+	top: 8px;
+	color: #b90;
+	background-color: rgba(0,255,255,.5);
+	background-color: transparent;
+}
+#status_name {
+	top: 22px;
+	color: #a70;
+	background-color: rgba(255,0,255,.5);
+	background-color: transparent;
+}
+#status_life {
+	left: 8px;
+	top: 44px;
+	width: 16px;
+	height: 0;
+	background-image: url('../res/ui/moni/life.png');
+	background-repeat: repeat-y;
+	background-color: rgba(255,255,0,.5);
+	background-color: transparent;
+}
+#status_weapon {
+	left: 32px;
+	top: 44px;
+	width: 128px;
+	height: 80px;
+	background-color: rgba(255,255,.0,.5);
+	background-color: transparent;
+}
+#status_targeter {
+	left: 160px;
+	top: 60px;
+	width: 32px;
+	height: 32px;
+	background-image: url('../res/ui/moni/targeter.png');
+	background-repeat: no-repeat;
+	background-color: rgba(255,0,.255,.5);
+	background-color: transparent;
+}
+
+/* Identify */
+
+#identify {text-align: center;}
+#identify h4 {color: #999; margin-bottom: 16px;}
+#identify p:nth-of-type(1) {margin-top: 16px;}
+#identify p:nth-of-type(2) {color: #f44;}
+#identify.red p,
+#identify.gold p,
+#identify.blue p {color: #f44;}
+#identify.alien p {color: #3e3;}
+#identify.bleep p {color: #485;}
+#identify.door p {color: #c90;}
+#identify.item p {color: #3cc;}
+
+/* Turn */
+
+#turn {}
+#turn p {margin: 0 4px; color: forestgreen;}
+
+/* Alien */
+
+#alien {}
+#alien div {
+	left: 36px;
+	top: 36px;
+	width: 128px;
+	height: 128px;
+	background-image: url('../res/ui/moni/alien.png');
+	background-repeat: no-repeat;
+	background-color: rgba(255,0,0,.5);
+	background-color: transparent;
+}
+#alien p {
+	display: inline-block;
+	position: absolute;
+	left: 36px;
+	top: 164px;
+	width: 128px;
+	height: 28px;
+	text-align: center;
+	color: darkgoldenrod;
+	background-color: rgba(0,255,0,.5);
+	background-color: transparent;
+}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Terminal */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#minimap,
+#miniscope {
+	position: absolute;
+}
+
+#minimap,
+#miniscope,
+#noise,
+#choice,
+#roll {
+	left: 0;
+	top: 0;
+	width: inherit;
+	height: inherit;
+}
+
+#minimap,
+#choice,
+#roll {
+	background: black;
+}
+
+#miniscope {z-index: 1;}
+#choice {z-index: 2;}
+#roll {z-index: 3;}
+#noise {z-index: 4;}
+
+/* Noise */
+
+#noise {
+	background: url('../res/ui/term/noise.png');
+}
+
+/* Choice */
+
+#choice .prev,
+#choice .next {
+	position: absolute;
+	top: 64px;
+	width: 16px;
+	height: 32px;
+	border-color: transparent;
+	border-style: solid;
+	border-width: 16px;
+	background-color: green;
+	background-color: transparent;
+	box-sizing: border-box;
+}
+#choice .prev {
+	left: 32px;
+	border-right-color: forestgreen;
+	border-left-width: 0;
+}
+#choice .next {
+	right: 32px;
+	border-left-color: forestgreen;
+	border-right-width: 0;
+}
+#choice .prev:before,
+#choice .next:before {
+	content: '';
+	display: inline-block;
+	position: absolute;
+	top: -32px;
+	width: 48px;
+	height: 64px;
+	background: rgba(255,255,0,0);
+}
+#choice .prev:before {left: -16px;}
+#choice .next:before {left: -32px;}
+#choice.weapon .prev,
+#choice.weapon .next {display: none;}
+
+#choice div {background-repeat: no-repeat;}
+#choice:not(.weapon) div:nth-of-type(1) {
+	left: 68px;
+	top: 48px;
+	width: 64px;
+	height: 64px;
+	background-image: url('../res/ui/term/choice.png');
+	background-position-x: 64px;
+	background-position-y: 64px;
+}
+#choice:not(.weapon) div:nth-of-type(2) {display: none;}
+#choice.weapon div {
+	left: 36px;
+	width: 128px;
+	height: 80px;
+	background-color: rgba(255,255,0,.5);
+	background-color: transparent;
+}
+#choice.weapon div:nth-of-type(1) {top: 0;}
+#choice.weapon div:nth-of-type(2) {
+	top: 80px;
+	background-color: rgba(255,0,255,.5);
+	background-color: transparent;
+}
+
+#choice p {
+	position: absolute;
+	top: 144px;
+	width: 100%;
+	color: goldenrod;
+	text-align: center;
+	background-color: rgba(0,0,255,.5);
+	background-color: transparent;
+}
+#choice.weapon p {
+	top: 176px;
+	color: crimson;
+}
+
+.red #choice.order div:nth-of-type(1) {background-position-y: 0;}
+.gold #choice.order div:nth-of-type(1) {background-position-y: -64px;}
+.blue #choice.order div:nth-of-type(1) {background-position-y: -128px;}
+.red #choice.equipment div:nth-of-type(1) {background-position-y: -192px;}
+.gold #choice.equipment div:nth-of-type(1) {background-position-y: -256px;}
+.blue #choice.equipment div:nth-of-type(1) {background-position-y: -320px;}
+#choice .fire,
+#choice .flash_grenade {background-position-x: 0 !important;}
+#choice .move_it,
+#choice .fission_bomb {background-position-x: -64px !important;}
+#choice .by_sections,
+#choice .photon_grenades,
+#choice .xeno_sensor {background-position-x: -128px !important;}
+#choice .close_assault,
+#choice .heavy_weapon,
+#choice .med_pack {background-position-x: -192px !important;}
+
+#main:not(.pause) #choice .prev:hover {border-right-color: goldenrod;}
+#main:not(.pause) #choice .next:hover {border-left-color: goldenrod;}
+#main:not(.pause) #choice div:active {transform: scale(.875, .875);}
+
+/* Roll */
+
+#roll {
+	background-image: url('../res/ui/term/roll.png');
+	background-repeat: no-repeat;
+}
+
+#roll div {
+	left: 12px;
+	height: 32px;
+	width: 176px;
+	background-color: rgba(255,255,0,.25);
+	background-color: transparent;
+}
+
+#roll div:nth-of-type(1) {top: 24px;}
+#roll div:nth-of-type(2) {top: 84px;}
+#roll div:nth-of-type(3) {top: 144px;}
+
+#roll .die {
+	top: -2px;
+	margin: 0 4px;
+	width: 32px;
+	height: 32px;
+	border-radius: 100%;
+	border-width: 2px;
+	border-style: solid;
+	border-color: transparent;
+	background-color: rgba(255,0,0,.5);
+	background-color: transparent;
+}
+#roll .die:before,
+#roll .die:after {
+	content: '';
+	display: inline-block;
+	position: absolute;
+}
+#roll .die:before {
+	left: 15px;
+	top: -4px;
+	width: 2px;
+	height: 40px;
+}
+#roll .die:after {
+	left: -4px;
+	top: 15px;
+	width: 40px;
+	height: 2px;
+}
+
+#roll .die.light {color: white; border-color: white;}
+#roll .die.heavy {color: red; border-color: red;}
+#roll .die.light:before,
+#roll .die.light:after {background-color: white;}
+#roll .die.heavy:before,
+#roll .die.heavy:after {background-color: red;}
+
+#roll .die.zero {border-color: transparent !important;}
+#roll .die.light.zero {color: gray;}
+#roll .die.heavy.zero {color: darkred;}
+#roll .die.zero:before,
+#roll .die.zero:after {transform: rotate(45deg)}
+#roll .die.light.zero:before,
+#roll .die.light.zero:after {background-color: gray;}
+#roll .die.heavy.zero:before,
+#roll .die.heavy.zero:after {background-color: darkred;}
+
+#main:not(.pause) #roll.reroll .die:hover { color: gold; border-color: gold;}
+#main:not(.pause) #roll.reroll .die:hover:before,
+#main:not(.pause) #roll.reroll .die:hover:after {background-color: gold;}
+
+#roll .die output {
+	display: inline-block;
+	position: absolute;
+	left: 3px;
+	top: 3px;
+	width: 26px;
+	height: 26px;
+	line-height: 26px;
+	font-family: electrotome;
+	font-size: 26px;
+	text-align: center;
+	text-indent: 0;
+	color: inherit;
+	border-radius: 100%;
+	background: rgba(0,0,0,1);
+	z-index: 1;
+}
+
+#roll button {
+	display: inline-block;
+	position: relative;
+	width: 160px;
+	height: 28px;
+	left: 8px;
+	top: 2px;
+	font-family: inherit;
+	font-size: 14px;
+	line-height: 24px;
+	text-align: center;
+	color: gray;
+}
+
+#roll.chain button {color: white;}
+#roll.reroll button {color: gold;}
+#roll.noroll button {color: red;}
+
+#roll.chain button:focus,
+#main:not(.pause) #roll.chain button:hover,
+#roll.reroll button:focus,
+#main:not(.pause) #roll.reroll button:hover {color: black;}
+#roll.chain button:focus {background-color: white;}
+#main:not(.pause) #roll.chain button:hover {background-color: darkgray;}
+#roll.reroll button:focus {background-color: gold;}
+#main:not(.pause) #roll.reroll button:hover {background-color: darkgoldenrod;}
+
+@keyframes roll_1 {
+	0%   {transform: rotate(0deg) scale(.5,.5); opacity: .5; border-color: transparent;}
+	25%  {transform: rotate(360deg) scale(1,1);}
+	50%  {transform: rotate(540deg) scale(1.375,1.375); opacity: 1;}
+	100% {transform: rotate(720deg) scale(1,1); border-color: initial;}
+}
+
+@keyframes roll_2 {
+	0%   {transform: rotate(0deg) scale(.5,.5); opacity: .5; border-color: transparent;}
+	25%  {transform: rotate(360deg) scale(1,1);}
+	50%  {transform: rotate(540deg) scale(1.375,1.375); opacity: 1;}
+	100% {transform: rotate(720deg) scale(1,1); border-color: initial;}
+}
+
+@keyframes roll_zero_1 { /* Webkit Fix */
+	0%   {transform: rotate(0deg) scale(.5,.5); opacity: .5; border-color: transparent;}
+	25%  {transform: rotate(360deg) scale(1,1);}
+	50%  {transform: rotate(540deg) scale(1.375,1.375); opacity: 1;}
+	100% {transform: rotate(720deg) scale(1,1); border-color: transparent;}
+}
+
+@keyframes roll_zero_2 { /* Webkit Fix */
+	0%   {transform: rotate(0deg) scale(.5,.5); opacity: .5; border-color: transparent;}
+	25%  {transform: rotate(360deg) scale(1,1);}
+	50%  {transform: rotate(540deg) scale(1.375,1.375); opacity: 1;}
+	100% {transform: rotate(720deg) scale(1,1); border-color: transparent;}
+}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Weapons */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#status_weapon,
+#choice.weapon div {
+	background-image: url('../res/ui/weapons.png');
+	background-repeat: no-repeat;
+	background-position: 128px 80px;
+}
+#status_weapon.bloter,
+#choice.weapon .bloter {background-position: 0 0 !important;}
+#status_weapon.bloter_pistol,
+#choice.weapon .bloter_pistol {background-position: -128px 0 !important;}
+#status_weapon.bloter_blade,
+#choice.weapon .bloter_blade {background-position: -256px 0 !important;}
+#status_weapon.bloter_blade_pistol,
+#choice.weapon .bloter_blade_pistol {background-position: -384px 0 !important;}
+#status_weapon.machine_gun,
+#choice.weapon .machine_gun {background-position: 0 -80px !important;}
+#status_weapon.rocket_launcher,
+#choice.weapon .rocket_launcher {background-position: -128px -80px !important;}
+#status_weapon.plasma_cannon,
+#choice.weapon .plasma_cannon {background-position: -256px -80px !important;}
+#status_weapon.pistol_axe,
+#choice.weapon .pistol_axe {background-position: 0 -160px !important;}
+#status_weapon.heavy_bloter,
+#choice.weapon .heavy_bloter {background-position: -128px -160px !important;}
+#status_weapon.heavy_bloter_plasma,
+#choice.weapon .heavy_bloter_plasma {background-position: -256px -160px !important;}
+.red #status_weapon.glove_sword,
+.red #choice.weapon .glove_sword {background-position: 0 -240px !important;}
+.gold #status_weapon.glove_sword,
+.gold #choice.weapon .glove_sword {background-position: -128px -240px !important;}
+.blue #status_weapon.glove_sword,
+.blue #choice.weapon .glove_sword {background-position: -256px -240px !important;}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Controls */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#select {
+	left: 64px;
+	top: 2px;
+	width: 160px;
+	height: 64px;
+}
+
+#action {
+	left: 254px;
+	top: 10px;
+	width: 256px;
+	height: 44px;
+	border: 2px solid black;
+	box-shadow: 2px 2px 0 0 #444;
+}
+
+#select button,
+#action button,
+#screen button {width: 32px;}
+#select button,
+#screen button {height: 32px;}
+#action button {height: 44px;}
+
+#select button:before,
+#action button:before,
+#screen button:before {
+	display: inline-block;
+	position: absolute;
+	content: '';
+	left: 0;
+	top: 0;
+	width: inherit;
+	height: inherit;
+	transition: box-shadow .25s ease-in;
+	/* transition: box-shadow .125s ease-out, background-color .25s; */
+}
+
+#select .disabled:not(.dead):before {
+	background-image: url('../res/ui/disabled_black.png');
+}
+#action .disabled:before,
+#screen .disabled:before {
+	background-image: url('../res/ui/disabled_gray.png');
+}
+
+/*
+#select button:not(.disabled):active:before,
+#action button:not(.disabled):active:before {
+	background-color: rgba(255,255,255,.5) !important;
+}
+
+.red #select button:not(.disabled):active:before,
+.red #action button:not(.disabled):active:before {
+	background-color: rgba(255,0,0,.5) !important;
+}
+
+.gold #select button:not(.disabled):active:before,
+.gold #action button:not(.disabled):active:before {
+	background-color: rgba(255,255,0,.5) !important;
+}
+
+.blue #select button:not(.disabled):active:before,
+.blue #action button:not(.disabled):active:before {
+	background-color: rgba(0,0,255,.5) !important;
+}
+*/
+
+.red #select button:not(.disabled):focus:before,
+.red #action button:not(.disabled):focus:before,
+.gold #select button:not(.disabled):focus:before,
+.gold #action button:not(.disabled):focus:before,
+.blue #select button:not(.disabled):focus:before,
+.blue #action button:not(.disabled):focus:before,
+#screen button:not(.disabled):focus:before {
+	animation-name: flash;
+	animation-duration: .5s;
+}
+
+/*
+.red #select button.active:active:before,
+.red #action button.active:active:before,
+.red #select button.active:focus:before,
+.red #action button.active:focus:before {
+	animation-name: flash-red;
+}
+
+.gold #select button.active:focus:before,
+.gold #action button.active:focus:before {
+	animation-name: flash-gold;
+}
+
+.blue #select button.active:focus:before,
+.blue #action button.active:focus:before {
+	animation-name: flash-blue;
+}
+*/
+
+@keyframes flash {
+	0%   {background-color: rgba(255,255,255,.5);}
+	100% {background-color: rgba(255,255,255,0);}
+}
+
+/*
+@keyframes flash-red {
+	0%   {background-color: rgba(255,255,255,.5);}
+	100% {background-color: rgba(255,0,0,.1875);}
+}
+
+@keyframes flash-gold {
+	0%   {background-color: rgba(255,255,255,.5);}
+	100% {background-color: rgba(240,224,128,.1875);}
+}
+
+@keyframes flash-blue {
+	0%   {background-color: rgba(255,255,255,.5);}
+	100% {background-color: rgba(32,64,255,.1875);}
+}
+*/
+
+#select .active:before,
+#action .active:before {
+	outline: 2px solid rgba(255,255,255,.9);
+	outline-offset: -2px;
+	border: 1px solid white;
+	background-color: rgba(128,224,224,.25);
+	box-shadow: 0 0 6px 2px rgb(192,255,224), 0 0 4px 4px white inset;
+	box-sizing: border-box;
+}
+
+.red #select .active:before,
+.red #action .active:before {
+	outline-color: rgba(255,128,0,.75);
+	background-color: rgba(255,0,0,.1875);
+	box-shadow: 0 0 6px 2px rgb(255,32,64), 0 0 4px 4px rgb(255,64,32) inset;
+}
+
+.gold #select .active:before,
+.gold #action .active:before {
+	outline-color: rgba(255,240,0,.25);
+	background-color: rgba(240,224,128,.1875);
+	box-shadow: 0 0 6px 2px rgb(255,240,192), 0 0 4px 4px rgb(240,208,32) inset;
+}
+
+.blue #select .active:before,
+.blue #action .active:before {
+	outline-color: rgba(48,192,255,.625);
+	background-color: rgba(32,64,255,.1875);
+	box-shadow: 0 0 6px 2px rgb(32,64,224), 0 0 4px 4px rgb(64,128,240) inset;
+}
+
+/* Action */
+
+#action button{
+	background-image: url('../res/ui/ctrl/buttons.png');
+	background-repeat: no-repeat;
+}
+
+#action_move {background-position-x: 0;}
+#action_attack_range {background-position-x: -32px;}
+#action_attack_melee {background-position-x: -64px;}
+#action_give_order {background-position-x: -96px;}
+#action_use_equipment {background-position-x: -128px;}
+#action_switch_door {background-position-x: -160px;}
+#action_scan {background-position-x: -192px;}
+#action_end_turn {background-position-x: -224px;}
+
+/* Select */
+
+#select .light {
+	position: relative;
+	width: 32px;
+	height: 64px;
+	background: rgba(255,24,24,.5);
+	background: transparent;
+}
+
+#select #members {
+	position: absolute;
+	left: 0;
+	top: 10px;
+	width: 160px;
+	height: 32px;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #222 #aaa #aaa #222;
+	background: rgba(0,0,0,.25);
+}
+
+#select #members button {
+	background-image: url('../res/ui/ctrl/faces.png');
+	background-repeat: no-repeat;
+	background-position: 32px 32px;
+}
+.red #select #members button {background-position-y: 0;}
+.gold #select #members button {background-position-y: -32px;}
+.blue #select #members button {background-position-y: -64px;}
+#select #members .commander {background-position-x: 0;}
+#select #members .trooper {background-position-x: -32px;}
+#select #members .dead {background-position-x: -64px;}
+#select #members .awol {background: none;}
+
+#select .light span {
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	background-repeat: no-repeat;
+}
+
+#select .light [id$='move'] {left: 1px; top: -4px;}
+#select .light [id$='attack'] {right: 1px; top: -4px;}
+#select .light .light_s {background-image: url('../res/ui/ctrl/light_s.png'); background-position: -16px 0;}
+#select .light .light_s.active { background-position: 0 0;}
+#select .light .light_s.disabled { background-position: -32px 0;}
+#select .light [id$='select'] {left: 50%; bottom: 2px; margin-left: -8px; background-image: url('../res/ui/ctrl/light_m.png'); background-position: 16px 16px;}
+.red #select .light [id$='select'] {background-position: 0 0;}
+.gold #select .light [id$='select'] {background-position: -16px 0;}
+.blue #select .light [id$='select'] {background-position: -32px 0;}
+#select .light [id$='select'].active {background-position: -48px 0;}
+#select .light [id$='select'].disabled {background-position: -64px 0;}
+
+/* Screen */
+
+#screen {
+	width: auto;
+	height: auto;
+	top: 16px;
+	right: 48px;
+}
+#mouse_scroll,
+#screen_enlarge {
+	border: 2px solid #222;
+	background-image: url('../res/ui/ctrl/screen.png');
+	background-repeat: no-repeat;
+	box-shadow: 2px 2px 0px 0px #444;
+	box-sizing: content-box;
+}
+#mouse_scroll {background-position: 0 0; margin-right: 8px;}
+#screen_enlarge {background-position: -32px 0;}
+#mouse_scroll.active {background-position: 0 -32px;}
+#screen_enlarge.active {background-position: -32px -32px;}
+

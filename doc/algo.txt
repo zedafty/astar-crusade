@@ -1,0 +1,367 @@
+================================================================================
+--------------------------------------------------------------------------------
+# Game
+--------------------------------------------------------------------------------
+================================================================================
+
+  I. Init Game
+
+    A. Load data
+    B. Create entities
+    C. Start screens
+
+  II. Begin game
+
+    A. Begin turn
+
+      1) Set player to red (only if red team on board)
+
+        a) Show faces
+        b) Set cursor to red
+        c) Center on team (first living member)
+        d) Enable orders (if available)
+
+        a) Select team member
+        b) Do action (see below)
+
+      2) Set player to gold (only if gold team on board)
+      3) Set player to blue (only if blue team on board)
+      4) Set player to alien
+
+        a) Hide faces
+      ! b) Show game turn
+        c) Run alien event
+        d) Run aliens play
+      ? e) Call alien reinforcements
+
+    C. New turn
+
+      > Repeat above
+
+    B. End turn
+
+      > Human turn ends on player trigger after Blue Team play
+      > Computer turn ends when last alien member played
+
+  III. End game
+
+      > Game ends when all marine members are out
+      > Game ends when turn number reaches maximum allowed
+
+================================================================================
+--------------------------------------------------------------------------------
+# Select
+--------------------------------------------------------------------------------
+================================================================================
+
+  1. Red Team (Red Angels Division)
+  2. Gold Team (Golden Arm Division)
+  3. Blue Team (Hyperblue Division)
+
+    a. Member 1 (Commander)
+    b. Member 2 (Trooper 1)
+    c. Member 3 (Trooper 2)
+    d. Member 4 (Trooper 3)
+    e. Member 5 (Trooper 4)
+
+================================================================================
+--------------------------------------------------------------------------------
+# Action
+--------------------------------------------------------------------------------
+================================================================================
+
+    a. Select member
+
+  1. Move
+
+    a. Display tiles in range
+    b. Select tile
+    c. Make move
+    d. Set move action done
+
+  2. Attack Range (if available)
+
+    a. Display target (if has line of sight) or Area of effect (Plasma Cannon)
+    b. Select target or Area of effect (Plasma Cannon)
+    c. Make attack
+    d. Set attack action done
+
+  3. Attack Melee
+
+    a. Display target (if is lineal adjacent)
+    b. Select target
+    c. Make attack
+    d. Set attack action done
+
+  4. Give Order (on team turn begin only ; i.e. before any other action, including select member)
+
+    a. Display available orders
+    b. Select order or cancel
+    c. Apply order effect
+    d. Remove order from list
+
+  5. Use Equipment (only if available)
+
+    a. Display available equipments
+    b. Select equipment or cancel
+    c. Apply equipment effect
+    d. Remove equipment from list
+
+  6. Switch Door
+
+    a. Display target (if is diagonal adjacent)
+    b. Select target
+    c. Switch door
+
+  7. Scan
+
+  8. End Turn
+
+================================================================================
+--------------------------------------------------------------------------------
+# Alien Play
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Acting loop
+    FOR EACH muppet
+    IF muppet DO something THEN acting SET true
+    IF last_muppet AND acting IS false THEN exit
+
+  # Action start
+    update_sight (radius of 20-40)
+    update_sense (radius of 10-20)
+    IF target IN sight (radius of 20-40)
+      IF target_diagonal_adjacent
+        IS sniper THEN move_back
+      ELIF target_lineal_adjacent
+        IS walker OR rusher THEN attack_melee
+      ELSE
+        IS rusher THEN move_to_target
+        IS gunner OR walker OR sniper THEN attack_range
+    ELIF target IN sense (radius of 10-20)
+      move_to_target
+    ELSE
+      end_action
+
+  # Action end
+    WHEN
+      1 - No path found (A* algorithm failed)
+      2 - Move done
+      3 - Attack done
+
+================================================================================
+--------------------------------------------------------------------------------
+# Reticle
+--------------------------------------------------------------------------------
+================================================================================
+
+  DEF ?what
+    Playing Team Member
+    Waiting Team Member
+    Enemy
+
+  START <- BeginTurn
+    Reticle hidden, positioned at (0,0)
+
+  WHEN ?what is clicked
+    MoveCursor
+    SET Focus ?what
+
+  WHEN Focus ISSET
+    CAN
+      ScrollTo
+      ONLY IF ?what IS Playing Team Member
+        Move
+        DrawRange
+        DrawLoS
+
+  END <- EndTurn
+
+================================================================================
+--------------------------------------------------------------------------------
+# Detect
+--------------------------------------------------------------------------------
+================================================================================
+
+  > WHAT FOR?
+    (A) identify alien
+    (B) getting range target in sight
+
+  > WHEN?
+    1. (A) at spawn, then when marine move (not move end, each move)
+    2. (B) when alien reveals himself to marine (same as previous, i.e. on move)
+    3. (B) when range_attack button is clicked
+
+================================================================================
+--------------------------------------------------------------------------------
+# Save Game
+--------------------------------------------------------------------------------
+================================================================================
+
+  player is MARINE
+  > save FORBIDDEN
+    ° end turn
+  > save PREVENTED
+    ° screen is scrolling
+    ° team is scanning
+    ° xeno sensor is actived
+    ° door is opening or closing
+    ° character is attacking
+  > save ALLOWED
+    ° character is moving
+
+  player is ALIEN
+  > save FORBIDDEN
+    ° always
+
+================================================================================
+--------------------------------------------------------------------------------
+# Events Reporting
+--------------------------------------------------------------------------------
+================================================================================
+
+  A - event succeeds and result is known
+    > report what happened
+      mothership_trans        *
+      mothership_scan         <pawn_name> {green | teal}
+      airlock_control         Door master! {blue}
+      auto_defence            <attack_roll>
+      exploding_trap          <attack_roll>
+      new_order               Gain <order_name>! {blue}
+      battle_plan             Gain <order_name>! {blue}
+      intercom_malfunc        Can't give order... {red}
+      equipment_malfunc       Lose <equipment_name>... {red}
+      report_in               Can't act... {red}
+      weapons_jammed          Can't fire heavy... {red}
+      out_of_ammo             Lose <weapon_name>... {red}
+      lure_of_limbo           <attack_roll> + Succumbed... | Resisted! {red | blue}
+      psychic_attack          Can't act! {blue}
+      robotic_fault           Can't act! {blue}
+      robotic_assault         More actions... {red}
+      frenzy                  More melee attack... {red}
+      alien_elite             More actions... {red}
+      self_destruction        <attack_roll>
+      gremkin_grenater        Gain weapon... {red}
+      scrof_mechatek          Gain weapon... {red}
+      re_deploy               <pawn_name> {green}
+      alien_teleporter        <pawn_name> + Teleported... {green + red}
+      alien_task_force        <pawn_name> {green}
+      fleshripper             Spawned... {red}
+
+  B - event fails or result is unknown
+    > report that nothing or something happened without giving any other information
+      event_success           Something happens {green}
+      event_failure           Nothing happens {gray}
+
+================================================================================
+--------------------------------------------------------------------------------
+# Lock Controls
+--------------------------------------------------------------------------------
+================================================================================
+
+  > HOW?
+    1 - Lock buttons (select buttons, action buttons) => lockButtons()
+      + Exceptions: none
+    2 - Lock scroll (scroll [all but script]) => lockScroll()
+      + Exceptions: character moving [auto-scroll], projectile fired [auto-scroll], {select alien}
+    3 - Lock zoom (zoom [all]) => lockZoom()
+      + Exceptions: none
+
+  > WHEN?
+    * Door opening or closing (none)
+    ° Pause enabled (buttons + scroll + zoom)
+    ° Alien turn actived (buttons)
+    ° Scan started (buttons)
+    ° Character moving (buttons + scroll)
+    ° Character attacking (buttons + scroll)
+    ° Projectile fired (scroll)
+
+  > Lock Buttons -- command prevented on calling
+    ° select buttons
+    ° action buttons
+
+  > Lock Scroll -- command prevented on calling (i.e. some calling still available, e.g. scroll by script)
+    ° tool buttons (i.e. HTML inputs in tool box => arrows + center)
+    ° game buttons (i.e. arrows icons around scene)
+    ° keyboard 'Arrow' keys
+    ° keyboard 'S' key
+    ° keyboard 'C' key
+    ° minimap click + miniscope grab
+
+  > Lock Zoom -- command prevented on execution (i.e. no calling available)
+    ° tool buttons (i.e. HTML inputs in tool box)
+    ° keyboard 'plus', 'minus', 'star' keys
+    ° mouse wheel
+
+================================================================================
+--------------------------------------------------------------------------------
+# Scroll Feature
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Scroll Inputs
+    Button       | once       | Scroll with button     = Button Scroll       => 1) Scroll buttons (around view screen) 2) Tool buttons (in tool panel)
+    Keyboard     | repeat     | Scroll with keyboard   = Keyboard Scroll     => 1) Arrows (press) 2) Center (trigger 'C' key)
+    Mouse (view) | continuous | Scroll with mouse      = Mouse Scroll (view) => 1) by click (on view screen) 2) by key (press/trigger 'S' key)
+    Mouse (mini) | continuous | Scroll with mouse      = Mouse Scroll (mini) => 1) by click (on term screen)
+
+================================================================================
+--------------------------------------------------------------------------------
+# Mouse controller
+--------------------------------------------------------------------------------
+================================================================================
+
+  # User Interactions Comparison
+
+    > Video Game :
+      Face : click => select ; double-click => center
+      View : click => select ; double-click => center
+      Move : auto-scroll at bound half-screen
+      Button : click when actor out of screen => nothing
+      Mouse scroll by click : not available
+      Mouse scroll by key : toggle
+      Mouse scroll by button : toggle
+      Center scroll by key : not available
+      Center scroll by click : on face => click ; on character => double-click
+
+    > HTML Game :
+      Face : click => select ; double-click => center
+      View : click => select ; double-click => center
+      Move : auto-scroll center
+      Button : click when actor out of screen => nothing
+      Mouse scroll by click : hold
+      Mouse scroll by key : toggle
+      Mouse scroll by button : toggle
+      Center scroll by key : instant
+      Center scroll by click : on face => click ; on character => double-click
+
+  # Mobile
+    No mouse controller ; touch instead => no cursor, no hilite
+
+  # Mouse pointer
+    1) cursor => graphical indicator for pixel position (i.e. animated hand)
+    2) hilite => graphical indicator for tile position (i.e. colored block)
+
+  # Mouse cursor
+    pointer  => default ; can click, wether it will do something or not
+    click    => clicked anywhere on main
+    grab     => can scroll with mouse
+    grabbing => is scrolling with mouse
+
+  # Mouse hilite
+    'blank' tiles hilited in white 25%
+    'point' tiles hilited in yellow 50%
+
+  # Mouse scroll (view) locked
+    Event                               Click   Key 'S'
+    | Door opening or closing           false   false
+    | Character action pending          false   false
+    | Remaining turn displayed          *       false
+    | Pause enabled                     true    true
+    | Scroll locked                     true    true
+    | Character moving                  true    true
+    | Character attacking               true    true
+    | Alien turn actived                ?       ?
+    | Click on pawn                     true    *
+

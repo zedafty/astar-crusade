@@ -1,0 +1,115 @@
+================================================================================
+--------------------------------------------------------------------------------
+# Snippets
+--------------------------------------------------------------------------------
+================================================================================
+
+  // Draw an arc circle of 45 degrees in front of origin
+    var beg = 0;
+    var end = 32;
+    var seg = beg + 1;
+    var interval = setInterval(function() {
+        pawn.red01.drawSightRange(beg, seg);
+        if (seg <= end) seg+=2;
+        else clearInterval(interval)
+    }, 25);
+
+  // Draw an arc circle of 90 degrees at back of origin
+    var beg = 192;
+    var end = 256;
+    var seg = beg + 1;
+    var interval = setInterval(function() {
+        pawn.red01.drawSightRange(beg, seg);
+        if (seg <= end) seg+=2;
+        else clearInterval(interval)
+    }, 25);
+
+  // Count reinforcement frequency
+    var l = {
+      "gremkin"     : 0,
+      "scrof"       : 0,
+      "limbo_lw"    : 0,
+      "limbo_hw"    : 0,
+      "limbo_cc"    : 0,
+      "fleshripper" : 0,
+      "cyborg"      : 0,
+      "juggernaut"  : 0
+    };
+    var i = 0, s;
+    while (i < 100) {
+      s = getAlienReinforcement();
+      l[s]++;
+      i++;
+    }
+    console.log(l);
+
+  // Get marine sight range
+    var k, o, r, l = [];
+    for (k in pawn) {
+      o = pawn[k];
+      if (isMarine(o) && !isGone(o)) {
+        r = o.getSightRange();
+        r.forEach(function(e) {if (!hasPoint(l, e[0], e[1])) l.push(e)});
+      }
+    }
+    l.sort(function(a, b) {return a[1] - b[1]}); // y ; optional
+    l.sort(function(a, b) {return a[0] - b[0]}); // x ; optional
+    console.log(l);
+    ents.Rect.range.draw(l, "range_sight", true);
+
+  // Get alien sight range
+    var a = game.grid, r = [], x, y;
+    for (x = 0; x < a.length; x++) {
+      for (y = 0; y < a[x].length; y++) {
+        if (isCellEmpty(a[x][y], false, null, getDockTypeList())) r.push([x,y]);
+      }
+    }
+    console.log(r);
+    ents.Rect.range.draw(r, "range_sight", true);
+
+  // Get clockwise numeric rad
+    var i;
+    for (i = 1; i <= 8; i++) {
+      console.log("" + (i * Math.PI / 4));
+    }
+
+  // Get clockwise numeric rad from coord
+    var x1, y1, x2, y2, i, j, d, r;
+    var min_x, max_x, min_y, max_y;
+    x1 = y1 = 10;
+    min_x = min_y = -2;
+    max_x = max_y = 2;
+    for (j = min_y; j <= max_y; j++) {
+      for (i = min_x; i <= max_x; i++) {
+        if (i == 0 && j == 0) continue;
+        x2 = x1+i;
+        y2 = y1+j;
+        r = Math.atan2(y2 - y1, x2 - x1);
+        //if (r > 0 && r < Math.PI) r = 2 * Math.PI - r;
+        //r = Math.abs(r);
+        //d = getDir(x1, y1, x2, y2);
+        //console.log(d + " (" + x2 + "," + y2 + ") " + cardToDeg(d) + "° >> " + r.toPrecision(5) + " rad");
+        console.log(r.toFixed(2) + " rad x = " + Math.cos(r).toFixed(2) + " y = " + Math.sin(r).toFixed(2));
+      }
+    }
+
+  // Get cardinal direction radians
+    var a = ["nn", "ww", "ee", "ss", "nw", "ne", "sw", "se"];
+    var angle, add_x, add_y;
+    var adj_x = 8;
+    var adj_y = 4;
+    for (i = 0; i < a.length; i++) {
+      angle = cardToRad(a[i]);
+      add_x = Math.round(Math.cos(angle) * adj_x);
+      add_y = Math.round(Math.sin(angle) * adj_y);
+      if (add_x == 0) {
+        if (Object.is(add_x, +0)) add_x = -adj_x
+        else if (Object.is(add_x, -0)) add_x = +adj_x
+      }
+      if (add_y == 0) {
+        if (Object.is(add_y, +0)) add_y = -adj_y
+        else if (Object.is(add_y, -0)) add_y = +adj_y
+      }
+      console.log(a[i] + " (" + angle.toFixed(2) + ") >>>> x = " + add_x + " y = " + -add_y);
+    }
+

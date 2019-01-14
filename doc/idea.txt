@@ -1,0 +1,104 @@
+================================================================================
+--------------------------------------------------------------------------------
+# Ideas
+--------------------------------------------------------------------------------
+================================================================================
+
+  * Define canvas context as entity property
+      Ques: what if an entity as to be drawn on another canvas?
+      Answ: it is highly improbable... entities are supposed to be drawn only on scene (and should remain as it)
+      Plus: this will broke the savegame procedure as the canvas context will be registered as a cyclic reference in a JSON object
+
+  ~ Change set path technique
+      Org  : add (+x, +y)
+      Alt  : set (x, y)
+      Issue: when changing destination during move the resulting position is not the last position clicked (due to add technique)
+      Patch: won't be fixed because this should never happen in game (1-select destination, 2-move to destination without interruption)
+      Edit1: add technique kept for routine (i.e. set path based on tile increment from origin when the script is executed)
+           : set technique used for calling (i.e. set path based on destination for running the script)
+           : both techniques may work along (i.e. it is possible to use the add technique for running the script)
+      Edit2: both methods are DEPRECATED ; only the moveTo() and moveOf() methods are allowed for moving characters
+
+  ° Split characters
+      Marine => controllable ; friendly (move by input) -- human
+      Alien  => uncontrollable ; hostile (AI) -- computer
+
+  ° Use only one image per character charged at load up
+
+  ! Accessibility : key arrows used for moving the cursor on the screen, tab to switch between buttons
+    ! Arr => move cursor
+    ! Ctrl+Arr => scroll screen
+    + Terminal Roll, Order and Equipment
+
+  ? Animated Cursor : add frames between cursor change state
+
+  ? Interactive Cursor : non pointing cursor when not hover a clickable element (i.e. hand palm instead of pointing finger)
+
+  ? Replace 'Identify mode' by '<Detect/View/Radar> mode'
+
+  ? Different minimap colors for marines (like DOS version)
+
+  ? Chars can't shoot when engaged in melee (only lineal)
+
+  ? Open door cost 1 movement action => register move action as points
+
+  ? Add tile bitmap under identify picture (require tile detection, i.e. tile type stored in grid)
+
+  ? Draw line of sight on target range hover
+
+  ? Pop-hover points
+
+  ? Draw stars in void
+
+  ? Click on monitor switches between Status/Turn+Event+Points
+
+  ? Display 'arrow' pointing to focused actor when out of screen
+
+  ? Add visual trails while character is moving
+
+  ? Use quadratic curve instead of ugly calc for rocket projectile lob effect
+
+  ? Add a visual indicator on sprite board for hovered face members (like whiten effect or pop-over icon)
+
+  ? Add a visual indicator when a char move is interrupted due to hidden pawn ; like a popping exclamation point
+
+  ? Only one counter-attack on melee attack
+
+  ? Change order behaviour
+    1) let order button activable until any team member has moved or attacked
+    2) activate order choice box and button on turn begin -- POSSIBLY GOOD CHOICE
+    x) optionally, select team commander if not gone
+
+  ? Add Dice, Armor, Move and/or Life to Identify
+
+  ? Add animation on focus reticle
+
+  ? Add a timeout for reroll (like 5-10 seconds) before auto-cancel
+
+  ? Hold shift show sight range
+
+  ? Rotating avatars on identify
+
+  ? Limit scan usage (core rules = once per board)
+
+  ? Use a dropping bomb from above animation for 'exploding_trap' event
+
+  ? Use a spawning from floor turret animation for 'auto_defence' event
+
+  ? Use a spawning from floor fleshripper animation for 'fleshripper' event
+
+  ? On time out, either a big ray blast any still on map marine, either a huge alien spawn and kill still on map marine
+
+  ? Display remaining turns at end of alien turn instead of at start
+
+  ? Decrease or increase number of turns according to number of marine teams in game
+
+  ? Add visual indicator when screen is locked (like dashed boarder or lock icon)
+
+  ? Animated portrait àla Doom
+
+  ? Marks primary objective on minimap
+
+  ? Mother Transmission also marks secondary objective on minimap
+
+  ? Glow effect on range slabs (e.g. move range)

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>A* Crusade</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="res/main.css">
+		<link rel="stylesheet" href="res/mdal.css">
+		<link rel="stylesheet" href="res/tool.css">
+	</head>
+	<body>
+
+		<!-- Page -->
+		<div id="page">
+
+			<!-- Modal Wrap -->
+			<div id="modal_wrap" style="display: none;">
+
+				<!-- Modal -->
+				<div id="modal">
+
+					<!-- Close -->
+					<button class="close">
+						<span></span>
+						<span></span>
+					</button>
+
+					<!-- Content -->
+					<h4>Keymap</h4>
+					<div class="line">
+						<div><strong>F1</strong></div>
+						<div><u>Key</u>map</div>
+					</div>
+					<div class="line">
+						<div><strong>F2</strong></div>
+						<div><u>Tool</u>bar</div>
+					</div>
+					<div class="line">
+						<div><strong>F8</strong></div>
+						<div>Quick<u>save</u></div>
+					</div>
+					<div class="line">
+						<div><strong>F9</strong></div>
+						<div>Quick<u>load</u></div>
+					</div>
+					<div class="line">
+						<div><strong>Pause</strong></div>
+						<div><u>Pause</u></div>
+					</div>
+					<div class="line">
+						<div><strong>P</strong></div>
+						<div><u><em>P</em>ause</u> <small>(bis)</small></div>
+					</div>
+					<div class="line">
+						<div><strong>F</strong></div>
+						<div><u><em>F</em>ulls</u>creen</div>
+					</div>
+					<div class="line">
+						<div><strong>C</strong></div>
+						<div><u><em>C</em>enter</u> to focus</div>
+					</div>
+					<div class="line">
+						<div><strong>S</strong></div>
+						<div><u><em>S</em>croll</u> by mouse</div>
+					</div>
+					<div class="line">
+						<div><strong>&larr;</strong></div>
+						<div>Scroll <u>left</u></div>
+					</div>
+					<div class="line">
+						<div><strong>&uarr;</strong></div>
+						<div>Scroll <u>up</u></div>
+					</div>
+					<div class="line">
+						<div><strong>&darr;</strong></div>
+						<div>Scroll <u>down</u></div>
+					</div>
+					<div class="line">
+						<div><strong>&rarr;</strong></div>
+						<div>Scroll <u>right</u></div>
+					</div>
+					<div class="line">
+						<div><strong>+</strong></div>
+						<div>Zoom <u>in</u></div>
+					</div>
+					<div class="line">
+						<div><strong>-</strong></div>
+						<div>Zoom <u>out</u></div>
+					</div>
+					<div class="line">
+						<div><strong>*</strong></div>
+						<div>Zoom <u>100%</u></div>
+					</div>
+					<div class="line">
+						<div><strong>1-5</strong></div>
+						<div><u>Select</u> trooper</div>
+					</div>
+					<div class="line">
+						<div><strong>M</strong></div>
+						<div><u><em>M</em>ove</u></div>
+					</div>
+					<div class="line">
+						<div><strong>R</strong></div>
+						<div>Attack <u><em>R</em>ange</u></div>
+					</div>
+					<div class="line">
+						<div><strong>A</strong></div>
+						<div><em>A</em>ttack <u>melee</u></div>
+					</div>
+					<div class="line">
+						<div><strong>O</strong></div>
+						<div>Give <u><em>O</em>rder</u></div>
+					</div>
+					<div class="line">
+						<div><strong>E</strong></div>
+						<div>Use <u><em>E</em>quipment</u></div>
+					</div>
+					<div class="line">
+						<div><strong>D</strong></div>
+						<div>Switch <u><em>D</em>oor</u></div>
+					</div>
+					<div class="line">
+						<div><strong>K</strong></div>
+						<div><u>S<em>K</em>an</u></div>
+					</div>
+					<div class="line">
+						<div><strong>End</strong></div>
+						<div><u><em>End</em></u> turn</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Tool -->
+			<div id="tool" class="open">
+
+				<!-- Tool Menu -->
+				<button id="tool_menu">
+					<span></span>
+					<span></span>
+					<span></span>
+				</button>
+
+				<!-- Tool Content -->
+				<div id="tool_content">
+
+					<div id="tool_scroll">
+						<h4>Scroll</h4>
+						<div>
+							<button id="scroll_nw"></button>
+							<button id="scroll_nn"></button>
+							<button id="scroll_ne"></button>
+							<button id="scroll_ww"></button>
+							<button id="scroll_cc" title="Center to focus">c</button>
+							<button id="scroll_ee"></button>
+							<button id="scroll_sw"></button>
+							<button id="scroll_ss"></button>
+							<button id="scroll_se"></button>
+						</div>
+					</div>
+
+					<div id="tool_move">
+						<h4>Move</h4>
+						<div>
+							<button id="move_nw"></button>
+							<button id="move_nn"></button>
+							<button id="move_ne"></button>
+							<button id="move_ww"></button>
+							<button id="move_cc" title="Show move range">c</button>
+							<button id="move_ee"></button>
+							<button id="move_sw"></button>
+							<button id="move_ss"></button>
+							<button id="move_se"></button>
+						</div>
+					</div>
+
+					<div id="tool_zoom">
+						<h4>Zoom</h4>
+						<button id="zoom_out" title="Zoom out">-</button>
+						<button id="zoom_reset" title="Reinitialize zoom level">100%</button>
+						<button id="zoom_in" title="Zoom in">+</button>
+					</div>
+
+					<div id="tool_detect">
+						<h4>Detect</h4>
+						<button id="detect_sight" title="Show sight range">Sight</button>
+						<button id="detect_sense" title="Show sense range">Sense</button>
+						<button id="detect_los" title="Show line of sight">LoS</button>
+					</div>
+
+					<div id="tool_other">
+						<h4>Limbo's</h4>
+						<button id="limbo_luck" title="All dice score max">Luck</button>
+						<button id="limbo_jinx" title="All dice score zero">Jinx</button>
+						<button id="limbo_haste" title="Move speed increased">Haste</button>
+						<button id="limbo_life" title="Life points increased">Life</button>
+						<h4>Gimme!</h4>
+						<button id="gimme_move" title="More moves for this turn">Move</button>
+						<button id="gimme_attack" title="More attacks for this turn">Attack</button>
+						<button id="gimme_scan" title="More scans for this turn">Scan</button>
+					</div>
+
+				</div>
+
+			</div>
+
+			<!-- Spin -->
+			<div id="spin">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+
+			<!-- Main -->
+			<div id="main" style="display: none;">
+
+				<!-- Title -->
+				<div id="title">
+					<span id="stage">Draft</span>
+					<span id="version">0.0</span>
+				</div>
+
+				<!-- Scroll -->
+				<div id="scroll_up"><span></span></div>
+				<div id="scroll_lt"><span></span></div>
+				<div id="scroll_rt"><span></span></div>
+				<div id="scroll_dn"><span></span></div>
+
+				<!-- Scene -->
+				<div id="scene">
+					<div id="icon">
+						<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+							<g id="icon_pause" display="none">
+								<rect x="40" width="20" height="64"/>
+								<rect x="4" width="20" height="64"/>
+							</g>
+							<g id="icon_cinematic" display="none">
+								<path d="m8 24c-4.432 0-8 3.568-8 8v24c0 4.432 3.568 8 8 8h32c4.432 0 8-3.568 8-8v-2l16 10v-40l-16 10v-2c0-4.432-3.568-8-8-8z"/>
+								<circle cx="36" cy="12" r="12"/>
+								<circle cx="12" cy="12" r="12"/>
+							</g>
+							<g id="icon_alien_event" display="none">
+								<path d="m32 0-8 16-16-8 8 16-16 8 16 8-8 16 16-8 8 16 8-16 16 8-8-16 16-8-16-8 8-16-16 8zm-6 19h12l-2 17h-8zm2 21h8v8h-8z"/>
+							</g>
+							<g id="icon_alien_play" display="none">
+								<path d="m24 0v8h-8v8h-8v8h-8v16h16v8h8v-8h16v8h8v-8h16v-16h-8v-8h-8v-8h-8v-8zm24 48v8h8v-8zm8 8v8h8v-8zm-8 0h-8v8h8zm-8 0v-8h-16v8zm-16 0h-8v8h8zm-8 0v-8h-8v8zm-8 0h-8v8h8zm8-32h8v8h-8zm24 0h8v8h-8z"/>
+							</g>
+							<g id="icon_alien_reinforcement" display="none">
+								<rect y="52" width="64" height="12" rx="6" ry="6"/>
+								<path d="m24 0v32h-8l16 16 16-16h-8v-32z"/>
+							</g>
+						</svg>
+					</div>
+					<div id="hint" style="display: none;"></div>
+					<div id="wait" style="display: none;">
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+					<div id="transmission" style="display: none;">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sagittis quam et neque rhoncus dignissim. In ultricies consequat aliquam. Integer sodales urna porta ligula consequat, ac placerat est lobortis. Mauris tincidunt leo non dui maximus consectetur. Nulla sit amet leo efficitur, eleifend odio id, elementum ipsum. Pellentesque vel faucibus ipsum. Suspendisse in purus nec justo elementum molestie vitae sit amet justo. Pellentesque fermentum tellus ac metus molestie lobortis.</p>
+						<p>Click on fire to continue</p>
+					</div>
+					<div id="load" style="display: none;">
+						<p></p>
+						<div class="progress">
+							<div></div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Monitor -->
+				<div id="monitor">
+					<div id="report" style="display: none;"></div>
+					<div id="status" style="display: none;">
+						<div id="status_insignia"></div>
+						<div id="status_rank"></div>
+						<div id="status_name"></div>
+						<div id="status_life"></div>
+						<div id="status_weapon"></div>
+						<div id="status_targeter"></div>
+					</div>
+					<div id="identify" style="display: none;">
+						<h4>.: Identify mode :.</h4>
+						<canvas width="128" height="128"></canvas>
+						<p></p>
+						<p></p>
+					</div>
+					<div id="turn" style="display: none;">
+						<p></p>
+					</div>
+					<div id="alien" style="display: none;">
+						<div></div>
+						<p></p>
+					</div>
+				</div>
+
+				<!-- Terminal -->
+				<div id="terminal">
+					<div id="noise" style="display: none;"></div>
+					<div id="choice" style="display: none;">
+						<span class="prev" style="opacity: 0;"></span>
+						<span class="next" style="opacity: 0;"></span>
+						<div></div>
+						<div></div>
+						<p></p>
+					</div>
+					<div id="roll" style="display: none;">
+						<div id="roll_1">
+							<span class="die" style="display: none;"><output></output></span>
+							<span class="die" style="display: none;"><output></output></span>
+							<span class="die" style="display: none;"><output></output></span>
+							<span class="die" style="display: none;"><output></output></span>
+						</div>
+						<div id="roll_2">
+							<span class="die" style="display: none;"><output></output></span>
+							<span class="die" style="display: none;"><output></output></span>
+							<span class="die" style="display: none;"><output></output></span>
+							<span class="die" style="display: none;"><output></output></span>
+						</div>
+						<div>
+							<button disabled="disabled"></button>
+						</div>
+					</div>
+				</div>
+
+				<!-- Controls -->
+				<div id="controls">
+					<div id="select">
+						<div class="light">
+							<span id="member_1_move" class="light_s disabled"></span>
+							<span id="member_1_attack" class="light_s disabled"></span>
+							<span id="member_1_select"></span>
+						</div>
+						<div class="light">
+							<span id="member_2_move" class="light_s disabled"></span>
+							<span id="member_2_attack" class="light_s disabled"></span>
+							<span id="member_2_select"></span>
+						</div>
+						<div class="light">
+							<span id="member_3_move" class="light_s disabled"></span>
+							<span id="member_3_attack" class="light_s disabled"></span>
+							<span id="member_3_select"></span>
+						</div>
+						<div class="light">
+							<span id="member_4_move" class="light_s disabled"></span>
+							<span id="member_4_attack" class="light_s disabled"></span>
+							<span id="member_4_select"></span>
+						</div>
+						<div class="light">
+							<span id="member_5_move" class="light_s disabled"></span>
+							<span id="member_5_attack" class="light_s disabled"></span>
+							<span id="member_5_select"></span>
+						</div>
+						<div id="members">
+							<button id="member_1" class="commander" title="Select commander [1]">&nbsp;</button>
+							<button id="member_2" class="trooper" title="Select trooper [2]">&nbsp;</button>
+							<button id="member_3" class="trooper" title="Select trooper [3]">&nbsp;</button>
+							<button id="member_4" class="trooper" title="Select trooper [4]">&nbsp;</button>
+							<button id="member_5" class="trooper" title="Select trooper [5]">&nbsp;</button>
+						</div>
+					</div>
+					<div id="action">
+						<button id="action_move" title="[M]ove">&nbsp;</button>
+						<button id="action_attack_range" title="Attack [R]ange">&nbsp;</button>
+						<button id="action_attack_melee" title="[A]ttack melee">&nbsp;</button>
+						<button id="action_give_order" title="Give [O]rder">&nbsp;</button>
+						<button id="action_use_equipment" title="Use [E]quipment">&nbsp;</button>
+						<button id="action_switch_door" title="Switch [D]oor">&nbsp;</button>
+						<button id="action_scan" title="S[K]an">&nbsp;</button>
+						<button id="action_end_turn" title="[End] Turn">&nbsp;</button>
+					</div>
+					<div id="screen">
+						<button id="mouse_scroll" title="[S]croll">&nbsp;</button>
+						<button id="screen_enlarge" title="[F]ullscreen">&nbsp;</button>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- Scripts -->
+		<script src="lib/astar-0.4.1.js"></script>
+		<script src="src/lang.js"></script>
+		<script src="src/conf.js"></script>
+		<script src="src/util.js"></script>
+		<script src="src/ents.js"></script>
+		<script src="src/furn.js"></script>
+		<script src="src/char.js"></script>
+		<script src="src/game.js"></script>
+		<script src="src/mupt.js"></script>
+		<script src="src/maps.js"></script>
+		<script src="src/main.js"></script>
+		<script src="src/keys.js"></script>
+		<script src="src/scen.js"></script>
+		<script src="src/moni.js"></script>
+		<script src="src/term.js"></script>
+		<script src="src/ctrl.js"></script>
+		<script src="src/scrl.js"></script>
+		<script src="src/zoom.js"></script>
+		<script src="src/mdal.js"></script>
+		<script src="src/tool.js"></script>
+
+	</body>
+<html>

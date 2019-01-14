@@ -1,0 +1,145 @@
+/*
+
+	mdal.css
+
+*/
+
+/* ========================================================================== */
+/* -------------------------------------------------------------------------- */
+/* # Modal */
+/* -------------------------------------------------------------------------- */
+/* ========================================================================== */
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Basics */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#modal button:focus {
+	background-color: rgb(224,224,255);
+	outline: 0;
+}
+
+#modal button:hover {
+	background-color: mediumspringgreen;
+}
+
+#modal button:active {
+	background-color: mediumseagreen;
+}
+
+#modal button::-moz-focus-inner {
+	border: 0;
+}
+
+#modal h4 {
+	margin-bottom: 24px;
+	font-size: 24px;
+	line-height: 32px;
+	font-family: 'Segoe UI Semibold', sans-serif;
+}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Container */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#modal_wrap {
+	width: inherit;
+	height: inherit;
+	background-color: transparent;
+	transition-property: background-color;
+	z-index: 100;
+}
+#modal_wrap.open {}
+
+#modal {
+	width: 100%;
+	height: auto;
+	top: 12.5%;
+	left: 50%;
+	margin-left: -25%;
+	padding: 32px;
+	color: white;
+	font-family: 'Segoe UI', sans-serif;
+	border-radius: 16px;
+	background-color: rgba(144,64,176,.625);
+	box-sizing: border-box;
+}
+
+@media screen and (min-width: 481px) and (max-width: 960px) {#modal {width: 90%; margin-left: -45%;}}
+@media screen and (min-width: 961px) and (max-width: 1280px) {#modal {width: 70%; margin-left: -35%;}}
+@media screen and (min-width: 1281px) and (max-width: 1920px) {#modal {width: 55%; margin-left: -27.5%;}}
+
+.close {
+	position: absolute;
+	width: 48px;
+	height: 44px;
+	right: 0;
+	top: 0;
+	background-color: rgba(255,255,0,.5);
+	background-color: transparent;
+	z-index: 1;
+}
+
+.close span {
+	position: absolute;
+	width: 28px;
+	height: 4px;
+	left: 10px;
+	background-color: white;
+}
+
+.close span:nth-of-type(1) {left: 10px; top: 20px; transform: rotate(45deg);}
+.close span:nth-of-type(2) {left: 10px; top: 20px; transform: rotate(-45deg);}
+
+.close:hover span,
+.close:focus span {
+	background-color: #222;
+}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Lines */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+.line {height: 40px;}
+.line,
+.line div {
+	display: inline-block;
+	position: relative;
+}
+
+@media screen and (max-width: 959px) {.line {width: 100%;}}
+@media screen and (min-width: 960px) and (max-width: 1279px) {.line {width: 50%;}}
+@media screen and (min-width: 1280px) {.line {width: 33.333333333333333333333333333333%;}
+
+.line div {font-size: 20px;}
+.line div:nth-child(odd) {
+	width: 35%;
+	text-align: center;
+	background-color: rgba(255,255,0,.5);
+	background-color: transparent;
+}
+.line div:nth-child(even) {
+	width: 65%;
+	color: whitesmoke;
+	background-color: rgba(255,0,0,.5);
+	background-color: transparent;
+}
+.line div strong,
+.line div em {
+	font-style: normal;
+	font-weight: normal;
+	font-family: 'Segoe UI Semibold', sans-serif;
+}
+.line div strong {
+	display: inline-block;
+	min-width: 16px;
+	padding: 0 6px;
+	color: mediumspringgreen;
+	background-color: rgba(0,0,0,.25);
+	border: 2px solid rgba(255,255,255,.5);
+	border-radius: 4px;
+}
+.line div em {color: gold;}
+.line div small {color: silver;}
+.line div u {text-decoration: underline solid darkgoldenrod;}
+
