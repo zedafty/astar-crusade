@@ -1,11 +1,8 @@
 ## A* Crusade
 
-Space Crusade (tm) HTML Canvas Clone.
+  Space Crusade (tm) HTML Canvas Clone.
 
-  Original video game produced by Gremlin Interactive (tm) in 1992.
-  Original product rights owned by Milton Bradley (tm) & Games Workshop (tm) since 1990.
-
-### Current stage
+### Current status
 
   * standby
 
@@ -25,3 +22,13 @@ Space Crusade (tm) HTML Canvas Clone.
 
   * [A* algorithm](https://github.com/bgrins/javascript-astar) by Brian Grinstead
 
+### Fonts
+
+  * [Pixel Sagas](http://www.pixelsagas.com/) GoSub by Neale Davidson
+  * [SF](http://www.shyfoundry.com/) Electrotome by Derek Vogelpohl
+
+### License
+
+  Original video game produced by Gremlin Interactive (tm) in 1992.
+
+  Original product rights owned by Milton Bradley (tm) & Games Workshop (tm) since 1990.

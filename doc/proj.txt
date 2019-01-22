@@ -4,12 +4,45 @@
 --------------------------------------------------------------------------------
 ================================================================================
 
-  Tags: Fan-work, HTML Canvas, JavaScript DOM, Clone, Fork
+  # Description
+    Space Crusade (tm) HTML Canvas Clone.
 
-  Space Crusade (tm) HTML Canvas Clone.
+  # Tags
+    html5-canvas html5-game javascript-game retrogaming clone
 
-    Original video game produced by Gremlin Interactive (tm) in 1992.
-    Original product rights owned by Milton Bradley (tm) & Games Workshop (tm) since 1990.
+  # Technologies
+    HTML, CSS, JavaScript
+
+  # Features
+    Board game system
+    Map generator
+
+  # Libraries
+    A* algorithm by Brian Grinstead
+
+  # Fonts
+    Pixel Sagas GoSub by Neale Davidson [http://www.pixelsagas.com/]
+    SF Electrotome by Derek Vogelpohl [http://www.shyfoundry.com/]
+
+================================================================================
+--------------------------------------------------------------------------------
+# History
+--------------------------------------------------------------------------------
+================================================================================
+
+  Started on April 29th, 2018
+  Stopped on September 9th, 2018
+  Pursued on November 16th, 2018
+  Stopped on November 20th, 2018
+
+================================================================================
+--------------------------------------------------------------------------------
+# Description
+--------------------------------------------------------------------------------
+================================================================================
+
+  Original video game produced by Gremlin Interactive (tm) in 1992.
+  Original product rights owned by Milton Bradley (tm) & Games Workshop (tm) since 1990.
 
   "Space Crusade is an adventure board game produced by Milton Bradley together with Games Workshop and was first made in 1990."
   "While produced in the UK and available in some other countries including Finland, Ireland, France, Spain, Denmark, Australia and New Zealand, it was never sold in North America."
@@ -51,17 +84,6 @@
     W3CSchools, [https://www.w3schools.com/jsref/default.asp]
     StackOverflow [https://stackoverflow.com/]
   );
-
-================================================================================
---------------------------------------------------------------------------------
-# History
---------------------------------------------------------------------------------
-================================================================================
-
-  Project started on April 29th, 2018
-  Coding pursued until September 9th, 2018
-  Coding continued on November 16th, 2018
-  Coding stopped on November 20th, 2018
 
 ================================================================================
 --------------------------------------------------------------------------------
