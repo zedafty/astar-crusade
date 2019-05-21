@@ -35,12 +35,6 @@
 var game = {
 
 	//////////////////////////////////////////////////////////////////////////////
-	// @ Language
-	//////////////////////////////////////////////////////////////////////////////
-
-	"lang" : "en", // TEMP
-
-	//////////////////////////////////////////////////////////////////////////////
 	// @ Map
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -96,13 +90,13 @@ var game = {
 		"red" : {
 			"state" : null,
 			"members" : {
-				// * ORIGINAL
+				// * STABLE
 				"red01" : { "subt" : "commander", "weapon" : "glove_sword"        , "name" : "Mason"    , "state" : null },
 				"red02" : { "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Connor"   , "state" : null },
 				"red03" : { "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Teller"   , "state" : null },
 				"red04" : { "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Dogget"   , "state" : null },
 				"red05" : { "subt" : "trooper"  , "weapon" : "rocket_launcher"    , "name" : "Brian "   , "state" : null },
-				// * EDIT
+				// * TEST
 				// "red01" : { "subt" : "commander", "weapon" : "unarmed"            , "name" : "Mason"    , "state" : null },
 				// "red02" : { "subt" : "trooper"  , "weapon" : "cyborg_rifle"       , "name" : "Connor"   , "state" : null },
 				// "red03" : { "subt" : "trooper"  , "weapon" : "claw"               , "name" : "Teller"   , "state" : null },
@@ -148,13 +142,13 @@ var game = {
 		"gold" : {
 			"state" : null,
 			"members" : {
-				// * ORIGINAL
+				// * STABLE
 				"gold01": { "subt" : "commander", "weapon" : "heavy_bloter"       , "name" : "Kellog"   , "state" : null },
 				"gold02": { "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Bergson"  , "state" : null },
 				"gold03": { "subt" : "trooper"  , "weapon" : "machine_gun"        , "name" : "Cooker"   , "state" : null },
 				"gold04": { "subt" : "trooper"  , "weapon" : "rocket_launcher"    , "name" : "Reyce"    , "state" : null },
 				"gold05": { "subt" : "trooper"  , "weapon" : "plasma_cannon"      , "name" : "Clark"    , "state" : null }
-				// * EDIT
+				// * TEST
 				// "gold01": { "subt" : "commander", "weapon" : "heavy_bloter"       , "name" : "Kellog"   , "state" : null },
 				// "gold02": { "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Bergson"  , "state" : null },
 				// "gold03": { "subt" : "trooper"  , "weapon" : "machine_gun"        , "name" : "Cooker"   , "state" : "awol" },
@@ -197,13 +191,13 @@ var game = {
 		"blue" : {
 			"state" : null,
 			"members" : {
-				// * ORIGINAL
+				// * STABLE
 				"blue01" : { "subt" : "commander", "weapon" : "pistol_axe"         , "name" : "Lockhart" , "state" : null },
 				"blue02" : { "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Pfeifer"  , "state" : null },
 				"blue03" : { "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Bolton"   , "state" : null },
 				"blue04" : { "subt" : "trooper"  , "weapon" : "rocket_launcher"    , "name" : "Quaker"   , "state" : null },
 				"blue05" : { "subt" : "trooper"  , "weapon" : "plasma_cannon"      , "name" : "Hartman"  , "state" : null }
-				// * EDIT
+				// * TEST
 				// "blue01" : { "subt" : "commander", "weapon" : "pistol_axe"         , "name" : "Lockhart" , "state" : null },
 				// "blue02" : { "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Pfeifer"  , "state" : null },
 				// "blue03" : { "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Bolton"   , "state" : "awol" },
@@ -274,6 +268,8 @@ var game = {
 					"fleshripper",
 					// EXTRAS
 					"auto_defence",
+					"auto_defence",
+					"fleshripper",
 					"fleshripper",
 					"fleshripper"
 				]
@@ -310,6 +306,20 @@ var game = {
 	}
 
 };
+
+// =============================================================================
+// -----------------------------------------------------------------------------
+// # Campaign
+// -----------------------------------------------------------------------------
+// =============================================================================
+
+function getCampaignMapTotal() {
+	return conf.game.campaign.length;
+}
+
+function getCampaignMapIndex(s) { // s = map id
+	return conf.game.campaign.indexOf(s) + 1;
+}
 
 // =============================================================================
 // -----------------------------------------------------------------------------
@@ -597,7 +607,7 @@ function giveOrder(s) { // s = order key string
 	else disableActionButton("give_order");
 }
 
-function useEquipment(s) { // s = equipement key string
+function useEquipment(s) { // s = equipment key string
 	let l = game.team[game.player[0]], o;
 	// 1. Apply equipment effect(s)
 	switch(s) {
@@ -742,13 +752,13 @@ function initAlien() {
 	}
 	if (a.includes("gray")) l.cyborg = c.cyborg;
 	if (a.includes("juggernaut")) l.juggernaut = c.juggernaut;
-	// 2. Adjust reinforcements (i.e. Mission Award)
-	m = maps[game.map].alien.mark_of_chaos;
+	// 2. Adjust reinforcements (i.e. Award Bonus)
+	m = maps[game.map].alien.awards;
 	if (m > 0) {
 		n = recoverAlienReinforcementTokens(m);
-		console.info("%calien player gains " + n + " reinforcement token" + (n > 1 ? "s" : "") + " as mission award bonus (" + m + " available)", conf.console["debug"]); // DEBUG
+		console.info("%calien player gains " + n + " reinforcement token" + (n > 1 ? "s" : "") + " as award bonus (" + m + " available)", conf.console["debug"]); // DEBUG
 	}
-	// 3. Set chosen event cards (i.e. Rank Award)
+	// 3. Set chosen event cards (i.e. Rank Bonus)
 	m = Math.min(3, maps[game.map].alien.rank);
 	if (m > 0) {
 		l = conf.game.alien.preferred_event; // source array
@@ -785,7 +795,7 @@ function initAlien() {
 				}
 			}
 		}
-		console.info("%calien player chose " + (game.team.alien.event.choice.join(", ")) + " event cards as rank award bonus (" + m + " available)", conf.console["debug"]); // DEBUG
+		console.info("%calien player chose " + (game.team.alien.event.choice.join(", ")) + " event cards as rank bonus (" + m + " available)", conf.console["debug"]); // DEBUG
 	}
 }
 
@@ -1061,4 +1071,3 @@ function endGame(s) { // s = game over type ("marine_out" or "turn_over")
 	scen.fade("out"); // TEMP
 	// ---------------------------------------------------------------------------
 }
-

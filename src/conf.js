@@ -36,11 +36,11 @@ const conf = {
 			"detect" : false, // draw sight and sense ranges on move -- Default : false
 		},
 		"skip" : {
-			"marine_quit" : true, // skip marine quit stage (i.e. show marine at docking claws leaving) -- Default : false
-			"game_turn" : true, // skip game turn stage (i.e. display remaining turn and waiting for input) -- Default : false
-			"alien_event" : true, // skip alien event stage (i.e. display picked up event and apply its effect) -- Default : false
-			"alien_play" : false, // skip alien play stage (i.e. enact alien team members) -- Default : false
-			"alien_reinforcement" : true // skip alien reinforcement stage (i.e. spawn aliens at unseen locations) -- Default : false
+			"marine_quit" : false, // skip marine quit phase (i.e. show marine at docking claws leaving) -- Default : false
+			"game_turn" : false, // skip game turn phase (i.e. display remaining turn and waiting for input) -- Default : false
+			"alien_event" : false, // skip alien event phase (i.e. display picked up event and apply its effect) -- Default : false
+			"alien_play" : false, // skip alien play phase (i.e. enact alien team members) -- Default : false
+			"alien_reinforcement" : false // skip alien reinforcement phase (i.e. spawn aliens at unseen locations) -- Default : false
 		},
 		"time" : {
 			"los" : false, // log line of sight computing time in console -- Default : false
@@ -52,7 +52,8 @@ const conf = {
 			"alien_event" : true, // log alien event computing time in console -- Default : false
 			"alien_play" : true, // log alien play computing time in console -- Default : false
 			"mupt_loop" : true, // log muppet loop computing time in console -- Default : false
-			"alien_reinforcement" : true // log alien reinforcement computing time in console -- Default : false
+			"alien_reinforcement" : true, // log alien reinforcement computing time in console -- Default : false
+			"modal_topic" : false, // log modal content generation computing time in console -- Default : false
 		},
 		"mupt" : {
 			"target" : false // log target id and detect mode in console -- Default : false
@@ -198,6 +199,137 @@ const conf = {
 	},
 
 	//////////////////////////////////////////////////////////////////////////////
+	// @ Keyboard
+	//////////////////////////////////////////////////////////////////////////////
+
+	"keyboard_layouts" : [
+		"qwerty",
+		"azerty"
+	],
+
+	"keys" : {
+	// code : [qwerty,   azerty   ]
+		"112" : ["F1",     "F1"     ],
+		"113" : ["F2",     "F2"     ],
+		"114" : ["F3",     "F3"     ],
+		"115" : ["F4",     "F4"     ],
+		"116" : ["F5",     "F5"     ],
+		"117" : ["F6",     "F6"     ],
+		"118" : ["F7",     "F7"     ],
+		"119" : ["F8",     "F8"     ],
+		"120" : ["F9",     "F9"     ],
+		"121" : ["F10",    "F10"    ],
+		"122" : ["F11",    "F11"    ],
+		"123" : ["F12",    "F12"    ],
+		"222" : ["`",      "²"      ],
+		"49"  : ["1",      "&"      ],
+		"50"  : ["2",      "é"      ],
+		"51"  : ["3",      "\""     ],
+		"52"  : ["4",      "'"      ],
+		"53"  : ["5",      "("      ],
+		"54"  : ["6",      "-"      ],
+		"55"  : ["7",      "è"      ],
+		"56"  : ["8",      "_"      ],
+		"57"  : ["9",      "ç"      ],
+		"48"  : ["0",      "à"      ],
+		"169" : ["-",      ")"      ],
+		"61"  : ["=",      "="      ],
+		"65"  : ["Q",      "A"      ],
+		"90"  : ["W",      "Z"      ],
+		"69"  : ["E",      "E"      ],
+		"82"  : ["R",      "R"      ],
+		"84"  : ["T",      "T"      ],
+		"89"  : ["Y",      "Y"      ],
+		"85"  : ["U",      "U"      ],
+		"73"  : ["I",      "I"      ],
+		"79"  : ["O",      "O"      ],
+		"80"  : ["P",      "P"      ],
+		"160" : ["[",      "^"      ],
+		"164" : ["]",      "$"      ],
+		"81"  : ["A",      "Q"      ],
+		"83"  : ["S",      "S"      ],
+		"68"  : ["D",      "D"      ],
+		"70"  : ["F",      "F"      ],
+		"71"  : ["G",      "G"      ],
+		"72"  : ["H",      "H"      ],
+		"74"  : ["J",      "J"      ],
+		"75"  : ["K",      "K"      ],
+		"76"  : ["L",      "L"      ],
+		"77"  : [";",      "M"      ],
+		"165" : ["'",      "ù"      ],
+		"170" : ["\\",     "*"      ],
+		"87"  : ["Z",      "W"      ],
+		"88"  : ["X",      "X"      ],
+		"67"  : ["C",      "C"      ],
+		"86"  : ["V",      "V"      ],
+		"66"  : ["B",      "B"      ],
+		"78"  : ["N",      "N"      ],
+		"188" : ["M",      ","      ],
+		"59"  : [",",      ";"      ],
+		"58"  : [".",      ":"      ],
+		"161" : ["/",      "!"      ],
+		"19"  : ["Pause",  "Pause"  ],
+		"45"  : ["Ins",    "Inser"  ],
+		"36"  : ["Home",   "&#8598;"],
+		"33"  : ["PgUp",   "&#8607;"],
+		"46"  : ["Del",    "Suppr"  ],
+		"35"  : ["End",    "Fin"    ],
+		"34"  : ["PgDn",   "&#8609;"],
+		"37"  : ["&larr;", "&larr;" ],
+		"38"  : ["&uarr;", "&uarr;" ],
+		"40"  : ["&darr;", "&darr;" ],
+		"39"  : ["&rarr;", "&rarr;" ],
+		"96"  : ["KP0",    "PN0"    ],
+		"97"  : ["KP1",    "PN1"    ],
+		"98"  : ["KP2",    "PN2"    ],
+		"99"  : ["KP3",    "PN3"    ],
+		"100" : ["KP4",    "PN4"    ],
+		"101" : ["KP5",    "PN5"    ],
+		"102" : ["KP6",    "PN6"    ],
+		"103" : ["KP7",    "PN7"    ],
+		"104" : ["KP8",    "PN8"    ],
+		"105" : ["KP9",    "PN9"    ],
+		"110" : ["KP.",    "PN."    ],
+		"107" : ["KP+",    "PN+"    ],
+		"109" : ["KP-",    "PN-"    ],
+		"106" : ["KP*",    "PN*"    ],
+		"111" : ["KP/",    "PN/"    ]
+	},
+
+	"keymap" : {
+		"keymap"           : 112, // F1
+		"toolbar"          : 113, // F2
+		"save_game"        : 119, // F8
+		"load_game"        : 120, // F9
+		"quicksave"        : 81,  // Q
+		"quickload"        : 76,  // L
+		"pause"            : 19,  // Pause
+		"fullscreen"       : 70,  // F
+		"center_to_focus"  : 67,  // C
+		"scroll_by_mouse"  : 83,  // S
+		"scroll_left"      : 37,  // Left
+		"scoll_up"         : 38,  // Up
+		"scroll_right"     : 39,  // Right
+		"scroll_down"      : 40,  // Down
+		"zoom_in"          : 107, // KP_Plus
+		"zoom_out"         : 109, // KP_Minus
+		"zoom_reset"       : 106, // KP_Star
+		"select_commander" : 49,  // 1
+		"select_trooper_1" : 50,  // 2
+		"select_trooper_2" : 51,  // 3
+		"select_trooper_3" : 52,  // 4
+		"select_trooper_4" : 53,  // 5
+		"move"             : 77,  // M
+		"attack_range"     : 82,  // A
+		"attack_melee"     : 65,  // R
+		"give_order"       : 79,  // O
+		"use_equipment"    : 69,  // U
+		"switch_door"      : 68,  // D
+		"scan"             : 75,  // K
+		"end_turn"         : 35   // End
+	},
+
+	//////////////////////////////////////////////////////////////////////////////
 	// @ Dimensions
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -280,7 +412,7 @@ const conf = {
 		"sense" : 10, // number of tiles a character can sense at -- Default : 10 >> 5 (low) 10 (medium) 15 (high)
 		"radian_segment" : 32, // number of segments per cardinal direction (radial scan) -- Default : 32 >> 32 (low) 64 (high) 128 (insane)
 		"switch_door_instant" : false, // hidden characters switch doors without delay -- Default : false
-		"dont_look_at_the_wall_dumbass" : false, // prevent marines from staring at walls after moving -- Default : true
+		"dont_look_at_the_wall_dumbass" : false, // prevent marines from staring at walls after moving -- Default : false
 		"radian_rotation" : true, // rotate animation using radian angle instead of cardinal direction (pixel interpolation) -- Default : true
 		"anim_set" : {
 			"default" : {
@@ -391,6 +523,7 @@ const conf = {
 	//////////////////////////////////////////////////////////////////////////////
 
 	"main" : {
+		"save_slots" : ["autosave", "quicksave", "save_1", "save_2", "save_3", "save_4", "save_5", "save_6", "save_7", "save_8"], // identifier of web storage savegame items -- Default : ["autosave", "quicksave", "save_1", "save_2", "save_3", "save_4", "save_5", "save_6", "save_7", "save_8"]
 		"window" : {
 			"resize_delay" : 0 // time in milliseconds after which a window resize event is effectively triggered -- Default : 0
 		},
@@ -398,7 +531,7 @@ const conf = {
 			"margin" : {"top" : 20, "left" : 20, "right" : 20, "bottom" : 20}, // main screen margin in pixels -- Default : 20, 20, 20, 20
 			"enlarged" : {
 				"margin" : {"top" : 0, "left" : 0, "right" : 0, "bottom" : 0}, // main screen margin in pixels when enlarged -- Default : 0, 0, 0, 0
-				"fullscreen" : false // request browser fullscreen when main screen is enlarged -- Default : false
+				"fullscreen" : false // request browser fullscreen when main screen is enlarged -- Default : true
 			}
 		},
 		"load" : {
@@ -423,13 +556,14 @@ const conf = {
 	//////////////////////////////////////////////////////////////////////////////
 
 	"game" : {
-		"turn" : 28, // maximum number of turns of a standard game -- Default : 28 (40)
+		"campaign" : ["m01", "m02", "m03", "m04", "m05", "m06", "m07", "m08", "m09", "m10", "m11", "m12"], // ordered list of campaign maps -- Default : ["m01", "m02", "m03", "m04", "m05", "m06", "m07", "m08", "m09", "m10", "m11", "m12"]
+		"turn" : 30, // maximum number of turns of a standard mission -- Default : 30 (40 in original)
 		"close_door" : false, // allow nearby doors to be closed -- Default : false
 		"friendly_fire" : true, // allow allies to be targetted -- Default : true
 		"scan_radius" : {
 			// "mothership" : 28, // radius in tiles of mothership scan -- Default : 28 * DEPRECATED
-			"commander" : 9, // radius in tiles of commander scan -- Default : 9 (12)
-			"trooper" : 6 // radius in tiles of trooper scan -- Default : 6 (7)
+			"commander" : 9, // radius in tiles of commander scan -- Default : 9 (12 in original)
+			"trooper" : 6 // radius in tiles of trooper scan -- Default : 6 (7 in original)
 		},
 		"die" : {
 			"light" : [0,0,0,0,1,2], // light die faces -- Default : [0,0,0,0,1,2]
@@ -465,14 +599,14 @@ const conf = {
 		"score" : { // number of points (either gain or loss) granted for objective achievement or character elimination
 			"pri_obj"     : 30, // -- Default : 30
 			"sec_obj"     : 15, // -- Default : 15
-			"commander"   : 10, // -- Default : 10
+			"commander"   : 15, // -- Default : 15
 			"trooper_lw"  : 5,  // -- Default : 5
 			"trooper_hw"  : 10, // -- Default : 10
 			"gremkin"     : 2,  // -- Default : 2
 			"scrof"       : 3,  // -- Default : 3
 			"limbo_lw"    : 5,  // -- Default : 5
 			"limbo_hw"    : 10, // -- Default : 10
-			"limbo_cc"    : 10, // -- Default : 10
+			"limbo_cc"    : 15, // -- Default : 15
 			"fleshripper" : 0,  // -- Default : 0
 			"cyborg"      : 10, // -- Default : 10
 			"juggernaut"  : 25  // -- Default : 25
@@ -674,4 +808,3 @@ const conf = {
 	}
 
 };
-

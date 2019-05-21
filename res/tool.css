@@ -204,3 +204,23 @@
 [id^=tool_] > div > button[id$=_sw]:before {left: 11px; top: 7px; border-bottom-color: #222; border-left-color: #222;}
 [id^=tool_] > div > button[id$=_se]:before {left: 7px; top: 7px; border-bottom-color: #222; border-right-color: #222;}
 
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Button Groups */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+.button-pad button:nth-of-type(1) {border-top-left-radius: 2px;}
+.button-pad button:nth-of-type(3) {border-top-right-radius: 2px;}
+.button-pad button:nth-of-type(7) {border-bottom-left-radius: 2px;}
+.button-pad button:nth-of-type(9) {border-bottom-right-radius: 2px;}
+
+.button-bar {
+	position: static;
+}
+.button-bar button:first-of-type {
+	border-top-left-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+.button-bar button:last-of-type {
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+}

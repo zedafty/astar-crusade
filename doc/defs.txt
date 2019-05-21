@@ -22,8 +22,8 @@
      7      str     blue        red         *
      8      str     alien       green       identified alien
 
-   v = nil <- Flat   : Dock, Floor, Void, Wall = Fixed    (i.e. always in place and unaltered)
-   v = str <- Pawn   : Furn, Char              = Variable (i.e. can be moved or destroyed)
+    Value = nil <- Flat : Dock, Floor, Void, Wall = Fixed    (i.e. always in place and unaltered)
+          = str <- Pawn : Furn, Char              = Variable (i.e. can be moved or destroyed)
 
 ================================================================================
 --------------------------------------------------------------------------------
@@ -46,26 +46,30 @@
 
 ================================================================================
 --------------------------------------------------------------------------------
-# Pages (i.e. program structure)
+# Program Structure
 --------------------------------------------------------------------------------
 ================================================================================
 
-  1. Home
+  1. Game Start
+      Disclaimer
+      Credits
       Intro
 
-  2. Menu
-      Mission
-      Teams
-      > Weapon
-      > Order
-      > Equipment
+  2. Game Setup
+      Game Mode
+      Mission Setup
+      > Briefing
+      Teams Setup
+      > Setup Rank
+      > Setup Weapon
+      > Setup Order & Equipment
 
-  3. Game
+  3. Mission Play
       Main
       > Scene                                           scen.js
         | View                                          *
         | Transmission                                  *
-      > Monitor => ouput (no interaction)               moni.js
+      > Monitor => output (no interaction)              moni.js
         | Report                                        *
         | Status                                        *
         | Identify                                      *
@@ -84,11 +88,285 @@
         | Action                                        *
         | Select                                        *
 
-  4. Game Over
-      Debrief (i.e. mission recap)
+  4. Mission End
+      Debriefing
+
+  5. Game Over
       Outro
 
-  5. Map
+  9. Map
+
+================================================================================
+--------------------------------------------------------------------------------
+# Program Pages
+--------------------------------------------------------------------------------
+================================================================================
+
+  # HTML File       Program Page
+    1-start.html    start
+    2-setup.html    setup
+    3-play.html     play
+    4-end.html      end
+    5-over.html     over
+    9-map.html      *
+
+  Unlike original video game, player(s) need to first choose the mission being played, and only after can customize their teams
+  Unlike original video game, player(s) can't choose to display either <team rank> or <team setup> ; the pages are accessible in a linear way
+
+  Multiple HTML files
+    + If document is reloaded, then only current program page is reinitialized (e.g. while playing mission, then mission is restarted to last registered data)
+    + Less buffered content (i.e. only current page content)
+    + Easier maintanibility (shorter HTML codes)
+
+  Single HTML file
+    ! URL search parameter can be used to simulate pages (e.g. index.html?play ; javascript window.history)
+    + Simplier file system (i.e. user will unlikely be able to start out at an undesired program page, except by address bar manipulation)
+    + Less HTML files (only one)
+
+  Possible work-around
+    While developing and testing, use splitted files for convenience
+    When releasing, merge all files into one file and then use URL search parameter
+
+================================================================================
+--------------------------------------------------------------------------------
+# Savegame Manager
+--------------------------------------------------------------------------------
+================================================================================
+
+  ISSUE : 'savegame manager' and 'settings' should be shared by 'start' and 'play' => modal generated on-the-fly by script
+
+  # Storage Content
+    > setup (last)
+    > autosave (0 to 1)
+    > quicksave (0 to 1)
+    > savegames (0 to 8)
+
+  # Savegame Infos          Campaign Example        Skirmish Example        Source
+    1. picture              *                       *                       localstorage or canvas
+    2. save_slot            autosave                savegame_3              localstorage
+    3. timestamp            2019-09-21 10:11:54     2019-09-21 10:11:54     localstorage or current time
+    4. game_mode            campaign                skirmish                setup
+    5. game_info            mission 4 on 12         2 players               setup
+    6. game_map             m769-09                 m769-09                 setup
+    7. game_turn            turn 7                  turn 7                  game
+
+  # Savegame Content
+    > time
+    ! page <-> current program page ("setup", "play", "end" or "over") --> autosave while in menu ???? ==> if user load a wrong page, then he is redirected (except for launch) ???
+    ! setup
+      ^ game mode
+      ^ current mission (e.g. "m04")
+      ^ campaign record
+      ^ marine teams
+        | rank   0-4 >>> 1-4 order cards
+        | awards 0-4 >>> 4-8 equipement cards
+        | weapons setup
+        | orders / equipment setup
+      ^ alien team (depend either on mission [Campaign], either on Ranking [Skirmish])
+        | rank   0-4 >>> 0-3 event cards
+        | awards 0-4 >>> 0-4 marks of chaos
+    > game
+    > pawn
+    > main (chunk)
+    > scen (chunk)
+    > term (chunk)
+    > tool (chunk)
+
+================================================================================
+--------------------------------------------------------------------------------
+# Setup Definition
+--------------------------------------------------------------------------------
+================================================================================
+
+  "setup" : {
+    "mode" : "campaign",
+    "map" : "m11",
+    "campaign" : {
+      "failures" : 3,
+      "m01" : {
+        "winner" : ["red"],
+        "red"  : 112,
+        "gold" : null,
+        "blue" : null,
+        "alien : 10
+      },
+      "m02" : {
+        "winner" : ["alien"],
+        "red"  : null,
+        "gold" : 97,
+        "blue" : null,
+        "alien : 50
+      },
+      "m03" : {
+        "winner" : ["alien"],
+        "red"  : null,
+        "gold" : null,
+        "blue" : 112,
+        "alien : 35
+      },
+      "m04" : {
+        "winner" : ["gold"],
+        "red"  : 75,
+        "gold" : 65,
+        "blue" : null,
+        "alien : 40
+      },
+      "m05" : {
+        "winner" : ["red"],
+        "red"  : 60,
+        "gold" : null,
+        "blue" : 56,
+        "alien : 25
+      },
+      "m06" : {
+        "winner" : ["alien"],
+        "red"  : null,
+        "gold" : 55,
+        "blue" : 79,
+        "alien : 30
+      },
+      "m07" : {
+        "winner" : ["red"],
+        "red"  : 102,
+        "gold" : 60,
+        "blue" : null,
+        "alien : 55
+      },
+      "m08" : {
+        "winner" : ["red", "gold"],
+        "red"  : 88,
+        "gold" : 100,
+        "blue" : null,
+        "alien : 40
+      },
+      "m09" : {
+        "winner" : ["alien"],
+        "red"  : 75,
+        "gold" : null,
+        "blue" : 84,
+        "alien : 70
+      },
+      "m10" : {
+        "winner" : ["gold"],
+        "red"  : 32,
+        "gold" : 76,
+        "blue" : 90,
+        "alien : 45
+      },
+      "m11" : {},
+      "m12" : {}
+    },
+    "team" : {
+      "red" : {
+        "state" : null,
+        "rank" : 3,
+        "awards" : 0,
+        "weapons" : {
+          "commander" : "glove_sword",
+          "trooper_1" : "bloter",
+          "trooper_2" : "bloter",
+          "trooper_3" : "bloter",
+          "trooper_4" : "machine_gun"
+        },
+        "order" : {
+          "fire" : false,
+          "move_it" : true,
+          "close_assault" : true,
+          "photon_grenades" : true
+        },
+        "equipment" : {
+          "flash_grenade" : false,
+          "fission_bomb" : false,
+          "bionic_arm" : false,
+          "force_field" : true,
+          "assault_blades" : true,
+          "blot_pistol" : true,
+          "targeter_1" : "bloter",
+          "targeter_2" : null
+        }
+      },
+      "gold" : {
+        "state" : null,
+        "rank" : 2,
+        "awards" : 3,
+        "weapons" : {
+          "commander" : "heavy_bloter",
+          "trooper_1" : "bloter",
+          "trooper_2" : "machine_gun",
+          "trooper_3" : "rocket_launcher",
+          "trooper_4" : "plasma_cannon"
+        },
+        "order" : {
+          "fire" : false,
+          "move_it" : false,
+          "by_sections" : true,
+          "heavy_weapon" : true
+        },
+        "equipment" : {
+          "flash_grenade" : true,
+          "fission_bomb" : true,
+          "bionic_eye" : true,
+          "dual_weapon" : true,
+          "suspensors" : true,
+          "blot_pistol" : false,
+          "targeter_1" : "rocket_launcher",
+          "targeter_2" : "plasma_cannon"
+        }
+      },
+      "blue" : {
+        "state" : "awol",
+        "rank" : 2,
+        "awards" : 1,
+        "weapons" : {
+          "commander" : "pistol_axe",
+          "trooper_1" : "bloter",
+          "trooper_2" : "bloter",
+          "trooper_3" : "machine_gun",
+          "trooper_4" : "plasma_cannon"
+        },
+        "order" : {
+          "fire" : true,
+          "move_it" : true,
+          "by_sections" : false,
+          "close_assault" : false
+        },
+        "equipment" : {
+          "flash_grenade" : false,
+          "fission_bomb" : false,
+          "bionic_hand" : true,
+          "xeno_sensor" : true,
+          "med_pack" : true,
+          "blot_pistol" : false,
+          "targeter_1" : "machine_gun",
+          "targeter_2" : "plasma_cannon"
+        }
+      },
+      "alien" : {
+        "rank" : 1,
+        "awards" : 2
+      }
+    }
+  }
+
+================================================================================
+--------------------------------------------------------------------------------
+# Menus
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Main
+    Campaign
+    Skirmish
+    Continue (load last savegame)
+    Load Game (load any savegame)
+    Settings
+
+  # Ingame (hit Escape)
+    Load Game
+    Save Game
+    Settings
+    Restart
+    Quit
 
 ================================================================================
 --------------------------------------------------------------------------------
@@ -379,7 +657,7 @@
     Org:
       when close to door (only lineal), button is enable ; on click, the door is opened ; it is not possile to close the door
       on move range, the passage is clear beyond the door and the door is automatically opened while char stop by
-    New: when close to door (including diagonal), button is enable ; on click, the is hilighted ; on click on the door, the door is opened ; it is possible to close the door again with another 'switch_door' action
+    New: when close to door (including diagonal), button is enable ; on click, the button is hilighted ; on click on the door, the door is opened ; it is possible to close the door again with another 'switch_door' action
 
   Behaviour                 Org         New         Req
   | Switch on diagonal      -           +           Confirm switch
@@ -418,7 +696,7 @@
 
   Matter is that the alien reinforcement system is not really proper for a well-balanced game.
   Original concept is to increase the number of alien reinforcements when the number of marine teams increases.
-  This mechanic is good if all the missions are supposed to have an equivalent difficulty (i.e. 'single-map' mode).
+  This mechanic is good if all the missions are supposed to have an equivalent difficulty (i.e. 'skirmish' mode).
   But in addition to that mechanic, the number of alien reinforcements is also increased for difficulty progression (i.e. 'campaign' mode).
   It seems that the same lever was used to produce different effects.
   In the end, this tends to makes things really harder for single-team marine players.
@@ -430,7 +708,7 @@
   * CONC : bad idea ; if the map isn't resized, this will result in almost 'empty' maps on early missions
 
   IDEA 2 : re-design campaign system (see 'Project' section)
-  > PRO1 : permits to solve the difficulty balancing issue (by defining a 'wise' blips/tokens/rank setup)
+  > PRO1 : permits to solve the difficulty balance issue (by defining a 'wise' blips/tokens/rank setup)
   > PRO2 : prevents weakest team left behind strategy (i.e. choosing of only the strongest team)
   > PRO3 : prevents boring 'farming' capability (i.e. replay an easy mission until a team has reached highest rank)
   > CONT : breaks the board game original gameplay... but this project is a video game, right?
@@ -446,7 +724,7 @@
   * RES1 : bad idea ; since alien reinforcements do not play at once (spawned at the end of the alien turn), marine members can shoot them 'freely' (i.e. automatic 'first blood')
   * RES2 : bad idea ; assuming marine players know the alien spawns locations, then marine members can also 'camp' at spawning areas in order to mark 'easy' points
 
-  IDEA 2 : put reinforcement stage before acting stage (i.e. reinforce, then play)
+  IDEA 2 : put reinforcement phase before acting phase (i.e. reinforce, then play)
 
   IDEA 3 : use dispatched spawn points all over the map instead of big spawning areas (or maybe a mix of both ; which should be even better)
 
@@ -622,6 +900,8 @@
           "fleshripper",
           // EXTRAS
           "auto_defence",
+          "auto_defence",
+          "fleshripper",
           "fleshripper",
           "fleshripper"
         ]
@@ -714,4 +994,3 @@
     {{melee|range}}.length = number of attacks
     {{melee|range}}[0][0] = number of dice for first attack (1 to 3)
     {{melee|range}}[1][0] = light weapon die for second attack #1 (true = heavy weapon, false = light weapon)
-

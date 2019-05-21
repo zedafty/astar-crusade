@@ -112,4 +112,3 @@
       }
       console.log(a[i] + " (" + angle.toFixed(2) + ") >>>> x = " + add_x + " y = " + -add_y);
     }
-

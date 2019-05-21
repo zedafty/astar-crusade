@@ -286,7 +286,7 @@
 				// * File API
 				let file = this.files[0]; // only first in list ; no multiple selection allowed
 				let type = file.type; // remember MIME type
-				// * FileReadr API
+				// * FileReader API
 				let reader = new FileReader();
 				reader.readAsBinaryString(file);
 				reader.addEventListener("loadend", function() {

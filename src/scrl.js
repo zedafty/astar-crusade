@@ -365,4 +365,3 @@ document.querySelector("#scroll_up").addEventListener("click", function() {bindS
 document.querySelector("#scroll_lt").addEventListener("click", function() {bindScrollButton(1, 0)});
 document.querySelector("#scroll_rt").addEventListener("click", function() {bindScrollButton(-1, 0)});
 document.querySelector("#scroll_dn").addEventListener("click", function() {bindScrollButton(0, -1)});
-

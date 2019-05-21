@@ -1,8 +1,9 @@
 /*
 
-	mdal.css
+	style.css
 
 */
+
 
 /* ========================================================================== */
 /* -------------------------------------------------------------------------- */
@@ -11,135 +12,349 @@
 /* ========================================================================== */
 
 /* ////////////////////////////////////////////////////////////////////////// */
-/* @ Basics */
-/* ////////////////////////////////////////////////////////////////////////// */
-
-#modal button:focus {
-	background-color: rgb(224,224,255);
-	outline: 0;
-}
-
-#modal button:hover {
-	background-color: mediumspringgreen;
-}
-
-#modal button:active {
-	background-color: mediumseagreen;
-}
-
-#modal button::-moz-focus-inner {
-	border: 0;
-}
-
-#modal h4 {
-	margin-bottom: 24px;
-	font-size: 24px;
-	line-height: 32px;
-	font-family: 'Segoe UI Semibold', sans-serif;
-}
-
-/* ////////////////////////////////////////////////////////////////////////// */
-/* @ Container */
+/* @ Containers */
 /* ////////////////////////////////////////////////////////////////////////// */
 
 #modal_wrap {
-	width: inherit;
-	height: inherit;
-	background-color: transparent;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.875);
 	transition-property: background-color;
 	z-index: 100;
 }
-#modal_wrap.open {}
 
 #modal {
-	width: 100%;
-	height: auto;
-	top: 12.5%;
-	left: 50%;
-	margin-left: -25%;
-	padding: 32px;
+	width: 800px;
+	height: 600px;
 	color: white;
+	font-size: 0;
 	font-family: 'Segoe UI', sans-serif;
-	border-radius: 16px;
+	border-radius: 8px;
 	background-color: rgba(144,64,176,.625);
 	box-sizing: border-box;
 }
 
-@media screen and (min-width: 481px) and (max-width: 960px) {#modal {width: 90%; margin-left: -45%;}}
-@media screen and (min-width: 961px) and (max-width: 1280px) {#modal {width: 70%; margin-left: -35%;}}
-@media screen and (min-width: 1281px) and (max-width: 1920px) {#modal {width: 55%; margin-left: -27.5%;}}
-
-.close {
-	position: absolute;
-	width: 48px;
-	height: 44px;
-	right: 0;
-	top: 0;
-	background-color: rgba(255,255,0,.5);
-	background-color: transparent;
-	z-index: 1;
+#modal_content {
+	width: 736px;
+	height: inherit;
+	left: 32px;
+	top: 0px;
 }
 
-.close span {
-	position: absolute;
-	width: 28px;
-	height: 4px;
-	left: 10px;
-	background-color: white;
+#modal.tiny {
+	width: 320px;
+	height: 336px;
 }
 
-.close span:nth-of-type(1) {left: 10px; top: 20px; transform: rotate(45deg);}
-.close span:nth-of-type(2) {left: 10px; top: 20px; transform: rotate(-45deg);}
-
-.close:hover span,
-.close:focus span {
-	background-color: #222;
+#modal.tiny #modal_content {
+	width: 288px;
+	left: 16px;
 }
 
-/* ////////////////////////////////////////////////////////////////////////// */
-/* @ Lines */
-/* ////////////////////////////////////////////////////////////////////////// */
+#keys,
+#slots {
+	left: 0;
+	top: 80px;
+	height: 432px;
+	width: 736px;
+}
 
-.line {height: 40px;}
-.line,
-.line div {
-	display: inline-block;
+#keys div,
+#slots div {
 	position: relative;
 }
 
-@media screen and (max-width: 959px) {.line {width: 100%;}}
-@media screen and (min-width: 960px) and (max-width: 1279px) {.line {width: 50%;}}
-@media screen and (min-width: 1280px) {.line {width: 33.333333333333333333333333333333%;}
+[data-nav-row] {
+	display: block;
+}
 
-.line div {font-size: 20px;}
-.line div:nth-child(odd) {
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Texts */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#modal h4,
+#modal em,
+#modal strong,
+#modal kbd {
+	font-style: normal;
+	font-weight: normal;
+	font-family: 'Segoe UI Semibold', sans-serif;
+}
+
+#modal h4 {
+	margin: 0;
+	height: 80px;
+	line-height: 80px;
+	font-size: 24px;
+	text-align: center;
+}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Inputs */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+@keyframes input-focus {
+	0%   {border-color: white; color: white;}
+	100% {border-color: rgba(224,224,255,.375); color: rgba(224,224,255,.375);}
+}
+@keyframes input-focus-hover {
+	0%   {border-color: mediumspringgreen; color: mediumspringgreen;}
+	50%  {border-color: rgba(224,224,255,.375); color: rgba(224,224,255,.375);}
+	100% {border-color: white; color: white;}
+}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Buttons */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#modal button {
+	color: #222;
+	font-size: 13px;
+	font-family: 'Segoe UI', sans-serif;
+	border: 2px solid transparent;
+	border-radius: 2px;
+	background-color: rgba(192,192,240,.625);
+	box-sizing: content-box;
+}
+#modal button.small {width: 60px; height: 30px;}
+#modal button.large {width: 80px; height: 40px;}
+#modal button.block {
+	display: block;
+	width: 100%;
+	height: 48px;
+	font-size: 20px;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+#modal button.round {
+	height: 30px;
+	border-color: white;
+	border-radius: 30px;
+}
+#modal button:focus:not(:disabled) {background-color: rgba(224,224,255,.875); outline: 0;}
+#modal button:hover:not(:disabled) {background-color: mediumspringgreen;}
+#modal button:active:not(:disabled) {background-color: mediumseagreen;}
+#modal button:disabled {opacity: .25;}
+#modal button.revert {color: white; background-color: transparent;}
+#modal button.revert:focus:not(:disabled),
+#modal button.revert:hover:not(:disabled),
+#modal button.revert:active:not(:disabled) {color: #222;}
+#modal button.round:hover:not(:disabled) {color: mediumspringgreen; border-color: mediumspringgreen;}
+#modal button::-moz-focus-inner {border: 0;}
+
+#buttons {
+	position: absolute;
+	left: 0;
+	top: 520px;
+	width: 736px;
+	height: 80px;
+}
+#buttons button {
+	position: absolute;
+	top: 16px;
+}
+#buttons button.large {
+	top: 12px;
+}
+#reset_keymap,
+#delete_slot {left: 0;}
+#save_slot,
+#load_slot {left: 328px;}
+
+#change_keyboard_layout {
+	left: 312px;
+	width: 112px;
+	background-color: transparent !important;
+	opacity: .5;
+}
+#change_keyboard_layout:focus {animation: .75s linear 0s infinite alternate none running input-focus;}
+#change_keyboard_layout:focus:hover {animation-name: input-focus-hover; animation-duration: 1.5s;}
+#change_keyboard_layout:hover,
+#change_keyboard_layout:focus {opacity: 1;}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Close */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#close {
+	position: absolute;
+	right: 16px;
+	top: 16px;
+	width: 44px;
+	height: 44px;
+	font-size: 0 !important;
+	border-radius: 4px !important;
+	z-index: 1;
+}
+
+#close:before,
+#close:after {
+	content: '';
+	position: absolute;
+	left: 8px;
+	top: 20px;
+	width: 28px;
+	height: 4px;
+	background-color: white;
+}
+#close:before {transform: rotate(45deg);}
+#close:after {transform: rotate(-45deg);}
+#close:hover:before,
+#close:hover:after,
+#close:focus:before,
+#close:focus:after {background-color: #222;}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Menu */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#menu {
+	width: inherit;
+}
+
+#menu button:not(:last-of-type) {
+	margin-bottom: 16px;
+}
+
+#menu button kbd {
+	position: absolute;
+	left: 12px;
+	top: 12px;
+	height: 24px;
+	padding: 0px 4px;
+	font-size: 12px;
+	line-height: 20px;
+	border-radius: 4px;
+	border: 2px solid white;
+	box-sizing: border-box;
+	opacity: .375;
+}
+
+#menu button:hover kbd ,
+#menu button:focus kbd,
+#menu button:active kbd {
+	border-color: #222;
+}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Keymap */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+.key {height: 40px;}
+.key,
+.key div {
+	display: inline-block;
+}
+.key {width: 33.333333333333333333333333333333%;}
+.key div {font-size: 20px;}
+.key div:nth-child(odd) {
 	width: 35%;
 	text-align: center;
 	background-color: rgba(255,255,0,.5);
 	background-color: transparent;
 }
-.line div:nth-child(even) {
+.key div:nth-child(even) {
 	width: 65%;
 	color: whitesmoke;
 	background-color: rgba(255,0,0,.5);
 	background-color: transparent;
 }
-.line div strong,
-.line div em {
-	font-style: normal;
-	font-weight: normal;
-	font-family: 'Segoe UI Semibold', sans-serif;
-}
-.line div strong {
+.key kbd {
+	position: relative;
 	display: inline-block;
 	min-width: 16px;
+	height: 28px;
+	line-height: 28px;
 	padding: 0 6px;
 	color: mediumspringgreen;
 	background-color: rgba(0,0,0,.25);
-	border: 2px solid rgba(255,255,255,.5);
+	border: 2px solid rgba(224,224,255,.375);
 	border-radius: 4px;
 }
-.line div em {color: gold;}
-.line div small {color: silver;}
-.line div u {text-decoration: underline solid darkgoldenrod;}
+.key em {color: gold;}
+.key small {color: silver;}
+.key u {text-decoration: underline solid darkgoldenrod;}
 
+[data-command]:hover {border-color: mediumspringgreen;}
+[data-command]:focus {border-color: white; color: white; outline: 0; animation: .75s linear 0s infinite alternate none running input-focus;}
+[data-command]:focus:hover {animation-name: input-focus-hover; animation-duration: 1.5s;}
+[data-command].edit {animation: .75s linear 0s infinite alternate none running key-edit !important; box-shadow: 0 0 6px 3px rgba(255,208,0,.375);}
+[data-command].error.wrong {color: red !important;}
+[data-command].error:before {
+	position: absolute;
+	top: -10px;
+	left: -10px;
+	width: 20px;
+	height: 20px;
+	font-size: 14px;
+	text-align: center;
+	line-height: 20px;
+	border-radius: 100%;
+	background-color: yellow;
+	animation-duration: .25s;
+	animation-iteration-count: 4;
+	animation-direction: alternate;
+}
+[data-command].error.warning:before,
+[data-command].error.forbidden:before {
+	animation-name: key-error;
+}
+[data-command].error.warning:before {
+	content: '!';
+	color: black;
+	background-color: yellow;
+}
+[data-command].error.forbidden:before {
+	content: '‼';
+	color: white;
+	background-color: red;
+}
+@keyframes key-edit {
+	0%   {border-color: yellow; color: yellow;}
+	100% {border-color: rgba(224,224,255,.375); color: rgba(224,224,255,.375);}
+}
+@keyframes key-error {
+	0%   {top: -10px; left: -10px; width: 20px; height: 20px; line-height: 20px;}
+	100% {top: -12px; left: -12px; width: 24px; height: 24px; line-height: 24px;}
+}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Slots */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+.slot {
+	display: inline-block;
+	width: 360px;
+	height: 76px;
+	margin-bottom: 8px;
+	border: 2px solid transparent;
+	border-radius: 4px;
+	background-color: rgba(0,0,0,.375);
+}
+.slot:nth-child(odd) {margin-right: 8px;}
+.slot:hover:not(.disabled) {border-color: mediumspringgreen; color: mediumspringgreen;}
+.slot:focus:not(.disabled) {border-color: rgb(224,224,255); outline: 0; animation: .75s linear 0s infinite alternate none running input-focus;}
+.slot:focus:hover:not(.disabled) {animation-name: input-focus-hover; animation-duration: 1.5s;}
+.slot.active {background-color: rgba(0,0,0,.625);}
+.slot.disabled {opacity: .25;}
+.slot > div {position: relative; display: inline-block; height: inherit;}
+.slot > div:nth-child(1) {float: left; width: 76px; line-height: 76px; font-size: 14px; text-align: center; text-transform: uppercase;}
+.slot > div:nth-child(2) {float: right; width: 282px;}
+.slot p {position: absolute; left: 4px; height: 24px; line-height: 24px; margin: 0; font-size: 14px;}
+.slot p:first-child {color: gold; text-transform: uppercase;}
+.slot p:nth-child(1) {top: 26px;}
+.slot p:nth-child(2) {top: 0;}
+.slot p:nth-child(3) {top: 52px;}
+.slot img {width: 76px; height: 76px; background-color: black;}
+.slot time {
+	position: absolute;
+	top: 0;
+	right: 8px;
+	font-size: 11px;
+	opacity: .75;
+}
+.slot small {opacity: .875;}
+.slot .campaign {color: dodgerblue;}
+.slot .skirmish {color: red;}

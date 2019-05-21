@@ -8,9 +8,10 @@
   ° Events
   ° Reinforcement
   ° Score
-  ! Game Manager (savegame)
+  ° Savegame Manager
+  ! User Settings
   ! Sounds
-  ! Tooltips
+  ? Tooltips
   ! Team Configuration
   ! Game Configuration
   ! Debrief
@@ -40,6 +41,11 @@
   * Graphics
   ! ENH  : position muzzle ajustement toward radian rotation
   ! IDEA : draw an aim reticle when a [target/focus] is out of screen
+  ? ENH  : deactivated toolbar and main focusable elements when modal is active
+
+  * User Interface
+  ! TODO : ingame visible marine player and alien player ranks (alien player is represented by the alien face visible when alien player plays ; the higher the rank, the more detailed the face is)
+  ! IDEA : when an alien kills a marine, alien the face laugh with a naughty grin ; when an alien is killed by a marine during alien turn, then the alien face winces
 
   * Performance
   ! IDEA : use a web worker for tile scan triggered at move start instead of at move end
@@ -84,9 +90,9 @@
     ! custom tooltip box that replace native tooltips
 
   > Modal
-    ~ keymap
-    ! settings
-    ! load game
+    ° keymap
+    ° savegame manager
+    ! user settings
 
   > Tool
     ° off-canvas panel
@@ -147,9 +153,12 @@
       > added specific die roll zero animation with fixed border-color property
     ° Webkit mouse third button event not triggered => mouse event 'click' is only fired with left mouse button
       > use mouse event 'mouseup' instead of 'click'
-    ! Webkit CORS policy with local hosted images
-      * use --allow-file-access-from-files argument on browser (only dev)
-      ! encode images which are to affected by pixel manipulation into base64 (i.e. embedded in script ; no conflict)
+    ° Webkit CORS policy with local hosted images
+      * use '--allow-file-access-from-files' argument on browser (only dev)
+      ° encode images which are to be affected by pixel manipulation into base64 (i.e. embedded in script ; no conflict)
+    ! Brave security policy prevents local storage usage
+      * no fix right now ; eventually, go to brave://settings/ and under 'Brave shields defaults' header set 'Cookie Control' to 'Allow all cookies'
+    ! Brave => scrolling slow + mouse cursor image lag
     ! Firefox Choice arrows misplacement while on fullscreen => transform scale mess with border based arrow ; no fix for now
     ? Firefox SVG misplacement while screen is resized => transform scale mess with SVG
       ? use full joined path instead of multiple squares
@@ -252,7 +261,7 @@
     ! use counter for main.save.prevent instead of boolean (case of multiple prevented save occurences ; e.g. scroll + switching door at same time)
 
 # Log
-  * retrieve last 5 to 10 log lines when savegame loaded
+  * retrieve last 5 to 10 log lines when savegame loaded => BAD IDEA
   ~ put 'actions' into var and output to console: move (from to), attack (fail, success, dice)
 
 ================================================================================
@@ -263,7 +272,7 @@
 
   ° When a character movement is interrupted due to an hidden character, the hidden character turn toward the moving character
   ° Extend screen.max_x and screen.max_y on zoom in or out
-  ° Cancel pending action on Enter or Backspace key pressed or on right mouse click
+  ° Cancel pending action on Backspace or Escape key pressed or on right mouse click
   * Cancel pending action when left clicked on anything but range instead of shaking screen => mouse scroll
   ? Look at the most interesting object in vicinity at move end
     > Hostile
@@ -290,7 +299,15 @@
   ° Two diagonal blocks obstruct sight as per core rules ("line of sight may not be traced between two miniatures that are diagonally adjacent"), but only for unreachable tiles (i.e. if a character is adjacent to diagonal blocks, then line sight isn't obstructed)
   ! Map size reduced (30x30 tiles excluding docking claws instead of 40x40 tiles including docking claws)
   ° Scan radius reduced (commander 9 instead of 12, trooper 6 instead of 7)
-  ° Maximum number of turns reduced (28 instead of 40)
+  ° Reinforcements areas dispatched all over the map, unlike original board game [modified rule]
+  ° Maximum number of turns reduced (30 instead of 40 in original video game and 28 in original board game) [modified rule]
+  ° Marine commander and limbo commander worth 15 points instead of a mere 10 points [modified rule]
+  ° Limbo commanders have 3 life points instead of only 1 life point [modified rule]
+  ° Alien player can pick up to 3 Auto Defence event cards (instead of 2)
+  ° Alien player can pick up to 4 Fleshripper event cards (instead of 3)
+  ? Marks of Chaos provide Purple Reinforcement Tokens instead of Extra Reinforcement Tokens (those four new tokens all spawn a fleshripper unit, providing there is enough fleshripper pawns for them to be used) [modified rule]
+  ? Marine players have to choose their docking claws in the reverse of the normal play order (i.e. blue, gold and red) [new rule]
+  ? Team kills (i.e. marine killing another marine in other team) are punished by a 10 points loss applied to the team of the killer marine ; team of the killed marine do not lose points due to unit loss [new rule]
   * Doors can be closed (and kill things on rail) * DEPRECATED
   * Only hostiles can be targetted * DEPRECATED
 
@@ -313,18 +330,18 @@
   ° Self-Destruction: event effect is applied instantly (played during event time and not play time)
 
   # Ranges
-  ° Replace move range and <xeno_sensor> darkened unselected tiles by colored selectable tiles
+  ° Replace move range and <xeno_sensor> darkened unselectable tiles by colored selectable tiles
   ! Alien shoot range not displayed instead only target is shown
 
   # Monitor
   ! Only one type of 'interference' (noise or scanline) => unable to determine under which condition a graphic is displayed and not the other...
 
-  # Marine Out
-  ° Text displayed on report instead of terminal
+  # Texts
+  ° Text 'Marine out' (when a marine exit on docking claws) displayed on monitor instead of terminal
 
   # Sprites
-  ° Revert <pistol_axe> weapons (pistol in right hand, axe in left hand instead of pistol in left hand, axe in right hand) => face not hidden by axe
-  ° Revert <glove_sword> weapons (glove in right hand, sword in right hand instead of glove in left hand, sword in right hand) => face not hidden by sword
+  ° Invert <pistol_axe> weapons (pistol in right hand, axe in left hand instead of pistol in left hand, axe in right hand) => face not hidden by axe
+  ° Invert <glove_sword> weapons (glove in right hand, sword in right hand instead of glove in left hand, sword in right hand) => face not hidden by sword
   ° Gremkin drawn with random drab colors instead of blue coat
   ° Scrof drawn with random drab colors instead of red and gold armor
   ° Juggernaut recolored (dark gray, orange and red instead of blue, green and red)
@@ -392,7 +409,7 @@
   # Events
   ° Add unimplemented original board game events (New Order, Battle Plan, Scrof Mechatek, Re-Deploy, Alien Teleporter, Alien Task Force)
   ° Add events effects textual reporting (known effects explicitly, unknown effects and events failures generally)
-  ° Out of Ammo: heavy weapon lost is replaced with a bloter affected by weapon modifications (targetter, blade and blot_pistol)
+  ° Out of Ammo: heavy weapon lost is replaced with a bloter affected by weapon modifications (targeter, blade and blot_pistol)
   ° Frenzy: affected character displayed with red skin
   ° Alien Elite: affected character displayed with blue skin
 
@@ -421,9 +438,9 @@
   - F1      show keymap                     trigger                         *
   - F2      show tool                       trigger                         *
   * F5      quicksave game (override)       trigger                         Reload Page (standard)
-  - F8      quicksave game (override)       trigger                         *
-  - F9      quickload game                  trigger                         *
-  * F10     toggle sound/music              trigger                         Show Menu (Firefox)
+  - F8      save game                       trigger                         *
+  - F9      load game                       trigger                         *
+  ? F10     toggle sound/music              trigger                         Show Menu (Firefox)
   * F12     quit                            trigger                         Console (Firefox)
     Plus    zoom in                         repeat                          *
     Minus   zoom out                        repeat                          *
@@ -435,7 +452,8 @@
   - Right   scroll right one tile           repeat                          *
   - Down    scroll down one tile            repeat                          *
   - Pause   [Pause] game                    trigger                         *
-  - Key P   [P]ause game (bis)              trigger                         *
+  ? Key Q   Quicksave (override)            trigger                         *
+  ? Key L   Quickload                       trigger                         *
   - Key F   [F]ullscreen                    trigger                         *
   - Key C   [C]enter to focus               trigger                         *
   - Key S   [S]croll by mouse               repeat                          *
@@ -444,7 +462,7 @@
   - Key 3   select member [3]               trigger + double-trigger        *
   - Key 4   select member [4]               trigger + double-trigger        *
   - Key 5   select member [5]               trigger + double-trigger        *
-  - Key M   [M]oVe                          trigger                         *
+  - Key M   [M]ove                          trigger                         *
   - Key R   attack [R]ange                  trigger                         *
   - Key A   [A]ttack melee                  trigger                         *
   - Key O   give [O]rder                    trigger                         *
@@ -474,4 +492,3 @@
       |    > registered in local storage                       |
        \__ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ ___/
           \________________________________________________/
-

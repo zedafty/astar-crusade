@@ -229,13 +229,12 @@
   - Günter (text -> Ho... you touch my tralala!)
   - Meme (text -> All of your base are belong to us)
   + Daft Punk -> Around the Wold
-  + Prodigy -> Outer Space (https://www.youtube.com/watch?v=FnYXxkN0cBE)
+  + Prodigy -> Outer Space [https://www.youtube.com/watch?v=FnYXxkN0cBE]
   + Sauerbraten?
   + UB40 / M83?
 
 # Heroic Commanders Cameos
   > Red Angels  => Sarge (Quake 3)
   > Golden Arms => Jax (Mortal Kombat)
-  > Hyperblue   => [Cammy] White (Street Fighter)
+  > Blue Hypers => [Cammy] White (Street Fighter)
   + Heroes are diamond and for that reason they never die ; instead they spring out from the void where their remains lie, fresh and ready to fight again and again and again!
-

@@ -1,6 +1,6 @@
 /*
 
-	base.css
+	main.css
 
 */
 
@@ -65,7 +65,7 @@
 html {}
 
 body {
-	overflow: hidden; /* VERY TEMP : prevent main from overflowing when enlarged and window is resized (i.e. during 100ms main is out of window edges) */
+	overflow: hidden; /* TEMP : prevent main from overflowing when enlarged and window is resized (i.e. during 100ms main is out of window edges) */
 	margin: auto;
 	color: white;
 	background-color: black;
@@ -106,6 +106,36 @@ button {
 	border: none;
 	background: transparent;
 }
+
+/* ========================================================================== */
+/* -------------------------------------------------------------------------- */
+/* # User Experience */
+/* -------------------------------------------------------------------------- */
+/* ========================================================================== */
+
+/* No user select*/
+
+.no-user-select {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	/* user-select: none; */
+}
+
+/* Sharp rendering */
+
+.sharp-rendering {
+	/* image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+	/* image-rendering: -moz-crisp-edges;          /* Firefox                        */
+	/* image-rendering: -o-crisp-edges;            /* Opera                          */
+	/* image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+	/* image-rendering: pixelated;                 /* Chrome */
+	/* image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+	/* -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+}
+
 
 /* ========================================================================== */
 /* -------------------------------------------------------------------------- */
@@ -228,27 +258,6 @@ button {
 /* ////////////////////////////////////////////////////////////////////////// */
 /* @ Main */
 /* ////////////////////////////////////////////////////////////////////////// */
-
-#main {
-
-	/* No user select*/
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	/*user-select: none;*/
-
-	/* Sharp rendering */
-	/* image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
-	/* image-rendering: -moz-crisp-edges;          /* Firefox                        */
-	/* image-rendering: -o-crisp-edges;            /* Opera                          */
-	/* image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
-	/* image-rendering: pixelated; /* Chrome */
-	/* image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
-	/* -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
-
-}
 
 #main button {
 	outline: 0;
@@ -765,7 +774,7 @@ button {
 	top: 48px;
 	width: 64px;
 	height: 64px;
-	background-image: url('../res/ui/term/choice.png');
+	background-image: url('../res/ui/orders_equip.png');
 	background-position-x: 64px;
 	background-position-y: 64px;
 }
@@ -808,12 +817,21 @@ button {
 #choice .flash_grenade {background-position-x: 0 !important;}
 #choice .move_it,
 #choice .fission_bomb {background-position-x: -64px !important;}
-#choice .by_sections,
 #choice .photon_grenades,
-#choice .xeno_sensor {background-position-x: -128px !important;}
+#choice .by_sections,
+#choice .blot_pistols {background-position-x: -128px !important;}
 #choice .close_assault,
 #choice .heavy_weapon,
-#choice .med_pack {background-position-x: -192px !important;}
+#choice .targeter {background-position-x: -192px !important;}
+#choice .assault_blades,
+#choice .suspensors,
+#choice .xeno_sensor {background-position-x: -256px !important;}
+#choice .bionic_arm,
+#choice .bionic_eye,
+#choice .bionic_hand {background-position-x: -320px !important;}
+#choice .force_field,
+#choice .dual_weapon,
+#choice .med_pack {background-position-x: -384px !important;}
 
 #main:not(.pause) #choice .prev:hover {border-right-color: goldenrod;}
 #main:not(.pause) #choice .next:hover {border-left-color: goldenrod;}
@@ -1244,4 +1262,3 @@ button {
 #screen_enlarge {background-position: -32px 0;}
 #mouse_scroll.active {background-position: 0 -32px;}
 #screen_enlarge.active {background-position: -32px -32px;}
-

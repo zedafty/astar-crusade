@@ -3,49 +3,6 @@
 	util.js
 
 */
-// =============================================================================
-// -----------------------------------------------------------------------------
-// # Cross-browser Prefixed Methods Short-hands
-// -----------------------------------------------------------------------------
-// =============================================================================
-
-/**
-
-	View in fullscreen
-	https://www.w3schools.com/jsref/met_element_requestfullscreen.asp
-
-*/
-
-function requestFullscreen(o) { // o = DOM object
-	if (o.requestFullscreen) {
-		o.requestFullscreen();
-	} else if (o.mozRequestFullScreen) { // Firefox
-		o.mozRequestFullScreen();
-	} else if (o.webkitRequestFullscreen) { // Chrome, Safari and Opera
-		o.webkitRequestFullscreen();
-	} else if (o.msRequestFullscreen) { // Internet Explorer and Edge
-		o.msRequestFullscreen();
-	}
-}
-
-/**
-
-	Close fullscreen
-	https://www.w3schools.com/jsref/met_element_exitfullscreen.asp
-
-*/
-
-function exitFullscreen(o) { // o = DOM object
-	if (document.exitFullscreen) {
-		document.exitFullscreen();
-	} else if (document.mozCancelFullScreen) { // Firefox
-		document.mozCancelFullScreen();
-	} else if (document.webkitExitFullscreen) { // Chrome, Safari and Opera
-		document.webkitExitFullscreen();
-	} else if (document.msExitFullscreen) { // Internet Explorer and Edge
-		document.msExitFullscreen();
-	}
-}
 
 // =============================================================================
 // -----------------------------------------------------------------------------
@@ -179,7 +136,7 @@ function leadZero(num, max) { // num = integer, max = maximum ; returns string
 
 /**
 
-	Replace some '%n' tokens in a given string by some replacement string values.
+	Replaces some '%n' tokens in a given string by some replacement string values.
 
 */
 
@@ -188,6 +145,141 @@ function fstr(s, r) { // s = string, r = replacement (str or arr) ; returns stri
 	if (typeof(r) == "string") r = [r];
 	for (i = 0; i < r.length; i++) s = s.replace(new RegExp("%" + (i + 1), "g"), r[i]);
 	return s;
+}
+
+/**
+
+	Returns the ordinal string of a numeric day
+
+*/
+
+function getNumberOrdinalSuffix(n) { // n = number ; returns string
+	let r = "th";
+	let s = n.toString().split(".")[0];
+	n = parseFloat(s);
+	s = s.substr(-1, 1);
+	if (n < 11 || n > 13) {
+		if (s == "1") r = "st";
+		else if (s == "2") r = "nd";
+		else if (s == "3") r = "rd";
+	} return r;
+}
+
+// =============================================================================
+// -----------------------------------------------------------------------------
+// # Fullscreen API (Cross-browser short-hands)
+// -----------------------------------------------------------------------------
+// =============================================================================
+
+/**
+
+	Turns on browser fullscreen.
+	https://www.w3schools.com/jsref/met_element_requestfullscreen.asp
+
+*/
+
+function requestFullscreen(o) { // o = DOM object
+	if (o.requestFullscreen) {
+		o.requestFullscreen();
+	} else if (o.mozRequestFullScreen) { // Firefox
+		o.mozRequestFullScreen();
+	} else if (o.webkitRequestFullscreen) { // Chrome, Safari and Opera
+		o.webkitRequestFullscreen();
+	} else if (o.msRequestFullscreen) { // Internet Explorer and Edge
+		o.msRequestFullscreen();
+	}
+}
+
+/**
+
+	Turns off browser fullscreen.
+	https://www.w3schools.com/jsref/met_element_exitfullscreen.asp
+
+*/
+
+function exitFullscreen(o) { // o = DOM object
+	if (document.exitFullscreen) {
+		document.exitFullscreen();
+	} else if (document.mozCancelFullScreen) { // Firefox
+		document.mozCancelFullScreen();
+	} else if (document.webkitExitFullscreen) { // Chrome, Safari and Opera
+		document.webkitExitFullscreen();
+	} else if (document.msExitFullscreen) { // Internet Explorer and Edge
+		document.msExitFullscreen();
+	}
+}
+
+// =============================================================================
+// -----------------------------------------------------------------------------
+// # Web Storage API (Convenience short-hands)
+// -----------------------------------------------------------------------------
+// =============================================================================
+
+/**
+
+	Retrieves a web storage item.
+
+*/
+
+function getLocalStorageItem(k) { // k = item key ; returns object
+	return JSON.parse(localStorage.getItem(k));
+}
+
+/**
+
+	Checks if a web storage item exists, and optionally, if its value is defined.
+
+*/
+
+function hasLocalStorageItem(k, b) { // k = item key, b = not null value flag ; returns boolean
+	if (localStorage.hasOwnProperty(k)) {
+		if (b) return getLocalStorageItem(k) != null;
+		else return true;
+	} return false;
+}
+
+/**
+
+	Registers a web storage item, erasing any already existing value.
+
+*/
+
+function setLocalStorageItem(k, v, b) { // k = item key, v = item value, b = replace flag
+	if (b && hasLocalStorageItem(k, true) && typeof(v) == "object") {
+		let r = getLocalStorageItem(k);
+		if (typeof(r) == "object") v = Object.assign(r, v);
+	} localStorage.setItem(k, JSON.stringify(v));
+}
+
+/**
+
+	Registers a web storage item, adding new object values to old one.
+
+*/
+
+function putLocalStorageItem(k, v) { // k = item key, v = item value
+	setLocalStorageItem(k, v, true);
+}
+
+/**
+
+	Removes a web storage item (i.e. delete item).
+
+*/
+
+function removeLocalStorageItem(k, b) { // k = item key, b = null value flag
+	if (b) localStorage.setItem(k, null);
+	else localStorage.removeItem(k);
+}
+
+/**
+
+	Erases a web storage item (i.e. clear item).
+
+*/
+
+function eraseLocalStorageItem(k) { // k = item key
+	removeLocalStorageItem(k, true);
 }
 
 // =============================================================================
@@ -1223,4 +1315,3 @@ function DirToAxis(n) { // n = octogonal direction
 	else return [0,0]; // None
 }
 */
-

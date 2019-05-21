@@ -7,127 +7,21 @@
 		<link rel="stylesheet" href="res/mdal.css">
 		<link rel="stylesheet" href="res/tool.css">
 	</head>
-	<body>
+	<body class="no-user-select">
 
 		<!-- Page -->
 		<div id="page">
 
-			<!-- Modal Wrap -->
-			<div id="modal_wrap" style="display: none;">
-
-				<!-- Modal -->
-				<div id="modal">
-
-					<!-- Close -->
-					<button class="close">
-						<span></span>
-						<span></span>
-					</button>
-
-					<!-- Content -->
-					<h4>Keymap</h4>
-					<div class="line">
-						<div><strong>F1</strong></div>
-						<div><u>Key</u>map</div>
-					</div>
-					<div class="line">
-						<div><strong>F2</strong></div>
-						<div><u>Tool</u>bar</div>
-					</div>
-					<div class="line">
-						<div><strong>F8</strong></div>
-						<div>Quick<u>save</u></div>
-					</div>
-					<div class="line">
-						<div><strong>F9</strong></div>
-						<div>Quick<u>load</u></div>
-					</div>
-					<div class="line">
-						<div><strong>Pause</strong></div>
-						<div><u>Pause</u></div>
-					</div>
-					<div class="line">
-						<div><strong>P</strong></div>
-						<div><u><em>P</em>ause</u> <small>(bis)</small></div>
-					</div>
-					<div class="line">
-						<div><strong>F</strong></div>
-						<div><u><em>F</em>ulls</u>creen</div>
-					</div>
-					<div class="line">
-						<div><strong>C</strong></div>
-						<div><u><em>C</em>enter</u> to focus</div>
-					</div>
-					<div class="line">
-						<div><strong>S</strong></div>
-						<div><u><em>S</em>croll</u> by mouse</div>
-					</div>
-					<div class="line">
-						<div><strong>&larr;</strong></div>
-						<div>Scroll <u>left</u></div>
-					</div>
-					<div class="line">
-						<div><strong>&uarr;</strong></div>
-						<div>Scroll <u>up</u></div>
-					</div>
-					<div class="line">
-						<div><strong>&darr;</strong></div>
-						<div>Scroll <u>down</u></div>
-					</div>
-					<div class="line">
-						<div><strong>&rarr;</strong></div>
-						<div>Scroll <u>right</u></div>
-					</div>
-					<div class="line">
-						<div><strong>+</strong></div>
-						<div>Zoom <u>in</u></div>
-					</div>
-					<div class="line">
-						<div><strong>-</strong></div>
-						<div>Zoom <u>out</u></div>
-					</div>
-					<div class="line">
-						<div><strong>*</strong></div>
-						<div>Zoom <u>100%</u></div>
-					</div>
-					<div class="line">
-						<div><strong>1-5</strong></div>
-						<div><u>Select</u> trooper</div>
-					</div>
-					<div class="line">
-						<div><strong>M</strong></div>
-						<div><u><em>M</em>ove</u></div>
-					</div>
-					<div class="line">
-						<div><strong>R</strong></div>
-						<div>Attack <u><em>R</em>ange</u></div>
-					</div>
-					<div class="line">
-						<div><strong>A</strong></div>
-						<div><em>A</em>ttack <u>melee</u></div>
-					</div>
-					<div class="line">
-						<div><strong>O</strong></div>
-						<div>Give <u><em>O</em>rder</u></div>
-					</div>
-					<div class="line">
-						<div><strong>E</strong></div>
-						<div>Use <u><em>E</em>quipment</u></div>
-					</div>
-					<div class="line">
-						<div><strong>D</strong></div>
-						<div>Switch <u><em>D</em>oor</u></div>
-					</div>
-					<div class="line">
-						<div><strong>K</strong></div>
-						<div><u>S<em>K</em>an</u></div>
-					</div>
-					<div class="line">
-						<div><strong>End</strong></div>
-						<div><u><em>End</em></u> turn</div>
-					</div>
-				</div>
+		<!-- Modal Wrap -->
+		<div id="modal_wrap" style="display: none;">
+			<!-- Modal -->
+			<div id="modal" class="tiny">
+				<!-- Close -->
+				<button id="close" class="revert">Close</button>
+				<!-- Content -->
+				<div id="modal_content"></div>
 			</div>
+		</div>
 
 			<!-- Tool -->
 			<div id="tool" class="open">
@@ -144,7 +38,7 @@
 
 					<div id="tool_scroll">
 						<h4>Scroll</h4>
-						<div>
+						<div class="button-pad">
 							<button id="scroll_nw"></button>
 							<button id="scroll_nn"></button>
 							<button id="scroll_ne"></button>
@@ -159,7 +53,7 @@
 
 					<div id="tool_move">
 						<h4>Move</h4>
-						<div>
+						<div class="button-pad">
 							<button id="move_nw"></button>
 							<button id="move_nn"></button>
 							<button id="move_ne"></button>
@@ -174,28 +68,36 @@
 
 					<div id="tool_zoom">
 						<h4>Zoom</h4>
-						<button id="zoom_out" title="Zoom out">-</button>
-						<button id="zoom_reset" title="Reinitialize zoom level">100%</button>
-						<button id="zoom_in" title="Zoom in">+</button>
+						<div class="button-bar">
+							<button id="zoom_out" title="Zoom out">-</button>
+							<button id="zoom_reset" title="Reinitialize zoom level">100%</button>
+							<button id="zoom_in" title="Zoom in">+</button>
+						</div>
 					</div>
 
 					<div id="tool_detect">
 						<h4>Detect</h4>
-						<button id="detect_sight" title="Show sight range">Sight</button>
-						<button id="detect_sense" title="Show sense range">Sense</button>
-						<button id="detect_los" title="Show line of sight">LoS</button>
+						<div class="button-bar">
+							<button id="detect_sight" title="Show sight range">Sight</button>
+							<button id="detect_sense" title="Show sense range">Sense</button>
+							<button id="detect_los" title="Show line of sight">LoS</button>
+						</div>
 					</div>
 
 					<div id="tool_other">
 						<h4>Limbo's</h4>
-						<button id="limbo_luck" title="All dice score max">Luck</button>
-						<button id="limbo_jinx" title="All dice score zero">Jinx</button>
-						<button id="limbo_haste" title="Move speed increased">Haste</button>
-						<button id="limbo_life" title="Life points increased">Life</button>
+						<div class="button-bar">
+							<button id="limbo_luck" title="All dice score max">Luck</button>
+							<button id="limbo_jinx" title="All dice score zero">Jinx</button>
+							<button id="limbo_haste" title="Move speed increased">Haste</button>
+							<button id="limbo_life" title="Life points increased">Life</button>
+						</div>
 						<h4>Gimme!</h4>
-						<button id="gimme_move" title="More moves for this turn">Move</button>
-						<button id="gimme_attack" title="More attacks for this turn">Attack</button>
-						<button id="gimme_scan" title="More scans for this turn">Scan</button>
+						<div class="button-bar">
+							<button id="gimme_move" title="More moves for this turn">Move</button>
+							<button id="gimme_attack" title="More attacks for this turn">Attack</button>
+							<button id="gimme_scan" title="More scans for this turn">Scan</button>
+						</div>
 					</div>
 
 				</div>
@@ -404,6 +306,7 @@
 		<script src="src/zoom.js"></script>
 		<script src="src/mdal.js"></script>
 		<script src="src/tool.js"></script>
+		<script src="src/temp.js"></script>
 
 	</body>
 <html>

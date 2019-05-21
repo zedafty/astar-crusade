@@ -1870,4 +1870,3 @@ class Alien extends Char {
 	}
 
 }
-

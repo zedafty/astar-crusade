@@ -676,4 +676,3 @@ document.querySelectorAll("#roll .die").forEach(function(e) {
 document.querySelector("#roll button").addEventListener("click", function() {
 	resumeRoll();
 });
-

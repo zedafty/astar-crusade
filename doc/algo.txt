@@ -55,8 +55,8 @@
 ================================================================================
 
   1. Red Team (Red Angels Division)
-  2. Gold Team (Golden Arm Division)
-  3. Blue Team (Hyperblue Division)
+  2. Gold Team (Golden Arms Division)
+  3. Blue Team (Blue Hypers Division)
 
     a. Member 1 (Commander)
     b. Member 2 (Trooper 1)
@@ -364,4 +364,3 @@
     | Character attacking               true    true
     | Alien turn actived                ?       ?
     | Click on pawn                     true    *
-

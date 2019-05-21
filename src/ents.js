@@ -784,7 +784,7 @@ function setAlienAttributes(o) { // o = entity
 		case "scrof"       : o.movement = 6; o.life = 1; o.armor = 1; o.conduct = "rusher"; o.weapon = "pistol_knife"; break;
 		case "limbo_lw"    : o.movement = 6; o.life = 1; o.armor = 2; o.conduct = "walker"; o.weapon = "bloter"; break;
 		case "limbo_hw"    : o.movement = 4; o.life = 1; o.armor = 2; o.conduct = "sniper"; o.weapon = "rocket_launcher"; break;
-		case "limbo_cc"    : o.movement = 6; o.life = 1; o.armor = 2; o.conduct = "gunner"; o.weapon = "heavy_bloter"; break;
+		case "limbo_cc"    : o.movement = 6; o.life = 3; o.armor = 2; o.conduct = "gunner"; o.weapon = "heavy_bloter"; break;
 		case "fleshripper" : o.movement = 8; o.life = 1; o.armor = 3; o.conduct = "rusher"; o.weapon = "claw"; break;
 		case "cyborg"      : o.movement = 4; o.life = 1; o.armor = 2; o.conduct = "walker"; o.weapon = "cyborg_rifle"; break;
 		case "juggernaut"  : o.movement = 4; o.life = 3; o.armor = 4; o.conduct = "gunner"; o.weapon = "dual_heavy_smg"; break;
@@ -2527,4 +2527,3 @@ class Pawn extends Ents {
 	}
 
 }
-

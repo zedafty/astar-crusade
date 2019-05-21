@@ -356,7 +356,7 @@ function startAlienEvent() {
 	}
 
 	// ---------------------------------------------------------------------------
-	// * Test events -- TEMP
+	// * TEST : force event
 	// ---------------------------------------------------------------------------
 	// s = undefined; // TEMP
 	// s = "mothership_trans"; // TEMP
@@ -404,7 +404,7 @@ function execAlienEvent(s) { // s = alien event string
 		// -------------------------------------------------------------------------
 		case "mothership_trans" :
 			hideIcon("alien_event");
-			showTransmission(maps[game.map].lang[game.lang].sec_obj); // TEMP
+			showTransmission(lang[game.map].sec_obj); // TEMP
 			break;
 		// -------------------------------------------------------------------------
 		// * Mothership Scan
@@ -523,7 +523,7 @@ function execAlienEvent(s) { // s = alien event string
 				r = l[Math.floor(Math.random() * l.length)];
 				game.team[p].equipment[r] = false;
 				focusCenter(getFirstMarine(p), fstr(lang["lose_f"], lang[r]), "red");
-				console.log("[" + s + "] " + p + " player loses " + r + " useable equipement"); // DEBUG
+				console.log("[" + s + "] " + p + " player loses " + r + " useable equipment"); // DEBUG
 			} else {
 				showReport(lang["event_failure"], "gray");
 				console.log("[" + s + "] failure <= no equipment useable"); // DEBUG
@@ -1454,7 +1454,7 @@ function endAlienReinforcement() {
 
 /**
 
-	& ALIEN TURN STAGES
+	& ALIEN TURN PHASES
 
 		1. Game turn
 		2. Alien event
@@ -1473,4 +1473,3 @@ function endAlienTurn() {
 	endTurn();
 	unlockScroll(); // TEMP
 }
-

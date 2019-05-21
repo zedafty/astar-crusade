@@ -168,4 +168,3 @@ THINK
     For now, one-tile pawns uses single array last_tile while four-tiles pawns uses four arrays
     >> last_tile[2] != last_tile[0][2]
     Idea is simply add a level array to last_tile
-

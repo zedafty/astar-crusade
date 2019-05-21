@@ -10,6 +10,16 @@
 // -----------------------------------------------------------------------------
 // =============================================================================
 
+/**
+
+	& SPECIAL STRINGS
+
+	# Comment Marks
+		fstr            string embed variable tokens ; require fstr() parsing
+		HTML            string embed HTML tags ; cannot be inserted as a text node
+
+*/
+
 const lang = {
 
 	// * Screen
@@ -39,7 +49,7 @@ const lang = {
 
 	// * Turn
 	"remaining_turn"         : "Remaining turns = ",
-	"click_on_fire"          : "Click on fire<br>to continue", // also used by transmission
+	"click_on_fire"          : "Click on fire<br>to continue", // HTML -- WARNING : also used by transmission
 
 	// * Report
 	"xeno_sensor_failed"    : "No xeno sensed",
@@ -60,7 +70,7 @@ const lang = {
 	// * Identify
 	"identify_mode"         : "Identify mode",
 	"unidentified"          : "Unidentified",
-	"identify_bleep"        : "Click on a bleep<br>to identify it",
+	"identify_bleep"        : "Click on a bleep<br>to identify it", // HTML
 
 	// * Choice
 	"choose_dual_weapon"    : "Choose dual-weapon",
@@ -75,7 +85,7 @@ const lang = {
 	"item"                  : "Item",
 	"red"                   : "Red Angel",
 	"gold"                  : "Golden Arm",
-	"blue"                  : "Hyperblue",
+	"blue"                  : "Blue Hyper",
 	"bleep"                 : "Bleep",
 	"alien"                 : "Alien",
 	"unknow"                : "Unknow",
@@ -210,13 +220,159 @@ const lang = {
 	"alien_rank_3"          : "Chaos Commander",
 	"alien_rank_4"          : "Lord of Chaos",
 
-	// * Award
+	// * Bonus
 	// ^ Marine
-	// "marine_award_rank"     : "Equipment Card",
-	// "marine_award_mission"  : "Honor Badge",
+	// "marine_rank_bonus"     : "Equipment Card",
+	// "marine_award_bonus"    : "Honor Badge",
 	// ^ Alien
-	// "alien_award_rank"      : "Event Card",
-	// "alien_award_mission"   : "Mark of Chaos",
+	// "alien_rank_bonus"      : "Event Card",
+	// "alien_award_bonus"     : "Mark of Chaos",
+
+	// * Game Modes
+	"campaign"         : "Campaign",
+	"skirmish"         : "Skirmish",
+
+	// * Menu
+	"menu"             : "Menu",
+	"restart"          : "Restart",
+
+	// * Keymap
+	"keymap"           : "Keymap",
+	"reset"            : "Reset",
+	"azerty"           : "AZERTY (fr)",
+	"qwerty"           : "QWERTY (us)",
+
+	// * Save/Load
+	"save_game"        : "Save Game",
+	"load_game"        : "Load Game",
+	"save"             : "Save",
+	"load"             : "Load",
+	"delete"           : "Delete",
+
+	// * Save Slots
+	"autosave"         : "Autosave",
+	"quicksave"        : "Quicksave",
+	"save_1"           : "Save n°1",
+	"save_2"           : "Save n°2",
+	"save_3"           : "Save n°3",
+	"save_4"           : "Save n°4",
+	"save_5"           : "Save n°5",
+	"save_6"           : "Save n°6",
+	"save_7"           : "Save n°7",
+	"save_8"           : "Save n°8",
+	"empty"            : "Empty",
+	"thumbnail"        : "Thumbnail",
+
+	// * Commands
+	"commands" : {
+		"keymap"           : "<u>Key</u>map", // HTML
+		"toolbar"          : "<u>Tool</u>bar", // HTML
+		"save_game"        : "<u>Save</u> game", // HTML
+		"load_game"        : "<u>Load</u> game", // HTML
+		"quicksave"        : "Quick<u>save</u>", // HTML
+		"quickload"        : "Quick<u>load</u>", // HTML
+		"pause"            : "<u>Pause</u>", // HTML
+		"fullscreen"       : "<u>Full</u>screen", // HTML
+		"center_to_focus"  : "<u>Center</u> to focus", // HTML
+		"scroll_by_mouse"  : "<u>Scroll</u> by mouse", // HTML
+		"scroll_left"      : "Scroll <u>left</u>", // HTML
+		"scoll_up"         : "Scroll <u>up</u>", // HTML
+		"scroll_down"      : "Scroll <u>down</u>", // HTML
+		"scroll_right"     : "Scroll <u>right</u>", // HTML
+		"zoom_in"          : "Zoom <u>in</u>", // HTML
+		"zoom_out"         : "Zoom <u>out</u>", // HTML
+		"zoom_reset"       : "Zoom <u>100%</u>", // HTML
+		"select_commander" : "<u>Select</u> 1<sup>st</sup> marine", // HTML
+		"select_trooper_1" : "<u>Select</u> 2<sup>nd</sup> marine", // HTML
+		"select_trooper_2" : "<u>Select</u> 3<sup>rd</sup> marine", // HTML
+		"select_trooper_3" : "<u>Select</u> 4<sup>th</sup> marine", // HTML
+		"select_trooper_4" : "<u>Select</u> 5<sup>th</sup> marine", // HTML
+		"move"             : "<u>Move</u>", // HTML
+		"attack_range"     : "Attack <u>Range</u>", // HTML
+		"attack_melee"     : "Attack <u>Melee</u>", // HTML
+		"give_order"       : "Give <u>Order</u>", // HTML
+		"use_equipment"    : "Use <u>Equipment</u>", // HTML
+		"switch_door"      : "Switch <u>Door</u>", // HTML
+		"scan"             : "<u>Scan</u>", // HTML
+		"end_turn"         : "<u>End</u> turn" // HTML
+	},
+
+	// * Months
+	"month" : [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December"
+	],
+
+	// * Maps
+	"m01" : {
+		"name"    : "Mission 764/06-Sector 50",
+		"pri_obj" : "Eliminate Limbo Commander",
+		"sec_obj" : "Destroy Boulders"
+	},
+	"m02" : {
+		"name"    : "Mission 764/07-Sector 51",
+		"pri_obj" : "Eliminate Limbo Troopers",
+		"sec_obj" : "Destroy Control Panel"
+	},
+	"m03" : {
+		"name"    : "Mission 764/08-Sector 46",
+		"pri_obj" : "Exterminate Aliens (I)",
+		"sec_obj" : "Retrieve Cube of Chaos"
+	},
+	"m04" : {
+		"name"    : "Mission 764/09-Sector 68",
+		"pri_obj" : "Destroy Hull",
+		"sec_obj" : "Eliminate Scrofs"
+	},
+	"m05" : {
+		"name"    : "Mission 764/10-Sector 53",
+		"pri_obj" : "Destroy Eggs",
+		"sec_obj" : "Eliminate Juggernaut"
+	},
+	"m06" : {
+		"name"    : "Mission 764/11-Sector 16",
+		"pri_obj" : "Retrieve Brain",
+		"sec_obj" : "Eliminate Aliens"
+	},
+	"m07" : {
+		"name"    : "Mission 764/12-Sector 45",
+		"pri_obj" : "Eliminate Juggernaut",
+		"sec_obj" : "Destroy Control Panels"
+	},
+	"m08" : {
+		"name"    : "Mission 764/13-Sector 49",
+		"pri_obj" : "Eliminate Cyborgs",
+		"sec_obj" : "Destroy Secret Weapon"
+	},
+	"m09" : {
+		"name"    : "Mission 764/14-Sector 46",
+		"pri_obj" : "Exterminate Aliens (II)",
+		"sec_obj" : "Retrieve Egg"
+	},
+	"m10" : {
+		"name"    : "Mission 764/15-Sector 44",
+		"pri_obj" : "Destroy Cube of Limbo",
+		"sec_obj" : "Eliminate Gremkins"
+	},
+	"m11" : {
+		"name"    : "Mission 764/16-Sector 23",
+		"pri_obj" : "Destroy Plutonic Sources",
+		"sec_obj" : "Eliminate Juggernaut"
+	},
+	"m12" : {
+		"name"    : "Mission 764/17-Sector 85",
+		"pri_obj" : "Retrieve Secret Weapon",
+		"sec_obj" : "Exterminate Aliens"
+	}
 
 };
-

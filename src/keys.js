@@ -69,130 +69,153 @@ document.addEventListener("keydown", function(e) {
 	if (!main.key.map.hasOwnProperty(k)) main.key.map[k] = 1; // register current key in map
 	else main.key.map[k] += 1; // increment current key in map
 
-	// * Help
-	if (isTriggered(112) && !mdal.active) { // F1 -- TEMP
-		e.preventDefault();
-		openModal();
-	} else if (mdal.active) {
-		closeModal();
+	// ---------------------------------------------------------------------------
+	// * Prompt (keymap edit)
+	// ---------------------------------------------------------------------------
+
+	if (mdal.keymap.edit) return; // TEMP
+
+	if (main.keymap == null) main.keymap = getLocalStorageItem("settings").keymap; // WARNING : keymap registration
+
+	let l = main.keymap;
+
+	if (k == 27) { // Escape (27) -- WARNING : hard key code
+		if (mdal.active) closeModal();
+		else toggleModal("menu");
 	}
 
-	// * Tool
-	if (isTriggered(113)) { // F2 -- TEMP
+	// * Keymap
+	if (isTriggered(l.keymap)) { // F1 (112) -- TEMP
+		e.preventDefault(); // TEMP
+		toggleModal("keymap");
+	}
+
+	// * Toolbar
+	if (isTriggered(l.toolbar)) { // F2 (113) -- TEMP
 		forceClick("tool_menu");
 	}
 
+	// * Save Game
+	else if (isTriggered(l.save_game)) { // F8 (119)
+		toggleModal("save_game");
+	}
+
+	// * Load Game
+	else if (isTriggered(l.load_game)) { // F9 (120)
+		toggleModal("load_game");
+	}
+
 	// ---------------------------------------------------------------------------
-	// * Prompt (shown)
+	// * Prompt (main shown)
 	// ---------------------------------------------------------------------------
 
 	if (!main.shown) return; // WARNING
 
 	// * Fullscreen
-	if (isTriggered(70)) forceClick("screen_enlarge"); // Key F
+	if (isTriggered(l.fullscreen)) forceClick("screen_enlarge"); // Key F (70)
 
 	// ---------------------------------------------------------------------------
-	// * Prompt (ready)
+	// * Prompt (main ready)
 	// ---------------------------------------------------------------------------
 
 	if (!main.ready) return; // WARNING
 
 	// * Quicksave
-	if (isTriggered(119)) { // F8
+	if (isTriggered(l.quicksave)) { // F8 (119)
 		if (!main.save.pending) saveGame("quicksave");
 	}
 
 	// * Quickload
-	else if (isTriggered(120)) { // F9
+	else if (isTriggered(l.quickload)) { // F9 (120)
 		loadGame("quicksave");
 	}
 
-	// * Clear Quicksave
-	else if (isTriggered(121)) { // F10 -- TEMP
-		e.preventDefault() // WARNING
-		clearGame("quicksave");
-	}
-
 	// * Pause
-	if (isTriggered(19) || isTriggered(80)) { // Key Pause or Key P
+	if (isTriggered(l.pause)) { // Key Pause (19)
 		main.pause ? stopPause() : startPause();
 	}
 
 	// ---------------------------------------------------------------------------
-	// * Prompt (pause)
+	// * Prompt (main pause)
 	// ---------------------------------------------------------------------------
 
 	if (main.pause) return; // WARNING
 
+	// ---------------------------------------------------------------------------
+	// * Prompt (modal active)
+	// ---------------------------------------------------------------------------
+
+	if (mdal.active) return; // WARNING
+
+	// * Fire
+	if (isTriggered(13) || isTriggered(32)) { // Key Enter or Key Space -- WARNING : hard key code
+		fire(); // TEMP
+	}
+
+	// * Cancel
+	if (isTriggered(27) || isTriggered(8)) { // Key Escape or Key Backspace -- WARNING : hard key code
+		cancel(); // TEMP
+	}
+
 	// * Center on focus
-	if (isTriggered(67) && !isScrollLocked() && game.actor != null) { // Key C
+	if (isTriggered(l.center_to_focus) && !isScrollLocked() && game.actor != null) { // Key C (67)
 		centerToPixel(game.actor.x, game.actor.y);
 	}
 
 	// * Scroll by mouse
-	if (isTriggered(83)) { // Key S
+	if (isTriggered(l.scroll_by_mouse)) { // Key S (83)
 		if (scen.scrl.mouse.forced) document.exitPointerLock();
 		else forceClick("mouse_scroll");
 	}
 
 	// * Scroll by keyboard
-	if ((k == 16 || (k >= 37 && k <= 40)) && !isScrollLocked()) {
+	if ((k == 16 || (k == l.scroll_left || k == l.scoll_up || k == l.scroll_right || k == l.scroll_down)) && !isScrollLocked()) {
 		e.preventDefault(); // WARNING
 		let x, y, v = conf.scen.scrl.key_power;
-		if (isPressed(16)) v += conf.scen.scrl.shift_power; // Key Left Shift or Right Shift
-		if (isPressed(37)) x = v; // Key Left
-		if (isPressed(38)) y = v; // Key Up
-		if (isPressed(39)) x = -v; // Key Right
-		if (isPressed(40)) y = -v; // Key Down
+		if (isPressed(16)) v += conf.scen.scrl.shift_power; // Shift (16) -- WARNING : hard key code
+		if (isPressed(l.scroll_left)) x = v; // Key Left (37)
+		if (isPressed(l.scoll_up)) y = v; // Key Up (38)
+		if (isPressed(l.scroll_right)) x = -v; // Key Right (39)
+		if (isPressed(l.scroll_down)) y = -v; // Key Down (40)
 		scrollOfPixelInstant(px(x), px(y));
 	}
 
 	// * Zoom
-	if (k == 106 || k == 107 || k == 109) {
+	if (k == l.zoom_reset || k == l.zoom_in || k == l.zoom_out) {
 		if (!e.ctrlKey) { // TEMP
 			e.preventDefault(); // WARNING
-			if (isTriggered(106)) resetScale(); // Key Star (numpad)
-			else if (k == 107) zoomIn(); // Key Plus (numpad)
-			else if (k == 109) zoomOut(); // Key Minus (numpad)
+			if (isTriggered(l.zoom_reset)) resetScale(); // Keypad Star (106)
+			else if (k == l.zoom_in) zoomIn(); // Keypad Plus (107)
+			else if (k == l.zoom_out) zoomOut(); // Keypad Minus (109)
 		}
 	}
 
-	// * Fire
-	if (isTriggered(13) || isTriggered(32)) { // Key Enter or Key Space
-		fire(); // TEMP
-	}
-
-	// * Cancel
-	if (isTriggered(27) || isTriggered(8)) { // Key Escape or Key Backspace
-		cancel(); // TEMP
-	}
-
 	// * Select
-	if (k >= 49 && k <= 53) {
+	if (k == l.select_commander || k == l.select_trooper_1 || k == l.select_trooper_2 || k == l.select_trooper_3 || k == l.select_trooper_4) {
 		e.preventDefault() // WARNING
-		if (isDoubleTriggered(49)) bindSelectButton(document.getElementById("member_1"), true); // Double Key 1
-		else if (isDoubleTriggered(50)) bindSelectButton(document.getElementById("member_2"), true); // Double Key 2
-		else if (isDoubleTriggered(51)) bindSelectButton(document.getElementById("member_3"), true); // Double Key 3
-		else if (isDoubleTriggered(52)) bindSelectButton(document.getElementById("member_4"), true); // Double Key 4
-		else if (isDoubleTriggered(53)) bindSelectButton(document.getElementById("member_5"), true); // Double Key 5
-		else if (isTriggered(49)) forceClick("member_1"); // Key 1
-		else if (isTriggered(50)) forceClick("member_2");// Key 2
-		else if (isTriggered(51)) forceClick("member_3");// Key 3
-		else if (isTriggered(52)) forceClick("member_4");// Key 4
-		else if (isTriggered(53)) forceClick("member_5");// Key 5
+		if (isDoubleTriggered(l.select_commander)) bindSelectButton(document.getElementById("member_1"), true); // Double Key 1 (49)
+		else if (isDoubleTriggered(l.select_trooper_1)) bindSelectButton(document.getElementById("member_2"), true); // Double Key 2 (50)
+		else if (isDoubleTriggered(l.select_trooper_2)) bindSelectButton(document.getElementById("member_3"), true); // Double Key 3 (51)
+		else if (isDoubleTriggered(l.select_trooper_3)) bindSelectButton(document.getElementById("member_4"), true); // Double Key 4 (52)
+		else if (isDoubleTriggered(53)) bindSelectButton(document.getElementById("member_5"), true); // Double Key 5 (53)
+		else if (isTriggered(l.select_commander)) forceClick("member_1"); // Key 1 (49)
+		else if (isTriggered(l.select_trooper_1)) forceClick("member_2");// Key 2 (50)
+		else if (isTriggered(l.select_trooper_2)) forceClick("member_3");// Key 3 (51)
+		else if (isTriggered(l.select_trooper_3)) forceClick("member_4");// Key 4 (52)
+		else if (isTriggered(l.select_trooper_4)) forceClick("member_5");// Key 5 (53)
 	}
 
 	// * Actions
-	if (isTriggered(77)) forceClick("action_move"); // Key M
-	else if (isTriggered(82)) forceClick("action_attack_range");// Key R
-	else if (isTriggered(65)) forceClick("action_attack_melee");// Key A
-	else if (isTriggered(79)) forceClick("action_give_order");// Key O
-	else if (isTriggered(69)) forceClick("action_use_equipment");// Key E
-	else if (isTriggered(68)) forceClick("action_switch_door");// Key D
-	else if (isTriggered(75)) forceClick("action_scan");// Key K
-	else if (isTriggered(35)) {
+	if (isTriggered(l.move)) forceClick("action_move"); // Key M (77)
+	else if (isTriggered(l.attack_range)) forceClick("action_attack_range");// Key R (82)
+	else if (isTriggered(l.attack_melee)) forceClick("action_attack_melee");// Key A (65)
+	else if (isTriggered(l.give_order)) forceClick("action_give_order");// Key O (79)
+	else if (isTriggered(l.use_equipment)) forceClick("action_use_equipment");// Key E (69)
+	else if (isTriggered(l.switch_door)) forceClick("action_switch_door");// Key D (68)
+	else if (isTriggered(l.scan)) forceClick("action_scan");// Key K (75)
+	else if (isTriggered(l.end_turn)) {
 		e.preventDefault() // WARNING
-		forceClick("action_end_turn");// Key End
+		forceClick("action_end_turn");// Key End (35)
 	}
 
 });
@@ -204,4 +227,3 @@ document.addEventListener("keydown", function(e) {
 document.addEventListener("blur", function() {
 	main.key.map = {}; // WARNING : hard reset
 });
-

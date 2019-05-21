@@ -953,4 +953,3 @@ document.getElementById("action_give_order").addEventListener("click", function(
 document.getElementById("action_use_equipment").addEventListener("click", function() {bindActionButton(this, "use_equipment")});
 document.getElementById("action_scan").addEventListener("click", function() {bindActionButton(this, "scan")});
 document.getElementById("action_end_turn").addEventListener("click", function() {bindActionButton(this, "end_turn", true)});
-

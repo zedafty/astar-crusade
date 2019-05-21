@@ -1248,4 +1248,3 @@ function restartScene(_game, _main, _scen, _term, _tool, _pawn) {
 	console.clear(); // DEBUG
 
 }
-

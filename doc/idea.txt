@@ -99,6 +99,6 @@
 
   ? Marks primary objective on minimap
 
-  ? Mother Transmission also marks secondary objective on minimap
+  ? Mothership Transmission also marks secondary objective on minimap
 
   ? Glow effect on range slabs (e.g. move range)

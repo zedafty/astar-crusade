@@ -18,10 +18,11 @@
     Map generator
 
   # Libraries
-    A* algorithm by Brian Grinstead
+    A* algorithm by Brian Grinstead [https://github.com/bgrins/javascript-astar]
 
   # Fonts
     Pixel Sagas GoSub by Neale Davidson [http://www.pixelsagas.com/]
+    Amiga 4ever Pro2 by Freaky Fonts [http://www.freakyfonts.de/]
     SF Electrotome by Derek Vogelpohl [http://www.shyfoundry.com/]
 
 ================================================================================
@@ -34,6 +35,9 @@
   Stopped on September 9th, 2018
   Pursued on November 16th, 2018
   Stopped on November 20th, 2018
+  Studied on April 30th, 2019
+  Pursued on May 6th, 2019
+  Pending on May 21st, 2019
 
 ================================================================================
 --------------------------------------------------------------------------------
@@ -50,9 +54,10 @@
   -- Wikipedia
 
   A* Crusade is an HTML <retro-gaming> experiment based upon <1992> <Gremlin Graphics' [https://en.wikipedia.org/wiki/Gremlin_Interactive]> <Space Crusade [https://en.wikipedia.org/wiki/Space_Crusade]> on <Amiga [http://www.mobygames.com/game/amiga/space-crusade]>.
-  Thought as a <respectful/humble/modest> <tribute/revival/reboot/clone/fork>,
-  this project <simply> intents to provide a <pleasant/modern> <gaming experience> to <abandonwares'> <fans>.
-  In order to protect original product rights' owner, <all names> have been changed.
+  Thought as a <tribute/respectful/humble/modest> <clone/fork/revival/reboot/tribute>,
+  this project <aims at/tries to> providing a <modernized/refreshed> <gaming experience>
+  while preserving original <gameplay> for <abandonwares'> <fans>.
+  In order to protect <base/source/original> product's owner rights', <names> have been changed.
 
   this.is (
     <Amateur> fan-work,
@@ -66,6 +71,7 @@
 
   this.uses (
     A* algorithm by Brian Grinstead, [https://github.com/bgrins/javascript-astar]
+  ! Lufi by Luc Didry [https://github.com/ldidry/lufi]
     Pixel Sagas GoSub font by Neale Davidson, [http://www.pixelsagas.com/]
     SF Electrotome font by Derek Vogelpohl [http://www.shyfoundry.com/]
   );
@@ -83,6 +89,7 @@
     MDN, [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference]
     W3CSchools, [https://www.w3schools.com/jsref/default.asp]
     StackOverflow [https://stackoverflow.com/]
+    Freddie Mercury, Fatoumata Diawara, Lazerhawk & Miss Monique
   );
 
 ================================================================================
@@ -114,7 +121,7 @@
 
   Blood Angels            >>  Red Angels              >>  Anges rouges
   Imperial Fists          >>  Golden Arms             >>  Bras dorés
-  Ultramarines            >>  Hyperblue               >>  Hyperbleus
+  Ultramarines            >>  Blue Hypers             >>  Hypers bleus
 
   Bolter                  >>  Bloter*                 >>  Détâcheur
   Bolt Gun                >>  Blot  Pistol            >>  Pistolet détâcheur
@@ -220,15 +227,15 @@
 --------------------------------------------------------------------------------
 ================================================================================
 
-  # Subtype             Melee   Range   Armor   Move    Life
-    gremkin             1L      2L      0       8       1
-    scrof               2L      2L      1       6       1
-    limbo_lw            2L      2L      2       6       1
-    limbo_hw            2L      2H      2       4       1
-    limbo_cc            2L      2H      2       6       1
-    fleshripper         2H      *       3       8       1
-    cyborg              2H      3L      2       4       1
-    juggernaut          2H+2L   2x2H+2L 4       4       3
+  # Subtype             Move    Armor   Life    Melee   Range
+    gremkin             8       0       1       1L      2L
+    scrof               6       1       1       2L      2L
+    limbo_lw            6       2       1       2L      2L
+    limbo_hw            4       2       1       2L      2H
+    limbo_cc            6       2       3 (1)   2L      2H
+    fleshripper         8       3       1       2H      *
+    cyborg              4       2       1       2H      3L
+    juggernaut          4       4       3       2H+2L   2x2H+2L
 
 ================================================================================
 --------------------------------------------------------------------------------
@@ -239,16 +246,16 @@
   # Equipment           Red     Gold    Blue    Usable
     flash_grenade       [x]     [x]     [x]     [x]
     fission_bomb        [x]     [x]     [x]     [x]
-    blot_pistols        [x]     [x]     [x]     *
-    targeter            [x]     [x]     [x]     *
-    assault_blades      [x]      *       *      *
-    bionic_arm          [x]      *       *      *
-    force_field         [x]      *       *      *
-    suspensors           *      [x]      *      *
-    bionic_eye           *      [x]      *      *
-    dual_weapon          *      [x]      *      *
+    blot_pistols        [x]     [x]     [x]      *
+    targeter            [x]     [x]     [x]      *
+    assault_blades      [x]      *       *       *
+    bionic_arm          [x]      *       *       *
+    force_field         [x]      *       *       *
+    suspensors           *      [x]      *       *
+    bionic_eye           *      [x]      *       *
+    dual_weapon          *      [x]      *       *
     xeno_sensor          *       *      [x]     [x]
-    bionic_hand          *       *      [x]     *
+    bionic_hand          *       *      [x]      *
     med_pack             *       *      [x]     [x]
 
 ================================================================================
@@ -271,11 +278,11 @@
 --------------------------------------------------------------------------------
 ================================================================================
 
-  # Event                   N (cards)       Duration        Condition                       Effect
+  # Event                   Cards           Duration        Condition                       Effect
     mothership_trans        1               instant         alive marine                    secondary mission objective is displayed
     mothership_scan         1               instant         alive marine                    all bleeps are revealed
     airlock_control         1               permanent       alive marine                    one marine player may open or close any door
-    auto_defence            2               instant         alive marine                    one marine is shot with 1HD
+    auto_defence            3 (2)           instant         alive marine                    one marine is shot with 1HD
     exploding_trap          1               instant         alive trooper                   one trooper is shot with <rocket_launcher>
   + new_order               1               instant         order spent or unavailable      one extra order for one marine player
   + battle_plan             1               instant         order spent or unavailable      one extra order for all marine players
@@ -296,16 +303,16 @@
   + re_deploy               1               instant         alive alien                     up to three bleeps can be moved to <an already scanned area>
   + alien_teleporter        1               instant         alive alien                     one alien can be swapped with another
   + alien_task_force        1               instant         *                               alien player gets two random reinforcements <from unused tokens>
-    fleshripper             3               instant         *                               one fleshripper spawns next to any marine
-  > TOTAL                   28 (25)
+    fleshripper             4 (3)           instant         *                               one fleshripper spawns next to any marine
+  > TOTAL                   30 (28)
 
 ================================================================================
 --------------------------------------------------------------------------------
-# Reinforcement [Board Game]
+# Alien Units [Board Game]
 --------------------------------------------------------------------------------
 ================================================================================
 
-  # Reinforcement           Miniatures  Tokens      Color       Percentage  Points
+  # Alien Unit              Miniatures  Tokens      Color       Percentage  Points
     gremkin                 14          14          green       40%         28 <= 14*2
     scrof                   8           8           green       23%         24 <= 8*3
     limbo_lw                3           3           blue        8%          15 <= 3*5
@@ -316,16 +323,49 @@
     juggernaut              1           1           gray        3%          25 <= 1*25
   > TOTAL                   35          32          *           100%        152*2 + 30 + 15 = 349
 
-  # Rebalancing (1)         Pawns       Tokens      Color       Percentage  Points
-    gremkin                 12          12          green       32%         24 <= 12*2
+================================================================================
+--------------------------------------------------------------------------------
+# Alien Units [HTML Game]
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Alien Unit              Pawns       Tokens      Color       Percentage  Points
+    gremkin                 12 (14)     12          green       31%         24 <= 12*2
     scrof                   8           8           green       21%         24 <= 8*3
-    limbo_lw                6           6           blue        16%         30 <= 6*5
-    limbo_hw                2           2           blue        5%          20 <= 2*10
-    limbo_cc                2           2           blue        5%          20 <= 2*10
-    fleshripper             3           0           *           8%          0  <= 3*0
+    limbo_lw                6 (3)       6           blue        15%         30 <= 6*5
+    limbo_hw                2 (1)       2           blue        5%          20 <= 2*10
+    limbo_cc                2 (1)       2           blue        5%          30 <= 2*15
+    fleshripper             4 (3)       4 (0)       purple (*)  10%         0  <= 3*0
     cyborg                  4           4           gray        10%         40 <= 4*10
     juggernaut              1           1           gray        3%          25 <= 1*25
-  > TOTAL                   38          35          *           100%        183*2 + 30 + 15 = 411
+  > TOTAL                   39          39          *           100%        193*2 + 30 + 15 = 431
+
+  # Alien Unit              3P          2P          1P          Multiplier
+    gremkin                 12          9           6           0.75
+    scrof                   8           6           4           0.75
+    limbo_lw                6           4           3           0.75
+    limbo_hw                2           2           1           0.75*
+    limbo_cc                2           1           1           0.75*
+    fleshripper             4           4           4           1
+    cyborg                  4           3           2           0.75
+    juggernaut              1           1           1           1
+  > TOTAL                   39          30          22
+
+================================================================================
+--------------------------------------------------------------------------------
+# Alien Units Comparison
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Board Game
+    Same number of miniatures on board for 1 to 3 marine players (some miniatures could be left over depending on mission objectives).
+    Reinforcements tokens depend on mission difficulty and vary according to number of marine players.
+    Alien player rank depends on number of missions won by alien player.
+
+  # HTML Game
+    Less pawns on board for 2 marine players and even lesser for only 1 marine player.
+    Reinforcements tokens depend either on mission difficulty (Campaign), either on the chosen mission Ranking (Skirmish).
+    Alien player rank depends either on on mission difficulty (Campaign), either on the chosen mission Ranking (Skirmish).
 
 ================================================================================
 --------------------------------------------------------------------------------
@@ -336,9 +376,9 @@
   # Token                   Points  Loss
     pri_obj                 30      *
     sec_obj                 15      *
-    commander               10     [x]
-    trooper_lw              5      [x]
-    trooper_hw              10     [x]
+    commander               10      10
+    trooper_lw              5       5
+    trooper_hw              10      10
     gremkin                 2       *
     scrof                   3       *
     limbo_lw                5       *
@@ -347,6 +387,38 @@
     fleshripper             0       *
     cyborg                  10      *
     juggernaut              25      *
+
+    Marine players lose five points for every marine eliminated, ten points for each marine with a heavy weapon eliminated and TEN points if their commander is eliminated.
+
+================================================================================
+--------------------------------------------------------------------------------
+# Scores [HTML Game]
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Token                   Points  Loss
+    pri_obj                 30      *
+    sec_obj                 15      *
+    commander               15 (10) 0 or 15 (10)
+    trooper_lw              5       0 or 5 (5)
+    trooper_hw              10      0 or 10 (10)
+    gremkin                 2       *
+    scrof                   3       *
+    limbo_lw                5       *
+    limbo_hw                10      *
+    limbo_cc                15 (10) *
+    fleshripper             0       *
+    cyborg                  10      *
+    juggernaut              25      *
+
+    Marine players lose five points for every marine eliminated, ten points for each marine with a heavy weapon eliminated and FIFTEEN points if their commander is eliminated.
+    If a marine player kills a marine of another marine team, he loses 10 points. The player whose unit was killed do not lose any point.
+
+================================================================================
+--------------------------------------------------------------------------------
+# Combat Effectiveness Table [Board Game]
+--------------------------------------------------------------------------------
+================================================================================
 
   # Marine Combat Effectiveness Table (CET)
     Points Scored           Honour Badges           Awards
@@ -393,8 +465,6 @@
     Three                   7
     Four                    8
 
-    Four Honour Badges can be turned in to move up one rank (but not to Captain Senioris).
-
   # Marks of Chaos          Extra Reinforcement Tokens
     None                    0
     One                     1
@@ -402,17 +472,68 @@
     Three                   3
     Four                    4
 
+  # Marine Bonus            Min             Max
+    Equipment Cards         4               8
+    Order Cards             1               4
+
+  # Alien Bonus             Min             Max
+    Event Cards             0               3
+    Extra Reinf. Tokens     0               4
+
+    The player who won the game moves up in rank by one level.
+    A player may trade in four Honour Badges or Marks of Chaos to move up one Rank.
+    Awards may not be used to reach the rank of Captain Senioris or Lord of Chaos -- you can only reach these ranks by winning a game.
+
     For each Mark of Chaos he has been awarded, the Alien player may add one to the number of Reinforcement tokens he is allowed to use for this mission.
     The extra tokens should be chosen randomly from those Reinforcement tokens not listed for the mission to be played.
     If the mission lists all the Reinforcement tokens, the Alien player will not receive any extra token.
 
-  # Marine Awards           Min             Max
-    Equipment Cards         4               8
-    Order Cards             1               4
+================================================================================
+--------------------------------------------------------------------------------
+# Ranks and Awards [Video Game]
+--------------------------------------------------------------------------------
+================================================================================
 
-  # Alien Awards            Min             Max
-    Event Cards             0               3
-    Extra Reinf. Tokens     0               4
+    Four Honour Badges can be turned in to move up one rank (but not to Captain Senioris).
+
+================================================================================
+--------------------------------------------------------------------------------
+# Ranks and Awards [HTML Game]
+--------------------------------------------------------------------------------
+================================================================================
+
+  ! For each Mark of Chaos he has been awarded, the Alien player may add one PURPLE REINFORCEMENT TOKEN to the number of Reinforcement tokens he is allowed to use for this mission.
+  ! If the Fleshripper event card is drawn while all the fleshripper miniatures are placed up, then the card is spent without effect.
+
+================================================================================
+--------------------------------------------------------------------------------
+# Ranks and Awards Disambiguation
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Notion                  Marine          Alien
+    Rank                    Title           Title
+    Award                   Honour Badges   Marks or Chaos
+    Rank Bonus              Order Cards     Event Cards
+    Award Bonus             Equipment Cards Reinforcement Tokens
+
+================================================================================
+--------------------------------------------------------------------------------
+# Game Modes [HTML Game]
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Campaign
+    Mission order is IMPOSED.
+    Number of players and playing teams is IMPOSED.
+    Marine teams ranks PROGRESSES according to won missions.
+    Alien team rank INCREASES according to campaign advancement.
+
+  # Skirmish
+    Mission order is FREE.
+    Number of players and playing teams is FREE.
+    Marine teams ranks is CHOSEN during each mission setup.
+    Alien team rank MATCHES marine teams rank.
 
 ================================================================================
 --------------------------------------------------------------------------------
@@ -440,7 +561,7 @@
     Whenever a mission is win or lost, it can be replayed.
     Mission order is INDICATIVE ; first mission MUST NOT be played before second mission.
     Campaign is WIN by the first marine player which attains the HIGHEST RANK.
-    Campaign is lost if the alien player attains the highest rank (i.e. if the marine players lose 5 missions).
+    Campaign is lost if the alien player attains the HIGHEST RANK (i.e. if the marine players lose 5 missions).
 
 ================================================================================
 --------------------------------------------------------------------------------
@@ -452,23 +573,23 @@
     Reinf. : 1P = Green, 2P = Green + Blue, 3P = Green + Blue + Gray.
 
   # Mission Marine                  Alien                   Reinforcement
-    01      Red                     Rank 1 (0 card, 0 mark) None
-    02      Gold                    Rank 1 (0 card, 2 mark) None
-    03      Blue                    Rank 1 (0 card, 4 mark) None
-    04      Red + Gold              Rank 2 (1 card, 0 mark) Green
-    05      Gold + Blue             Rank 2 (1 card, 2 mark) Green
-    06      Red + Blue              Rank 2 (1 card, 4 mark) Green
-    07      2 teams (choice)        Rank 3 (2 card, 0 mark) Green + Blue
-    08      2 teams (choice)        Rank 3 (2 card, 2 mark) Green + Blue
-    09      2 teams (choice)        Rank 3 (2 card, 4 mark) Green + Blue
-    10      Red + Gold + Blue       Rank 4 (3 card, 0 mark) Green + Blue + Gray
-    11      Red + Gold + Blue       Rank 4 (3 card, 2 mark) Green + Blue + Gray
-    12      Red + Gold + Blue       Rank 4 (3 card, 4 mark) Green + Blue + Gray
+    01      Red                     Rank 0 (0 card, 0 mark) None
+    02      Gold                    Rank 0 (0 card, 2 mark) None
+    03      Blue                    Rank 0 (0 card, 4 mark) None
+    04      Red + Gold              Rank 1 (1 card, 0 mark) Green
+    05      Red + Blue              Rank 1 (1 card, 2 mark) Green
+    06      Gold + Blue             Rank 1 (1 card, 4 mark) Green
+    07      2 teams (choice)        Rank 2 (2 card, 0 mark) Green + Blue
+    08      2 teams (choice)        Rank 2 (2 card, 2 mark) Green + Blue
+    09      2 teams (choice)        Rank 2 (2 card, 4 mark) Green + Blue
+    10      Red + Gold + Blue       Rank 3 (3 card, 0 mark) Green + Blue + Gray
+    11      Red + Gold + Blue       Rank 3 (3 card, 2 mark) Green + Blue + Gray
+    12      Red + Gold + Blue       Rank 3 (3 card, 4 mark) Green + Blue + Gray
 
     Whenever a mission is win or lost, it CAN NOT be replayed.
     Mission order is COMPULSORY ; first mission must be played before second mission.
     Campaign is WIN when the marine players complete the LAST MISSION.
-    Campaign is lost if the alien player attains the highest rank (i.e. if the marine players lose 5 missions).
+    Campaign is lost if the alien player WIN 5 MISSIONS (i.e. if the marine players lose 5 missions).
 
     If the marine players have won all the previous missions, then the 12th mission can be replayed up to 4 times.
 
@@ -478,11 +599,23 @@
 --------------------------------------------------------------------------------
 ================================================================================
 
-  # Setting               Board Game         Video Game
-    Mission Replay        any mission        last mission (up to 4 times)
-    Mission Order         false              true
-    Campaign Win          5 win (marine)     last mission
-    Campaign Lost         5 win (alien)      5 win (alien)
+  # Setting                 Board Game      Video Game      HTML Game
+    Mission Replay          any mission     any mission     last mission (up to 4 times)
+    Mission Order           no              no              yes
+    Campaign Win            5 win (marine)  win all miss.   win last mission
+    Campaign Lost           5 win (alien)   never           5 win (alien)
+
+================================================================================
+--------------------------------------------------------------------------------
+# Skirmish Settings [HTML Game]
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Ranking  >> Grade       Marine                          Alien                           Reinf.
+    Rookie   >> Débutant    Rank 0 (1 order,  4 cards)      Rank 0 (0 card,  0 mark)        None
+    Trainee  >> Apprenti    Rank 1 (2 orders, 6 cards)      Rank 1 (1 card,  2 marks)       Green
+    Seasoned >> Aguerri     Rank 2 (3 orders, 6 cards)      Rank 2 (2 cards, 2 marks)       Green + Blue
+    Veteran  >> Vétéran     Rank 3 (4 orders, 8 cards)      Rank 3 (3 cards, 4 marks)       Green + Blue + Gray
 
 ================================================================================
 --------------------------------------------------------------------------------
@@ -500,7 +633,6 @@
 
   # HTML Game
     One board of 30x30 tiles separated by n tile walls ; docking claws outside
-    Map id suffixed with 's' for 'small'
 
 ================================================================================
 --------------------------------------------------------------------------------
@@ -508,7 +640,7 @@
 --------------------------------------------------------------------------------
 ================================================================================
 
-  # Id      Name        Number  Description
+  # Id      Name        Number  Title
     *       m547-02     01      Mission 547/2-Sector 57 — Seek and Destroy
     *       m547-03     02      Mission 547/3-Sector 58 — Clearing Action
     *       m547-04     03      Mission 547/4-Sector 105 — Interception
@@ -528,17 +660,79 @@
 --------------------------------------------------------------------------------
 ================================================================================
 
-  # Id      Name        Number   Description
-    m01     m653-04     01       Mission 653/04. Chercher et détruire
-    m02     m653-05     02       Mission 653/05. Éliminer et survivre
-    m03     m653-06     03       Mission 653/06. Mettre vaisseau alien hors-service
-    m04     m653-07     04       Mission 653/07. Localiser et sauver
-    m05     m653-08     05       Mission 653/08. Localiser et récupérer
-    m06     m653-09     06       Mission 653/09. Purge et repli
-    m07     m653-10     07       Mission 653/10. Interception
-    m08     m653-11     08       Mission 653/11. Exterminer
-    m09     m653-12     09       Mission 653/12. Localiser et exterminer
-    m10     m653-13     10       Mission 653/13. Sabotage et repli
-    m11     m653-14     11       Mission 653/14. Détruire vaisseau alien
-    m12     m653-15     12       Mission 653/15. Détruire cube <des limbes>
+  # Id      Name        Number   Title                                                >> Titre                              || Primary Objective                   || Secondary Objective
+    _01     m653-04     01       Mission 653/04-Sector 45. Seek and Destroy           >> Chercher et détruire               || Destroy the dreadnought.            || Destroy the lone android.
+    _02     m653-05     02       Mission 653/05-Sector 46. Eliminate and Survive      >> Éliminer et survivre               || Destroy all five chaos marines.     || Destroy the dreadnought.
+    _03     m653-06     03       Mission 653/06-Sector 47. Disable Alien Vessel       >> Mettre vaisseau alien hors-service || Destroy the control panel.          || Destroy the dreadnought.
+    _04     m653-07     04       Mission 653/07-Sector 16. Locate and Rescue          >> Localiser et sauver                || Retrieve the scientist's brain.     || Destroy all five chaos marines.
+    _05     m653-08     05       Mission 653/08-Sector 85. Locate and Retrieve        >> Localiser et récupérer             || Retrieve the experimental weapon.   || Destroy the control panel.
+    _06     m653-09     06       Mission 653/08-Sector 12. Purge and Withdraw         >> Purge et repli                     || Open an outer hull door.            || Destroy the dreadnought and an android.
+    _07     m653-10     07       Mission 653/09-Sector 24. Interception               >> Interception                       || Kill at least fifteen aliens.       || Destroy the radioactive source.
+    _08     m653-11     08       Mission 653/10-Sector 16. Exterminate                >> Exterminer                         || Kill at least ten soulsuckers.      || Destroy the nuclear power pack.
+    _09     m653-12     09       Mission 653/11-Sector 53. Locate and Exterminate     >> Localiser et exterminer            || Destroy all soulsucker eggs.        || Kill at least ten soulsuckers.
+    _10     m653-13     10       Mission 653/12-Sector 68. Sabotage and Withdraw      >> Sabotage et repli                  || Destroy the hull weak point.        || Destroy the dreadnought.
+    _11     m653-14     11       Mission 653/13-Sector 05. Destroy Alien Ship         >> Détruire vaisseau alien            || Destroy the control panel.          || Destroy all three androids.
+    _12     m653-15     12       Mission 653/14-Sector 44. Destroy <Cube of Limbo>    >> Détruire <cube des limbes>         || Destroy the cube of chaos.          || Destroy the control panel.
 
+================================================================================
+--------------------------------------------------------------------------------
+# Missions [HTML Game]
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Id      Name        Number   Title                                                >> Titre                            || Pri. Objective  Pri. Target         || Sec. Objective  Sec. Target
+    m01     m764-06     01       Mission 764/06-Sector 50 — Eliminate Limbo Commander >> Éliminer commandant du chaos     || eliminate       limbo_cc            || destroy_all     boulder
+    m02     m764-07     02       Mission 764/07-Sector 46 — Eliminate Limbo Troopers  >> Éliminer soldats des limbes      || eliminate_all   limbo_lw + limbo_hw || destroy         c_panel_1
+    m03     m764-08     03       Mission 764/08-Sector 51 — Exterminate Aliens (I)    >> Exterminer aliens (I)            || exterminate     15-20-25            || retrieve        cube
+    m04     m764-09     04       Mission 764/09-Sector 68 — Destroy Hull              >> Détruire coque                   || destroy         breach              || eliminate_all   scrofs
+    m05     m764-10     05       Mission 764/10-Sector 53 — Destroy Eggs              >> Détruire oeufs                   || destroy_all     egg                 || eliminate       juggernaut
+    m06     m764-11     06       Mission 764/11-Sector 16 — Retrieve Brain            >> Récupérer cerveau                || retrieve        brain               || exterminate     15-20-25
+    m07     m764-12     07       Mission 764/12-Sector 45 — Eliminate Juggernaut      >> Éliminer juggernaut              || eliminate       juggernaut          || destroy_all     c_panel_2
+    m08     m764-13     08       Mission 764/13-Sector 49 — Eliminate Cyborgs         >> Éliminer cyborgs                 || eliminate_all   cyborgs             || destroy         weapon
+    m09     m764-14     09       Mission 764/14-Sector 51 — Exterminate Aliens (II)   >> Exterminer aliens (II)           || exterminate     15-20-25            || retrieve        egg
+    m10     m764-15     10       Mission 764/15-Sector 44 — Destroy Cube of Limbo     >> Détruire cube des limbes         || destroy         cube                || eliminate_all   gremkins
+    m11     m764-16     11       Mission 764/16-Sector 23 — Destroy Plutonic Sources  >> Détruire sources de plutonium    || destroy_all     nuke                || eliminate       juggernaut
+    m12     m764-17     12       Mission 764/17-Sector 85 — Retrieve Secret Weapon    >> Récupérer arme secrète           || retrieve        weapon              || exterminate     15-20-25
+
+  The renowned alien leader known as <'Funky Wally the Man-eater'> was spotted gathering troops on <Lumini-B> orbital station. Deliver a fatal blow to limbo forces by suppressing their beloved chief.
+  Some of our weakest soldiers deserted and joined alien forces. <The High Commandment> instructed us to punish the traitors and make an example of 'em sorry souls.
+  <Area 51> is overwhelmed by aliens... Now is the time to unleash <A* Fleet> fury upon the space invaders! Go there and make a mess. Take no prisoner.
+  <Vessel 911> has been captured by alien forces. We can't let the greenies strut in our own ship right under our nose. Board the vessel, find a breach in the hull and make a hole into it as big as you can.
+  An insane gremkin prisoner boasted about the installation of a huge fleshripper hatchery on <Sector 53>. We marines hate xenopmorphs. Go there, find the eggs and turn them into omelet.
+  The <Imperium top chief scientist> has been captured and trepaned by aliens. Their commander surely intend to devour the man's brain to gain access to our superior technologic knowledge. We can't let this happen.
+  A <Mech-10 Juggernaut> has just been setup by scrofs engineers on <Euphoria-C>. Intelligence reports that this war machine could be used to overturn our pork farms. Bacon craving shan't be tolerated.
+  Lured by promises of greater cybernetic powers, transhumanism enthusiastics have recently joined the alien forces. Those computer freaks plague the troops' morale. Find them and end this joke.
+  Alien forces have massively returned to <Area 51>. The taunt is unbearable! We marines are not the kind to be laughed at. Return there and teach the aliens a lesson they will never forget.
+  Intelligence reports that the aliens intend to use a device named 'Cube of Limbo' to bring even more wretched green skins from outer space. That thing must be erased at any cost.
+  Alien forces are scavenging our plutonium scraps on <Station 777>. It is assumed they seek to supply a powerful secret weapon. Hurry to the station and dispose of any remaining radioactive waste.
+  A reliable source told us that <vessel C3P0> conveys a powerful secret weapon undercover. No matter what it is, we need it! Board the alien ship and steal the weapon.
+
+================================================================================
+--------------------------------------------------------------------------------
+# Mission Objectives [HTML Game]
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Objective Status
+    Unknown  >> Inconnu (grey) [sec_obj only]
+    Pending  >> En cours (white)
+    Achieved >> Accompli (green)
+    Botched  >> Raté (red)
+
+  # Objectives Types        Target          Winner  Camp.   Skir.   Description
+    eliminate               1 unit          1       1p/2p   2       the marine team that kill the unit achieve the objective (reinforcements do not count)
+    eliminate_all           n units         1-3     1p/2p   2       when all the units are killed, the marine team that killed the most units achieve the objective (reinforcements do not count) ; in case of equality, two or more marine teams can achieve the objective
+    exterminate             n aliens        1-3     1p/2p   2       any marine team that kill as much number of aliens than required achieve the objective (reinforcements count)
+    destroy                 1 item          1       2p/3p   2       the marine team that destroy the item achieve the objective
+    destroy_all             n items         1-3     2p/3p   2       when all the items are destroyed, the marine team that destroyed the most items achieve the objective ; in case of equality, two or more marine teams can achieve the objective
+    retrieve                1 item          1       2p/3p   2       the marine team which return the item to its docking claws achieve the objective
+  * open_doors              n doors         *       *       0       any marine team that open a door achieve the objective [REMOVED?]
+
+  # Objectives Types        Short Description                       >> Description courte
+    eliminate               Locate and eliminate <the unit>.        >> Localisez et éliminez <l'objet>.
+    eliminate_all           Locate and eliminate all <units>.       >> Localisez et éliminez tous <les objets>.
+    exterminate             Exterminate at least <15-20-25> aliens. >> Exterminez au moins <15-20-25> aliens.
+    destroy                 Seek and destroy <the item>.            >> Trouvez et détruisez <l'objet>.
+    destroy_all             Seek and destroy all <the items>.       >> Trouvez et détruisez tous <les objets>.
+    retrieve                Retrieve and bring back <the item>.     >> Récupérez et ramenez <l'objet>.
+    open_doors              Open at least <1-2-3> outer doors.      >> Ouvrez au moins <1-2-3> portes extérieures.

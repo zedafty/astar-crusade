@@ -4,7 +4,7 @@
 
 ### Status
 
-  * halted 2018-10-20
+  * pending 2019-05-21
 
 ### Milestone
 
@@ -12,7 +12,6 @@
 
 ### File System
 
-  * bld -> build-in (svg)
   * doc -> documents (txt, odg)
   * lib -> libraries (js)
   * res -> resources (css, woff, png)
@@ -25,6 +24,7 @@
 ### Fonts
 
   * [Pixel Sagas](http://www.pixelsagas.com/) GoSub by Neale Davidson
+  * [Amiga](http://www.freakyfonts.de/) 4ever Pro2 by Freaky Fonts
   * [SF](http://www.shyfoundry.com/) Electrotome by Derek Vogelpohl
 
 ### License

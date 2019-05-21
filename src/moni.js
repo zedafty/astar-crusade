@@ -284,4 +284,3 @@ function hideAlien() {
 	moni.alien.active = false;
 	q.style.display = "none";
 }
-

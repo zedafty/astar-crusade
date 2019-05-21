@@ -96,4 +96,3 @@ function zoomOut(n) { // n = integer
 	scaleScreen(getScaleValue());
 	showHint(getScalePercent() + "%");
 }
-

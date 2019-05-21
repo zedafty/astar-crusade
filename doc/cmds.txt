@@ -164,4 +164,3 @@
     pawn.blue03.teleport(16,17)
     pawn.blue04.teleport(16,18)
     pawn.blue05.teleport(16,19)
-

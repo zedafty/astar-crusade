@@ -356,4 +356,3 @@ class Item extends Furn {
 	}
 
 }
-

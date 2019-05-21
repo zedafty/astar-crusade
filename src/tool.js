@@ -179,7 +179,7 @@ document.getElementById("move_cc").addEventListener("click", function() {
 });
 
 ////////////////////////////////////////////////////////////////////////////////
-// # Zoom
+// @ Zoom
 ////////////////////////////////////////////////////////////////////////////////
 
 document.getElementById("zoom_out").addEventListener("click", function() {if (main.ready) zoomOut()});
@@ -302,4 +302,3 @@ document.getElementById("tool").addEventListener("transitionend", function(e) {
 		}
 	}
 });
-
