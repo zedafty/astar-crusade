@@ -1013,7 +1013,7 @@ function createModalSaveLoadSlot(k, s, b) { // k = save slot key, s = save/load 
 function createModalSaveLoadSlots(s) { // s = save/load key
 	let o = document.getElementById("slots");
 	let d1 = document.createElement("div");
-	let a = conf.main.save_slots;
+	let a = conf.storage.save_slots;
 	let i = j = 0;
 	let m = a.length;
 	for (j = 0; j < a.length; j++) {

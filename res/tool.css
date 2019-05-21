@@ -11,53 +11,7 @@
 /* ========================================================================== */
 
 /* ////////////////////////////////////////////////////////////////////////// */
-/* @ Basics */
-/* ////////////////////////////////////////////////////////////////////////// */
-
-#tool_content button {
-	padding: 6px 12px;
-	color: #222;
-	font-size: 12px;
-	border: 0;
-	background-color: rgb(176,176,224);
-	background-color: rgba(192,192,240,.625);
-	transition: opacity .375s;
-}
-
-#tool button:focus {
-	background-color: rgb(224,224,255);
-	outline: 0;
-}
-
-#tool button:hover {
-	background-color: mediumspringgreen;
-}
-
-#tool button:active {
-	background-color: mediumseagreen;
-}
-
-#tool button::-moz-focus-inner {
-	border: 0;
-}
-
-#tool button[disabled] {
-	background-color: rgb(168,168,240);
-	opacity: .1875;
-}
-
-#tool button[data-state='activated'] {
-	color: whitesmoke;
-	background-color: #222;
-}
-
-#tool h4 {
-	line-height: 40px;
-	font-family: 'Segoe UI Semibold', sans-serif;
-}
-
-/* ////////////////////////////////////////////////////////////////////////// */
-/* @ Container */
+/* @ Containers */
 /* ////////////////////////////////////////////////////////////////////////// */
 
 #tool {
@@ -130,6 +84,56 @@
 }
 
 /* ////////////////////////////////////////////////////////////////////////// */
+/* @ Texts */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#tool h4 {
+	line-height: 40px;
+	font-family: 'Segoe UI Semibold', sans-serif;
+}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Buttons */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#tool_content button {
+	padding: 6px 12px;
+	color: #222;
+	font-size: 12px;
+	border: 0;
+	background-color: rgb(176,176,224);
+	background-color: rgba(192,192,240,.625);
+	transition: opacity .375s;
+}
+
+#tool button:focus {
+	background-color: rgb(224,224,255);
+	outline: 0;
+}
+
+#tool button:hover {
+	background-color: mediumspringgreen;
+}
+
+#tool button:active {
+	background-color: mediumseagreen;
+}
+
+#tool button::-moz-focus-inner {
+	border: 0;
+}
+
+#tool button[disabled] {
+	background-color: rgb(168,168,240);
+	opacity: .1875;
+}
+
+#tool button[data-state='activated'] {
+	color: whitesmoke;
+	background-color: #222;
+}
+
+/* ////////////////////////////////////////////////////////////////////////// */
 /* @ Boxes */
 /* ////////////////////////////////////////////////////////////////////////// */
 
@@ -137,7 +141,8 @@
 #tool_zoom,
 #tool_move,
 #tool_detect,
-#tool_other {
+#tool_limbo,
+#tool_storage {
 	position: relative;
 	margin: 20px 10px 0 10px;
 	padding: 0 16px 16px;
@@ -208,14 +213,9 @@
 /* @ Button Groups */
 /* ////////////////////////////////////////////////////////////////////////// */
 
-.button-pad button:nth-of-type(1) {border-top-left-radius: 2px;}
-.button-pad button:nth-of-type(3) {border-top-right-radius: 2px;}
-.button-pad button:nth-of-type(7) {border-bottom-left-radius: 2px;}
-.button-pad button:nth-of-type(9) {border-bottom-right-radius: 2px;}
+.butto-pad {}
 
-.button-bar {
-	position: static;
-}
+/*
 .button-bar button:first-of-type {
 	border-top-left-radius: 2px;
 	border-bottom-left-radius: 2px;
@@ -224,3 +224,36 @@
 	border-top-right-radius: 2px;
 	border-bottom-right-radius: 2px;
 }
+*/
+
+.button-bar {position: static;}
+
+/*
+.button-pad button:nth-of-type(1) {border-top-left-radius: 2px;}
+.button-pad button:nth-of-type(3) {border-top-right-radius: 2px;}
+.button-pad button:nth-of-type(7) {border-bottom-left-radius: 2px;}
+.button-pad button:nth-of-type(9) {border-bottom-right-radius: 2px;}
+*/
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Storage */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#browse_storage {}
+#export_storage {}
+#import_storage {}
+#report_storage {
+	display: block;
+	height: 24px;
+	width: 224px;
+	margin-top: 8px;
+	background-color: rgba(24,0,48,.25);
+}
+#report_storage span {
+	font-size: 13px;
+	line-height: 24px;
+	color: mediumspringgreen;
+	font-family: "Consolas", monospace;
+}
+#report_storage.error span {color: gold;}
+#report_storage.warning span {color: yellow;}

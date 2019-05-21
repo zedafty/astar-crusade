@@ -129,19 +129,29 @@
 
 ================================================================================
 --------------------------------------------------------------------------------
+# Modal
+--------------------------------------------------------------------------------
+================================================================================
+
+  Modal topics 'Load game', 'Keymap' and 'Settings' must be accessible from both 'start' and 'play' program pages.
+  To do so, modal content has to be generated on-the-fly and cannot be written in document body.
+  Choice was made to not use any templating library and instead create HTML elements using standard methods and instructions.
+  This results in a inelegant code uneasy to maintain, but also grants a rather fast solution to deal with generated content.
+
+================================================================================
+--------------------------------------------------------------------------------
 # Savegame Manager
 --------------------------------------------------------------------------------
 ================================================================================
 
-  ISSUE : 'savegame manager' and 'settings' should be shared by 'start' and 'play' => modal generated on-the-fly by script
+  # Storage Table           Type
+    > settings              roaming
+    > setup (last)          roaming
+    > autosave (0 to 1)     save_slots
+    > quicksave (0 to 1)    save_slots
+    > savegames (0 to 8)    save_slots
 
-  # Storage Content
-    > setup (last)
-    > autosave (0 to 1)
-    > quicksave (0 to 1)
-    > savegames (0 to 8)
-
-  # Savegame Infos          Campaign Example        Skirmish Example        Source
+  # Savegame Texts          Campaign Example        Skirmish Example        Source
     1. picture              *                       *                       localstorage or canvas
     2. save_slot            autosave                savegame_3              localstorage
     3. timestamp            2019-09-21 10:11:54     2019-09-21 10:11:54     localstorage or current time

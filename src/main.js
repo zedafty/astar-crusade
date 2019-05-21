@@ -122,6 +122,14 @@ var main = {
 		"savekey" : null
 	},
 
+	//////////////////////////////////////////////////////////////////////////////
+	// @ Storage
+	//////////////////////////////////////////////////////////////////////////////
+
+	"storage" : {
+		"timer" : null
+	}
+
 };
 
 // =============================================================================
@@ -963,4 +971,121 @@ function loadGame(k) { // k = savegame key
 		showCaption(lang["game_loaded"]);
 		console.info("%c" + k + " loaded (data retrieved from web storage) [" + date.toLocaleDateString() + " " + date.toLocaleTimeString() + "]", conf.console["debug"]); // DEBUG
 	}
+}
+
+// =============================================================================
+// -----------------------------------------------------------------------------
+// # Storage
+// -----------------------------------------------------------------------------
+// =============================================================================
+
+function showStorageReport(s, c) { // s = string, c = css class
+	let o = document.getElementById("report_storage"); // TEMP : toolbar element for now
+	let u = o.querySelector("span");
+	c == null ? o.removeAttribute("class") : o.setAttribute("class", c);
+	u.innerHTML = s;
+	u.style.opacity = "";
+	u.style.transition = "opacity " + conf.storage.report.duration.show + "ms";
+	clearTimeout(main.storage.timer);
+	main.storage.timer = setTimeout(hideStorageReport, conf.storage.report.delay);
+}
+
+function hideStorageReport() {
+	let o = document.getElementById("report_storage"); // TEMP : toolbar element for now
+	let u = o.querySelector("span");
+	u.style.opacity = "0";
+	u.style.transition = "opacity " + conf.storage.report.duration.hide + "ms";
+	clearTimeout(main.storage.timer);
+}
+
+function loadStorageFile() {
+	document.getElementById("browse_storage").click(); // WARNING : placed in a dummy container displayed off-page
+}
+
+function getStorageTable() { // returns array
+	return conf.storage.roaming.concat(conf.storage.save_slots);
+}
+
+function isValidStorageTable() { // returns boolean
+	let l = getStorageTable();
+	for (k in l) if (!hasLocalStorageItem(l[k])) return false; // missing key
+	return true;
+}
+
+function isValidStorageFormat(v) { // v = storage data ; returns boolean
+	if (typeof(v) != "object" || Array.isArray(v)) return false; // not javascript object
+	let l = getStorageTable();
+	for (k in v) if (l.includes(k)) return false; // missing key
+	return true;
+}
+
+function exportStorage() {
+	hideStorageReport(); // TEMP
+	if (!isValidStorageTable()) {
+		showStorageReport(lang.storage.wrong_data_table, "error");
+		console.error("Storage export failed: invalid storage table"); // DEBUG
+	} else {
+		let o = document.getElementsByTagName("body")[0];
+		let a = document.createElement("a");
+		let r = {};
+		let l = getStorageTable();
+		for (k in l) r[l[k]] = getLocalStorageItem(l[k]);
+		let blob = new Blob([JSON.stringify(r)], {type : "application/json"});
+		let url = window.URL.createObjectURL(blob);
+		o.appendChild(a);
+		a.setAttribute("href", url);
+		a.setAttribute("download", conf.storage.filename + ".json");
+		a.click();
+		o.removeChild(a);
+		showStorageReport(lang.storage.export_success);
+		console.info("%cStorage export succeed", conf.console["debug"]); // DEBUG
+	}
+}
+
+function importStorage() {
+	hideStorageReport(); // TEMP
+	if (this.files.length == 0) {
+		showStorageReport(lang.storage.no_file, "error");
+		console.error("Storage import failed: file input empty"); // DEBUG
+	} else {
+		// * File API
+		let file = this.files[0]; // only first in list ; no multiple selection allowed
+		if (file.type != "application/json") {
+			showStorageReport(lang.storage.wrong_file_type, "error");
+			console.error("Storage import failed: file type is not JSON"); // DEBUG
+			return;
+		}
+		if (Number.isInteger(conf.storage.filesize_max) && file.size > conf.storage.filesize_max) {
+			showStorageReport(lang.storage.wrong_file_size, "error");
+			console.error("Storage import failed: file size greater than "+ (conf.storage.filesize_max / 1000000).toPrecision(4) + " MB");  // DEBUG
+			return;
+		}
+		// * FileReader API
+		let reader = new FileReader();
+		reader.readAsText(file);
+		reader.addEventListener("loadend", function() {
+			let v = this.result;
+			try {
+				v = JSON.parse(v);
+				if (!isValidStorageFormat(v)) {
+					hideStorageReport();
+					for (k in v) setLocalStorageItem(k, v[k]);
+					showStorageReport(lang.storage.import_success);
+					console.info("%cStorage import succeed", conf.console["debug"]); // DEBUG
+				} else {
+					showStorageReport(lang.storage.wrong_data_format, "error");
+					console.error("Storage import failed: invalid storage format"); // DEBUG
+				}
+			} catch (e) {
+				showStorageReport(lang.storage.wrong_data_type, "error");
+				console.error("Storage import failed: file parsing exception"); // DEBUG
+			}
+		});
+	}
+}
+
+function clearStorage() {
+	localStorage.clear();
+	showStorageReport(lang.storage.data_cleared, "warning");
+	console.warn("Storage cleared! All game data erased ; please reload the document or import a previously exported storage before continue playing"); // DEBUG
 }

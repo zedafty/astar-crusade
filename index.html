@@ -9,6 +9,11 @@
 	</head>
 	<body class="no-user-select">
 
+		<!-- Pool -->
+		<div id="pool">
+			<input id="browse_storage" type="file">
+		</div>
+
 		<!-- Page -->
 		<div id="page">
 
@@ -66,7 +71,7 @@
 						</div>
 					</div>
 
-					<div id="tool_zoom">
+					<div id="tool_zoom" style="display: none;">
 						<h4>Zoom</h4>
 						<div class="button-bar">
 							<button id="zoom_out" title="Zoom out">-</button>
@@ -84,7 +89,7 @@
 						</div>
 					</div>
 
-					<div id="tool_other">
+					<div id="tool_limbo">
 						<h4>Limbo's</h4>
 						<div class="button-bar">
 							<button id="limbo_luck" title="All dice score max">Luck</button>
@@ -98,6 +103,14 @@
 							<button id="gimme_attack" title="More attacks for this turn">Attack</button>
 							<button id="gimme_scan" title="More scans for this turn">Scan</button>
 						</div>
+					</div>
+
+					<div id="tool_storage">
+						<h4>Storage</h4>
+						<button id="export_storage">Export</button>
+						<button id="import_storage">Import</button>
+						<button id="clear_storage">Clear</button>
+						<output id="report_storage"><span style="opacity: 0;"></span></output>
 					</div>
 
 				</div>

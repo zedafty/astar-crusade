@@ -129,7 +129,7 @@ function switchToolButtons(b, t) { // b = enable flag, t = no transition flag
 	q.querySelectorAll("#tool_detect button").forEach(function(o) {
 		b ? enableToolButton(o, t) : disableToolButton(o, t);
 	});
-	q.querySelectorAll("#tool_other button").forEach(function(o) {
+	q.querySelectorAll("#tool_limbo button").forEach(function(o) {
 		if (o.id != "limbo_luck" && o.id != "limbo_jinx")
 			b ? enableToolButton(o, t) : disableToolButton(o, t);
 	});
@@ -277,6 +277,15 @@ document.getElementById("limbo_life").addEventListener("click", function() {
 	updateStatus(game.actor);
 	console.log("[" + game.actor.id + "] has now " + tool.limbo.life + " life points"); // DEBUG
 });
+
+////////////////////////////////////////////////////////////////////////////////
+// @ Storage
+////////////////////////////////////////////////////////////////////////////////
+
+document.getElementById("browse_storage").addEventListener("change", importStorage);
+document.getElementById("export_storage").addEventListener("click", exportStorage);
+document.getElementById("import_storage").addEventListener("click", loadStorageFile);
+document.getElementById("clear_storage").addEventListener("click", clearStorage);
 
 ////////////////////////////////////////////////////////////////////////////////
 // @ Panel

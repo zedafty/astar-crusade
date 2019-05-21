@@ -263,6 +263,20 @@ const lang = {
 	"empty"            : "Empty",
 	"thumbnail"        : "Thumbnail",
 
+	// * Storage
+	"storage" : {
+		"no_data"            : "No data... Import?", // storage empty
+		"no_file"            : "No file to import...", // file input empty
+		"wrong_file_type"    : "Wrong file type!", // file type is not JSON
+		"wrong_file_size"    : "Wrong file size!", // file size greater than 2 MB
+		"wrong_data_type"    : "Wrong data type!", // file parsing exception
+		"wrong_data_table"   : "Wrong data table!", // invalid storage table
+		"wrong_data_format"  : "Wrong data format!", // invalid storage format
+		"export_success"     : "Storage exported",
+		"import_success"     : "Storage imported",
+		"data_cleared"       : "Data cleared!"
+	},
+
 	// * Commands
 	"commands" : {
 		"keymap"           : "<u>Key</u>map", // HTML

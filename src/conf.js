@@ -191,6 +191,38 @@ const conf = {
 	},
 
 	//////////////////////////////////////////////////////////////////////////////
+	// @ Storage
+	//////////////////////////////////////////////////////////////////////////////
+	
+	"storage": {
+		"filename" : "astar-crusade-storage", // name of the storage exported storage file -- Default : "astar-crusade-storage"
+		"filesize_max" : 2000000, // maximum size in bytes of the exported storage file -- Default : 2000000 (null for none)
+		"report" : {
+			"delay" : 3000, // time elapsed in milliseconds before the storage report is closed -- Default : 3000
+			"duration" : {
+				"show" : 125, // duration in milliseconds of the storage report showing transition -- Default : 250
+				"hide" : 1500 // duration in milliseconds of the storage report hiding transition -- Default : 1500
+			}
+		},
+		"roaming" : [ // web storage keys for volatile items -- Default : ["settings", "setup"]
+			"settings",
+			"setup"
+		],
+		"save_slots" : [ // web storage keys for savegame items -- Default : ["autosave", "quicksave", "save_1", "save_2", "save_3", "save_4", "save_5", "save_6", "save_7", "save_8"]
+			"autosave",
+			"quicksave",
+			"save_1",
+			"save_2",
+			"save_3",
+			"save_4",
+			"save_5",
+			"save_6",
+			"save_7",
+			"save_8"
+		]
+	},
+
+	//////////////////////////////////////////////////////////////////////////////
 	// @ Input
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -523,7 +555,6 @@ const conf = {
 	//////////////////////////////////////////////////////////////////////////////
 
 	"main" : {
-		"save_slots" : ["autosave", "quicksave", "save_1", "save_2", "save_3", "save_4", "save_5", "save_6", "save_7", "save_8"], // identifier of web storage savegame items -- Default : ["autosave", "quicksave", "save_1", "save_2", "save_3", "save_4", "save_5", "save_6", "save_7", "save_8"]
 		"window" : {
 			"resize_delay" : 0 // time in milliseconds after which a window resize event is effectively triggered -- Default : 0
 		},
@@ -548,7 +579,7 @@ const conf = {
 				"padding" : 8, // loading spinner padding in pixels -- Default : 8
 				"rgb" : [64,192,64] // line color value -- Default : [64,192,64]
 			},
-		}
+		},
 	},
 
 	//////////////////////////////////////////////////////////////////////////////
