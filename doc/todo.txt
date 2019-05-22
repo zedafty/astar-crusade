@@ -9,19 +9,21 @@
   ° Reinforcement
   ° Score
   ° Savegame Manager
-  ! User Settings
-  ! Sounds
   ? Tooltips
+  ! Sounds
   ! Team Configuration
   ! Game Configuration
   ! Debrief
   ! Maps
   ! Intro
   ! Outro
+  ! User Settings
+  ! Debug
+  ! Test
 
   * Muppets
   ! BUG  : Char.sortHostile (see code)
-  ! BUG  : muppet don't act when a target is unaccessible due to another hostile blocking the passage => should attack the nearest hostile in path *** IMPORTANT
+  ! BUG  : muppet doesn't attack an hostile which is unaccessible due to another hostile blocking the passage => should attack the nearest hostile in path *** IMPORTANT
   ! BUG  : frenzy ; when no path is available, an alien can still be considered preferable to an in path alien (e.g. blocked by boulders)
   ! BUG  : invisible marine while focused by alien event (like out_of_ammo) => update sprite transparent
   ! BUG  : alien move and put another pawn into visibility of a marine => detect hostile for all marine
@@ -40,7 +42,7 @@
 
   * Graphics
   ! ENH  : position muzzle ajustement toward radian rotation
-  ! IDEA : draw an aim reticle when a [target/focus] is out of screen
+  ? IDEA : draw an aim reticle when a [target/focus] is out of screen
   ? ENH  : deactivated toolbar and main focusable elements when modal is active
 
   * User Interface
@@ -87,26 +89,26 @@
 # User Interface
 
   > Tooltips
-    ! custom tooltip box that replace native tooltips
+    ! custom tooltip box for replacing native tooltips
 
   > Modal
-    ° keymap
-    ° savegame manager
-    ! user settings
+    ° Keymap
+    ° Savegame manager
+    ! User settings
 
   > Tool
-    ° off-canvas panel
-    ° detect tool box
+    ° Off-page panel
+    ° Detect tool box
       > 1 - draw sight range
       > 2 - draw sense range
       > 3 - draw line of sight
 
   > Main
-    ^ browser fullscreen (default is 'false' ; configuration setting)
-    ° scalable screen (i.e. enlarge or reduce)
-    ° draggable screen (i.e. move by mouse)
-    ° dockable screen (i.e. stick position)
-    ! scale screen for low-res devices (for now, screen is cropped and scroll bars are disabled ; out of screen elements are unaccessible)
+    ^ Browser fullscreen (default is 'false' ; configuration setting)
+    ° Scalable screen (i.e. maximize size or reset to default)
+    ° Draggable screen (i.e. move by mouse)
+    ° Dockable screen (i.e. stick position)
+    ! Scale screen for low-res devices (for now, screen is cropped and scroll bars are disabled ; out of screen elements are unaccessible)
 
   > Icons (top-left)
     ° Pause (double bar)
@@ -261,8 +263,8 @@
     ! use counter for main.save.prevent instead of boolean (case of multiple prevented save occurences ; e.g. scroll + switching door at same time)
 
 # Log
-  * retrieve last 5 to 10 log lines when savegame loaded => BAD IDEA
-  ~ put 'actions' into var and output to console: move (from to), attack (fail, success, dice)
+  * Retrieve last 5 to 10 log lines when savegame loaded => BAD IDEA
+  ~ Put 'actions' into var and output to console: move (from to), attack (fail, success, dice)
 
 ================================================================================
 --------------------------------------------------------------------------------

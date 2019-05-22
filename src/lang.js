@@ -213,6 +213,7 @@ const lang = {
 	"marine_rank_2"         : "Lieutenant Senioris",
 	"marine_rank_3"         : "Captain Primus",
 	"marine_rank_4"         : "Captain Senioris",
+
 	// ^ Alien
 	"alien_rank_0"          : "Chaos Renegade",
 	"alien_rank_1"          : "Chaos Warrior",
@@ -387,6 +388,53 @@ const lang = {
 		"name"    : "Mission 764/17-Sector 85",
 		"pri_obj" : "Retrieve Secret Weapon",
 		"sec_obj" : "Exterminate Aliens"
+	},
+
+	// * Tips
+	"tips" : {
+		// -------------------------------------------------------------------------
+		// Mono-line           : "The foe"                                                              => "<p>The foe</p>"
+		// Multi-line          : ["The foe", "And the bar"]                                             => "<p>The foe</p><p>And the bar</p>"
+		// FStr-Mono           : {"tip" : "The %1", "var" : {"1" : "foe"}}                              => "<p>The foe</p>
+		// FStr-Multi          : {"tip" : ["The %1", "And the %2"], "var" : {"1" : "foe", "3" : "bar"}} => "<p>The foe</p><p>And the bar</p>"
+		// -------------------------------------------------------------------------
+		// FStr-KBd            : {"tip" : "Hit %1", "var" : {"kbd" : "keymap"}}                         => "<p>Hit <kbd>F1</kbd></p>"
+		// -------------------------------------------------------------------------
+		// * Tool
+		"scroll_cc"            : "Center to focus",
+		"move_cc"              : "Show move range",
+		"zoom_out"             : "Zoom out",
+		"zoom_reset"           : "Reinitialize zoom level",
+		"zoom_in"              : "Zoom in",
+		"detect_sight"         : "Show sight range",
+		"detect_sense"         : "Show sense range",
+		"detect_los"           : "Show line of sight",
+		"limbo_luck"           : "All dice score max",
+		"limbo_jinx"           : "All dice score zero",
+		"limbo_haste"          : "Move speed increased",
+		"limbo_life"           : "Life points increased",
+		"gimme_move"           : "More moves for this turn",
+		"gimme_attack"         : "More attacks for this turn",
+		"gimme_scan"           : "More scans for this turn",
+		"export_storage"       : "Export game data to file",
+		"import_storage"       : "Import game data from file",
+		"clear_storage"        : "Delete game data from browser",
+		// * Main
+		"member_1"             : {"tip" : "Select commander %1", "var" : {"kbd" : "select_commander"}}, // fstr
+		"member_2"             : {"tip" : "Select 1<sup>st</sup> trooper %1", "var" : {"kbd" : "select_trooper_1"}}, // HTML fstr
+		"member_3"             : {"tip" : "Select 2<sup>nd</sup> trooper %1", "var" : {"kbd" : "select_trooper_2"}}, // HTML fstr
+		"member_4"             : {"tip" : "Select 3<sup>rd</sup> trooper %1", "var" : {"kbd" : "select_trooper_3"}}, // HTML fstr
+		"member_5"             : {"tip" : "Select 4<sup>th</sup> trooper %1", "var" : {"kbd" : "select_trooper_4"}}, // HTML fstr
+		"action_move"          : {"tip" : "Move %1", "var" : {"kbd" : "move"}}, // fstr
+		"action_attack_range"  : {"tip" : "Attack Range %1", "var" : {"kbd" : "attack_range"}}, // fstr
+		"action_attack_melee"  : {"tip" : "Attack Melee %1", "var" : {"kbd" : "attack_melee"}}, // fstr
+		"action_give_order"    : {"tip" : "Give Order %1", "var" : {"kbd" : "give_order"}}, // fstr
+		"action_use_equipment" : {"tip" : "Use Equipment %1", "var" : {"kbd" : "use_equipment"}}, // fstr
+		"action_switch_door"   : {"tip" : "Switch Door %1", "var" : {"kbd" : "switch_door"}}, // fstr
+		"action_scan"          : {"tip" : "Scan %1", "var" : {"kbd" : "scan"}}, // fstr
+		"action_end_turn"      : {"tip" : "End Turn %1", "var" : {"kbd" : "end_turn"}}, // fstr
+		"mouse_scroll"         : {"tip" : "Scroll %1", "var" : {"kbd" : "scroll_by_mouse"}}, // fstr
+		"screen_enlarge"       : {"tip" : "Fullscreen %1", "var" : {"kbd" : "fullscreen"}}, // fstr
 	}
 
 };

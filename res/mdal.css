@@ -277,12 +277,12 @@
 .key small {color: silver;}
 .key u {text-decoration: underline solid darkgoldenrod;}
 
-[data-command]:hover {border-color: mediumspringgreen;}
-[data-command]:focus {border-color: white; color: white; outline: 0; animation: .75s linear 0s infinite alternate none running input-focus;}
-[data-command]:focus:hover {animation-name: input-focus-hover; animation-duration: 1.5s;}
-[data-command].edit {animation: .75s linear 0s infinite alternate none running key-edit !important; box-shadow: 0 0 6px 3px rgba(255,208,0,.375);}
-[data-command].error.wrong {color: red !important;}
-[data-command].error:before {
+[data-cmd]:hover {border-color: mediumspringgreen;}
+[data-cmd]:focus {border-color: white; color: white; outline: 0; animation: .75s linear 0s infinite alternate none running input-focus;}
+[data-cmd]:focus:hover {animation-name: input-focus-hover; animation-duration: 1.5s;}
+[data-cmd].edit {animation: .75s linear 0s infinite alternate none running key-edit !important; box-shadow: 0 0 6px 3px rgba(255,208,0,.375);}
+[data-cmd].error.wrong {color: red !important;}
+[data-cmd].error:before {
 	position: absolute;
 	top: -10px;
 	left: -10px;
@@ -297,16 +297,16 @@
 	animation-iteration-count: 4;
 	animation-direction: alternate;
 }
-[data-command].error.warning:before,
-[data-command].error.forbidden:before {
+[data-cmd].error.warning:before,
+[data-cmd].error.forbidden:before {
 	animation-name: key-error;
 }
-[data-command].error.warning:before {
+[data-cmd].error.warning:before {
 	content: '!';
 	color: black;
 	background-color: yellow;
 }
-[data-command].error.forbidden:before {
+[data-cmd].error.forbidden:before {
 	content: '‼';
 	color: white;
 	background-color: red;

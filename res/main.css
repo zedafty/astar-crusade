@@ -98,6 +98,16 @@ p {
 	line-height: 14px;
 }
 
+sub,
+sup {
+	position: relative;
+	font-size: .875em;
+	line-height: 0;
+	vertical-align: baseline;
+}
+sup {bottom: .25em;}
+sub {top: .25em;}
+
 button {
 	cursor: inherit;
 	position: relative;
@@ -135,7 +145,6 @@ button {
 	/* image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
 	/* -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
 }
-
 
 /* ========================================================================== */
 /* -------------------------------------------------------------------------- */
@@ -179,6 +188,8 @@ button {
 /* @ Components */
 /* ////////////////////////////////////////////////////////////////////////// */
 
+/* Spin */
+
 #spin {
 	position: absolute;
 	left: 28px;
@@ -203,17 +214,77 @@ button {
 #spin span:nth-of-type(3) {right: 0; top: 580px;}
 #spin span:nth-of-type(4) {left: 0; bottom: 0;}
 
+/* Tip */
+
+#tip {
+	pointer-events: none;
+	top: 0;
+	left: 0;
+	max-width: 480px; /* TEMP */
+	min-height: 14px;
+	padding: 4px 12px;
+	color: white;
+	font-size: 13px;
+	font-family: 'Segoe UI Semibold', sans-serif;
+	border-radius: 16px;
+	background-color: rgba(0,0,0,.75);
+	z-index: 1000;
+}
+#tip.left {border-top-left-radius: 0; border-bottom-left-radius: 0;}
+#tip.right {border-top-right-radius: 0; border-bottom-right-radius: 0;}
+#tip div {
+	position: static;
+}
+#tip p {
+	line-height: 24px;
+	white-space: nowrap;
+}
+#tip kbd {
+	display: inline-block;
+	min-width: 20px;
+	height: 20px;
+	padding: 0px 3px;
+	font-family: inherit;
+	line-height: 18px;
+	text-align: center;
+	border: 1px solid white;
+	border-radius: 3px;
+	box-sizing: border-box;
+	opacity: .5;
+}
+#tip .tail {
+	position: absolute;
+	display: inline-block;
+	left: 50%;
+	width: 12px;
+	height: 12px;
+	margin-left: -6px;
+	border: 18px solid transparent;
+	border-left-width: 6px;
+	border-right-width: 6px;
+	background-color: transparent;
+	box-sizing: border-box;
+}
+#tip .tail.up {bottom: 100%; border-bottom-color: rgba(0,0,0,.75);}
+#tip .tail.down {top: 100%; border-top-color: rgba(0,0,0,.75);}
+#tip .tail.off {display: none;}
+
 /* ////////////////////////////////////////////////////////////////////////// */
 /* @ Containers */
 /* ////////////////////////////////////////////////////////////////////////// */
 
-#pool {
+#pool,
+.off-page {
+	display: inline-block;
 	top: -1px;
 	left: -1px;
 	width: 1px;
 	height: 1px;
-	opacity: 0;
+}
+.off-page {
+	position: absolute;
 	overflow: hidden;
+	opacity: 0;
 	z-index: -1;
 }
 

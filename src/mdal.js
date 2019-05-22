@@ -173,7 +173,7 @@ function createModalHeader(s) { // s = header text
 		Item            [data-nav]                      An HTML Element
 		Row             [data-nav-row]                  An horizontal line of items
 		Column          *                               A vertical line of items
-		Pattern         button, .slot, [data-command]   Any HTML element matched by the pattern is an item
+		Pattern         button, .slot, [data-cmd]       Any HTML element matched by the pattern is an item
 
 	# Functions
 	> Function                                        Description
@@ -207,7 +207,7 @@ function setKeyboardNavigation() {
 	let o = document.getElementById("modal");
 	let a = [];
 	let i = 0;
-	o.querySelectorAll("button, .slot, [data-command]").forEach(function(q) { // WARNING : restrictive keyboard navigation pattern
+	o.querySelectorAll("button, .slot, [data-cmd]").forEach(function(q) { // WARNING : restrictive keyboard navigation pattern
 		i++;
 		q.dataset.nav = i;
 	});
@@ -610,7 +610,7 @@ function toggleKeymapKeyEdit(o) { // o = HTML element
 }
 
 function setKeymapKeyError(c, s, b) { // c = command key, s = CSS class, b = animation flag
-	let o = document.querySelector("#keys [data-command='" + c + "'");
+	let o = document.querySelector("#keys [data-cmd='" + c + "'");
 	if (o != undefined) {
 		mdal.keymap.error = true;
 		o.classList.add("error");
@@ -690,7 +690,7 @@ function bindKeymapKeyEvents(o) { // o = HTML element
 
 		preventDefaultKeys(e); // TEMP
 
-		let c = o.getAttribute("data-command");
+		let c = o.getAttribute("data-cmd");
 		let b = false; // edit flag
 		let r = false; // reset flag
 		let l;
@@ -777,7 +777,7 @@ function createModalKeymapKey(k, c) { // k = key code, c = command key ; returns
 	let n = k == null ? "&nbsp;" : getKeyString(k); // key name
 	let s = lang.commands[c]; // command string
 
-	kb.dataset.command = c;
+	kb.dataset.cmd = c;
 	kb.innerHTML = n;
 	kb.setAttribute("tabindex", "0"); // TODO : except if can't be modified (e.g. Escape)
 	bindKeymapKeyEvents(kb);

@@ -11,7 +11,11 @@
 
 		<!-- Pool -->
 		<div id="pool">
-			<input id="browse_storage" type="file">
+			<input id="browse_storage" type="file" class="off-page">
+			<div id="tip" style="display: none; opacity: 0;">
+				<div></div>
+				<span class="tail down"></span>
+			</div>
 		</div>
 
 		<!-- Page -->
@@ -48,7 +52,7 @@
 							<button id="scroll_nn"></button>
 							<button id="scroll_ne"></button>
 							<button id="scroll_ww"></button>
-							<button id="scroll_cc" title="Center to focus">c</button>
+							<button id="scroll_cc" data-tip>c</button>
 							<button id="scroll_ee"></button>
 							<button id="scroll_sw"></button>
 							<button id="scroll_ss"></button>
@@ -63,7 +67,7 @@
 							<button id="move_nn"></button>
 							<button id="move_ne"></button>
 							<button id="move_ww"></button>
-							<button id="move_cc" title="Show move range">c</button>
+							<button id="move_cc" data-tip>c</button>
 							<button id="move_ee"></button>
 							<button id="move_sw"></button>
 							<button id="move_ss"></button>
@@ -74,42 +78,42 @@
 					<div id="tool_zoom" style="display: none;">
 						<h4>Zoom</h4>
 						<div class="button-bar">
-							<button id="zoom_out" title="Zoom out">-</button>
-							<button id="zoom_reset" title="Reinitialize zoom level">100%</button>
-							<button id="zoom_in" title="Zoom in">+</button>
+							<button id="zoom_out" data-tip>-</button>
+							<button id="zoom_reset" data-tip>100%</button>
+							<button id="zoom_in" data-tip>+</button>
 						</div>
 					</div>
 
 					<div id="tool_detect">
 						<h4>Detect</h4>
 						<div class="button-bar">
-							<button id="detect_sight" title="Show sight range">Sight</button>
-							<button id="detect_sense" title="Show sense range">Sense</button>
-							<button id="detect_los" title="Show line of sight">LoS</button>
+							<button id="detect_sight" data-tip>Sight</button>
+							<button id="detect_sense" data-tip>Sense</button>
+							<button id="detect_los" data-tip>LoS</button>
 						</div>
 					</div>
 
 					<div id="tool_limbo">
 						<h4>Limbo's</h4>
 						<div class="button-bar">
-							<button id="limbo_luck" title="All dice score max">Luck</button>
-							<button id="limbo_jinx" title="All dice score zero">Jinx</button>
-							<button id="limbo_haste" title="Move speed increased">Haste</button>
-							<button id="limbo_life" title="Life points increased">Life</button>
+							<button id="limbo_luck" data-tip>Luck</button>
+							<button id="limbo_jinx" data-tip>Jinx</button>
+							<button id="limbo_haste" data-tip>Haste</button>
+							<button id="limbo_life" data-tip>Life</button>
 						</div>
 						<h4>Gimme!</h4>
 						<div class="button-bar">
-							<button id="gimme_move" title="More moves for this turn">Move</button>
-							<button id="gimme_attack" title="More attacks for this turn">Attack</button>
-							<button id="gimme_scan" title="More scans for this turn">Scan</button>
+							<button id="gimme_move" data-tip>Move</button>
+							<button id="gimme_attack" data-tip>Attack</button>
+							<button id="gimme_scan" data-tip>Scan</button>
 						</div>
 					</div>
 
 					<div id="tool_storage">
 						<h4>Storage</h4>
-						<button id="export_storage">Export</button>
-						<button id="import_storage">Import</button>
-						<button id="clear_storage">Clear</button>
+						<button id="export_storage" data-tip>Export</button>
+						<button id="import_storage" data-tip>Import</button>
+						<button id="clear_storage" data-tip>Clear</button>
 						<output id="report_storage"><span style="opacity: 0;"></span></output>
 					</div>
 
@@ -271,26 +275,26 @@
 							<span id="member_5_select"></span>
 						</div>
 						<div id="members">
-							<button id="member_1" class="commander" title="Select commander [1]">&nbsp;</button>
-							<button id="member_2" class="trooper" title="Select trooper [2]">&nbsp;</button>
-							<button id="member_3" class="trooper" title="Select trooper [3]">&nbsp;</button>
-							<button id="member_4" class="trooper" title="Select trooper [4]">&nbsp;</button>
-							<button id="member_5" class="trooper" title="Select trooper [5]">&nbsp;</button>
+							<button id="member_1" class="commander" data-tip>&nbsp;</button>
+							<button id="member_2" class="trooper" data-tip>&nbsp;</button>
+							<button id="member_3" class="trooper" data-tip>&nbsp;</button>
+							<button id="member_4" class="trooper" data-tip>&nbsp;</button>
+							<button id="member_5" class="trooper" data-tip>&nbsp;</button>
 						</div>
 					</div>
 					<div id="action">
-						<button id="action_move" title="[M]ove">&nbsp;</button>
-						<button id="action_attack_range" title="Attack [R]ange">&nbsp;</button>
-						<button id="action_attack_melee" title="[A]ttack melee">&nbsp;</button>
-						<button id="action_give_order" title="Give [O]rder">&nbsp;</button>
-						<button id="action_use_equipment" title="Use [E]quipment">&nbsp;</button>
-						<button id="action_switch_door" title="Switch [D]oor">&nbsp;</button>
-						<button id="action_scan" title="S[K]an">&nbsp;</button>
-						<button id="action_end_turn" title="[End] Turn">&nbsp;</button>
+						<button id="action_move" data-tip>&nbsp;</button>
+						<button id="action_attack_range" data-tip>&nbsp;</button>
+						<button id="action_attack_melee" data-tip>&nbsp;</button>
+						<button id="action_give_order" data-tip>&nbsp;</button>
+						<button id="action_use_equipment" data-tip>&nbsp;</button>
+						<button id="action_switch_door" data-tip>&nbsp;</button>
+						<button id="action_scan" data-tip>&nbsp;</button>
+						<button id="action_end_turn" data-tip>&nbsp;</button>
 					</div>
 					<div id="screen">
-						<button id="mouse_scroll" title="[S]croll">&nbsp;</button>
-						<button id="screen_enlarge" title="[F]ullscreen">&nbsp;</button>
+						<button id="mouse_scroll" data-tip>&nbsp;</button>
+						<button id="screen_enlarge" data-tip>&nbsp;</button>
 					</div>
 				</div>
 
@@ -318,6 +322,7 @@
 		<script src="src/scrl.js"></script>
 		<script src="src/zoom.js"></script>
 		<script src="src/mdal.js"></script>
+		<script src="src/tips.js"></script>
 		<script src="src/tool.js"></script>
 		<script src="src/temp.js"></script>
 
