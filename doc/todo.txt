@@ -27,7 +27,7 @@
   ! BUG  : frenzy ; when no path is available, an alien can still be considered preferable to an in path alien (e.g. blocked by boulders)
   ! BUG  : invisible marine while focused by alien event (like out_of_ammo) => update sprite transparent
   ! BUG  : alien move and put another pawn into visibility of a marine => detect hostile for all marine
-  ! BUG  : movement path line when bleep is revealed and character movement greater to bleep movement
+  ! BUG  : movement path line glitch when bleep is revealed and character movement greater to bleep movement
   ! ENH  : alien elite attack twice at once (do not wait for another loop) + if is rusher, first attack is a shot instead of a melee attack
   ! ENH  : newly spawned fleshripper plays first
 

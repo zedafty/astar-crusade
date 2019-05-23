@@ -22,11 +22,14 @@
 		Tips need to be shown even when the game is paused.
 		So timeouts are regular 'Window' objects and not 'Scene' properties.
 
+	# Behaviour
+		When a target is hovered for a certain time without any mouse movement, then the tip is displayed.
+		After being displayed, the tip is dismissed if the mouse cursor move out a square of n pixel over origin coordinates.
+		A tip cannot be re-displayed hover a target without leaving and re-entering it.
+
 	# Uncovered cases
-		Big elements: target are meant to be mere small element (i.e. not container) ; for big elements, the tip needs to be displayed inside the target, and not outside.
-		Long texts: texts should be all pre-generated, so long texts should be avoided during development ; if any, the text will simply overflows the tip to the right.
-		Resize events: tips aren't re-positioned after any resize event ; if the cursor remains on a displaced element, then the tip should remain in place.
-		Window overflow: if the tip overflows the whole window in any axis for any reason then its coordinate in that axis is set to 0 (i.e. the top left corner is always visible, but the bottom right corner could not be).
+		Long lines: texts should be all pre-generated, so long lines should be avoided during development ; if any, the text will simply overflows the tip to the right.
+		Vertical overflow: if the tip vertically overflows the whole window, then its coordinate in that axis is set to 0 (i.e. the top side is always visible, but the bottom side won't be).
 
 */
 
@@ -42,26 +45,20 @@ var tips = {
 	// @ Accessors
 	//////////////////////////////////////////////////////////////////////////////
 
-	"mouse" : {
-		"move" : 2
-	},
-
-	"delay" : {
-		"first" : 1000, // milliseconds -- first show => time elapsed pointer on of any tipped element before showing tip box -- Default : 3000
-		"later" : 0, // milliseconds -- later show => time elapsed pointer on of any tipped element before re-showing tip box when tip box was previously shown -- Default : 0
-		"reset" : 500 // milliseconds -- reset to first => time elapsed pointer out of any tipped element -- Default : 500
-	},
+	"delay" : 1250, // mouse movement idle time in milliseconds required for a tip to be displayed -- Default : 1250
+	"offset" : 0, // tolerance in pixels between two checks for the mouse movement still considered as idle -- Default : 0
+	"threshold" : 4, // mouse movement in pixels from origin coordinates above which a tip will be hidden -- Default : 4
+	"spacing" : 4, // distance in pixels between cursor and tip box (can be negative) -- Default : 4
+	"bottom" : false, // should the tip be vertically placed at cursor bottom by default -- Default : false
 
 	//////////////////////////////////////////////////////////////////////////////
 	// @ Mutators
 	//////////////////////////////////////////////////////////////////////////////
 
-	"active" : false,
-
-	"timer" : {
-		"show" : null,
-		"hide" : null
-	}
+	"mouse" : {"x" : 0, "y" : 0},
+	"timer" : null,
+	"source" : null,
+	"active" : false
 
 }
 
@@ -70,6 +67,10 @@ var tips = {
 // # Functions
 // -----------------------------------------------------------------------------
 // =============================================================================
+
+////////////////////////////////////////////////////////////////////////////////
+// @ Content
+////////////////////////////////////////////////////////////////////////////////
 
 function getTip(v) { // v = tip variable ; returns string
 	if (typeof(v) == "string") { // mono
@@ -91,7 +92,7 @@ function getTip(v) { // v = tip variable ; returns string
 				} else if (k == "var") { // fstr
 					for (n in (v[k])) {
 						if (n == "kbd" || n.substring(0, n.length - 1) == "kbd") {
-							a.push(createModalMenuKeyString(v[k][n])); // WARNING : function belonging to 'mdal'
+							a.push(createModalMenuKeyString(v[k][n])); // TODO : put at an higher level ; function belonging to 'mdal'
 						} else {
 							a.push(v[k][n]);
 						}
@@ -103,99 +104,116 @@ function getTip(v) { // v = tip variable ; returns string
 	}
 }
 
-function setTipPosition(o, u) { // o = target element, u = tip element
+////////////////////////////////////////////////////////////////////////////////
+// @ Position
+////////////////////////////////////////////////////////////////////////////////
 
-	let q = u.querySelector(".tail");
-	let r = o.getBoundingClientRect();
+function setTipPosition(u) { // u = source element (tip)
+	let r = getCursorSize();
 	let w = u.offsetWidth;
 	let h = u.offsetHeight;
-
-	let s = 6; // spacing -- TODO : put in conf
+	let s = tips.spacing;
 	let x = y = 0;
-
 	u.classList.remove("left", "right");
-	q.classList.remove("down", "up", "off");
-
+	// ---------------------------------------------------------------------------
 	// A. Horizontality
-	x = (r.left + (r.width / 2)) - (w / 2);
+	// ---------------------------------------------------------------------------
+	x = (tips.mouse.x + (r.width / 2)) - (w / 2);
 	if (x + w > window.innerWidth) {
 		x = window.innerWidth - w + 1; // WARNING : 1px safety adjustment
-		s = 0;
-		q.classList.add("off");
 		u.classList.add("right");
-		// console.log("out of window right ; tip positioned at window right"); // DEBUG
 	} else if (x < 0) {
 		x = 0;
-		s = 0;
-		q.classList.add("off");
 		u.classList.add("left");
-		// console.log("out of window left ; tip positioned at window left"); // DEBUG
 	}
-
+	// ---------------------------------------------------------------------------
 	// B. Verticality
-	y = r.top - (h + s);
-	if (y < 0) {
-		y = r.bottom + s;
-		q.classList.add("up");
-		// console.log("out of window top ; tip positioned at target bottom"); // DEBUG
+	// ---------------------------------------------------------------------------
+	if (tips.bottom) { // cursor bottom
+		y = tips.mouse.y + r.height + s;
 		if (y + h > window.innerHeight) {
-			y = 0;
-			q.classList.add("off");
-			// console.log("out of window bottom ; tip positioned at window top"); // DEBUG
+			y = tips.mouse.y - (h + s);
+			if (y < 0) y = 0;
 		}
-	} else {
-		q.classList.add("down");
+	} else { // cursor top
+		y = tips.mouse.y - (h + s);
+		if (y < 0) { y = tips.mouse.y + r.height + s;
+			if (y + h > window.innerHeight) y = 0;
+		}
 	}
-
 	u.style.top = y + "px";
 	u.style.left = x + "px";
-
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// @ Visibility
+////////////////////////////////////////////////////////////////////////////////
+
 function showTip(o) { // o = HTML element
-	clearTimeout(tips.timer.show);
-	clearTimeout(tips.timer.hide);
-	tips.timer.show = setTimeout(function() {
-		let k = o.getAttribute("data-tip") == "" ? o.getAttribute("id") : o.getAttribute("data-tip");
-		if (k != null) {
-			let s = getTip(lang.tips[k]);
-			if (s != null) {
-				tips.active = true;
-				let u = document.getElementById("tip");
-				let r = o.getBoundingClientRect();
-				u.style.transition = "";
-				u.style.display = "";
-				u.querySelector("div").innerHTML = s;
-				setTipPosition(o, u);
-				setTimeout(function() { u.style.opacity = "1" }, 10); // TEMP
-			}
+	let k = o.getAttribute("data-tip") == "" ? o.getAttribute("id") : o.getAttribute("data-tip");
+	if (k != null) {
+		let s = getTip(lang.tips[k]);
+		if (s != null) {
+			let u = document.getElementById("tip");
+			let r = o.getBoundingClientRect();
+			u.style.transition = "";
+			u.style.display = "";
+			u.style.opacity = "1";
+			u.querySelector("div").innerHTML = s;
+			setTipPosition(u);
 		}
-	}, tips.delay[tips.active ? "later" : "first"]);
+	}
 }
 
 function hideTip() {
-	clearTimeout(tips.timer.show);
 	let u = document.getElementById("tip");
 	u.style.transition = "opacity .5s";
 	u.style.opacity = "0";
-	tips.timer.hide = setTimeout(function() {
-		tips.active = false;
-	}, tips.delay.reset);
+	tips.active = false;
 }
 
-document.getElementById("tip").addEventListener("transitionend", function(e) {
-	if (tips.active) this.style.display = "none";
-});
+////////////////////////////////////////////////////////////////////////////////
+// @ Events Bindings
+////////////////////////////////////////////////////////////////////////////////
 
-// =============================================================================
-// -----------------------------------------------------------------------------
-// # Events
-// -----------------------------------------------------------------------------
-// =============================================================================
+function setTipPending() {
+	clearTimeout(tips.timer);
+	tips.timer = setTimeout(function() {
+		showTip(tips.source);
+		tips.source = null;
+		tips.active = true;
+	}, tips.delay);
+}
 
 function bindTipEvents(o) { // o = HTML element
-	o.addEventListener("mouseenter", function() { showTip(o) });
-	o.addEventListener("mouseleave", function() { hideTip(o) });
+
+	o.addEventListener("mouseenter", function() {
+		tips.source = o;
+		setTipPending();
+	});
+
+	o.addEventListener("mouseleave", function() {
+		clearTimeout(tips.timer);
+		tips.source = null;
+		hideTip();
+	});
+
+	o.addEventListener("mousemove", function(e) {
+		if (tips.source != null) { // never shown
+			tips.mouse.x = e.clientX;
+			tips.mouse.y = e.clientY;
+			if (Math.abs(e.movementX) > tips.offset
+			 || Math.abs(e.movementY) > tips.offset) {
+				setTipPending();
+			}
+		} else if (tips.active) { // shown and still visible
+			if (Math.abs(tips.mouse.x - e.clientX) > tips.threshold
+			 || Math.abs(tips.mouse.y - e.clientY) > tips.threshold) {
+				hideTip();
+			}
+		}
+	});
+
 }
 
 function bindTipsEvents() {
@@ -204,6 +222,15 @@ function bindTipsEvents() {
 	});
 }
 
-window.addEventListener("load", function() {
-	bindTipsEvents(); // TEMP
+// =============================================================================
+// -----------------------------------------------------------------------------
+// # Events
+// -----------------------------------------------------------------------------
+// =============================================================================
+
+document.getElementById("tip").addEventListener("transitionend", function() {
+	if (tips.active) {
+		this.style.display = "none";
+		tips.active = false;
+	}
 });

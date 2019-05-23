@@ -68,6 +68,7 @@ var main = {
 	"mouse" : {
 		"x" : 0,
 		"y" : 0,
+		"hover" : false,
 		"down" : false
 	},
 
@@ -553,6 +554,7 @@ window.addEventListener("load", function() {
 
 	disableToolButtons(true); // TEMP
 	disableActionButtons(); // TEMP
+	bindTipsEvents(); // TEMP
 
 	// game.map = "_01"; // TEMP (original map)
 	game.map = "m01"; // TEMP (resized map)
@@ -786,6 +788,14 @@ window.addEventListener("resize", function(e) {
 // -----------------------------------------------------------------------------
 // =============================================================================
 
+function getCursorSize() {
+	let w = h = 24; // WARNING : default ; complete assumption of 24x24 [https://stackoverflow.com/questions/1889487/get-size-of-mouse-cursor-in-javascript]
+	if (main.mouse.hover) {
+		w = conf.main.cursor.width;
+		h = conf.main.cursor.height;
+	} return {"width" : w, "height" : h};
+}
+
 function updateCursor(b) { // b = change state flag (remove cursor if not true)
 	let q = document.getElementById("main");
 	q.classList.remove(
@@ -823,6 +833,14 @@ document.getElementById("main").addEventListener("contextmenu", function(e) {
 	e.preventDefault(); // WARNING
 });
 
+document.getElementById("main").addEventListener("mouseenter", function() {
+	main.mouse.hover = true;
+});
+
+document.getElementById("main").addEventListener("mouseleave", function() {
+	main.mouse.hover = false;
+});
+
 document.addEventListener("mouseup", function(e) {
 	if (main.ready && !mdal.active && !main.pause) {
 		if (e.button == 0) { // left mouse button
@@ -844,7 +862,6 @@ document.getElementById("main").addEventListener("mousedown", function(e) {
 
 document.addEventListener("wheel", function(e) {
 	if (main.ready && !mdal.active && !e.ctrlKey) { // TEMP
-		e.preventDefault(); // WARNING
 		// console.log("wheel: deltaX " + e.deltaX + " -- deltaY " + e.deltaY + " -- deltaZ " + e.deltaZ + " -- deltaMode " + e.deltaMode); // DEBUG
 		if (e.deltaY > 0) zoomOut(); // wheel down
 		else zoomIn(); // wheel up
@@ -867,7 +884,7 @@ function startPause() {
 		if (e.style.animationPlayState == "running") e.style.animationPlayState = "paused";
 	});
 	showIcon("pause");
-	removeCursor()
+	removeCursor();
 	scen.stop();
 }
 

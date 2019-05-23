@@ -565,6 +565,10 @@ const conf = {
 				"fullscreen" : false // request browser fullscreen when main screen is enlarged -- Default : true
 			}
 		},
+		"cursor" : {
+			"width" : 32, // cursor image width in pixels -- Default : 32
+			"height" : 32 // cursor image height in pixels -- Default : 32
+		},
 		"load" : {
 			// * STABLE
 			"spin_latency" : 0, // loading user interface resources latency in milliseconds -- Default : 0
