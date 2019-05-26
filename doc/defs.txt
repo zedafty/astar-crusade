@@ -661,6 +661,134 @@
 
 ================================================================================
 --------------------------------------------------------------------------------
+# Audio
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Kind                    Folder          Type
+    Sound                   sfx             shot / loop
+    Music                   mus             long
+
+================================================================================
+--------------------------------------------------------------------------------
+# Sounds
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Doors                   Filename        Loop    Source
+  ° open_door               bbbr            o       qubodup-edev
+  ° close_door              bbbr            o       qubodup-edev
+
+  # Movement                Filename        Loop    Source
+  ° stumble                 poch            *       sfx_sounds_impact11
+  ° step_odd                futa            *       sfx_movement_footsteps1a
+  ° step_even               futb            *       sfx_movement_footsteps1b
+  ° step_bleep              futx            *       sfx_movement_footsteps5
+
+  # Weapons                 Filename        Loop    Source
+  ° draw                    pwii            *       sfx_sounds_interaction10
+  ° crush                   pock            *       sfx_wpn_punch4
+  ° slash                   sshh            *       sfx_wpn_sword1
+  ° stab                    sswe            *       sfx_wpn_dagger
+  ° fire                    pang            *       sfx_weapon_singleshot8
+  ° laser                   zbrr            *       sfx_wpn_laser5
+  ° rocket                  psho            *       sfx_wpn_missilelaunch
+  ° throw                   wezz            *       sfx_wpn_grenadewhistle1
+
+  # Impacts                 Filename        Loop    Source
+  ° blast                   kbom            *       sfx_exp_medium5
+  ° explode                 boom            *       sfx_exp_short_hard6
+  ° hit                     bump            *       sfx_damage_hit2
+  ° wound                   hoop            *       sfx_sounds_impact10
+
+  # Death Screams           Filename        Loop    Source
+  ° die                     argh            *       sfx_deathscream_human14
+  ° die_green               argg            *       sfx_deathscream_alien1
+  ° die_limbo               argl            *       sfx_deathscream_human5
+  ° die_robot               argr            *       sfx_deathscream_robot1
+  ° die_xeno                argx            *       sfx_deathscream_alien2
+
+  # Visibility              Filename        Loop    Source
+  * hide                    *               *       *
+  ° unhide                  blip            *       sfx_sounds_Blip1
+  * conceal                 *               *       *
+  * reveal                  *               *       *
+
+  # Actions                 Filename        Loop    Source
+  * move                    *               *       *
+  * attack_range            *               *       *
+  * attack_melee            *               *       *
+  * give_order              *               *       *
+  * use_equipment           *               *       *
+  ? switch_door             *               *       sfx_movement_dooropen1
+  ° scan_commander          wsh1            o       Whoosh_Electric_02
+  ° scan_trooper            wsh2            o       Whoosh_Electric_00
+  * end_turn                *               *       *
+
+  # Orders                  Filename        Loop    Source
+  * fire                    *               *       *
+  * move_it                 *               *       *
+  * by_sections             *               *       *
+  * close_assault           *               *       *
+  * photon_grenades         *               *       *
+  * heavy_weapon            *               *       *
+
+  # Equipement              Filename        Loop    Source
+  ? flash_grenade           *               *       sfx_sound_vaporizing
+  ? fission_bomb            *               *       sfx_sound_vaporizing
+  ? med_pack                *               *       *
+  ? xeno_sensor             *               *       *
+
+  # Alien Events            Filename        Loop    Source
+	? mothership_trans        *               *       *
+	? mothership_scan         *               *       *
+	? airlock_control         *               *       *
+	? auto_defence            *               *       *
+	? exploding_trap          *               *       *
+	? new_order               *               *       *
+	? battle_plan             *               *       *
+	? intercom_malfunc        *               *       *
+	? equipment_malfunc       *               *       *
+	? report_in               *               *       *
+	? weapons_jammed          *               *       sfx_wpn_noammo3
+	? out_of_ammo             *               *       sfx_wpn_noammo3
+	? lure_of_limbo           *               *       *
+	? psychic_attack          *               *       *
+	? robotic_fault           *               *       *
+	? robotic_assault         *               *       *
+	? frenzy                  *               *       *
+	? alien_elite             *               *       *
+	? self_destruction        *               *       *
+	? gremkin_grenater        *               *       *
+	? scrof_mechatek          *               *       *
+	? re_deploy               *               *       sfx_movement_portal3
+	? alien_teleporter        *               *       sfx_movement_portal3
+	? alien_task_force        *               *       *
+	? fleshripper             *               *       *
+
+  # User Commands
+  ° pause_in                pipa            *       sfx_sounds_pause5_in
+  ° pause_out               pipb            *       sfx_sounds_pause5_out
+
+  # User Interface          Filename        Loop    Source
+  ? roll                    *               *       *
+  ? member_select           *               *       *
+  ? member_action           *               *       *
+  ? identify (monitor)      *               *       *
+  ? noise (terminal)        *               *       *
+  ? choice (terminal)       *               *       *
+
+================================================================================
+--------------------------------------------------------------------------------
+# Musics
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Music                   Filename        Loop    Source
+    test                    test            *       Juhani Junkala [Retro Game Music Pack] Ending
+
+================================================================================
+--------------------------------------------------------------------------------
 # Doors
 --------------------------------------------------------------------------------
 ================================================================================

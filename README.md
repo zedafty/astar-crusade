@@ -1,10 +1,10 @@
 ## A* Crusade
 
-  Space Crusade (tm) HTML Canvas Clone.
+  Space Crusade(tm) HTML Game Clone.
 
 ### Status
 
-  * pending 2019-05-21
+  * pending 2019-05-25
 
 ### Milestone
 
@@ -14,12 +14,13 @@
 
   * doc -> documents (txt, odg)
   * lib -> libraries (js)
-  * res -> resources (css, woff, png)
+  * res -> resources (css, woff, png, ogg, mp3)
   * src -> sources (js)
 
 ### Libraries
 
   * [A* algorithm](https://github.com/bgrins/javascript-astar) by Brian Grinstead
+  * [Lufi](https://github.com/ldidry/lufi) by Luc Didry
 
 ### Fonts
 
@@ -27,9 +28,14 @@
   * [Amiga](http://www.freakyfonts.de/) 4ever Pro2 by Freaky Fonts
   * [SF](http://www.shyfoundry.com/) Electrotome by Derek Vogelpohl
 
+### Sounds
+
+  * Retro Video Game Music Pack by [Juhani Junkala](https://juhanijunkala.com/)
+  * Retro Video Game Sound Effects Collection by [Juhani Junkala](https://juhanijunkala.com/)
+  * Electric Sound Effects Library by [Little Robot Sound Factory](http://www.littlerobotsoundfactory.com)
+  * Electronic Device Loop by [Iwan Gabovitch](http://qubodup.net)
+
 ### License
 
-  Original video game produced by Gremlin Interactive (tm) in 1992.
-
-  Original product rights owned by Milton Bradley (tm) & Games Workshop (tm) since 1990.
-
+  Original video game produced by Gremlin Interactive(tm) in 1992.
+  Original product rights owned by Milton Bradley(tm) & Games Workshop(tm) since 1990.

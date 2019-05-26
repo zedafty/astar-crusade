@@ -5,7 +5,7 @@
 ================================================================================
 
   # Description
-    Space Crusade (tm) HTML Canvas Clone.
+    Space Crusade(tm) HTML Game Clone.
 
   # Tags
     html5-canvas html5-game javascript-game retrogaming clone
@@ -19,11 +19,18 @@
 
   # Libraries
     A* algorithm by Brian Grinstead [https://github.com/bgrins/javascript-astar]
+    Lufi by Luc Didry, [https://github.com/ldidry/lufi]
 
   # Fonts
     Pixel Sagas GoSub by Neale Davidson [http://www.pixelsagas.com/]
     Amiga 4ever Pro2 by Freaky Fonts [http://www.freakyfonts.de/]
     SF Electrotome by Derek Vogelpohl [http://www.shyfoundry.com/]
+
+  # Sounds
+    Retro Video Game Music Pack by Juhani Junkala [https://juhanijunkala.com/]
+    Retro Video Game Sound Effects Collection by Juhani Junkala [https://juhanijunkala.com/]
+    Electric Sound Effects Library by Little Robot Sound Factory [http://www.littlerobotsoundfactory.com]
+    Electronic Device Loop by Iwan Gabovitch [http://qubodup.net]
 
 ================================================================================
 --------------------------------------------------------------------------------
@@ -37,7 +44,7 @@
   Stopped on November 20th, 2018
   Studied on April 30th, 2019
   Pursued on May 6th, 2019
-  Pending on May 21st, 2019
+  Pending on May 24th, 2019
 
 ================================================================================
 --------------------------------------------------------------------------------
@@ -45,8 +52,8 @@
 --------------------------------------------------------------------------------
 ================================================================================
 
-  Original video game produced by Gremlin Interactive (tm) in 1992.
-  Original product rights owned by Milton Bradley (tm) & Games Workshop (tm) since 1990.
+  Original video game produced by Gremlin Interactive(tm) in 1992.
+  Original product rights owned by Milton Bradley(tm) & Games Workshop(tm) since 1990.
 
   "Space Crusade is an adventure board game produced by Milton Bradley together with Games Workshop and was first made in 1990."
   "While produced in the UK and available in some other countries including Finland, Ireland, France, Spain, Denmark, Australia and New Zealand, it was never sold in North America."
@@ -71,25 +78,29 @@
 
   this.uses (
     A* algorithm by Brian Grinstead, [https://github.com/bgrins/javascript-astar]
-  ! Lufi by Luc Didry [https://github.com/ldidry/lufi]
+  ? Lufi by Luc Didry, [https://github.com/ldidry/lufi]
     Pixel Sagas GoSub font by Neale Davidson, [http://www.pixelsagas.com/]
-    SF Electrotome font by Derek Vogelpohl [http://www.shyfoundry.com/]
+    Amiga 4ever Pro2 by Freaky Fonts [http://www.freakyfonts.de/]
+    SF Electrotome font by Derek Vogelpohl, [http://www.shyfoundry.com/]
+  ! Retro Video Game Sound Effects & Music Packs by Juhani Junkala [https://juhanijunkala.com/]
+  ! Electric Sound Effects Library by Little Robot Sound Factory [http://www.littlerobotsoundfactory.com]
+  ! Electronic Device Loop by Iwan Gabovitch [http://qubodup.net]
   );
 
   this.isCraftedWith (
     Firefox, [https://www.mozilla.org/firefox/]
     Notepad++, [https://notepad-plus-plus.org/]
   * GIMP, [https://www.gimp.org/]
-  ! Photoshop [https://www.adobe.com/]
-  ? Audacity, [https://www.audacityteam.org/]
+    Photoshop [https://www.adobe.com/]
+    Audacity, [https://www.audacityteam.org/]
     Kindness [https://en.wikipedia.org/wiki/Kindness]
   );
 
   this.canBeThanksTo (
-    MDN, [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference]
+    MDN Web Docs, [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference]
     W3CSchools, [https://www.w3schools.com/jsref/default.asp]
-    StackOverflow [https://stackoverflow.com/]
-    Freddie Mercury, Fatoumata Diawara, Lazerhawk & Miss Monique
+    StackOverflow, [https://stackoverflow.com/]
+    Miss Monique [https://www.youtube.com/channel/UClIIy-aQBXRi1OHupBcrjJw]
   );
 
 ================================================================================
@@ -98,109 +109,125 @@
 --------------------------------------------------------------------------------
 ================================================================================
 
-  Space Crusade           >>  A* Crusade [Wreckage/Rampage/Rummage/Plunder/Crawling/Fleet/War]
-  Space Marine            >>  A* <Marine/Trooper/Mariner/Fleet>
+  # Base
+    Space Crusade           >>  A* Crusade [Wreckage/Rampage/Rummage/Plunder/Crawling/Fleet/War]
+  ! Space Marine (r)        >>  A* <Marine/Trooper/Mariner/Fleet>
 
-  * Space Crusade + Star Quest => Space Quest | Star Crusade |=> A* Crusade (search algorithm name)
+  ^ Space Crusade + Star Quest => Space Quest | Star Crusade |=> A* Crusade (search algorithm name)
 
-  Blip                    >>  Bleep                   >>  Blip
-  Gretchin                >>  Gremkin                 >>  Gremkin
-  Ork                     >>  Scrof                   >>  Scrof
-  Soulsucker              >>  Fleshripper             >>  Écorcheur
-  Chaos Marine            >>  Limbo Trooper           >>  Soldat des Limbes
-  Chaos Commandant        >>  Limbo Commander         >>  Commandant des Limbes
-  Android                 >>  Cyborg                  >>  Cyborg
-  Dreadnought             >>  Juggernaut              >>  Juggernaut
+  # Extensions
+    Eldar Attack            >> Elnar Engage             >> L'engagement elnar
+    Mission Dreadnought     >> Robot Attack             >> L'attaque robotique
 
-  Marine                  >>  Trooper                 >>  Soldat
-  Commandant              >>  Commander               >>  Commandant
-  Sergeant                >>  Sergeant                >>  Sergent
-  Lieutenant              >>  Lieutenant              >>  Lieutenant
-  Captain                 >>  Captain                 >>  Capitaine
-  Chapter                 >>  Division                >>  Division
+  # Aliens
+    Blip                    >>  Bleep                   >>  Blip
+    Gretchin                >>  Gremkin                 >>  Gremkin
+    Ork                     >>  Scrof                   >>  Scrof
+    Soulsucker              >>  Fleshripper             >>  Écorcheur
+    Chaos Marine            >>  Limbo Trooper           >>  Soldat des Limbes
+    Chaos Commandant        >>  Limbo Commander         >>  Commandant des Limbes
+    Android                 >>  Cyborg                  >>  Cyborg
+    Dreadnought             >>  Juggernaut              >>  Juggernaut
 
-  Blood Angels            >>  Red Angels              >>  Anges rouges
-  Imperial Fists          >>  Golden Arms             >>  Bras dorés
-  Ultramarines            >>  Blue Hypers             >>  Hypers bleus
+  # Marines
+    Marine                  >>  Trooper                 >>  Soldat
+    Commandant              >>  Commander               >>  Commandant
+    Sergeant                >>  Sergeant                >>  Sergent
+    Lieutenant              >>  Lieutenant              >>  Lieutenant
+    Captain                 >>  Captain                 >>  Capitaine
+    Chapter                 >>  Division                >>  Division
 
-  Bolter                  >>  Bloter*                 >>  Détâcheur
-  Bolt Gun                >>  Blot  Pistol            >>  Pistolet détâcheur
-  Heavy Bolter            >>  Heavy Bloter            >>  Détâcheur lourd
-  Assault Cannon          >>  Machine Gun             >>  Mitrailleuse
-  Missile Launcher        >>  Rocket Launcher         >>  Lance-roquettes
-  Plasma Gun              >>  Plasma Cannon           >>  Canon à plasma
-  Energy Axe              >>  Power Axe               >>  Hache de force
-  Energy Glove            >>  Power Glove             >>  Gant de force
-  Energy Sword            >>  Power Sword             >>  Épée de force
+  # Teams
+    Blood Angels            >>  Red Angels              >>  Anges rouges
+    Imperial Fists          >>  Golden Arms             >>  Bras dorés
+    Ultramarines            >>  Blue Hypers             >>  Hypers bleus
 
-  * Blot+er <- (dé)tâcheur ; a blot = tâche ; to blot = éponger/essuyer ; blotter => buvard
+  # Weapons
+    Bolter                  >>  Bloter*                 >>  Détâcheur
+    Bolt Gun                >>  Blot  Pistol            >>  Pistolet détâcheur
+    Heavy Bolter            >>  Heavy Bloter            >>  Détâcheur lourd
+    Assault Cannon          >>  Machine Gun             >>  Mitrailleuse
+    Missile Launcher        >>  Rocket Launcher         >>  Lance-roquettes
+    Plasma Gun              >>  Plasma Cannon           >>  Canon à plasma
+    Energy Axe              >>  Power Axe               >>  Hache de force
+    Energy Glove            >>  Power Glove             >>  Gant de force
+    Energy Sword            >>  Power Sword             >>  Épée de force
 
-  Fielding                >>  Mason                   >>  Mason
-  Ordellen                >>  Connor                  >>  Connor
-  Tenzer                  >>  Teller                  >>  Teller
-  Ozman                   >>  Dogget                  >>  Dogget
-  Fargo                   >>  Brian                   >>  Brian
+  ^ Blot+er <- (dé)tâcheur ; a blot = tâche ; to blot = éponger/essuyer ; blotter => buvard
 
-  Meller                  >>  Kellog                  >>  Kellog
-  Steinburg               >>  Bergson                 >>  Bergson
-  Reice                   >>  Cooker                  >>  Cooker
-  Shellam                 >>  Reyce                   >>  Reyce
-  Price                   >>  Clark                   >>  Clark
+  # Red Names
+    Fielding                >>  Mason                   >>  Mason
+    Ordellen                >>  Connor                  >>  Connor
+    Tenzer                  >>  Teller                  >>  Teller
+    Ozman                   >>  Dogget                  >>  Dogget
+    Fargo                   >>  Brian                   >>  Brian
 
-  Goldstock               >>  Lockhart                >>  Lockhart
-  Keifer                  >>  Pfeifer                 >>  Pfeifer
-  Brekken                 >>  Bolton                  >>  Bolton
-  Harris                  >>  Quaker                  >>  Quaker
-  Hart                    >>  Hartman                 >>  Hartman
+  # Gold Names
+    Meller                  >>  Kellog                  >>  Kellog
+    Steinburg               >>  Bergson                 >>  Bergson
+    Reice                   >>  Cooker                  >>  Cooker
+    Shellam                 >>  Reyce                   >>  Reyce
+    Price                   >>  Clark                   >>  Clark
 
-+ Fire!                   >>  Fire!                   >>  Feu à volonté !
-+ Move It!                >>  Move It!                >>  Bougez-vous !
-+ By Sections!            >>  By Sections!            >>  Sections groupées !
-+ Close Assault!          >>  Close Assault!          >>  À l'assaut !
-  Photon Grenades!        >>  Photon Grenades!        >>  Grenades à photons !
-  Heavy Weapon!           >>  Heavy Weapon!           >>  Arme lourde !
+  # Blue Names
+    Goldstock               >>  Lockhart                >>  Lockhart
+    Keifer                  >>  Pfeifer                 >>  Pfeifer
+    Brekken                 >>  Bolton                  >>  Bolton
+    Harris                  >>  Quaker                  >>  Quaker
+    Hart                    >>  Hartman                 >>  Hartman
 
-+ Blind Grenades          >>  Flash Grenade           >>  Grenade aveuglante
-+ Melta Bomb              >>  Fission Bomb            >>  Bombe à fission
-+ Bolt Pistol             >>  Blot Pistol             >>  Pistolet Blot
-+ Targeter                >>  Targeter                >>  Cibleur
-  Close Assault Blades    >>  Assault Blades          >>  Lames d'assaut
-  Force Field             >>  Force Field             >>  Champ de force
-  Bionic Arm              >>  Bionic Arm              >>  Bras bionique
-  Suspensors              >>  Suspensors              >>  Suspenseurs
-  Combi-Weapon            >>  Dual-Weapon             >>  Arme double
-  Bionic Eye              >>  Bionic Eye              >>  Oeil bionique
-  Bio-Scanner             >>  Xeno-Sensor             >>  Xeno-Capteur
-  Digital Weapons         >>  Bionic Hand             >>  Main bionique
-  Medi-kit                >>  Med-Pack                >>  Med-Pack
+  # Orders
+  + Fire!                   >>  Fire!                   >>  Feu à volonté !
+  + Move It!                >>  Move It!                >>  Bougez-vous !
+  + By Sections!            >>  By Sections!            >>  Sections groupées !
+  + Close Assault!          >>  Close Assault!          >>  À l'assaut !
+    Photon Grenades!        >>  Photon Grenades!        >>  Grenades à photons !
+    Heavy Weapon!           >>  Heavy Weapon!           >>  Arme lourde !
 
-  Mothership Commo.       >>  Mothership Transmission >>  Trans. vaisseau mère
-  Mothership Scan         >>  Mothership Scan         >>  Scan vaisseau mère
-  Master Controls         >>  Airlock Control         >>  Contrôle des sas
-  Auto-Defence            >>  Auto-Defence            >>  Auto-défense
-  Booby Trap              >>  Exploding Trap          >>  Piège explosif
-+ New Orders              >>  New Order               >>  Nouvel ordre
-+ Battle Plan             >>  Battle Plan             >>  Plan de bataille
-  Communications Malfunc. >>  Intercom Malfunction    >>  Défaillance Intercom
-  Equipment Malfunc.      >>  Equipment Malfunction   >>  Défaillance équipement
-  Report In               >>  Report In               >>  Au rapport
-  Weapons Jammed          >>  Weapons Jammed          >>  Armes enrayées
-  Out of Ammo             >>  Out of Ammo             >>  Plus de munitions
-  Lure of Chaos           >>  Lure of Limbo           >>  Appel des Limbes
-  Psychic Attack          >>  Psychic Attack          >>  Attaque psychique
-  Android Fault           >>  Robotic Fault           >>  Défaut robotique
-  Mech. Assault           >>  Robotic Assault         >>  Assaut robotique
-  Frenzy                  >>  Frenzy                  >>  Frénésie
-  Alien Elite             >>  Alien Elite             >>  Alien d'élite
-  Suicide Android         >>  Self-Destruction        >>  Auto-destruction
-  Gretchin Bomber         >>  Gremkin Grenater        >>  Grenadier gremkin
-+ Ork Mekaniak            >>  Scrof Mechatek          >>  Mécatek scrof
-+ Re-Deploy               >>  Re-Deploy               >>  Re-déploiement
-+ Alien Teleporter        >>  Alien Teleporter        >>  Téléporteur alien
-+ Alien Task Force        >>  Alien Task Force        >>  Force opérationnelle
-  Soulsucker              >>  Fleshripper             >>  Écorcheur
+  # Equipment
+  + Blind Grenades          >>  Flash Grenade           >>  Grenade aveuglante
+  + Melta Bomb              >>  Fission Bomb            >>  Bombe à fission
+  + Bolt Pistol             >>  Blot Pistol             >>  Pistolet Blot
+  + Targeter                >>  Targeter                >>  Cibleur
+    Close Assault Blades    >>  Assault Blades          >>  Lames d'assaut
+    Force Field             >>  Force Field             >>  Champ de force
+    Bionic Arm              >>  Bionic Arm              >>  Bras bionique
+    Suspensors              >>  Suspensors              >>  Suspenseurs
+    Combi-Weapon            >>  Dual-Weapon             >>  Arme double
+    Bionic Eye              >>  Bionic Eye              >>  Oeil bionique
+    Bio-Scanner             >>  Xeno-Sensor             >>  Xeno-Capteur
+    Digital Weapons         >>  Bionic Hand             >>  Main bionique
+    Medi-kit                >>  Med-Pack                >>  Med-Pack
 
-+ Reinforcement           >>  Reinforcement           >>  Renfort
+  # Alien Events
+    Mothership Commo.       >>  Mothership Transmission >>  Trans. vaisseau mère
+    Mothership Scan         >>  Mothership Scan         >>  Scan vaisseau mère
+    Master Controls         >>  Airlock Control         >>  Contrôle des sas
+    Auto-Defence            >>  Auto-Defence            >>  Auto-défense
+    Booby Trap              >>  Exploding Trap          >>  Piège explosif
+  + New Orders              >>  New Order               >>  Nouvel ordre
+  + Battle Plan             >>  Battle Plan             >>  Plan de bataille
+    Communications Malfunc. >>  Intercom Malfunction    >>  Défaillance Intercom
+    Equipment Malfunc.      >>  Equipment Malfunction   >>  Défaillance équipement
+    Report In               >>  Report In               >>  Au rapport
+    Weapons Jammed          >>  Weapons Jammed          >>  Armes enrayées
+    Out of Ammo             >>  Out of Ammo             >>  Plus de munitions
+    Lure of Chaos           >>  Lure of Limbo           >>  Appel des Limbes
+    Psychic Attack          >>  Psychic Attack          >>  Attaque psychique
+    Android Fault           >>  Robotic Fault           >>  Défaut robotique
+    Mech. Assault           >>  Robotic Assault         >>  Assaut robotique
+    Frenzy                  >>  Frenzy                  >>  Frénésie
+    Alien Elite             >>  Alien Elite             >>  Alien d'élite
+    Suicide Android         >>  Self-Destruction        >>  Auto-destruction
+    Gretchin Bomber         >>  Gremkin Grenater        >>  Grenadier gremkin
+  + Ork Mekaniak            >>  Scrof Mechatek          >>  Mécatek scrof
+  + Re-Deploy               >>  Re-Deploy               >>  Re-déploiement
+  + Alien Teleporter        >>  Alien Teleporter        >>  Téléporteur alien
+  + Alien Task Force        >>  Alien Task Force        >>  Force opérationnelle
+    Soulsucker              >>  Fleshripper             >>  Écorcheur
+
+  # Alien Reinforcement
+  + Reinforcement           >>  Reinforcement           >>  Renfort
 
 ================================================================================
 --------------------------------------------------------------------------------

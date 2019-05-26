@@ -6,33 +6,38 @@
 
 # Components
   ° Events
-  ° Reinforcement
+  ° Reinforcements
   ° Score
   ° Savegame Manager
-  ? Tooltips
-  ! Sounds
-  ! Team Configuration
-  ! Game Configuration
+  ° Tooltips
+  ~ Sounds
+  ! Game Setup
+  ! Team Setup
   ! Debrief
   ! Maps
   ! Intro
   ! Outro
-  ! User Settings
+  ! Settings
   ! Debug
   ! Test
 
+  * Sounds
+  ? ENH  : deactivate offscreen sounds
+
   * Muppets
-  ! BUG  : Char.sortHostile (see code)
-  ! BUG  : muppet doesn't attack an hostile which is unaccessible due to another hostile blocking the passage => should attack the nearest hostile in path *** IMPORTANT
-  ! BUG  : frenzy ; when no path is available, an alien can still be considered preferable to an in path alien (e.g. blocked by boulders)
-  ! BUG  : invisible marine while focused by alien event (like out_of_ammo) => update sprite transparent
-  ! BUG  : alien move and put another pawn into visibility of a marine => detect hostile for all marine
-  ! BUG  : movement path line glitch when bleep is revealed and character movement greater to bleep movement
+  ` BUG  : wrong hostile sorting ; Char.sortHostile (see code)
+  ` BUG  : muppet doesn't attack an hostile which is unaccessible due to another hostile blocking the passage => should attack the nearest hostile in path *** IMPORTANT
+  ` BUG  : frenzy ; when no path is available, an alien can still be considered preferable to an in path alien (e.g. blocked by boulders)
+  ` BUG  : invisible marine while focused by alien event (like out_of_ammo) => update sprite transparent
+  ` BUG  : alien move and put another pawn into visibility of a marine => detect hostile for all marine
+  ` BUG  : movement path line glitch when bleep is revealed and character movement greater to bleep movement
   ! ENH  : alien elite attack twice at once (do not wait for another loop) + if is rusher, first attack is a shot instead of a melee attack
   ! ENH  : newly spawned fleshripper plays first
 
   * Controllers
+  ! TODO : deactivate scroll by mouse on alien turn (don't forget to force user to get out of mouse scrolling before doing so, if possible)
   * ENH  : clear select tile on pause => need to differ scen.stop at frame+1...
+  ! ENH  : bind mousedown event on scroll buttons (i.e. make it possible to repeat scroll while mouse button is held)
   ? ENH  : hide focus reticle during attack (obstruct character animation) OR change its display
   ? ENH  : cancel reroll/chained attack when click on view
   ? ALT  : always center on select ?
@@ -41,7 +46,7 @@
   ! IDEA : zoom only at 50% (1px), 100% (2px), 150% (3px) and maybe 200% (4px) => exact pixel match + gameplay improvement (i.e. is it really usefull to be able to zoom at 69.756% ? => what we want to do is to fit view according to gameplay, not the reverse [i want to see whole map for strategy planification, i want to see where the character can move, i want to see what the character is doing {animation}])
 
   * Graphics
-  ! ENH  : position muzzle ajustement toward radian rotation
+  ! ENH  : position muzzle ajustement toward radian rotation *** IMPORTANT
   ? IDEA : draw an aim reticle when a [target/focus] is out of screen
   ? ENH  : deactivated toolbar and main focusable elements when modal is active
 
@@ -78,7 +83,7 @@
 
   > Ideas
     ? move all muppets blocks contained in Char class under child class Alien
-    ? use a web worker for tile detection and muppet action computing 
+    ? use a web worker for tile detection and muppet action computing
       > no obvious use for that now ; scriptflow is strictly sequential, no asynchronous features can be implemented right now with real performance gain
 
   > Bugs
@@ -89,7 +94,7 @@
 # User Interface
 
   > Tooltips
-    ! custom tooltip box for replacing native tooltips
+    ° custom tooltip box to replace native tooltips
 
   > Modal
     ° Keymap
@@ -136,11 +141,11 @@
 
   > Scroll
     ° prevent click on screen when scroll by mouse active (click on buttons still possible)
-    ? press 'S' toggle scroll by mouse instead of scroll by when 'S' is pressed
+    ° pressing key 'S' toggle scroll by mouse instead of scroll by when key 'S' is pressed
     ? display a visual indicator when scroll by mouse is active (like arrows in screen corners)
 
   > Enhancements
-    ? always start game enlarged => wait until other pages done ; if enlarged activated in a previous page, then the new page starts enlarged
+    * always start game enlarged => wait until other pages done ; if enlarged activated in a previous page, then the new page starts enlarged
     ? check if fullscreen mode activated/deactivated in browser and enlarge/reduce main screen accordingly
     ! change keys by settings ; optionally register them in a human-readable format
 
@@ -155,12 +160,17 @@
       > added specific die roll zero animation with fixed border-color property
     ° Webkit mouse third button event not triggered => mouse event 'click' is only fired with left mouse button
       > use mouse event 'mouseup' instead of 'click'
-    ° Webkit CORS policy with local hosted images
+    ~ Webkit CORS policy with local hosted images => tainted canvas due to pixel manipulation from local host
       * use '--allow-file-access-from-files' argument on browser (only dev)
-      ° encode images which are to be affected by pixel manipulation into base64 (i.e. embedded in script ; no conflict)
-    ! Brave security policy prevents local storage usage
+      > encode images which are to be affected by pixel manipulation into base64 (i.e. embedded in script ; no conflict)
+    ~ Webkit save game fail due to thumbnail exception => tainted canvas may not be exported
+      > no fix right now, thumbnail feature deactivated and dummy image displayed of screenshot
+    ` Brave security policy prevents local storage usage
       * no fix right now ; eventually, go to brave://settings/ and under 'Brave shields defaults' header set 'Cookie Control' to 'Allow all cookies'
-    ! Brave => scrolling slow + mouse cursor image lag
+    ! Brave slow scrolling and mouse cursor image lag
+      > no fix right now ; those performance issues need to be checked in detail
+    ~ Fullscreen exits on Esc key pressed when browser fullscreen is enabled (whilst it should only show 'Menu') => hard coded feature (security issue)
+      > by default, feature disabled
     ! Firefox Choice arrows misplacement while on fullscreen => transform scale mess with border based arrow ; no fix for now
     ? Firefox SVG misplacement while screen is resized => transform scale mess with SVG
       ? use full joined path instead of multiple squares
@@ -294,7 +304,8 @@
   # Display
   ° Screen follows characters and projectiles smoothly and not in fits and starts (i.e. scroll updated every 1 pixel instead of every n tiles)
   ° Scroll locked while a character is moving or a projectile is firing (n.b. user cannot move screen but can stil zoom)
-  ° Scroll inputs enabled during alien turn (n.b. screen 'sticks' to any acting entity)
+  ° Pressing key 'S' toggle scroll by mouse instead of triggering it (i.e. no need to hold the key)
+  * Scroll inputs enabled during alien turn (n.b. screen 'sticks' to any acting entity) * DEPRECATED
 
   # Gameplay
   ° Sight is strictly interpreted as per core rules ("line of sight between any two miniatures is found by tracing a straight line from the center of one square to the other")
