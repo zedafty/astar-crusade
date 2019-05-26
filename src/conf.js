@@ -69,6 +69,7 @@ const conf = {
 
 	"console" : {
 		"debug" : "color: teal;",
+		"test" : "color: deeppink;",
 		"game" : "font-weight: bold; color: darkorchid;",
 		"red" : "font-weight: bold; color: crimson;",
 		"gold" : "font-weight: bold; color: darkgoldenrod;",
@@ -362,6 +363,24 @@ const conf = {
 	},
 
 	//////////////////////////////////////////////////////////////////////////////
+	// @ Audio
+	//////////////////////////////////////////////////////////////////////////////
+
+	"audio" : {
+		"sound" : {
+			"dir" : "res/aud/snd/", // relative path to sound effects -- Default : "res/aud/snd/"
+			"ext" : "mp3", // file extension of sound effects -- Default : "mp3"
+			"players" : 10, // number of audio elements -- Default : 10
+			"step_alt" : true, // alternate footstep sounds (i.e. one bass, one pitch ; only bass if false) -- Default : true
+			"pause_sound" : true // play a sound when game is paused or resumed -- Default : true
+		},
+		"music" : {
+			"dir" : "res/aud/mus/", // relative path to musics -- Default : "res/aud/mus/"
+			"ext" : "ogg" // file extension of sound effects -- Default : "ogg"
+		}
+	},
+
+	//////////////////////////////////////////////////////////////////////////////
 	// @ Dimensions
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -562,7 +581,7 @@ const conf = {
 			"margin" : {"top" : 20, "left" : 20, "right" : 20, "bottom" : 20}, // main screen margin in pixels -- Default : 20, 20, 20, 20
 			"enlarged" : {
 				"margin" : {"top" : 0, "left" : 0, "right" : 0, "bottom" : 0}, // main screen margin in pixels when enlarged -- Default : 0, 0, 0, 0
-				"fullscreen" : false // request browser fullscreen when main screen is enlarged -- Default : true
+				"fullscreen" : false // request browser fullscreen when main screen is enlarged -- Default : false
 			}
 		},
 		"cursor" : {

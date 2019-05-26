@@ -153,6 +153,8 @@ class Door extends Furn {
 			this.type = -1;
 			that.type = -1;
 			if (!instant) {
+				// * Play sound effect
+				this.playSound("open_door", true); // NEW
 				// * Set opening
 				this.opening = true;
 				that.opening = true;
@@ -167,6 +169,8 @@ class Door extends Furn {
 			if (instant) {
 				that.hidden = true;
 			} else {
+				// * Stop sound effect
+				if (this.audio != null) this.stopSound(); // NEW
 				// * Reset counter
 				this.count = 0;
 				// * End opening
@@ -192,6 +196,8 @@ class Door extends Furn {
 			this.hidden = false;
 			that.hidden = false;
 			if (!instant) {
+				// * Play sound effect
+				this.playSound("close_door", true); // NEW
 				// * Prevent save
 				main.save.prevented = true;
 				// * Set closing
@@ -211,6 +217,8 @@ class Door extends Furn {
 				game.grid[ti(that.x)][ti(that.y)][0] = 3;
 				that.type = 3;
 			} else {
+				// * Stop sound effect
+				if (this.audio != null) this.stopSound(); // NEW
 				// * End closing
 				this.closing = false;
 				// * Allow save

@@ -1240,6 +1240,7 @@ class Char extends Pawn {
 			let o = this;
 			let u = pawn[next_cell[1]];
 			shakeScreen(1, 0.125);
+			playSound("stumble"); // NEW
 			if (u !== undefined && !isGone(u) && u instanceof Char) {
 				u.turnTo(reverseDir(next_dir));
 				u.playAnimation("stumble");
@@ -1371,23 +1372,28 @@ class Char extends Pawn {
 		// * Update visibility on tile change
 		if (this.move.x == 0 && this.move.y == 0) { // last step done
 
-			// 1. Increment move count
+			// 1. Play sound effect
+			if (!this.hidden) {
+				playSound("step_" + (this.unseen ? "bleep" : this.move.count % 2 == 0 ? "even" : "odd")); // NEW
+			}
+
+			// 2. Increment move count
 			this.move.count++;
 
-			// 2. Update position
+			// 3. Update position
 			this.updatePosition();
 
-			// 3. Update sight
+			// 4. Update sight
 			this.updateSight();
 
-			// 4. Update minimap
+			// 5. Update minimap
 			term.updateMiniMap();
 
-			// 5. Update path lines list
+			// 6. Update path lines list
 			if (conf.debug.draw.path) ents.Line.path.list.shift(); // DEBUG
 
 			// -----------------------------------------------------------------------
-			// 6. Check alien attack action during move -- UNSUSED
+			// 7. Check alien attack action during move -- UNSUSED
 			// -----------------------------------------------------------------------
 			// if (isAlien(this) && isPlayerAlien() && this.last_tile[2] == 0) checkAlienAttack(this, true); // only if this tile empty
 			// -----------------------------------------------------------------------
@@ -1668,6 +1674,8 @@ class Marine extends Char {
 	//////////////////////////////////////////////////////////////////////////////
 
 	die() {
+		// * Play sound effect
+		playSound("die"); // NEW
 		super.die();
 		let team = getTypeKey(this);
 		// * Set member state
@@ -1842,6 +1850,21 @@ class Alien extends Char {
 		// * Update reinforcement pawn pool
 		game.team.alien.reinforcement.pawn[this.subt].push(this.id);
 		super.leave();
+	}
+
+	//////////////////////////////////////////////////////////////////////////////
+	// @ Leave
+	//////////////////////////////////////////////////////////////////////////////
+
+	die() {
+		// * Play sound effect
+		let k = "die";
+		if (isGreen(this)) k += "_green";
+		else if (isLimbo(this)) k += "_limbo";
+		else if (isRobot(this)) k += "_robot";
+		else if (isXeno(this)) k += "_xeno";
+		playSound(k); // NEW
+		super.die();
 	}
 
 	//////////////////////////////////////////////////////////////////////////////

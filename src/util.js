@@ -227,15 +227,23 @@ function getLocalStorageItem(k) { // k = item key ; returns object
 
 /**
 
-	Checks if a web storage item exists, and optionally, if its value is defined.
+	Checks if a web storage item key exists.
 
 */
 
-function hasLocalStorageItem(k, b) { // k = item key, b = not null value flag ; returns boolean
-	if (localStorage.hasOwnProperty(k)) {
-		if (b) return getLocalStorageItem(k) != null;
-		else return true;
-	} return false;
+function hasLocalStorageKey(k) { // k = item key ; returns boolean
+	return localStorage.hasOwnProperty(k);
+}
+
+/**
+
+	Checks if a web storage item key exists and if its value is defined.
+
+*/
+
+function hasLocalStorageItem(k) { // k = item key ; returns boolean
+	if (hasLocalStorageKey(k)) return getLocalStorageItem(k) != null;
+	return false;
 }
 
 /**
@@ -245,7 +253,7 @@ function hasLocalStorageItem(k, b) { // k = item key, b = not null value flag ; 
 */
 
 function setLocalStorageItem(k, v, b) { // k = item key, v = item value, b = replace flag
-	if (b && hasLocalStorageItem(k, true) && typeof(v) == "object") {
+	if (b && hasLocalStorageItem(k) && typeof(v) == "object") {
 		let r = getLocalStorageItem(k);
 		if (typeof(r) == "object") v = Object.assign(r, v);
 	} localStorage.setItem(k, JSON.stringify(v));

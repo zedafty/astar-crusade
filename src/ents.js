@@ -797,7 +797,16 @@ function setAlienAttributes(o) { // o = entity
 // @ Animations
 ////////////////////////////////////////////////////////////////////////////////
 
-function getBuffet(v) { // v = anim index or key
+function getBuffetKey(v) { // v = anim index or anim key ; returns anim key
+	if (typeof(v) == "number") {
+		switch(v) {
+			case 0 : v = "blast"; break;
+			default: null;
+		}
+	} return v;
+}
+
+function getBuffetIndex(v) { // v = anim index or anim key
 	let n;
 	if (typeof(v) == "string") {
 		switch(v) {
@@ -808,11 +817,27 @@ function getBuffet(v) { // v = anim index or key
 	return n;
 }
 
-function playBuffet(x, y, v) { // x, y = pixel, v = anim index or key
-	ents.Anim.buffet.start(x, y, getBuffet(v), true);
+function playBuffet(x, y, v) { // x, y = pixel, v = anim index or anim key
+	playSound(getBuffetKey(v)); // NEW
+	ents.Anim.buffet.start(x, y, getBuffetIndex(v), true);
 }
 
-function getEffect(v) { // v = anim index or key
+function getEffectKey(v) { // v = anim index or anim key ; returns anim key
+	if (typeof(v) == "number") {
+		switch(v) {
+			case 0 : v = "explode"    ; break;
+			case 1 : v = "hit"        ; break;
+			case 2 : v = "wound"      ; break;
+			case 3 : v = "wound_green"; break;
+			case 4 : v = "wound_xeno" ; break;
+			case 5 : v = "wound_robot"; break;
+			case 6 : v = "reveal"     ; break;
+			default: null;
+		}
+	} return v;
+}
+
+function getEffectIndex(v) { // v = anim index or anim key
 	let n;
 	if (typeof(v) == "string") {
 		switch(v) {
@@ -829,19 +854,20 @@ function getEffect(v) { // v = anim index or key
 	return n;
 }
 
-function playEffect(x, y, v) { // x, y = pixel, v = anim index or key
+function playEffect(x, y, v) { // x, y = pixel, v = anim index or anim key
 	let i, e, k;
 	for (i = 0; i < conf.Anim.effect_num; i++) {
 		k = leadZero(i + 1);
 		e = ents.Anim["effect" + k];
 		if (!e.playing) {
-			e.start(x, y, getEffect(v), true);
+			playSound(getEffectKey(v)); // NEW
+			e.start(x, y, getEffectIndex(v), true);
 			break;
 		}
 	}
 }
 
-function getMuzzle(v) { // v = anim index or key
+function getMuzzleIndex(v) { // v = anim index or anim key
 	let n;
 	if (typeof(v) == "string") {
 		switch(v) {
@@ -857,8 +883,8 @@ function getMuzzle(v) { // v = anim index or key
 	return n;
 }
 
-function playMuzzle(x, y, v, g) { // x, y = pixel, v = anim index or key, g = angle (radian)
-	ents.Anim.muzzle.start(x, y, getMuzzle(v), false, g);
+function playMuzzle(x, y, v, g) { // x, y = pixel, v = anim index or anim  key, g = angle (radian)
+	ents.Anim.muzzle.start(x, y, getMuzzleIndex(v), false, g);
 }
 
 function getMeleeAnimation(o) { // o = entity ; returns character animation track identifier
@@ -2169,7 +2195,7 @@ class Rect extends Ents {
 
 						// * Check invisible entities
 						if (!a[k][n][2]) { // not has been run
-							if ((isItem(c[0]) || isAlien(c[0])) && pawn[c[1]].hidden) pawn[c[1]].hidden = false;
+							if ((isItem(c[0]) || isAlien(c[0])) && pawn[c[1]].hidden) pawn[c[1]].unhide(); // NEW
 							a[k][n][2] = true; // set run flag
 						}
 
@@ -2294,6 +2320,9 @@ class Pawn extends Ents {
 
 		// * Graphics
 		this.color = {"major" : null, "minor" : null, "third" : null}; // bitmap color scheme
+
+		// * Audio
+		this.audio = null; // NEW : audio player id
 
 	}
 
@@ -2425,6 +2454,8 @@ class Pawn extends Ents {
 	unhide(b) { // b = update minimap flag
 		// * Unhide
 		this.hidden = false;
+		// * Play sound effect
+		playSound("unhide"); // NEW
 		// * Update minimap
 		if (b) term.updateMiniMap();
 		console.log("[" + this.id + "] spotted"); // DEBUG
@@ -2452,6 +2483,7 @@ class Pawn extends Ents {
 		this.hidden = false;
 		// * Update minimap
 		if (b) term.updateMiniMap();
+		// * Play animation effect
 		// playEffect(this.x, this.y, "reveal"); // DEPRECATED
 		console.log("[" + this.id + "] revealed" + (s !== undefined ? " by [" + s + "]" : "")); // DEBUG
 	}
@@ -2513,6 +2545,23 @@ class Pawn extends Ents {
 			else if (isRobot(this)) s += "_robot";
 		}
 		playEffect(this.getX(), this.getY(), s);
+	}
+
+	//////////////////////////////////////////////////////////////////////////////
+	// @ Play Sound
+	//////////////////////////////////////////////////////////////////////////////
+
+	playSound(k, b) { // k = sound key, b = loop flag
+		this.audio = playSound(k, b); // NEW
+	}
+
+	//////////////////////////////////////////////////////////////////////////////
+	// @ Stop Sound
+	//////////////////////////////////////////////////////////////////////////////
+
+	stopSound() {
+		stopSound(this.audio);
+		this.audio = null; // NEW
 	}
 
 	//////////////////////////////////////////////////////////////////////////////

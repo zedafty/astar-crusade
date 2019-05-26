@@ -1219,6 +1219,25 @@ function restartScene(_game, _main, _scen, _term, _tool, _pawn) {
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
+	// @ Audio
+	//////////////////////////////////////////////////////////////////////////////
+
+	// * Reload main audio
+	main.audio = _main.audio;
+	// * Set audio mute
+	setAudioMute(main.audio.mute);
+	// * Reset sound players
+	resetSoundPlayers();
+	// * Restore sound volume
+	setSoundVolume(main.audio.sound.volume);
+	// * Restore music volume
+	setMusicVolume(main.audio.music.volume);
+	// * Restore music time
+	if (main.audio.music.time > 0) setMusicTime(main.audio.music.time);
+	// * Restore music play state
+	main.audio.music.play ? playMusic() : stopMusic();
+
+	//////////////////////////////////////////////////////////////////////////////
 	// @ Tool
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -1226,6 +1245,11 @@ function restartScene(_game, _main, _scen, _term, _tool, _pawn) {
 
 	if (tool.toggle.limbo_luck && !hasAttribute("limbo_luck", "data-state")) forceClick("limbo_luck");
 	else if (tool.toggle.limbo_jinx && !hasAttribute("limbo_jinx", "data-state")) forceClick("limbo_jinx");
+	else if (tool.toggle.mute_audio && !hasAttribute("mute_audio", "data-state")) forceClick("mute_audio");
+
+	document.getElementById("volume_sound").value = Math.round(main.audio.sound.volume * 100); // TEMP
+	document.getElementById("volume_music").value = Math.round(main.audio.music.volume * 100); // TEMP
+	document.getElementById("play_music").innerHTML = main.audio.music.play ? "Stop" : "Play"; // TEMP
 
 	//////////////////////////////////////////////////////////////////////////////
 	// @ Continue
@@ -1235,7 +1259,7 @@ function restartScene(_game, _main, _scen, _term, _tool, _pawn) {
 	scen.fade(null);
 
 	// * Cancel pause
-	stopPause();
+	stopPause(true);
 
 	// * Reset view locks
 	unlockScroll(true);
@@ -1245,6 +1269,6 @@ function restartScene(_game, _main, _scen, _term, _tool, _pawn) {
 	term.updateMiniMap();
 
 	// * Clear console
-	console.clear(); // DEBUG
+	console.clear();
 
 }

@@ -107,6 +107,22 @@ var main = {
 	},
 
 	//////////////////////////////////////////////////////////////////////////////
+	// @ Audio
+	//////////////////////////////////////////////////////////////////////////////
+
+	"audio" : {
+		"mute" : false,
+		"sound" : {
+			"volume" : 1.0
+		},
+		"music" : {
+			"volume" : 1.0,
+			"time" : 0,
+			"play" : false
+		}
+	},
+
+	//////////////////////////////////////////////////////////////////////////////
 	// @ Pause
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -309,7 +325,7 @@ var spr = {
 		// "cyborg"                        : {"img" : null, "src" : "res/spr/char/cyborg.png"},
 		// "juggernaut"                    : {"img" : null, "src" : "res/spr/char/juggernaut.png"}
 		// * Data (base64)
-		"bleep"                         : {"img" : null, "src" : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAxQTFRFIkQAEWYAzMzMEZkzfq70OwAAAF1JREFUeNrEk0EOABAMBKv7/z9LyUovqFSYg4SdSFEClAUishXaMAD87K3AQNWLJ0KPAFWLqJ0Jtkwmp9gItj1hyVEB8KGXokK+hlv3kH2LG/3wt6uXHy8gpKkCDACOOgLxrO2+VAAAAABJRU5ErkJggg"},
+		"bleep"                         : {"img" : null, "src" : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAACACAMAAACMX59YAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAxQTFRFIkQAEWYAzMzMEZkzfq70OwAAAK1JREFUeNrslt0KgCAMRs29/zvHiuUu/CEcKHV2EdQZHzbSThI5OpXSiKfpgOvylIi/Uzbi3wkwkLNvLAFtHhVwI5GcFVmbf4UWjwvQx1b1IdZ5XIAuz8pG5gNaPCJAxMPSpNtozCMC1s9gl+9g9V7Y4Tz496nc/XEN+XzA+sIP8AP8AD/AD/AD/AA/wA/wA/wAP8AP8AP8AD/AD/AD/AA/wA/wA/wAP3hZpwADALHlF+Fil6soAAAAAElFTkSuQmCC"},
 		"commander"                     : {"img" : null, "src" : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAACACAMAAACMX59YAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACpQTFRFERERAMzMzMzMAIiImUQAu7u7AP//zADM7ndViIiIiACI/wD/VSIA////yqFhSAAAAA50Uk5T/////////////////wBFwNzIAAAB6ElEQVR42uyY646EIAyFEQW87fu/7u6xYQsKrtrGZCf0l5OWT6gD5wTzdTPMFslvNYDJoj6067zvOq7QAsQEIi/g4d73fQjeW5tW6AAwtf4naJLxKR+OIYhloddoApAMAUm3BZ5CyBq1DXfOWmSRwyu0AEhauyxUgEDRslgbEWhfzDo3DMbMszbAeyxhmggwTZgmfyq01ZiYG0cg0uXJAX1PTRyGcXSOCtJG4Rc1GMPXFfnsDy4E0BTnGYB1jQXcJloimowXoGL3F1MA8FYetsi3ND4iPiktMp++HqB2XOUbHcssbHNVQO0YxXDa5IXsCwBucjH3CuAU3gAfBbgq7/stpwW4Ju900OYVOoCSvB+3NGX3FkMDUJL3nZXL5J0sxu+xLwaU5T01GEd5D4GXqQM4yntuMI7yjiP+1B/cApTlPTUYR3m/YDAuA8ryzgbjoT+4BSjJe2owHvmDm4CzI+ORP3gMaP6gaeP/AbT7g3Z/0O4P2v1Buz9o9wfNHzRA8wdv+QM6WAX+QAyIrXvoD8SAaDAeyrsYwAajLu94OvUHYgAZjLq84+nEH4gBbDBK8s4WoyLvYgAbjLK85xajKO9iQO2qMd3I0WJU5F0M+Fve6TKSr5/eBRBCaDCEgFp73wR8tD/4FmAApzIO2OFrq3QAAAAASUVORK5CYII"},
 		"trooper"                       : {"img" : null, "src" : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAACACAMAAACMX59YAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtQTFRFERERAMzMAIiIAP//zADMzMzMiACI/wD/////jJA9BQAAAAl0Uk5T//////////8AU094EgAAAdBJREFUeNrsmOuOhCAMhZWL7Ps/8c6Zhi2V4qg0Jjspfxwt/QaqcE5Yfi625d2aezPAIto4dV1jXFfuYQWoATTZgdNjDCGlGHNue9gAMLTwajTI+kumIwWtFPobSwCCKVGBKLQsKYlCvdMRAxoxXK0ACORcCpWxFqiUnCsC5aNeiCF126wBMWIKuKIhEa+LAehOUTyTJbYAhEBFxFUrFO5qFM94+DYAGuK21aHRlctEg0eRKS7TbQC8lEPgD5pfE15uneQ+3Qow2q7kQsc0lWVuChhto/QC++E/BeAiq7FHAIdwB3wV4Ky875ecFeCcvNOmKnvYADR575c0RfcWwwKgyfvOygl5J4vxt+1PA3R5bw1GL+8p8TRtAL28S4PRyzu2+EN/cAmgy3trMHp5P2EwTgN0eWeDcdMfXAJo8t4ajFv+4CLgaMu45Q9uA9wfuDb+H4CfH/j5gZ8f+PmBnx/4+YH7Awe4P3jKH9DGOuEPpgG1dDf9wTSgGoyb8j4NkAZDl3eawIE/mAaQwRjLO4n60B9MA9hgaPLeWgxV3qcBbDB0eZcWQ5X3acDoqLFdyNViDOR9GvBZ3ukj5uOnZwGEmDQYk4BReZ8EfLU/+BVgAIWAonnbaKbdAAAAAElFTkSuQmCC"},
 		"gremkin"                       : {"img" : null, "src" : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAACACAMAAACMX59YAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAB5QTFRFERERAIiIAMzMiACIzADMAP//iIgA/wD/RGZm////W0dM4QAAAAp0Uk5T////////////ALLMLM8AAAGISURBVHja7JiNqsMgDEYTrdr7/i98yQ1ZtSq3NlkZLMI2sO3Bn+l3KvwoC3wdAF7lHQCpBJg/HkLO21ZKjK+7jQDUqBC4cfw7BiACEMIaALBtOSOGkFIIiHRLj6DH6SrhbQEApTAg/RUGlALQTh9fF0Q1jQYAHhQaPPnEWHeC6qSDAPveoE0AMRIAkRpJ31JzAHLmIQRIqR1eC8CxRPYdkRrYLheZZkK0zbcDtIt19BemiR5ftQXMl3GM7bA+DZh37jmAJ5MDPs0P3gm4Fu9nxbACnON9BpB4PxTDBtDH+3hrlXivFcMCMI536Db8Ot4vCMYSoI/3VjD6eP9XMBYBo3hvBeOGHywARvF+FoxlP1gEnAOsF4xFP7gNcD/wZHKAnx/4+YGfH/j5gZ8fuB94MjnA/eAT/aA+XLjlB2oAVSv8QA0QwbgZ72qAxIYi3tUAnpZ5vEsXpn6gBvDt83g/FGMY72rA/LW/V4xJvKsBVzYSmupRwD8HUAuGEsADrNrW3VDm5VeAAQDY8N0JDCAWYAAAAABJRU5ErkJggg"},
@@ -879,6 +895,9 @@ function startPause() {
 	lockScroll();
 	lockZoom();
 	lockButtons();
+	if (conf.audio.sound.pause_sound) playSound("pause_in", null, true); // NEW
+	pauseSoundPlayers(); // NEW
+	if (main.audio.music.play) pauseMusic(); // NEW
 	document.getElementById("main").classList.add("pause");
 	document.getElementById("roll").querySelectorAll(".die").forEach(function(e) {
 		if (e.style.animationPlayState == "running") e.style.animationPlayState = "paused";
@@ -888,11 +907,14 @@ function startPause() {
 	scen.stop();
 }
 
-function stopPause() {
+function stopPause(b) { // b = no pause sound flag
 	main.pause = false;
 	unlockScroll();
 	unlockZoom();
 	unlockButtons();
+	continueSoundPlayers(); // NEW
+	if (!b && conf.audio.sound.pause_sound) playSound("pause_out"); // NEW
+	if (main.audio.music.play) playMusic(); // NEW
 	document.getElementById("main").classList.remove("pause");
 	document.getElementById("roll").querySelectorAll(".die").forEach(function(e) {
 		if (e.style.animationPlayState == "paused") e.style.animationPlayState = "running";
@@ -915,6 +937,8 @@ function stopPause() {
 ////////////////////////////////////////////////////////////////////////////////
 
 function saveData(k, s) { // k = savegame key, s = base64 encoded thumbnail
+	// * Set music time
+	main.audio.music.time = getMusicTime(); // NEW
 	// * Set vars
 	let save = {
 		"img" : "data:image/png;base64," + s,
@@ -923,6 +947,7 @@ function saveData(k, s) { // k = savegame key, s = base64 encoded thumbnail
 		"game" : game,
 		"main" : {
 			"ctrl" : main.ctrl,
+			"audio" : main.audio, // NEW
 			"pause" : main.pause
 		},
 		"scen" : {
@@ -946,13 +971,18 @@ function saveData(k, s) { // k = savegame key, s = base64 encoded thumbnail
 }
 
 function getSaveGameThumbnail(k) { // k = savegame key
-	scen.canvas.toBlob(function(blob) {
-		let reader = new FileReader();
-		reader.readAsBinaryString(blob);
-		reader.addEventListener("loadend", function() {
-			saveData(k, btoa(this.result))
+	try {
+		scen.canvas.toBlob(function(blob) {
+			let reader = new FileReader();
+			reader.readAsBinaryString(blob);
+			reader.addEventListener("loadend", function() {
+				saveData(k, btoa(this.result));
+			});
 		});
-	});
+	} catch(e) {
+		let s = "iVBORw0KGgoAAAANSUhEUgAAAEwAAABMCAMAAADwSaEZAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRFAAAA////pdmf3QAAAEtJREFUeNrs0kEKwCAMBMD0/58WemnioQeRVnQGgpCFBSERAACc5Lo9b7/tky/L6rxt1yjL31yrrKb/ltXTyOnAaUwoAwBgF02AAQCNsAC98ivGegAAAABJRU5ErkJggg"; // TEMP
+		saveData(k, s);
+	}
 }
 
 function saveGame(k) { // k = savegame key
@@ -1029,7 +1059,7 @@ function getStorageTable() { // returns array
 
 function isValidStorageTable() { // returns boolean
 	let l = getStorageTable();
-	for (k in l) if (!hasLocalStorageItem(l[k])) return false; // missing key
+	for (k in l) if (!hasLocalStorageKey(l[k])) return false; // missing key
 	return true;
 }
 

@@ -153,12 +153,19 @@ function startAction(o, s) { // o = entity, s = action key
 			o.drawDoorRange();
 			break;
 		case "scan" :
+			// * Disable button
 			disableActionButton("scan");
-			startScan(o.x, o.y, conf.game.scan_radius[o.subt]); // do action
-			game.team[game.player[0]].action.scan--; // set action as done
+			// * Play sound effect
+			playSound("scan_" + o.subt); // NEW
+			// * Do action
+			startScan(o.x, o.y, conf.game.scan_radius[o.subt]);
+			// * Set action as done
+			game.team[game.player[0]].action.scan--;
 			break;
 		case "end_turn" :
+			// * Disable button
 			disableActionButton("end_turn");
+			// * Do action
 			endTurn();
 			break;
 	}
@@ -309,6 +316,8 @@ function performAttack() {
 					let result = term.roll.attack.reduce(sum) - term.roll.defense.reduce(sum);
 					if (result == 0) {
 						console.log("[" + o.id + "] melee against [" + u.id + "] is a draw"); // DEBUG
+						// * Play sound effect
+						playSound("draw"); // NEW
 						// * Play attacker melee animation
 						o.playAnimation(getMeleeAnimation(o) + "_draw", undefined, function() {
 							let d = getCoordFromDir(o.dir)
@@ -324,7 +333,11 @@ function performAttack() {
 					} else if (result > 0) {
 						console.log("[" + o.id + "] wins melee against [" + u.id + "]"); // DEBUG
 						// * Play attacker melee animation
-						o.playAnimation(getMeleeAnimation(o), undefined, function() {
+						let k = getMeleeAnimation(o);
+						o.playAnimation(k, undefined, function() {
+							// * Play attacker sound effect
+							playSound(getMeleeSoundKey(o, k)); // NEW
+							// * Perform damage
 							performDamage(result);
 						});
 					} else if (result < 0) {
@@ -332,7 +345,11 @@ function performAttack() {
 						// * Set defender as game actor cover
 						game.cover = u;
 						// * Play defender melee animation
-						u.playAnimation(getMeleeAnimation(u), undefined, function() {
+						let k = getMeleeAnimation(u);
+						u.playAnimation(k, undefined, function() {
+							// * Play defender sound effect
+							playSound(getMeleeSoundKey(u, k)); // NEW
+							// * Perform damage
 							performDamage(Math.abs(result), true);
 						});
 					}
@@ -340,7 +357,11 @@ function performAttack() {
 			} else { // furniture
 				console.log("[" + o.id + "] attacks [" + u.id + "] on melee"); // DEBUG
 				// * Play attacker melee animation
-				o.playAnimation(getMeleeAnimation(o), undefined, function() {
+				let k = getMeleeAnimation(o);
+				o.playAnimation(k, undefined, function() {
+					// * Play attacker sound effect
+					playSound(getMeleeSoundKey(o, k)); // NEW
+					// * Perform damage
 					performDamage();
 				});
 			}
@@ -419,6 +440,8 @@ function performAttack() {
 			// * Play fire animation
 			if (o.anim.playing && o.anim.track == "aim") {
 					o.playAnimation(o.weapon == "grenade" ? "throw" : "fire", undefined, function() {
+						// * Play sound effect
+						o.playSound(getRangeSoundKey(o)); // NEW
 						f(); // fire callback
 				});
 			} else f(); // fire callback
@@ -487,11 +510,15 @@ function performDamage(d, b, c) { // d = damage, b = defender won melee flag, c 
 	let o = b ? pawn[game.target[0][2]] : game.actor, u;
 	// 1. Set attacker as target if defender won melee
 	if (b) game.target = [[ti(game.actor.x), ti(game.actor.y), game.actor.id]];
-	// 2. Play buffet animation
+	// ******************************
+	// 2. Stop sound
+	if (o.range == "shoot" && o.audio != null) o.stopSound(); // NEW
+	// ******************************
+	// 3. Play buffet animation
 	if (o.range == "shoot" && hasBlastWeapon(o)) playBuffet(game.point.x, game.point.y, "blast");
-	// 3. Explode bomber
+	// 4. Explode bomber
 	if (o.conduct == "bomber") o.explode();
-	// 4. Damage target
+	// 5. Damage target
 	if (!hasBeamWeapon(o)) {
 		let h, r = [];
 		for (i = 0; i < game.target.length; i++) {
@@ -503,9 +530,9 @@ function performDamage(d, b, c) { // d = damage, b = defender won melee flag, c 
 		}
 		d = r[0]; // last target damage rest
 	}
-	// 5. Update sight for all here and alive marines if beam weapon or if any pawn dies
+	// 6. Update sight for all here and alive marines if beam weapon or if any pawn dies
 	if (hasBeamWeapon(o) || s) updateMarineSight();
-	// 6. Chain attack
+	// 7. Chain attack
 	if (o.range == "shoot" && hasChainWeapon(o)) {
 		let v, k = 0, q;
 		// a. Update roll result
@@ -537,7 +564,7 @@ function performDamage(d, b, c) { // d = damage, b = defender won melee flag, c 
 			resetRollButton(); // reset roll button
 		}
 	}
-	// 7. End Attack
+	// 8. End Attack
 	if (!game.chained) {
 		setFrameTimeout("attack_end", conf.game.delay.attack_end, function() {
 			endAttack();

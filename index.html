@@ -11,8 +11,9 @@
 
 		<!-- Pool -->
 		<div id="pool">
+			<audio id="audio"></audio><!-- TEST -->
 			<input id="browse_storage" type="file" class="off-page">
-			<div id="tip" style="display: none; opacity: 0;">
+			<div id="tip" class="dark" style="display: none; opacity: 0;">
 				<div></div>
 			</div>
 		</div>
@@ -44,7 +45,7 @@
 				<!-- Tool Content -->
 				<div id="tool_content">
 
-					<div id="tool_scroll">
+					<div id="tool_scroll" style="display: none;">
 						<h4>Scroll</h4>
 						<div class="button-pad">
 							<button id="scroll_nw"></button>
@@ -59,7 +60,7 @@
 						</div>
 					</div>
 
-					<div id="tool_move">
+					<div id="tool_move" style="display: none;">
 						<h4>Move</h4>
 						<div class="button-pad">
 							<button id="move_nw"></button>
@@ -80,6 +81,21 @@
 							<button id="zoom_out" data-tip>-</button>
 							<button id="zoom_reset" data-tip>100%</button>
 							<button id="zoom_in" data-tip>+</button>
+						</div>
+					</div>
+
+					<div id="tool_audio">
+						<h4>Audio</h4>
+						<span id="volume_info" style="opacity: 0;"></span>
+						<div>
+							<label for="volume_sound" data-text="Sound">Sound</label>
+							<input id="volume_sound" type="range" min="0" max="100" step="5" value="25">
+							<button id="mute_audio">Mute</button>
+						</div>
+						<div>
+							<label for="volume_music" data-text="Music">Music</label>
+							<input id="volume_music" type="range" min="0" max="100" step="5" value="50">
+							<button id="play_music">Play</button>
 						</div>
 					</div>
 

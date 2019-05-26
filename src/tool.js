@@ -31,6 +31,8 @@ var tool = {
 		"haste" : 20,
 		"life" : 666
 	},
+	
+	"volume_label_delay" : 750,
 
 	//////////////////////////////////////////////////////////////////////////////
 	// @ Mutators
@@ -42,8 +44,12 @@ var tool = {
 
 	"toggle" : {
 		"limbo_luck" : false,
-		"limbo_jinx" : false
-	}
+		"limbo_jinx" : false,
+		"mute_audio" : false
+	},
+
+	"volume_sound" : {"timer" : null, "down" : false},
+	"volume_music" : {"timer" : null, "down" : false},
 
 };
 
@@ -185,6 +191,33 @@ document.getElementById("move_cc").addEventListener("click", function() {
 document.getElementById("zoom_out").addEventListener("click", function() {if (main.ready) zoomOut()});
 document.getElementById("zoom_in").addEventListener("click", function() {if (main.ready) zoomIn()});
 document.getElementById("zoom_reset").addEventListener("click", function() {if (main.ready) resetScale()});
+
+////////////////////////////////////////////////////////////////////////////////
+// @ Audio
+////////////////////////////////////////////////////////////////////////////////
+
+document.getElementById("mute_audio").addEventListener("click", function() {
+	toggleAttribute("mute_audio", "data-state", "activated");
+	toggleAudioMute();
+});
+
+document.getElementById("volume_sound").addEventListener("change", function() {
+});
+
+document.getElementById("volume_music").addEventListener("change", function() {
+});
+
+document.getElementById("play_music").addEventListener("click", function() {
+	if (main.pause) return; // TEMP
+	let o = document.getElementById("music");
+	if (main.audio.music.play) { // is playing
+		stopMusic();
+		this.innerHTML = "Play";
+	} else { // not playing
+		playMusic();
+		this.innerHTML = "Stop";
+	}
+});
 
 ////////////////////////////////////////////////////////////////////////////////
 // @ Detect

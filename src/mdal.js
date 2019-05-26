@@ -1017,7 +1017,7 @@ function createModalSaveLoadSlots(s) { // s = save/load key
 	let i = j = 0;
 	let m = a.length;
 	for (j = 0; j < a.length; j++) {
-		d1.appendChild(createModalSaveLoadSlot(a[j], s, !hasLocalStorageItem(a[j], true)));
+		d1.appendChild(createModalSaveLoadSlot(a[j], s, !hasLocalStorageItem(a[j])));
 		i++;
 		if (i == 2 || j == m) {
 			o.appendChild(d1);

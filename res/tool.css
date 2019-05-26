@@ -142,7 +142,8 @@
 #tool_move,
 #tool_detect,
 #tool_limbo,
-#tool_storage {
+#tool_storage,
+#tool_audio {
 	position: relative;
 	margin: 20px 10px 0 10px;
 	padding: 0 16px 16px;
@@ -213,27 +214,8 @@
 /* @ Button Groups */
 /* ////////////////////////////////////////////////////////////////////////// */
 
-.butto-pad {}
-
-/*
-.button-bar button:first-of-type {
-	border-top-left-radius: 2px;
-	border-bottom-left-radius: 2px;
-}
-.button-bar button:last-of-type {
-	border-top-right-radius: 2px;
-	border-bottom-right-radius: 2px;
-}
-*/
-
+.button-pad {}
 .button-bar {position: static;}
-
-/*
-.button-pad button:nth-of-type(1) {border-top-left-radius: 2px;}
-.button-pad button:nth-of-type(3) {border-top-right-radius: 2px;}
-.button-pad button:nth-of-type(7) {border-bottom-left-radius: 2px;}
-.button-pad button:nth-of-type(9) {border-bottom-right-radius: 2px;}
-*/
 
 /* ////////////////////////////////////////////////////////////////////////// */
 /* @ Storage */
@@ -257,3 +239,38 @@
 }
 #report_storage.error span {color: gold;}
 #report_storage.warning span {color: yellow;}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Sound */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#tool_audio div {
+	position: static;
+	display: block;
+}
+#tool_audio button {
+	width: 56px;
+}
+#tool_audio label {
+	float: left;
+	display: inline-block;
+	width: 56px;
+	height: 32px;
+	color: rgba(255,255,255,.75);
+	font-size: 13px;
+	line-height: 32px;
+	text-align: center;
+}
+#volume_sound,
+#volume_music {
+	float: left;
+	display: inline-block;
+	width: 96px;
+	height: 32px;
+	margin: 0 8px;
+	box-sizing: border-box;
+}
+#mute_audio {
+	float: left;
+	margin: 3px 0;
+}

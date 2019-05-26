@@ -173,10 +173,10 @@ function hideTip() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// @ Events Bindings
+// @ Triggering
 ////////////////////////////////////////////////////////////////////////////////
 
-function setTipPending() {
+function hangTip() {
 	clearTimeout(tips.timer);
 	tips.timer = setTimeout(function() {
 		showTip(tips.source);
@@ -185,18 +185,26 @@ function setTipPending() {
 	}, tips.delay);
 }
 
+function haltTip() {
+	clearTimeout(tips.timer);
+	tips.source = null;
+	hideTip();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// @ Events Bindings
+////////////////////////////////////////////////////////////////////////////////
+
 function bindTipEvents(o) { // o = HTML element
+
+	o.addEventListener("click", haltTip);
 
 	o.addEventListener("mouseenter", function() {
 		tips.source = o;
-		setTipPending();
+		hangTip();
 	});
 
-	o.addEventListener("mouseleave", function() {
-		clearTimeout(tips.timer);
-		tips.source = null;
-		hideTip();
-	});
+	o.addEventListener("mouseleave", haltTip);
 
 	o.addEventListener("mousemove", function(e) {
 		if (tips.source != null) { // never shown
@@ -204,7 +212,7 @@ function bindTipEvents(o) { // o = HTML element
 			tips.mouse.y = e.clientY;
 			if (Math.abs(e.movementX) > tips.offset
 			 || Math.abs(e.movementY) > tips.offset) {
-				setTipPending();
+				hangTip();
 			}
 		} else if (tips.active) { // shown and still visible
 			if (Math.abs(tips.mouse.x - e.clientX) > tips.threshold
