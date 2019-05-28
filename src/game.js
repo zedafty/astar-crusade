@@ -997,6 +997,13 @@ function endTurn() {
 	}
 	// * Handle alien turn end
 	else { // is player alien
+
+		// ---------------------------------------------------------------------------
+		// * Play marine music theme
+		// ---------------------------------------------------------------------------
+		if (main.audio.music.enabled) crossfadeMusics();
+		// ---------------------------------------------------------------------------
+
 		// 1. Iterate through pawns in search of alien affected by condition
 		for (k in pawn) {
 			o = pawn[k];

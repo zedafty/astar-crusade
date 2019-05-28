@@ -376,7 +376,9 @@ const conf = {
 		},
 		"music" : {
 			"dir" : "res/aud/mus/", // relative path to musics -- Default : "res/aud/mus/"
-			"ext" : "ogg" // file extension of sound effects -- Default : "ogg"
+			"ext" : "ogg", // file extension of sound effects -- Default : "ogg"
+			"fade_delay" : 100, // time elapsed in milliseconds between two volume increment or decrement -- Default : 100
+			"fade_duration" : 2500 // total time in milliseconds of music fading effect -- Default : 2500
 		}
 	},
 

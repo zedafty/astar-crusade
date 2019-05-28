@@ -250,6 +250,8 @@
 }
 #tool_audio button {
 	width: 56px;
+	padding-left: 0;
+	padding-right: 0;
 }
 #tool_audio label {
 	float: left;

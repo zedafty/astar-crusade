@@ -330,6 +330,16 @@ function startAlienEvent() {
 	if (conf.debug.time.alien_event) console.time("alienEvent"); // DEBUG
 
 	// ---------------------------------------------------------------------------
+	// * Play alien music theme
+	// ---------------------------------------------------------------------------
+	if (main.audio.music.enabled) {
+		swapActiveMusicPlayer();
+		stopMusic();
+		playMusic();
+	}
+	// ---------------------------------------------------------------------------
+
+	// ---------------------------------------------------------------------------
 	// * Skip Alien Event -- DEBUG
 	// ---------------------------------------------------------------------------
 	if (conf.debug.skip.alien_event) { // DEBUG
@@ -1465,8 +1475,16 @@ function endAlienReinforcement() {
 
 function startAlienTurn() {
 	lockScroll(); // TEMP
-	if (conf.debug.skip.game_turn) startAlienEvent(); // DEBUG
-	else showTurn(true);
+	// ---------------------------------------------------------------------------
+	// * Stop marine music theme
+	// ---------------------------------------------------------------------------
+	if (main.audio.music.enabled) fadeMusicOut();
+	// ---------------------------------------------------------------------------
+	if (conf.debug.skip.game_turn) { // DEBUG
+		startAlienEvent();
+	} else {
+		showTurn(true);
+	}
 }
 
 function endAlienTurn() {

@@ -113,12 +113,17 @@ var main = {
 	"audio" : {
 		"mute" : false,
 		"sound" : {
+			"enabled" : true, // TODO : user settings
 			"volume" : 1.0
 		},
 		"music" : {
+			"enabled" : true, // TODO : user settings
 			"volume" : 1.0,
-			"time" : 0,
-			"play" : false
+			"playtime" : 0, // active player
+			"active" : null, // "music_1" or "music_1"
+			"resource" : [null, null],
+			"timer" : [null, null],
+			"count" : [-1, -1]
 		}
 	},
 
@@ -897,7 +902,7 @@ function startPause() {
 	lockButtons();
 	if (conf.audio.sound.pause_sound) playSound("pause_in", null, true); // NEW
 	pauseSoundPlayers(); // NEW
-	if (main.audio.music.play) pauseMusic(); // NEW
+	if (main.audio.music.enabled) pauseMusic(null, true); // NEW
 	document.getElementById("main").classList.add("pause");
 	document.getElementById("roll").querySelectorAll(".die").forEach(function(e) {
 		if (e.style.animationPlayState == "running") e.style.animationPlayState = "paused";
@@ -907,14 +912,14 @@ function startPause() {
 	scen.stop();
 }
 
-function stopPause(b) { // b = no pause sound flag
+function stopPause(b) { // b = restart scene flag
 	main.pause = false;
 	unlockScroll();
 	unlockZoom();
 	unlockButtons();
-	continueSoundPlayers(); // NEW
+	resumeSoundPlayers(); // NEW
 	if (!b && conf.audio.sound.pause_sound) playSound("pause_out"); // NEW
-	if (main.audio.music.play) playMusic(); // NEW
+	if (!b && main.audio.music.enabled) playMusic(null, true); // NEW
 	document.getElementById("main").classList.remove("pause");
 	document.getElementById("roll").querySelectorAll(".die").forEach(function(e) {
 		if (e.style.animationPlayState == "paused") e.style.animationPlayState = "running";
@@ -938,7 +943,7 @@ function stopPause(b) { // b = no pause sound flag
 
 function saveData(k, s) { // k = savegame key, s = base64 encoded thumbnail
 	// * Set music time
-	main.audio.music.time = getMusicTime(); // NEW
+	main.audio.music.playtime = getMusicTime(); // NEW
 	// * Set vars
 	let save = {
 		"img" : "data:image/png;base64," + s,
@@ -1064,7 +1069,7 @@ function isValidStorageTable() { // returns boolean
 }
 
 function isValidStorageFormat(v) { // v = storage data ; returns boolean
-	if (typeof(v) != "object" || Array.isArray(v)) return false; // not javascript object
+	if (v == null || typeof(v) != "object" || Array.isArray(v)) return false; // not javascript object
 	let l = getStorageTable();
 	for (k in v) if (l.includes(k)) return false; // missing key
 	return true;

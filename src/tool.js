@@ -201,20 +201,17 @@ document.getElementById("mute_audio").addEventListener("click", function() {
 	toggleAudioMute();
 });
 
-document.getElementById("volume_sound").addEventListener("change", function() {
-});
-
-document.getElementById("volume_music").addEventListener("change", function() {
-});
+// document.getElementById("volume_sound").addEventListener("change", function() {});
+// document.getElementById("volume_music").addEventListener("change", function() {});
 
 document.getElementById("play_music").addEventListener("click", function() {
-	if (main.pause) return; // TEMP
-	let o = document.getElementById("music");
-	if (main.audio.music.play) { // is playing
+	if (main.audio.music.enabled) {
 		stopMusic();
+		main.audio.music.enabled = false;
 		this.innerHTML = "Play";
-	} else { // not playing
-		playMusic();
+	} else {
+		if (!main.pause) playMusic();
+		main.audio.music.enabled = true;
 		this.innerHTML = "Stop";
 	}
 });

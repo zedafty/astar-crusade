@@ -785,7 +785,8 @@
 ================================================================================
 
   # Music                   Filename        Loop    Source
-    test                    test            *       Juhani Junkala [Retro Game Music Pack] Ending
+    marine_theme            marine_theme    o       Juhani Junkala [Retro Game Music Pack] Ending
+    alien_theme             alien_theme     o       Juhani Junkala [Retro Game Music Pack] Title Screen
 
 ================================================================================
 --------------------------------------------------------------------------------

@@ -31,7 +31,15 @@ var setup = { // TEMP
 var tempstorage = { // TEMP
 	"settings" : {
 		"keyboard_layout" : null,
-		"keymap" : {}
+		"keymap" : {},
+		"audio" : {
+			"sound" : {
+				"enabled" : true // TODO
+			},
+			"music" : {
+				"enabled" : true // TODO
+			}
+		}
 	},
 	// ---------------------------------------------------------------------------
 	"setup" : {},
@@ -234,7 +242,7 @@ function stopSound(p) { // p = audio player id
 	let o = document.getElementById(p);
 	if (p != null) {
 		o.pause();
-		if (o.loop) {
+		if (o.loop) { // throw AbortError exception otherwise
 			o.loop = false;
 			o.currentTime = 0;
 		}
@@ -249,42 +257,158 @@ function stopSound(p) { // p = audio player id
 // @ Musics
 ////////////////////////////////////////////////////////////////////////////////
 
+function getMusicPlayers() { // returns HTML collection
+	return document.querySelectorAll("audio[id^='music']");
+}
+
+function getActiveMusicPlayer() { // returns HTML element
+	return document.querySelector("audio[id^='music'][data-active]");
+}
+
+function getUnactiveMusicPlayer() { // returns HTML element
+	return document.querySelector("audio[id^='music']:not([data-active])");
+}
+
+function getMusicPlayer(u) {// u = unactive player flag ; returns HTML element
+	return u ? getUnactiveMusicPlayer() : getActiveMusicPlayer();
+}
+
+function setActiveMusicPlayer(s) { // s = HTML element id
+	main.audio.music.active = s;
+	getMusicPlayers().forEach(function(o) {
+		if (o.id == s) o.dataset.active = "true";
+		else o.removeAttribute("data-active");
+	});
+}
+
+function swapActiveMusicPlayer() {
+	let o = getUnactiveMusicPlayer();
+	setActiveMusicPlayer(o.id);
+}
+
 function getMusicLocation(s) { // s = music resource ; returns music location
 	return s = conf.audio.music.dir + s + "." + conf.audio.music.ext;
 }
 
-function loadMusic(s) { // s = music resource
-	let o = document.getElementById("music");
+function loadMusic(s, u) { // s = music resource, u = unactive player flag
+	let o = getMusicPlayer(u);
+	let i = parseInt(o.id.slice(-1));
+	main.audio.music.resource[i] = s;
 	o.src = getMusicLocation(s);
 	o.loop = true;
 	o.load();
 }
 
-function playMusic() {
-	let o = document.getElementById("music");
+function reloadMusicResources() {
+	let l = getMusicPlayers(), i, o;
+	for (i = 0; i < l.length; i++) {
+		o = l[i];
+		o.src = getMusicLocation(main.audio.music.resource[i]);
+		o.loop = true;
+		o.load();
+	}
+}
+
+function playMusic(u, b) { // u = unactive player flag, b = force fade flag
+	let o = getMusicPlayer(u);
 	o.play();
-	main.audio.music.play = true;
+	
+	console.log(b); // DEBUG
+	
+	if (b) { // force fading music to play
+		let l = main.audio.music.count, i;
+		for (i in l) if (l[i] >= 0) document.getElementById("music_" + i).play();
+	}
 }
 
-function pauseMusic() {
-	let o = document.getElementById("music");
+function pauseMusic(u, b) { // u = unactive player flag, b = force fade flag
+	let o = getMusicPlayer(u);
 	o.pause();
+	if (b) { // force fading music to pause
+		let l = main.audio.music.count, i;
+		for (i in l) if (l[i] >= 0) document.getElementById("music_" + i).pause();
+	}
 }
 
-function stopMusic() {
-	let o = document.getElementById("music");
+function stopMusicPlayer(u, b) { // u = unactive player flag, b = keep playtime flag
+	let o = getMusicPlayer(u);
+	let i = parseInt(o.id.slice(-1));
+	// * Clear music fade interval
+	clearInterval(main.audio.music.timer[i]);
+	// * Reset counter
+	main.audio.music.count[i] = 0;
+	// * Reset music volume to default
+	o.volume = main.audio.music.volume;
+	// * Pause music player
 	o.pause();
-	o.currentTime = 0;
-	main.audio.music.play = false;
+	// * Reset playtime
+	if (!b && o.currentTime > 0) o.currentTime = 0; // throw AbortError exception otherwise
 }
 
-function getMusicTime() { // returns float
-	let o = document.getElementById("music");
+function stopMusic(u, b) { // u = unactive player flag*, b = keep playtime flag
+	if (u == null) {
+		stopMusicPlayer(true, b);
+		stopMusicPlayer(false, b);
+	} else {
+		stopMusicPlayer(u, b);
+	}
+}
+
+function fadeMusic(m, u, b, f) { // m = fade duration (ms), u = unactive player flag, b = fade-in flag, f = callback function
+	if (typeof(m) != "number") m = conf.audio.music.fade_duration;
+	if (typeof(m) != "function") f = function() {};
+	let o = getMusicPlayer(u);
+	let n = conf.audio.music.fade_delay;
+	let d = Math.floor(m / n);
+	let v = main.audio.music.volume / d * (b ? 1 : -1);
+	let i = parseInt(o.id.slice(-1));
+	// * Clear music fade interval
+	clearInterval(main.audio.music.timer[i]);
+	// * Reset counter
+	main.audio.music.count[i] = 0;
+	// * Set music element volume
+	o.volume = b ? 0 : main.audio.music.volume;
+	// * Start player
+	o.play();
+	// * Set music fade interval
+	main.audio.music.timer[i] = setInterval(function() {
+		if (main.pause) return; // hang interval until pause end
+		if (main.audio.music.count[i] == d) {
+			o.volume = b ? main.audio.music.volume : 0;
+			main.audio.music.count[i] = -1;
+			f();
+			clearInterval(main.audio.music.timer[i]);
+		} else {
+			o.volume = Math.min(Math.clamp(0.0, o.volume + v, 1.0), main.audio.music.volume);
+			main.audio.music.count[i]++;
+		}
+	}, n);
+}
+
+function fadeMusicIn(m, u, f) { // m = fade duration (ms), u = unactive player flag, f = callback function
+	fadeMusic(m, u, true, f);
+}
+
+function fadeMusicOut(m, u, f) { // m = fade duration (ms), u = unactive player flag, f = callback function
+	fadeMusic(m, u, false, f);
+}
+
+function crossfadeMusics(m) { // m = fade duration (ms)
+	// * Fade active music player out
+	fadeMusicOut(m, false, function() { stopMusic(false) });
+	// * Fade unactive music player in
+	fadeMusicIn(m, true);
+	// * Swap active music player
+	swapActiveMusicPlayer();
+}
+
+function getMusicTime(u) { // u = unactive player flag ; returns float
+	let o = getMusicPlayer(u);
 	return o.currentTime;
 }
 
-function setMusicTime(n) { // n = float
-	let o = document.getElementById("music");
+function setMusicTime(n, u) { // n = float, u = unactive player flag
+	let o = getMusicPlayer(u);
 	o.currentTime = n;
 }
 
@@ -292,46 +416,48 @@ function setMusicTime(n) { // n = float
 // @ Audio Controls
 ////////////////////////////////////////////////////////////////////////////////
 
+function getSoundPlayers() { // returns HTML collection
+	return document.querySelectorAll("audio[id^='sound']");
+}
+
 function pauseSoundPlayers() {
-	document.querySelectorAll("audio").forEach(function(o) {
-		if (o.id != "music" && !o.ended && o.currentTime > 0 && !o.hasAttribute("data-pause-sound")) {
+	getSoundPlayers().forEach(function(o) {
+		if (!o.ended && o.currentTime > 0 && !o.hasAttribute("data-pause-sound")) {
 			o.pause();
 		}
 	});
 }
 
-function continueSoundPlayers() {
-	document.querySelectorAll("audio").forEach(function(o) {
-		if (o.id != "music" && !o.ended && o.currentTime > 0 && !o.hasAttribute("data-stop")) {
+function resumeSoundPlayers() {
+	getSoundPlayers().forEach(function(o) {
+		if (!o.ended && o.currentTime > 0 && !o.hasAttribute("data-stop")) {
 			o.play();
 		}
 	});
 }
 
 function resetSoundPlayers() {
-	document.querySelectorAll("audio").forEach(function(o) {
-		if (o.id != "music") {
-			o.removeAttribute("src");
-			o.loop = false;
-			o.load();
-		}
+	getSoundPlayers().forEach(function(o) {
+		o.removeAttribute("src");
+		o.loop = false;
+		o.load();
 	});
 }
 
 function setSoundVolume(n) { // n = float (0.0 to 1.0)
 	n = Math.clamp(0.0, n, 1.0);
 	main.audio.sound.volume = n;
-	document.querySelectorAll("audio").forEach(function(o) {
-		if (o.id != "music") o.volume = n;
+	getSoundPlayers().forEach(function(o) {
+		o.volume = n;
 	});
-	// console.log("%csound volume set to " + n, conf.console["test"]); // DEBUG
 }
 
 function setMusicVolume(n) { // n = float (0.0 to 1.0)
 	n = Math.clamp(0.0, n, 1.0);
 	main.audio.music.volume = n;
-	document.getElementById("music").volume = n;
-	// console.log("%cmusic volume set to " + n, conf.console["test"]); // DEBUG
+	getMusicPlayers().forEach(function(o) {
+		o.volume = n;
+	});
 }
 
 function setAudioMute(b) { // b = muted flag
@@ -352,9 +478,9 @@ function toggleAudioMute() {
 function createAudioPlayers() {
 	let o = document.getElementById("pool"), u, i;
 	let m = conf.audio.sound.players;
-	for (i = 0; i < m + 1; i++) {
+	for (i = 0; i < m + 2; i++) {
 		u = document.createElement("audio");
-		u.id = i == m ? "music" : "sound_" + i;
+		u.id = i < m ? u.id = "sound_" + i : "music_" + (i - m);
 		o.appendChild(u);
 	}
 }
@@ -381,9 +507,12 @@ function setVolumeFromInput(o, b) { // o = HTML element, b = no info flag
 
 window.addEventListener("load", function() {
 	// * Create audio players
-	createAudioPlayers(); // TEMP
+	createAudioPlayers();
+	// * Set music player active
+	setActiveMusicPlayer("music_0");
 	// * Load music
-	loadMusic("test"); // TEMP
+	loadMusic("marine_theme", false);
+	loadMusic("alien_theme", true);
 	// * Prepare Tool range inputs
 	document.querySelectorAll("input[type='range']").forEach(function(o) {
 		// * Reset range inputs
@@ -398,5 +527,5 @@ window.addEventListener("load", function() {
 		o.addEventListener("wheel", function(e) { e.preventDefault(); });
 	});
 	// * Auto-start music
-	// document.getElementById("play_music").click(); // TEMP
+	document.getElementById("play_music").click(); // TEMP
 });

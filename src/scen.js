@@ -1082,8 +1082,7 @@ function restartScene(_game, _main, _scen, _term, _tool, _pawn) {
 
 	// * Reset monitor
 	hideIdentify();
-	hideReport();
-	hideTurn();
+	hideTurn(true);
 	hideAlien();
 	resetStatus();
 
@@ -1222,20 +1221,26 @@ function restartScene(_game, _main, _scen, _term, _tool, _pawn) {
 	// @ Audio
 	//////////////////////////////////////////////////////////////////////////////
 
+	// * Stop music players
+	stopMusic(null, true);
+	// * Reset sound players
+	resetSoundPlayers();
 	// * Reload main audio
 	main.audio = _main.audio;
 	// * Set audio mute
 	setAudioMute(main.audio.mute);
-	// * Reset sound players
-	resetSoundPlayers();
 	// * Restore sound volume
 	setSoundVolume(main.audio.sound.volume);
 	// * Restore music volume
 	setMusicVolume(main.audio.music.volume);
+	// * Reload music resources
+	reloadMusicResources();
+	// * Set active music player
+	setActiveMusicPlayer(main.audio.music.active);
 	// * Restore music time
-	if (main.audio.music.time > 0) setMusicTime(main.audio.music.time);
-	// * Restore music play state
-	main.audio.music.play ? playMusic() : stopMusic();
+	if (main.audio.music.playtime > 0) setMusicTime(main.audio.music.playtime);
+	// * Replay music
+	if (main.audio.music.enabled) playMusic();
 
 	//////////////////////////////////////////////////////////////////////////////
 	// @ Tool
@@ -1249,7 +1254,7 @@ function restartScene(_game, _main, _scen, _term, _tool, _pawn) {
 
 	document.getElementById("volume_sound").value = Math.round(main.audio.sound.volume * 100); // TEMP
 	document.getElementById("volume_music").value = Math.round(main.audio.music.volume * 100); // TEMP
-	document.getElementById("play_music").innerHTML = main.audio.music.play ? "Stop" : "Play"; // TEMP
+	document.getElementById("play_music").innerHTML = main.audio.music.enabled ? "Stop" : "Play"; // TEMP
 
 	//////////////////////////////////////////////////////////////////////////////
 	// @ Continue
@@ -1259,7 +1264,7 @@ function restartScene(_game, _main, _scen, _term, _tool, _pawn) {
 	scen.fade(null);
 
 	// * Cancel pause
-	stopPause(true);
+	stopPause(true); // WARNING
 
 	// * Reset view locks
 	unlockScroll(true);
