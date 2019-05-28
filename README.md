@@ -30,10 +30,12 @@
 
 ### Sounds
 
-  * Retro Video Game Music Pack by [Juhani Junkala](https://juhanijunkala.com/)
   * Retro Video Game Sound Effects Collection by [Juhani Junkala](https://juhanijunkala.com/)
   * Electric Sound Effects Library by [Little Robot Sound Factory](http://www.littlerobotsoundfactory.com)
   * Electronic Device Loop by [Iwan Gabovitch](http://qubodup.net)
+
+### Musics
+  * Retro Video Game Music Pack by [Juhani Junkala](https://juhanijunkala.com/)
 
 ### License
 
