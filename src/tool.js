@@ -31,8 +31,6 @@ var tool = {
 		"haste" : 20,
 		"life" : 666
 	},
-	
-	"volume_label_delay" : 750,
 
 	//////////////////////////////////////////////////////////////////////////////
 	// @ Mutators
@@ -47,9 +45,6 @@ var tool = {
 		"limbo_jinx" : false,
 		"mute_audio" : false
 	},
-
-	"volume_sound" : {"timer" : null, "down" : false},
-	"volume_music" : {"timer" : null, "down" : false},
 
 };
 
@@ -201,21 +196,6 @@ document.getElementById("mute_audio").addEventListener("click", function() {
 	toggleAudioMute();
 });
 
-// document.getElementById("volume_sound").addEventListener("change", function() {});
-// document.getElementById("volume_music").addEventListener("change", function() {});
-
-document.getElementById("play_music").addEventListener("click", function() {
-	if (main.audio.music.enabled) {
-		stopMusic();
-		main.audio.music.enabled = false;
-		this.innerHTML = "Play";
-	} else {
-		if (!main.pause) playMusic();
-		main.audio.music.enabled = true;
-		this.innerHTML = "Stop";
-	}
-});
-
 ////////////////////////////////////////////////////////////////////////////////
 // @ Detect
 ////////////////////////////////////////////////////////////////////////////////
@@ -333,9 +313,9 @@ document.getElementById("tool_menu").addEventListener("click", function() {
 });
 
 document.getElementById("tool").addEventListener("transitionend", function(e) {
-	if (e.target == this) { // prevent this event from being triggered by child elements
+	if (e.target == this) {
 		let q = this.querySelector("#tool_content");
-		if (!this.classList.contains("open")) { // on close
+		if (!this.classList.contains("open")) { // close
 			if (!main.screen.enlarged && main.screen.docked) dockMain(true);
 			q.style.display = "none";
 		}

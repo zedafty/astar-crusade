@@ -236,12 +236,19 @@ const lang = {
 	// * Menu
 	"menu"             : "Menu",
 	"restart"          : "Restart",
+	"settings"         : "Settings",
 
 	// * Keymap
 	"keymap"           : "Keymap",
 	"reset"            : "Reset",
 	"azerty"           : "AZERTY (fr)",
 	"qwerty"           : "QWERTY (us)",
+
+	// * Settings
+	"audio"            : "Audio",
+	"sound"            : "Sound",
+	"music"            : "Music",
+	"language"         : "Language",
 
 	// * Save/Load
 	"save_game"        : "Save Game",
@@ -310,6 +317,12 @@ const lang = {
 		"switch_door"      : "Switch <u>Door</u>", // HTML
 		"scan"             : "<u>Scan</u>", // HTML
 		"end_turn"         : "<u>End</u> turn" // HTML
+	},
+
+	// * Languages
+	"lang" : {
+		"en" : "English",
+		"fr" : "French"
 	},
 
 	// * Months

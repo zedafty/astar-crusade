@@ -1,9 +1,8 @@
 /*
 
-	style.css
+	mdal.css
 
 */
-
 
 /* ========================================================================== */
 /* -------------------------------------------------------------------------- */
@@ -45,7 +44,7 @@
 
 #modal.tiny {
 	width: 320px;
-	height: 336px;
+	height: 400px;
 }
 
 #modal.tiny #modal_content {
@@ -91,6 +90,16 @@
 	text-align: center;
 }
 
+#modal h4.subheader {
+	margin: 8px 0 15px; /* -1px for border bottom */
+	height: 40px;
+	line-height: 40px;
+	font-size: 18px;
+	text-align: left;
+	border-bottom: 1px solid rgba(255,255,255,.25);
+	font-variant: small-caps;
+}
+
 /* ////////////////////////////////////////////////////////////////////////// */
 /* @ Inputs */
 /* ////////////////////////////////////////////////////////////////////////// */
@@ -133,7 +142,7 @@
 	border-color: white;
 	border-radius: 30px;
 }
-#modal button:focus:not(:disabled) {background-color: rgba(224,224,255,.875); outline: 0;}
+#modal button:focus:not(:disabled) {background-color: yellow; outline: 0;}
 #modal button:hover:not(:disabled) {background-color: mediumspringgreen;}
 #modal button:active:not(:disabled) {background-color: mediumseagreen;}
 #modal button:disabled {opacity: .25;}
@@ -201,10 +210,12 @@
 }
 #close:before {transform: rotate(45deg);}
 #close:after {transform: rotate(-45deg);}
+#close:focus:before,
+#close:focus:after,
 #close:hover:before,
 #close:hover:after,
-#close:focus:before,
-#close:focus:after {background-color: #222;}
+#close:active:before,
+#close:active:after {background-color: #222;}
 
 /* ////////////////////////////////////////////////////////////////////////// */
 /* @ Menu */
@@ -319,6 +330,203 @@
 	0%   {top: -10px; left: -10px; width: 20px; height: 20px; line-height: 20px;}
 	100% {top: -12px; left: -12px; width: 24px; height: 24px; line-height: 24px;}
 }
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Settings */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+#setting_audio,
+#setting_language {
+	position: relative;
+	margin: 0 32px 32px;
+	width: 224px;
+}
+
+#setting_audio > div,
+#setting_language > div {
+	position: static;
+	display: block;
+}
+
+#setting_audio > div:after,
+#setting_language > div:after {
+	content: '';
+	clear: both;
+	display: table;
+}
+
+#setting_audio > div > * {
+	vertical-align: middle;
+}
+
+#setting_audio .checkbox,
+#setting_audio .vu-meter {
+	position: relative;
+	float: left;
+}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ Checkboxes */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+/*
+
+	Checkboxes trick found at W3Schools
+	https://www.w3schools.com/howto/howto_css_custom_checkbox.asp
+
+*/
+
+/* Checkboxes */
+.checkbox {
+	display: inline-block;
+	margin: 0;
+}
+.checkbox > * {
+	vertical-align: middle;
+}
+
+/* Checkboxes input */
+.checkbox input {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 32px;
+	margin: 0;
+	opacity: 0;
+}
+
+/* Checkboxes em */
+.checkbox em {
+	display: inline-block;
+	width: 64px;
+	height: 32px;
+	color: rgba(255,255,255,.75);
+	font-size: 13px;
+	line-height: 32px;
+	text-align: center;
+}
+
+/* Checkboxes span */
+.checkbox span {
+	box-sizing: border-box;
+}
+.checkbox.toggle span {
+	width: 48px;
+	height: 24px;
+	border: 4px solid transparent;
+	border-radius: 24px;
+	background-color: rgba(192,192,240,.25);
+}
+.checkbox.crossmark span,
+.checkbox.checkmark span {
+	width: 24px;
+	height: 24px;
+	border-radius: 4px;
+	border: 2px solid rgb(160,144,192);
+}
+
+/* Checkboxes pseudo-classes */
+.checkbox.toggle input:checked + span {background-color: rgba(192,192,240,.625);}
+.checkbox.toggle input:focus + span {background-color: yellow;}
+.checkbox.toggle input:hover + span {background-color: mediumspringgreen;}
+.checkbox.crossmark input:focus + span,
+.checkbox.checkmark input:focus + span {border-color: yellow;}
+.checkbox.crossmark:hover input + span,
+.checkbox.checkmark:hover input + span {border-color: mediumspringgreen;}
+
+/* Checkboxes pseudo-elements */
+.checkbox.toggle span:before,
+.checkbox.crossmark span:before,
+.checkbox.crossmark span:after,
+.checkbox.checkmark span:before {
+	content: '';
+	position: absolute;
+}
+.checkbox.crossmark span:before,
+.checkbox.crossmark span:after,
+.checkbox.checkmark span:before {
+	opacity: 0;
+}
+.checkbox.crossmark input:checked + span:before,
+.checkbox.crossmark input:checked + span:after,
+.checkbox.checkmark input:checked + span:before {
+	opacity: 1;
+}
+
+/* Checkboxes toggle pseudo-element */
+.checkbox.toggle span:before {
+	width: 16px;
+	height: 16px;
+	left: 0;
+	top: 0;
+	border-radius: 100%;
+	background-color: rgb(96,48,112);
+	box-sizing: border-box;
+	transition: left .0625s;
+}
+.checkbox.toggle input:checked + span:before {left: 24px;}
+
+/* Checkboxes cross mark pseudo-elements */
+.checkbox.crossmark span:before,
+.checkbox.crossmark span:after {
+	width: 16px;
+	height: 2px;
+	left: 2px;
+	top: 9px;
+	background-color: rgb(160,144,192);
+}
+.checkbox.crossmark span:before {transform: rotate(45deg);}
+.checkbox.crossmark span:after {transform: rotate(-45deg);}
+.checkbox.crossmark input:focus + span:before,
+.checkbox.crossmark input:focus + span:after {background-color: yellow;}
+.checkbox.crossmark input:hover + span:before,
+.checkbox.crossmark input:hover + span:after {background-color: mediumspringgreen;}
+
+/* Checkboxes check mark pseudo-element */
+.checkbox.checkmark span:before {
+	width: 5px;
+	height: 10px;
+	left: 6px;
+	top: 2px;
+	border-width: 0 3px 3px 0;
+	border-style: solid;
+	border-color: rgb(160,144,192);
+	transform: rotate(45deg);
+}
+.checkbox.checkmark input:focus + span:before {border-color: yellow;}
+.checkbox.checkmark input:hover + span:before {border-color: mediumspringgreen;}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/* @ VU Meters */
+/* ////////////////////////////////////////////////////////////////////////// */
+
+.vu-meter {
+	display: inline-block;
+	width: 96px;
+	height: 24px;
+	margin: 4px 8px;
+	top: 0;
+	left: 0;
+	text-align: center;
+	border: 2px solid transparent;
+	box-sizing: border-box;
+	transition: .125s opacity;
+}
+.vu-meter.disabled {opacity: 0;}
+.vu-meter:not(.disabled):focus {border-color: yellow; outline: 0;}
+.vu-meter:not(.disabled):hover {border-color: mediumspringgreen;}
+
+.vu-meter span {
+	display: inline-block;
+	width: 18px;
+	height: 12px;
+	margin: 4px 2px;
+	background-color: rgba(192,192,240,.25);
+}
+.vu-meter span.active {background-color: rgba(192,192,240,.625);}
+.vu-meter:not(.disabled):focus span.active {background-color: yellow;}
+.vu-meter:not(.disabled):hover span.active {background-color: mediumspringgreen;}
 
 /* ////////////////////////////////////////////////////////////////////////// */
 /* @ Slots */

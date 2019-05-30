@@ -6,6 +6,25 @@
 
 // =============================================================================
 // -----------------------------------------------------------------------------
+// # Notes
+// -----------------------------------------------------------------------------
+// =============================================================================
+
+/**
+
+	& MODAL
+
+	# Topic           320x400     800x600
+		Menu            [x]          *
+		Keymap           *          [x]
+		Settings        [x]          *
+		Save Game        *          [x]
+		Load Game        *          [x]
+
+*/
+
+// =============================================================================
+// -----------------------------------------------------------------------------
 // # Module
 // -----------------------------------------------------------------------------
 // =============================================================================
@@ -17,9 +36,15 @@ var mdal = {
 	//////////////////////////////////////////////////////////////////////////////
 
 	"transition" : {
-		"delay" : 10, // milliseconds
-		"duration" : 250 // milliseconds
+		"duration" : 250, // time in milliseconds of the modal transition effect -- Default : 250
+		"delay" : 10 // time in milliseconds before the modal transition effect is cleared -- Default : 10
 	},
+
+	"vu_label_delay" : 750, // time in milliseconds before numerical volume indication disappears -- Default : 750
+	"vu_children" : 4, // number of steps in VU meters (i.e. number of displayed blocks) -- Default : 4
+	"vu_zero_val" : false, // allow VU meters zero value (i.e. allow gauge to be empty) -- Default : false
+
+	"kbd_nav_selector" : "button", // keyboard navigation pattern for affected HTML elements (CSS selector) -- Default : "button"
 
 	//////////////////////////////////////////////////////////////////////////////
 	// @ Mutators
@@ -27,13 +52,25 @@ var mdal = {
 
 	"active" : false,
 
-	"topic" : null, // menu, keymap, save_game, load_game
+	"topic" : null, // menu, keymap, settings, save_game, load_game
+
+	"pause" : false,
 
 	"timeout" : null,
 
 	"keymap" : {
 		"edit" : false,
 		"error" : false
+	},
+
+	"vu_meter" : {
+		"down" : true,
+		"target" : null,
+		"last_val" : null,
+		"timer" : {
+			"sound" : null,
+			"music" : null
+		}
 	}
 
 };
@@ -83,6 +120,10 @@ function openModal(s) { // s = modal topic
 	let q = document.getElementById("modal_wrap");
 	let o = document.getElementById("modal");
 	let d = mdal.transition.duration;
+	if (!main.pause) {
+		mdal.pause = true;
+		startPause();
+	}
 	mdal.active = true;
 	mdal.topic = s;
 	q.style.display = "";
@@ -106,7 +147,10 @@ function closeModal() {
 	setModalTransitionProperties(o);
 	mdal.topic = null;
 	mdal.active = false;
-	main.keymap = getLocalStorageItem("settings").keymap; // WARNING : keymap registration
+	if (mdal.pause) {
+		stopPause();
+		mdal.pause = false;
+	} main.keymap = getLocalStorageItem("settings").keymap; // WARNING : keymap registration
 }
 
 function createModalContent(s) { // s = modal topic
@@ -115,6 +159,7 @@ function createModalContent(s) { // s = modal topic
 	switch(s) {
 		case "menu"      : createModalMenu(); o.setAttribute("class", "tiny"); break;
 		case "keymap"    : createModalKeymap(); break;
+		case "settings"  : createModalSettings(); o.setAttribute("class", "tiny"); break;
 		case "save_game" : createModalSaveGame(); break;
 		case "load_game" : createModalLoadGame(); break;
 	}
@@ -125,7 +170,6 @@ function toggleModal(s) { // s = modal topic
 	else {
 		if (mdal.topic != s) createModalContent(s);
 		!mdal.active ? openModal(s) : mdal.topic = s;
-		setKeyboardNavigation(); // TEMP
 		focusModalClose();
 		centerModal();
 	}
@@ -144,6 +188,13 @@ function createModalHeader(s) { // s = header text
 	let h = document.createElement("h4");
 	h.innerHTML = s;
 	o.appendChild(h);
+}
+
+function createModalSubHeader(s) { // s = header text ; returns HTML element
+	let h = document.createElement("h4");
+	h.innerHTML = s;
+	h.classList.add("subheader");
+	return h;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -203,11 +254,14 @@ function createModalHeader(s) { // s = header text
 
 */
 
-function setKeyboardNavigation() {
+function setKeyboardNavigation(l) { // l = css selector
 	let o = document.getElementById("modal");
-	let a = [];
-	let i = 0;
-	o.querySelectorAll("button, .slot, [data-cmd]").forEach(function(q) { // WARNING : restrictive keyboard navigation pattern
+	let s = mdal.kbd_nav_selector;
+	let i;
+	if (Array.isArray(l) && l.length > 0) for (i = 0; i < l.length; i++) s += ", " + l[i];
+	else if (typeof(l) == "string") s += ", " + l;
+	i = 0;
+	o.querySelectorAll(s).forEach(function(q) {
 		i++;
 		q.dataset.nav = i;
 	});
@@ -411,23 +465,28 @@ function createModalMenuButtons() {
 	let b2 = document.createElement("button");
 	let b3 = document.createElement("button");
 	let b4 = document.createElement("button");
+	let b5 = document.createElement("button");
 	d1.id = "menu";
 	b1.innerHTML = lang["load_game"] + createModalMenuKeyString("load_game");
 	b2.innerHTML = lang["save_game"] + createModalMenuKeyString("save_game");
 	b3.innerHTML = lang["restart"];
-	b4.innerHTML = lang["keymap"] + createModalMenuKeyString("keymap");
+	b4.innerHTML = lang["settings"];
+	b5.innerHTML = lang["keymap"] + createModalMenuKeyString("keymap");
 	b1.dataset.topic = "load_game";
 	b2.dataset.topic = "save_game";
-	b4.dataset.topic = "keymap";
+	b4.dataset.topic = "settings";
+	b5.dataset.topic = "keymap";
 	b3.setAttribute("disabled", "disabled");
 	b1.classList.add("block", "revert");
 	b2.classList.add("block", "revert");
 	b3.classList.add("block", "revert");
 	b4.classList.add("block", "revert");
+	b5.classList.add("block", "revert");
 	d1.appendChild(b1);
 	d1.appendChild(b2);
 	d1.appendChild(b3);
 	d1.appendChild(b4);
+	d1.appendChild(b5);
 	o.appendChild(d1);
 	bindMenuButtonsEvents();
 }
@@ -437,6 +496,7 @@ function createModalMenu() {
 	eraseModalContent();
 	createModalHeader(lang["menu"]);
 	createModalMenuButtons();
+	setKeyboardNavigation();
 	if (conf.debug.time.modal_topic) console.timeEnd("createModalMenu"); // DEBUG
 }
 
@@ -636,7 +696,7 @@ function resetKeymap() {
 	putLocalStorageItem("settings", {"keymap" : conf.keymap});
 	removeKeymapKeys();
 	createModalKeymapKeys();
-	setKeyboardNavigation(); // TEMP
+	setKeyboardNavigation("[data-cmd]"); // TEMP
 	console.info("%cKeymap reset to defaults", conf.console["debug"]); // DEBUG
 }
 
@@ -648,7 +708,7 @@ function changeKeyboardLayout() {
 	this.innerHTML = lang[r];
 	removeKeymapKeys();
 	createModalKeymapKeys();
-	setKeyboardNavigation(); // TEMP
+	setKeyboardNavigation("[data-cmd]"); // TEMP
 	console.info("%cKeyboard layout changed to " + r, conf.console["debug"]); // DEBUG
 }
 
@@ -840,7 +900,260 @@ function createModalKeymap() {
 	createModalHeader(lang["keymap"]);
 	createModalKeymapKeys();
 	createModalKeymapButtons();
+	setKeyboardNavigation("[data-cmd]");
 	if (conf.debug.time.modal_topic) console.timeEnd("createModalKeymap"); // DEBUG
+}
+
+// =============================================================================
+// -----------------------------------------------------------------------------
+// # Settings
+// -----------------------------------------------------------------------------
+// =============================================================================
+
+/**
+
+	& VU METERS
+
+	# Disambiguation
+		Index => Integer (0 to n ; counter)
+		Value => Float   (0.0 to 1.0 ; ratio)
+
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+// @ Audio Functions
+////////////////////////////////////////////////////////////////////////////////
+
+function getAudioItemKeyFromId(o) { // o = HTML element ; returns audio item key
+	return o.id.slice(-5);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// @ VU Meters Functions
+////////////////////////////////////////////////////////////////////////////////
+
+function setVuMeterIndex(o, n) { // o = HTML element, index (integer)
+	let l = o.children, i;
+	for (i = 0; i < l.length; i++) {
+		if (i <= n) l[i].classList.add("active")
+		else l[i].classList.remove("active")
+	}
+}
+
+function getVuMeterIndex(o) { // o = HTML element ; returns index (integer)
+	return o.querySelectorAll(".active").length;
+}
+
+function getVuMeterIndexFromValue(o, v) { // o = HTML element, v = value (float) ; returns index (integer)
+	return Math.floor(v * o.children.length) - 1;
+}
+
+function getVuMeterValueFromIndex(o, n) { // o = HTML element, n = index (integer) ; returns value (float)
+	return Math.clamp(0, (n + 1) * (100 / o.children.length), 100) / 100;
+}
+
+function setVuMeterLabel(s, v) { // s = audio item key, v = value (float)
+	clearTimeout(mdal.vu_meter.timer[s]);
+	let u = document.querySelector("[for='volume_" + s + "']");
+	u.innerHTML = (v * 100).toFixed() + "%";
+	u.style.color = "yellow";
+	mdal.vu_meter.timer[s] = setTimeout(function() {
+		u.innerHTML = u.getAttribute("data-text");
+		u.style.color = "";
+	}, mdal.vu_label_delay); // TEMP
+}
+
+function changeVolume(s, v) { // s = audio item key, v = value (float)
+	// * Set volume
+	if (s == "sound") setSoundVolume(v);
+	else if (s == "music") setMusicVolume(v);
+	// * Set volume label
+	setVuMeterLabel(s, v);
+	// * Register audio settings
+	storeAudioSettings();
+}
+
+function getVuMeterValueFromMouse(o, e) { // o = HTML element, e = mouse event ; returns value (float) or undefined
+	let r = o.getBoundingClientRect();
+	let x = e.clientX - r.left;
+	let l = o.children, i;
+	let d = r.width / l.length;
+	let n = Math.clamp(mdal.vu_zero_val ? -1 : 0, Math.floor(x / d), l.length - 1);
+	let v = getVuMeterValueFromIndex(o, n);
+	if (mdal.vu_meter.last_val == n) return; // no change
+	mdal.vu_meter.last_val = n;
+	setVuMeterIndex(o, n);
+	return v;
+}
+
+function changeVolumeFromMouse(o, e) { // o = HTML element, e = mouse event
+	let v = getVuMeterValueFromMouse(o, e);
+	if (v != null) {
+		let s = getAudioItemKeyFromId(o);
+		changeVolume(s, v);
+	}
+}
+
+function changeVolumeFromKey(o, i) { // o = HTML element, i = signed integer
+	if (!Number.isInteger(i)) i = 1;
+	let s = getAudioItemKeyFromId(o);
+	let n = getVuMeterIndexFromValue(o, main.audio[s].volume);
+	let max = o.children.length;
+	let min = mdal.vu_zero_val ? -1 : 0;
+	n = n + i >= max ? min : n + i < min ? max - 1 : n + i;
+	let v = getVuMeterValueFromIndex(o, n);
+	setVuMeterIndex(o, n);
+	changeVolume(s, v);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// @ Checkboxes Functions
+////////////////////////////////////////////////////////////////////////////////
+
+function checkVuMeterEnabling(s, b) { // s = audio item key, b = checked flag
+	let o = document.getElementById("volume_" + s);
+	if (b) {
+		o.classList.remove("disabled");
+		o.setAttribute("tabindex", "0");
+	} else {
+		o.classList.add("disabled");
+		o.setAttribute("tabindex", "-1");
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// @ Events Bindings
+////////////////////////////////////////////////////////////////////////////////
+
+function bindSettingsAudioEvents() {
+	// * Get audio settings from storage
+	let l = getLocalStorageItem("settings").audio;
+	// * Get container
+	let p = document.getElementById("setting_audio");
+	// * Initialize VU meters
+	p.querySelectorAll(".vu-meter").forEach(function(o) {
+		let s = getAudioItemKeyFromId(o);
+		setVuMeterIndex(o, getVuMeterIndexFromValue(o, l[s].volume));
+		// * Bind events
+		o.addEventListener("mousedown", function(e) {
+			if (!o.classList.contains("disabled")) {
+				mdal.vu_meter.down = true;
+				mdal.vu_meter.target = o;
+				changeVolumeFromMouse(o, e);
+			}
+		});
+		document.addEventListener("mouseup", function() {
+			mdal.vu_meter.down = false;
+			mdal.vu_meter.target = null;
+			mdal.vu_meter.last_val = null;
+		});
+		document.addEventListener("mousemove", function(e) {
+			if (!o.classList.contains("disabled")) {
+				if (mdal.vu_meter.down && mdal.vu_meter.target != null) {
+					changeVolumeFromMouse(mdal.vu_meter.target, e);
+				}
+			}
+		});
+		o.addEventListener("keydown", function(e) {
+			if (!o.classList.contains("disabled")) {
+				let k = e.which;
+				if (k == 8 || k == 13 || k == 32) { // Backspace, Enter or Space
+					changeVolumeFromKey(o, k == 8 || e.shiftKey ? -1 : 1);
+				}
+			}
+		});
+	});
+	// * Initialize checkboxes
+	p.querySelectorAll("[type='checkbox']").forEach(function(o) {
+		let s = getAudioItemKeyFromId(o);
+		// * Reset checkboxes
+		o.checked = l[s].enabled;
+		// * Check VU meters enabling
+		checkVuMeterEnabling(s, o.checked);
+		// * Add additional keyboard control
+		o.addEventListener("keydown", function(e) {
+			if (e.which == 13) this.click(); // Enter
+		});
+		// * Bind Events
+		o.addEventListener("change", function() {
+			if (s == "sound") {
+				if (!this.checked) resetSoundPlayers();
+			} else if (s == "music") {
+				if (!this.checked) stopMusic();
+				else if (!main.pause) playMusic();
+			}
+			checkVuMeterEnabling(s, this.checked);
+			main.audio[s].enabled = this.checked;
+			storeAudioSettings();
+		});
+	});
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// @ Content Modifications
+////////////////////////////////////////////////////////////////////////////////
+
+function createModalSettingsAudioItem(s) { // s = audio item key, returns HTML element
+	let d1 = document.createElement("div");
+	let e1 = document.createElement("label");
+	let e2 = document.createElement("em");
+	let e3 = document.createElement("input");
+	let e4 = document.createElement("span");
+	let e5 = document.createElement("div");
+	e1.classList.add("checkbox", "toggle");
+	e2.setAttribute("for", "volume_" + s);
+	e2.dataset.text = lang[s];
+	e2.innerHTML = lang[s];
+	e3.id = "enable_" + s;
+	e3.type = "checkbox";
+	e5.id = "volume_" + s;
+	e5.classList.add("vu-meter");
+	e5.setAttribute("tabindex", "0");
+	for (i = 0; i < mdal.vu_children; i++) {
+		e5.appendChild(e4);
+		e4 = document.createElement("span");
+	}
+	e1.appendChild(e2);
+	e1.appendChild(e3);
+	e1.appendChild(e4);
+	d1.appendChild(e1);
+	d1.appendChild(e5);
+	d1.dataset.navRow = d1.children.length;
+	return d1;
+}
+
+function createModalSettingsAudio() {
+	let o = document.getElementById("modal_content");
+	let h = createModalSubHeader(lang["audio"]);
+	let d = document.createElement("div");
+	d.id = "setting_audio"; // TEMP
+	d.appendChild(h);
+	d.appendChild(createModalSettingsAudioItem("sound"));
+	d.appendChild(createModalSettingsAudioItem("music"));
+	o.appendChild(d);
+}
+
+function createModalSettingsLanguage() {
+	let o = document.getElementById("modal_content");
+	let h = createModalSubHeader(lang["language"]);
+	let d = document.createElement("div");
+	let p = document.createElement("p");
+	d.id = "setting_language"; // TEMP
+	p.innerHTML = lang["lang"]["en"];
+	d.appendChild(h);
+	d.appendChild(p);
+	o.appendChild(d);
+}
+
+function createModalSettings() {
+	if (conf.debug.time.modal_topic) console.time("createModalSettings"); // DEBUG
+	eraseModalContent();
+	createModalHeader(lang["settings"]);
+	createModalSettingsAudio();
+	createModalSettingsLanguage();
+	bindSettingsAudioEvents();
+	setKeyboardNavigation(["[type='checkbox']", ".vu-meter"]);
+	if (conf.debug.time.modal_topic) console.timeEnd("createModalSettings"); // DEBUG
 }
 
 // =============================================================================
@@ -897,7 +1210,7 @@ function deleteSlot(o) { // o = HTML element
 	o.insertAdjacentElement("beforebegin", u);
 	o.remove();
 	disableSlotButtons();
-	setKeyboardNavigation(); // TEMP
+	setKeyboardNavigation(".slot"); // TEMP
 	!u.classList.contains("disabled") ? u.focus() : focusModalClose(); // TEMP
 	eraseLocalStorageItem(k);
 	console.info("%cSlot " + k + " deleted", conf.console["debug"]); // DEBUG
@@ -1052,6 +1365,7 @@ function createModalSaveLoad(s) { // s = save/load key
 	bindSaveLoadButtonsEvents();
 	disableSlotButtons();
 	createModalSaveLoadSlots(s);
+	setKeyboardNavigation(".slot");
 }
 
 function createModalSaveGame() {
@@ -1102,19 +1416,13 @@ document.getElementById("close").addEventListener("click", function() {
 ////////////////////////////////////////////////////////////////////////////////
 
 document.addEventListener("keydown", function(e) {
-
 	let k = e.which;
-
 	if (!mdal.active || mdal.keymap.edit) return;
-
 	if (k >= 33 && k <= 40) { // any arrow key
-
 		let o = document.getElementById("modal");
 		let u = e.target;
 		let r = getKeyboardNavigationObject(o, u);
-
 		let index = null;
-
 		switch(k) {
 			case 33 : // PageUp
 			case 36 : index = r.top; break; // Home
@@ -1125,11 +1433,7 @@ document.addEventListener("keydown", function(e) {
 			case 39 : index = r.right; break; // Right
 			case 40 : index = r.down; break; // Down
 		}
-
 		let q = document.querySelector("[data-nav='" + index + "']");
-
 		if (q != null) q.focus();
-
 	}
-
 });

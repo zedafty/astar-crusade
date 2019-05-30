@@ -886,7 +886,7 @@ function switchPlayer(p, f) { // p = player, f = callback function
 		hideStatus();
 		// c. Reset controls
 		// resetSelectButtons();
-		disableSelectButtons(null, true); // NEW
+		disableSelectButtons(null, true);
 		disableSelectLights();
 		// d. Start alien turn
 		startAlienTurn();
@@ -1002,6 +1002,7 @@ function endTurn() {
 		// * Play marine music theme
 		// ---------------------------------------------------------------------------
 		if (main.audio.music.enabled) crossfadeMusics();
+		else swapActiveMusicPlayer();
 		// ---------------------------------------------------------------------------
 
 		// 1. Iterate through pawns in search of alien affected by condition

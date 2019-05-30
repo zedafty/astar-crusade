@@ -641,8 +641,8 @@ function checkMouseHilite(p) { // p = mouse position (tile)
 			ents.Rect.hilite.hidden = false;
 			if (ents.Rect.hilite.pattern == "slab") {
 				let o = pawn[c[1]];
-				if (conf.Rect.hilite_point && isPawn(o, true) && !o.hidden) ents.Rect.hilite.fill = conf.color.board.hilite_point; // NEW
-				else if (conf.Rect.hilite_blank) ents.Rect.hilite.fill = conf.color.board.hilite_blank; // NEW
+				if (conf.Rect.hilite_point && isPawn(o, true) && !o.hidden) ents.Rect.hilite.fill = conf.color.board.hilite_point;
+				else if (conf.Rect.hilite_blank) ents.Rect.hilite.fill = conf.color.board.hilite_blank;
 				else ents.Rect.hilite.fill = "transparent"; // TEMP -- should be hidden
 			}
 			else if (ents.Rect.hilite.pattern == "square") ents.Rect.hilite.resetSquare();
@@ -679,7 +679,7 @@ function updateMouse() {
 		scen.mouse.up = false;
 		scen.mouse.hold = false;
 		if (moni.identify.active) hideIdentify();
-		if (scen.scrl.mouse.active) stopScrollByMouse(); // NEW
+		if (scen.scrl.mouse.active) stopScrollByMouse();
 	}
 
 	if (!mupt.active && scen.mouse.hover) { // alien not playing and mouse on screen
@@ -743,8 +743,8 @@ function updateMouse() {
 		if (scen.scrl.mouse.ready) { // mouse can be scrolled by click
 			if (b) startScrollByMouse(); // mouse clicked and mouse scroll not triggered by keyboard
 			else if (!term.mouse.down) {
-				if (!scen.scrl.mouse.active) updateCursorState("grab"); // NEW
-				else updateCursorState("grabbing"); // NEW
+				if (!scen.scrl.mouse.active) updateCursorState("grab");
+				else updateCursorState("grabbing");
 			}
 		} else { // mouse cannot be scrolled by click
 			if (!scen.scrl.mouse.active) {
@@ -1137,7 +1137,7 @@ function restartScene(_game, _main, _scen, _term, _tool, _pawn) {
 		game.actor = pawn[game.actor.id]
 
 		// * Clear actor range
-		game.actor.clearRange(); // NEW TEMP
+		game.actor.clearRange();
 
 		// * Reselect actor
 		if (isMarine(game.actor)) selectMarine(game.actor, true);
@@ -1252,10 +1252,6 @@ function restartScene(_game, _main, _scen, _term, _tool, _pawn) {
 	else if (tool.toggle.limbo_jinx && !hasAttribute("limbo_jinx", "data-state")) forceClick("limbo_jinx");
 	else if (tool.toggle.mute_audio && !hasAttribute("mute_audio", "data-state")) forceClick("mute_audio");
 
-	document.getElementById("volume_sound").value = Math.round(main.audio.sound.volume * 100); // TEMP
-	document.getElementById("volume_music").value = Math.round(main.audio.music.volume * 100); // TEMP
-	document.getElementById("play_music").innerHTML = main.audio.music.enabled ? "Stop" : "Play"; // TEMP
-
 	//////////////////////////////////////////////////////////////////////////////
 	// @ Continue
 	//////////////////////////////////////////////////////////////////////////////
@@ -1264,7 +1260,7 @@ function restartScene(_game, _main, _scen, _term, _tool, _pawn) {
 	scen.fade(null);
 
 	// * Cancel pause
-	stopPause(true); // WARNING
+	stopPause(true); // WARNING : force scene restart ; regular bug source
 
 	// * Reset view locks
 	unlockScroll(true);
@@ -1274,6 +1270,6 @@ function restartScene(_game, _main, _scen, _term, _tool, _pawn) {
 	term.updateMiniMap();
 
 	// * Clear console
-	console.clear();
+	console.clear(); // WARNING : browser feature override ; regular bug source
 
 }

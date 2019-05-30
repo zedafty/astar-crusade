@@ -332,8 +332,8 @@ function startAlienEvent() {
 	// ---------------------------------------------------------------------------
 	// * Play alien music theme
 	// ---------------------------------------------------------------------------
+	swapActiveMusicPlayer();
 	if (main.audio.music.enabled) {
-		swapActiveMusicPlayer();
 		stopMusic();
 		playMusic();
 	}
@@ -1322,7 +1322,7 @@ function endAlienPlay() {
 	if (conf.debug.time.mupt_loop) console.timeEnd("muppetLoop"); // DEBUG
 	if (conf.debug.time.alien_play) console.timeEnd("alienPlay"); // DEBUG
 
-	startAlienReinforcement(); // NEW
+	startAlienReinforcement();
 
 }
 

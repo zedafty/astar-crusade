@@ -113,17 +113,17 @@ var main = {
 	"audio" : {
 		"mute" : false,
 		"sound" : {
-			"enabled" : true, // TODO : user settings
-			"volume" : 1.0
+			"enabled" : true, // user setting
+			"volume" : 1.0 // user setting
 		},
 		"music" : {
-			"enabled" : true, // TODO : user settings
-			"volume" : 1.0,
+			"enabled" : true, // user setting
+			"volume" : 1.0, // user setting
 			"playtime" : 0, // active player
 			"active" : null, // "music_1" or "music_1"
-			"resource" : [null, null],
-			"timer" : [null, null],
-			"count" : [-1, -1]
+			"resource" : [null, null], // current file
+			"timer" : [null, null], // fade timeout
+			"count" : [-1, -1] // fade counter
 		}
 	},
 
@@ -575,6 +575,8 @@ window.addEventListener("load", function() {
 
 	disableToolButtons(true); // TEMP
 	disableActionButtons(); // TEMP
+	initializeStorage(); // VERY TEMP
+	initializeAudio(); // TEMP
 	bindTipsEvents(); // TEMP
 
 	// game.map = "_01"; // TEMP (original map)
@@ -600,6 +602,7 @@ window.addEventListener("load", function() {
 			showStatus();
 			setTitle();
 			main.ready = true;
+			if (main.audio.music.enabled) playMusic(); // TEMP
 		});
 
 	});
@@ -810,7 +813,7 @@ window.addEventListener("resize", function(e) {
 // =============================================================================
 
 function getCursorSize() {
-	let w = h = 24; // WARNING : default ; complete assumption of 24x24 [https://stackoverflow.com/questions/1889487/get-size-of-mouse-cursor-in-javascript]
+	let w = h = 24; // WARNING : complete assumption of 24x24 ; see [https://stackoverflow.com/questions/1889487/get-size-of-mouse-cursor-in-javascript]
 	if (main.mouse.hover) {
 		w = conf.main.cursor.width;
 		h = conf.main.cursor.height;
@@ -851,7 +854,7 @@ function removeCursor() {
 // =============================================================================
 
 document.getElementById("main").addEventListener("contextmenu", function(e) {
-	e.preventDefault(); // WARNING
+	e.preventDefault(); // WARNING : browser feature override
 });
 
 document.getElementById("main").addEventListener("mouseenter", function() {
@@ -891,6 +894,439 @@ document.addEventListener("wheel", function(e) {
 
 // =============================================================================
 // -----------------------------------------------------------------------------
+// # Audio
+// -----------------------------------------------------------------------------
+// =============================================================================
+
+/**
+
+	& AUDIO
+
+	# Disambiguation
+		playSound() => Sound <!> Pawn.playSound
+		playMusic() => Music
+
+	# Notions
+		sound key              <=> e.g. "step_even"
+		<sound|music> resource <=> e.g. "futb" or "test"
+		<sound|music> location <=> e.g. "res/aud/snd/futb.mp3" or "res/aud/mus/test.ogg"
+
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+// @ Sounds
+////////////////////////////////////////////////////////////////////////////////
+
+function getMeleeSoundKey(v, s) { // v = entity or weapon key, s = anim key ; returns sound key
+	if (typeof(v) === "object") v = v.weapon;
+	let k;
+	switch (v) {
+		case "claw"            :
+		case "pistol_axe"      : k = "slash"; break;
+		case "pistol_knife"    : k = "stab"; break;
+		case "unarmed"         :
+		case "glove_sword"     : if (s == "melee") { k = "slash"; break; }
+		case "bloter"          :
+		case "heavy_bloter"    :
+		case "plasma_cannon"   :
+		case "machine_gun"     :
+		case "rocket_launcher" :
+		case "grenade"         :
+		case "dual_heavy_smg"  :
+		default                : k = "crush";
+	} return k;
+}
+
+function getRangeSoundKey(v) { // v = entity or weapon key ; returns sound key
+	let k;
+	switch (getBaseWeapon(v)) {
+		case "plasma_cannon"   : k = "laser"; break;
+		case "rocket_launcher" : k = "rocket"; break;
+		case "grenade"         : k = "throw"; break;
+		case "pistol_axe"      :
+		case "pistol_knife"    :
+		case "bloter"          :
+		case "heavy_bloter"    :
+		case "machine_gun"     :
+		case "dual_heavy_smg"  :
+		default                : k = "fire";
+	} return k;
+}
+
+function getSoundResource(k) { // k = sound key ; returns sound resource (null if none)
+	switch(k) {
+		// * Doors
+		case "open_door"      :
+		case "close_door"     : k = "bbbr"; break;
+		// * Movement
+		case "stumble"        : k = "poch"; break;
+		case "step_odd"       : k = "fut" + (conf.audio.sound.step_alt ? "a" : "b"); break;
+		case "step_even"      : k = "futb"; break;
+		case "step_bleep"     : k = "futx"; break;
+		// * Weapons
+		case "draw"           : k = "pwii"; break;
+		case "crush"          : k = "pock"; break;
+		case "slash"          : k = "sshh"; break;
+		case "stab"           : k = "sswe"; break;
+		case "fire"           : k = "pang"; break;
+		case "laser"          : k = "zbrr"; break;
+		case "rocket"         : k = "psho"; break;
+		case "throw"          : k = "wezz"; break;
+		// * Impacts
+		case "blast"          : k = "kbom"; break;
+		case "explode"        : k = "boom"; break;
+		case "hit"            : k = "bump"; break;
+		case "wound"          :
+		case "wound_green"    :
+		case "wound_xeno"     :
+		case "wound_robot"    : k = "hoop"; break;
+		// * Death Screams
+		case "die"            : k = "argh"; break;
+		case "die_green"      : k = "argg"; break;
+		case "die_limbo"      : k = "argl"; break;
+		case "die_robot"      : k = "argr"; break;
+		case "die_xeno"       : k = "argx"; break;
+		// * Visbility
+		case "hide"           : k = null; break;
+		case "unhide"         : k = "blip"; break;
+		case "conceal"        : k = null; break;
+		case "reveal"         : k = null; break;
+		// * Actions
+		case "scan_commander" : k = "wsh1"; break;
+		case "scan_trooper"   : k = "wsh2"; break;
+		// * User Commands
+		case "pause_in"       : k = "pipa"; break;
+		case "pause_out"      : k = "pipb"; break;
+		default               : k = null;
+	} return k;
+}
+
+function getSoundLocation(s) { // s = sound resource ; returns sound location
+	return s = conf.audio.sound.dir + s + "." + conf.audio.sound.ext;
+}
+
+function playSound(k, b, c) { // k = sound key, b = loop flag, c = pause sound flag ; returns audio player id
+
+	if (!main.audio.sound.enabled) return;
+
+	let s = getSoundResource(k), o, i, r, p;
+	if (s != null) {
+		for (i = 0; i < conf.audio.sound.players + 1; i++) {
+			p = "sound_" + i;
+			o = document.getElementById(p);
+			if (o.src == "" || o.ended || o.paused) { // source empty, playback ended or audiostream paused
+				// console.log("%cplay audio " + k + " on audio player " + p, conf.console["test"]); // DEBUG
+				c ? o.dataset.pauseSound = true : o.removeAttribute("data-pause-sound");
+				o.removeAttribute("data-stop");
+				o.loop = b ? true : false;
+				o.src = getSoundLocation(s);
+				o.load();
+				o.play();
+				r = true;
+				break;
+			}
+		}
+		if (!r) {
+			p = null;
+			console.error("failed to play audio " + k + " ; no audio player available"); // DEBUG
+		} return p;
+	} console.error("failed to play audio " + k + " ; no sound resource found"); // DEBUG
+}
+
+function stopSound(p) { // p = audio player id
+	let o = document.getElementById(p);
+	if (p != null) {
+		o.pause();
+		if (o.loop) { // throw AbortError exception otherwise
+			o.loop = false;
+			o.currentTime = 0;
+		}
+		o.dataset.stop = true;
+		// console.log("%cstop audio on audio player " + p, conf.console["test"]); // DEBUG
+	} else {
+		console.error("failed to stop audio ; can't retrieve audio player " + p); // DEBUG
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// @ Musics
+////////////////////////////////////////////////////////////////////////////////
+
+function getMusicPlayers() { // returns HTML collection
+	return document.querySelectorAll("audio[id^='music']");
+}
+
+function getActiveMusicPlayer() { // returns HTML element
+	return document.querySelector("audio[id^='music'][data-active]");
+}
+
+function getUnactiveMusicPlayer() { // returns HTML element
+	return document.querySelector("audio[id^='music']:not([data-active])");
+}
+
+function getMusicPlayer(u) {// u = unactive player flag ; returns HTML element
+	return u ? getUnactiveMusicPlayer() : getActiveMusicPlayer();
+}
+
+function setActiveMusicPlayer(s) { // s = HTML element id
+	main.audio.music.active = s;
+	getMusicPlayers().forEach(function(o) {
+		if (o.id == s) o.dataset.active = "true";
+		else o.removeAttribute("data-active");
+	});
+}
+
+function swapActiveMusicPlayer() {
+	let o = getUnactiveMusicPlayer();
+	setActiveMusicPlayer(o.id);
+}
+
+function getMusicLocation(s) { // s = music resource ; returns music location
+	return s = conf.audio.music.dir + s + "." + conf.audio.music.ext;
+}
+
+function loadMusic(s, u) { // s = music resource, u = unactive player flag
+	let o = getMusicPlayer(u);
+	let i = parseInt(o.id.slice(-1));
+	main.audio.music.resource[i] = s;
+	o.src = getMusicLocation(s);
+	o.loop = true;
+	o.load();
+}
+
+function reloadMusicResources() {
+	let l = getMusicPlayers(), i, o;
+	for (i = 0; i < l.length; i++) {
+		o = l[i];
+		o.src = getMusicLocation(main.audio.music.resource[i]);
+		o.loop = true;
+		o.load();
+	}
+}
+
+function playMusic(u, b) { // u = unactive player flag, b = force fade flag
+	let o = getMusicPlayer(u);
+	o.play();
+	if (b) { // force fading music to play
+		let l = main.audio.music.count, i;
+		for (i in l) if (l[i] >= 0) document.getElementById("music_" + i).play();
+	}
+}
+
+function pauseMusic(u, b) { // u = unactive player flag, b = force fade flag
+	let o = getMusicPlayer(u);
+	o.pause();
+	if (b) { // force fading music to pause
+		let l = main.audio.music.count, i;
+		for (i in l) if (l[i] >= 0) document.getElementById("music_" + i).pause();
+	}
+}
+
+function stopMusicPlayer(u, b) { // u = unactive player flag, b = keep playtime flag
+	let o = getMusicPlayer(u);
+	let i = parseInt(o.id.slice(-1));
+	// * Clear music fade interval
+	clearInterval(main.audio.music.timer[i]);
+	// * Reset counter
+	main.audio.music.count[i] = -1;
+	// * Reset music volume to default
+	o.volume = main.audio.music.volume;
+	// * Pause music player
+	o.pause();
+	// * Reset playtime
+	if (!b && o.currentTime > 0) o.currentTime = 0; // throw AbortError exception otherwise
+}
+
+function stopMusic(u, b) { // u = unactive player flag*, b = keep playtime flag
+	if (u == null) {
+		stopMusicPlayer(true, b);
+		stopMusicPlayer(false, b);
+	} else {
+		stopMusicPlayer(u, b);
+	}
+}
+
+function fadeMusic(m, u, b, f) { // m = fade duration (ms), u = unactive player flag, b = fade-in flag, f = callback function
+	if (typeof(m) != "number") m = conf.audio.music.fade_duration;
+	if (typeof(m) != "function") f = function() {};
+	let o = getMusicPlayer(u);
+	let n = conf.audio.music.fade_delay;
+	let d = Math.floor(m / n);
+	let v = main.audio.music.volume / d * (b ? 1 : -1);
+	let i = parseInt(o.id.slice(-1));
+	// * Clear music fade interval
+	clearInterval(main.audio.music.timer[i]);
+	// * Reset counter
+	main.audio.music.count[i] = 0;
+	// * Set music element volume
+	o.volume = b ? 0 : main.audio.music.volume;
+	// * Start player
+	o.play();
+	// * Set music fade interval
+	main.audio.music.timer[i] = setInterval(function() {
+		if (main.pause) return; // hang interval until pause end
+		if (main.audio.music.count[i] == d) {
+			o.volume = b ? main.audio.music.volume : 0;
+			main.audio.music.count[i] = -1;
+			f();
+			clearInterval(main.audio.music.timer[i]);
+		} else {
+			o.volume = Math.min(Math.clamp(0.0, o.volume + v, 1.0), main.audio.music.volume);
+			main.audio.music.count[i]++;
+		}
+	}, n);
+}
+
+function fadeMusicIn(m, u, f) { // m = fade duration (ms), u = unactive player flag, f = callback function
+	fadeMusic(m, u, true, f);
+}
+
+function fadeMusicOut(m, u, f) { // m = fade duration (ms), u = unactive player flag, f = callback function
+	fadeMusic(m, u, false, f);
+}
+
+function crossfadeMusics(m) { // m = fade duration (ms)
+	// * Fade active music player out
+	fadeMusicOut(m, false, function() { stopMusic(false) });
+	// * Fade unactive music player in
+	fadeMusicIn(m, true);
+	// * Swap active music player
+	swapActiveMusicPlayer();
+}
+
+function getMusicTime(u) { // u = unactive player flag ; returns float
+	let o = getMusicPlayer(u);
+	return o.currentTime;
+}
+
+function setMusicTime(n, u) { // n = float, u = unactive player flag
+	let o = getMusicPlayer(u);
+	o.currentTime = n;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// @ Audio Controls
+////////////////////////////////////////////////////////////////////////////////
+
+function getSoundPlayers() { // returns HTML collection
+	return document.querySelectorAll("audio[id^='sound']");
+}
+
+function pauseSoundPlayers() {
+	getSoundPlayers().forEach(function(o) {
+		if (!o.ended && o.currentTime > 0 && !o.hasAttribute("data-pause-sound")) {
+			o.pause();
+		}
+	});
+}
+
+function resumeSoundPlayers() {
+	getSoundPlayers().forEach(function(o) {
+		if (!o.ended && o.currentTime > 0 && !o.hasAttribute("data-stop")) {
+			o.play();
+		}
+	});
+}
+
+function resetSoundPlayers() {
+	getSoundPlayers().forEach(function(o) {
+		o.removeAttribute("src");
+		o.loop = false;
+		o.load();
+	});
+}
+
+function setSoundVolume(n) { // n = float (0.0 to 1.0)
+	n = Math.clamp(0.0, n, 1.0);
+	main.audio.sound.volume = n;
+	getSoundPlayers().forEach(function(o) {
+		o.volume = n;
+	});
+}
+
+function setMusicVolume(n) { // n = float (0.0 to 1.0)
+	n = Math.clamp(0.0, n, 1.0);
+	main.audio.music.volume = n;
+	getMusicPlayers().forEach(function(o) {
+		o.volume = n;
+	});
+}
+
+function setAudioMute(b) { // b = muted flag
+	main.audio.mute = b;
+	document.querySelectorAll("audio").forEach(function(o) {
+		o.muted = b;
+	});
+}
+
+function toggleAudioMute() {
+	setAudioMute(main.audio.mute ? false : true);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// @ Content Modifications
+////////////////////////////////////////////////////////////////////////////////
+
+function createAudioPlayers() {
+	let o = document.getElementById("pool"), u, i;
+	let m = conf.audio.sound.players;
+	for (i = 0; i < m + 2; i++) {
+		u = document.createElement("audio");
+		u.id = i < m ? u.id = "sound_" + i : "music_" + (i - m);
+		o.appendChild(u);
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// @ Storage Interaction
+////////////////////////////////////////////////////////////////////////////////
+
+function storeAudioSettings() {
+	// * Define audio settings
+	let audio = { // TEMP
+		"sound" : {
+			"enabled" : main.audio.sound.enabled,
+			"volume" : main.audio.sound.volume
+		},
+		"music" : {
+			"enabled" : main.audio.music.enabled,
+			"volume" : main.audio.music.volume
+		}
+	};
+	// * Put audio settings in storage
+	putLocalStorageItem("settings", {"audio" : audio});
+}
+
+function retrieveAudioSettings(b) { // b = play music flag
+	// * Get audio settings from storage
+	let l = getLocalStorageItem("settings").audio; // TEMP
+	// * Set audio enabled
+	main.audio.sound.enabled = l.sound.enabled;
+	main.audio.music.enabled = l.music.enabled;
+	// * Set audio volume
+	setSoundVolume(l.sound.volume);
+	setMusicVolume(l.music.volume);
+	// * Toggle music
+	if (b) main.audio.music.enabled ? playMusic() : stopMusic();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// @ Initialization
+////////////////////////////////////////////////////////////////////////////////
+
+function initializeAudio() {
+	// * Create audio players
+	createAudioPlayers();
+	// * Set music player active
+	setActiveMusicPlayer("music_0");
+	// * Load musics
+	loadMusic("marine_theme", false);
+	loadMusic("alien_theme", true);
+	retrieveAudioSettings();
+}
+
+// =============================================================================
+// -----------------------------------------------------------------------------
 // # Pause
 // -----------------------------------------------------------------------------
 // =============================================================================
@@ -900,9 +1336,9 @@ function startPause() {
 	lockScroll();
 	lockZoom();
 	lockButtons();
-	if (conf.audio.sound.pause_sound) playSound("pause_in", null, true); // NEW
-	pauseSoundPlayers(); // NEW
-	if (main.audio.music.enabled) pauseMusic(null, true); // NEW
+	if (conf.audio.sound.pause_sound) playSound("pause_in", null, true);
+	pauseSoundPlayers();
+	if (main.audio.music.enabled) pauseMusic(null, true);
 	document.getElementById("main").classList.add("pause");
 	document.getElementById("roll").querySelectorAll(".die").forEach(function(e) {
 		if (e.style.animationPlayState == "running") e.style.animationPlayState = "paused";
@@ -917,9 +1353,9 @@ function stopPause(b) { // b = restart scene flag
 	unlockScroll();
 	unlockZoom();
 	unlockButtons();
-	resumeSoundPlayers(); // NEW
-	if (!b && conf.audio.sound.pause_sound) playSound("pause_out"); // NEW
-	if (!b && main.audio.music.enabled) playMusic(null, true); // NEW
+	resumeSoundPlayers();
+	if (!b && conf.audio.sound.pause_sound) playSound("pause_out");
+	if (!b && main.audio.music.enabled) playMusic(null, true);
 	document.getElementById("main").classList.remove("pause");
 	document.getElementById("roll").querySelectorAll(".die").forEach(function(e) {
 		if (e.style.animationPlayState == "paused") e.style.animationPlayState = "running";
@@ -943,7 +1379,7 @@ function stopPause(b) { // b = restart scene flag
 
 function saveData(k, s) { // k = savegame key, s = base64 encoded thumbnail
 	// * Set music time
-	main.audio.music.playtime = getMusicTime(); // NEW
+	main.audio.music.playtime = getMusicTime();
 	// * Set vars
 	let save = {
 		"img" : "data:image/png;base64," + s,
@@ -952,7 +1388,7 @@ function saveData(k, s) { // k = savegame key, s = base64 encoded thumbnail
 		"game" : game,
 		"main" : {
 			"ctrl" : main.ctrl,
-			"audio" : main.audio, // NEW
+			"audio" : main.audio,
 			"pause" : main.pause
 		},
 		"scen" : {
@@ -985,7 +1421,7 @@ function getSaveGameThumbnail(k) { // k = savegame key
 			});
 		});
 	} catch(e) {
-		let s = "iVBORw0KGgoAAAANSUhEUgAAAEwAAABMCAMAAADwSaEZAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRFAAAA////pdmf3QAAAEtJREFUeNrs0kEKwCAMBMD0/58WemnioQeRVnQGgpCFBSERAACc5Lo9b7/tky/L6rxt1yjL31yrrKb/ltXTyOnAaUwoAwBgF02AAQCNsAC98ivGegAAAABJRU5ErkJggg"; // TEMP
+		let s = "iVBORw0KGgoAAAANSUhEUgAAAEwAAABMCAMAAADwSaEZAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRFAAAA////pdmf3QAAAEtJREFUeNrs0kEKwCAMBMD0/58WemnioQeRVnQGgpCFBSERAACc5Lo9b7/tky/L6rxt1yjL31yrrKb/ltXTyOnAaUwoAwBgF02AAQCNsAC98ivGegAAAABJRU5ErkJggg"; // VERY TEMP
 		saveData(k, s);
 	}
 }
@@ -1128,6 +1564,11 @@ function importStorage() {
 					for (k in v) setLocalStorageItem(k, v[k]);
 					showStorageReport(lang.storage.import_success);
 					console.info("%cStorage import succeed", conf.console["debug"]); // DEBUG
+					// -------------------------------------------------------------------
+					// * Import Storage Callback
+					// -------------------------------------------------------------------
+					retrieveAudioSettings(true); // VERY TEMP
+					// -------------------------------------------------------------------
 				} else {
 					showStorageReport(lang.storage.wrong_data_format, "error");
 					console.error("Storage import failed: invalid storage format"); // DEBUG
