@@ -50,7 +50,7 @@
 
   ? Draw stars in void
 
-  ? Click on monitor switches between Status/Turn+Event+Points
+  ! Click on monitor switches between Status/Turn+Event+Points
 
   ? Display 'arrow' pointing to focused actor when out of screen
 
@@ -60,14 +60,14 @@
 
   ? Add a visual indicator on sprite board for hovered face members (like whiten effect or pop-over icon)
 
-  ? Add a visual indicator when a char move is interrupted due to hidden pawn ; like a popping exclamation point
+  ? Add a visual indicator when a char move is interrupted due to hidden pawn (like a popping exclamation point)
 
   ? Only one counter-attack on melee attack
 
   ? Change order behaviour
-    1) let order button activable until any team member has moved or attacked
-    2) activate order choice box and button on turn begin -- POSSIBLY GOOD CHOICE
-    x) optionally, select team commander if not gone
+    1) Let order button activable until any team member has moved or attacked
+    2) Activate order choice box and button on turn begin -- POSSIBLE GOOD CHOICE
+    3) Optionally, select team commander if not gone
 
   ? Add Dice, Armor, Move and/or Life to Identify
 

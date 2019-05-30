@@ -1,6 +1,6 @@
 ================================================================================
 --------------------------------------------------------------------------------
-# Sources
+# Source Code Overview
 --------------------------------------------------------------------------------
 ================================================================================
 
@@ -26,22 +26,39 @@
     | term.js             auxiliary screen ; minimap and user interactions
     | ctrl.js             user controls ; members actions and buttons
 
+  mdal.js                 major component ; user configuration and registration
+  tips.js                 minor component ; user textual informations
+
 ================================================================================
 --------------------------------------------------------------------------------
-# GitHub Project Board
+# Source Code Inline Comments Marks
 --------------------------------------------------------------------------------
 ================================================================================
 
-# Text Marks To Emojis         Meaning
+  // DEBUG        something serving debugging purpose (mostly console output)
+  // TEST         something serving testing purpose (exclude from release)
+  // TODO         something to do ; should not stay for long
+  // TEMP         something temporary, tricky, messy or potentially critical
+  // WARNING      something especially tricky, unusual or critical
+  // VERY TEMP    something especially temporary ; should not stay for long
+
+================================================================================
+--------------------------------------------------------------------------------
+# GitHub Project Board Card Marks
+--------------------------------------------------------------------------------
+================================================================================
+
+# Text Marks To Card Marks     Meaning
   > => *                       List item
+  > => :pushpin:               Best choice (in a list)
   ° => :heavy_check_mark:      Done
   ~ => :white_check_mark:      Partially done
   ! => :exclamtion:            Todo
   ? => :question:              Think about it
   * => :x:                     Don't do
+  ` =>                         GitHub Issue
 
-# Other Nice Emojis            Meaning
-  :pushpin:                    Possible good choice (in a list)
+# Usuable Emoji Signs
   :grey_question:
   :grey_exclamation:
   :bangbang:
@@ -57,7 +74,7 @@
   :wrench:
   :construction:
 
-# Blue boxes
+# Usuable Emoji Blue boxes
   :ok:
   :new:
   :cool:
@@ -66,7 +83,7 @@
 
 ================================================================================
 --------------------------------------------------------------------------------
-# JavaScript
+# JavaScript Memento
 --------------------------------------------------------------------------------
 ================================================================================
 

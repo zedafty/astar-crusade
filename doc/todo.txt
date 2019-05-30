@@ -23,6 +23,7 @@
 
   * Sounds
   ? ENH  : deactivate offscreen sounds
+  ? ENH  : vu-meter keyboard interaction ; lock keyboard like keymap then use arrow to increase/decrease volume
 
   * Muppets
   ` BUG  : wrong hostile sorting ; Char.sortHostile (see code)
@@ -99,7 +100,7 @@
   > Modal
     ° Keymap
     ° Savegame manager
-    ! User settings
+    ~ User settings
 
   > Tool
     ° Off-page panel
@@ -150,9 +151,9 @@
     ! change keys by settings ; optionally register them in a human-readable format
 
   > Bugs
-    ° keys still considered as pressed when window is unfocused then focused => pressed key is released out of window
+    ° Keys still considered as pressed when window is unfocused then focused => pressed key is released out of window
       > reset keymap on document blur
-    ~ font dither on scale screen => PixelGoSub is a pixel font based on a line height of 7px
+    ~ Font dithers on scale screen => PixelGoSub is a pixel font based on a line height of 7px
       * try to match a multiple of 7 when screen is scaled (like 600+7+7 etc.) => incorrect in any way ; forgive that
       ? use another font, like a 10px based one or a full scalable one (SVG or TrueType WoFF)
       > margin removed on fullscreen which result in a maximum affordable compatibility ; for other enlarged screen case (like menu bar or console shown), the issue won't be fixed (too complex)
@@ -171,7 +172,8 @@
       > no fix right now ; those performance issues need to be checked in detail
     ~ Fullscreen exits on Esc key pressed when browser fullscreen is enabled (whilst it should only show 'Menu') => hard coded feature (security issue)
       > by default, feature disabled
-    ! Firefox Choice arrows misplacement while on fullscreen => transform scale mess with border based arrow ; no fix for now
+    ! Firefox Choice arrows misplacement while on fullscreen => transform scale mess with border based arrow
+      > no fix right now ; this is considered a minor bug
     ? Firefox SVG misplacement while screen is resized => transform scale mess with SVG
       ? use full joined path instead of multiple squares
       ? draw icon into canvas instead of external div
