@@ -818,7 +818,7 @@ function getBuffetIndex(v) { // v = anim index or anim key
 }
 
 function playBuffet(x, y, v) { // x, y = pixel, v = anim index or anim key
-	playSound(getBuffetKey(v)); // NEW
+	playSound(getBuffetKey(v));
 	ents.Anim.buffet.start(x, y, getBuffetIndex(v), true);
 }
 
@@ -860,7 +860,7 @@ function playEffect(x, y, v) { // x, y = pixel, v = anim index or anim key
 		k = leadZero(i + 1);
 		e = ents.Anim["effect" + k];
 		if (!e.playing) {
-			playSound(getEffectKey(v)); // NEW
+			playSound(getEffectKey(v));
 			e.start(x, y, getEffectIndex(v), true);
 			break;
 		}
@@ -1586,7 +1586,7 @@ class Proj extends Ents {
 		this.slug = slug;
 
 		// * Local
-		this.firing = false; // NEW
+		this.firing = false;
 		this.quenching = 0;
 		this.speed = 0;
 		this.add = {"x" : 0, "y" : 0}; // pixel
@@ -1596,7 +1596,7 @@ class Proj extends Ents {
 		this.sign = {"x" : 0, "y" : 0}; // signed integer
 		this.bump = {"x" : false, "y" : false, "hit" : false};
 
-		this.tile = {"x" : null, "y" : null}; // NEW
+		this.tile = {"x" : null, "y" : null};
 
 		// * Variable
 		this.counter = 0;
@@ -1673,16 +1673,13 @@ class Proj extends Ents {
 		this.x = this.orig.x;
 		this.y = this.orig.y;
 
-		// this.tile.x = ti(this.orig.x); // NEW
-		// this.tile.y = ti(this.orig.y); // NEW
-
 		// * Show graphics
 		this.hidden = false;
 
 	// * Lock scroll during auto-scroll
 		if (conf.scen.scrl.auto_scroll.proj != null) lockScroll();
 
-		this.firing = true; // NEW
+		this.firing = true;
 
 	}
 
@@ -1692,10 +1689,10 @@ class Proj extends Ents {
 
 	quench() {
 
-		this.tile.x = null; // NEW
-		this.tile.y = null; // NEW
+		this.tile.x = null;
+		this.tile.y = null;
 		this.hidden = true;
-		this.firing = false; // NEW
+		this.firing = false;
 
 		// console.log("projectile finish quenching"); // DEBUG
 
@@ -2195,7 +2192,7 @@ class Rect extends Ents {
 
 						// * Check invisible entities
 						if (!a[k][n][2]) { // not has been run
-							if ((isItem(c[0]) || isAlien(c[0])) && pawn[c[1]].hidden) pawn[c[1]].unhide(); // NEW
+							if ((isItem(c[0]) || isAlien(c[0])) && pawn[c[1]].hidden) pawn[c[1]].unhide();
 							a[k][n][2] = true; // set run flag
 						}
 
@@ -2210,7 +2207,7 @@ class Rect extends Ents {
 				// * Check counter
 				if (!this.count_backward && this.count == this.radius * rate) this.count_backward = true;
 				if (this.count_backward && this.count == 1) { // end
-					if (this.pattern == "ripple") stopScan(); // NEW VERY TEMP
+					if (this.pattern == "ripple") stopScan(); // WARNING : core function call
 					else this.clear(); // reset
 				} else {
 					term.updateMiniMap(l, conf.color.mini.scan);
@@ -2322,7 +2319,7 @@ class Pawn extends Ents {
 		this.color = {"major" : null, "minor" : null, "third" : null}; // bitmap color scheme
 
 		// * Audio
-		this.audio = null; // NEW : audio player id
+		this.audio = null; // audio player id
 
 	}
 
@@ -2455,7 +2452,7 @@ class Pawn extends Ents {
 		// * Unhide
 		this.hidden = false;
 		// * Play sound effect
-		playSound("unhide"); // NEW
+		playSound("unhide");
 		// * Update minimap
 		if (b) term.updateMiniMap();
 		console.log("[" + this.id + "] spotted"); // DEBUG
@@ -2552,7 +2549,7 @@ class Pawn extends Ents {
 	//////////////////////////////////////////////////////////////////////////////
 
 	playSound(k, b) { // k = sound key, b = loop flag
-		this.audio = playSound(k, b); // NEW
+		this.audio = playSound(k, b);
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -2561,7 +2558,7 @@ class Pawn extends Ents {
 
 	stopSound() {
 		stopSound(this.audio);
-		this.audio = null; // NEW
+		this.audio = null;
 	}
 
 	//////////////////////////////////////////////////////////////////////////////

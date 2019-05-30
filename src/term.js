@@ -103,11 +103,11 @@ var term = {
 		// * Attach Events
 		this.miniscope.canvas.addEventListener("mouseenter", function() {
 			term.mouse.hover = true;
-			if (!scen.scrl.mouse.active) updateCursorState("grab"); // NEW
+			if (!scen.scrl.mouse.active) updateCursorState("grab");
 		});
 		this.miniscope.canvas.addEventListener("mouseleave", function() {
 			term.mouse.hover = false;
-			if (!scen.scrl.mouse.active) resetCursor(); // NEW
+			if (!scen.scrl.mouse.active) resetCursor();
 		});
 		this.miniscope.canvas.addEventListener("mousedown", function(e) {
 			if (e.button == 0) { // left mouse button

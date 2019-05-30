@@ -73,7 +73,7 @@ function selectMarine(o, f) { // o = entity, f = force flag
 	// * Check action buttons
 	checkActionButtons(o);
 
-	if (game.xeno_sensor.active) stopXenoSensor(); // NEW
+	if (game.xeno_sensor.active) stopXenoSensor();
 
 }
 
@@ -156,7 +156,7 @@ function startAction(o, s) { // o = entity, s = action key
 			// * Disable button
 			disableActionButton("scan");
 			// * Play sound effect
-			playSound("scan_" + o.subt); // NEW
+			playSound("scan_" + o.subt);
 			// * Do action
 			startScan(o.x, o.y, conf.game.scan_radius[o.subt]);
 			// * Set action as done
@@ -317,7 +317,7 @@ function performAttack() {
 					if (result == 0) {
 						console.log("[" + o.id + "] melee against [" + u.id + "] is a draw"); // DEBUG
 						// * Play sound effect
-						playSound("draw"); // NEW
+						playSound("draw");
 						// * Play attacker melee animation
 						o.playAnimation(getMeleeAnimation(o) + "_draw", undefined, function() {
 							let d = getCoordFromDir(o.dir)
@@ -336,7 +336,7 @@ function performAttack() {
 						let k = getMeleeAnimation(o);
 						o.playAnimation(k, undefined, function() {
 							// * Play attacker sound effect
-							playSound(getMeleeSoundKey(o, k)); // NEW
+							playSound(getMeleeSoundKey(o, k));
 							// * Perform damage
 							performDamage(result);
 						});
@@ -348,7 +348,7 @@ function performAttack() {
 						let k = getMeleeAnimation(u);
 						u.playAnimation(k, undefined, function() {
 							// * Play defender sound effect
-							playSound(getMeleeSoundKey(u, k)); // NEW
+							playSound(getMeleeSoundKey(u, k));
 							// * Perform damage
 							performDamage(Math.abs(result), true);
 						});
@@ -360,7 +360,7 @@ function performAttack() {
 				let k = getMeleeAnimation(o);
 				o.playAnimation(k, undefined, function() {
 					// * Play attacker sound effect
-					playSound(getMeleeSoundKey(o, k)); // NEW
+					playSound(getMeleeSoundKey(o, k));
 					// * Perform damage
 					performDamage();
 				});
@@ -441,7 +441,7 @@ function performAttack() {
 			if (o.anim.playing && o.anim.track == "aim") {
 					o.playAnimation(o.weapon == "grenade" ? "throw" : "fire", undefined, function() {
 						// * Play sound effect
-						o.playSound(getRangeSoundKey(o)); // NEW
+						o.playSound(getRangeSoundKey(o));
 						f(); // fire callback
 				});
 			} else f(); // fire callback
@@ -510,10 +510,8 @@ function performDamage(d, b, c) { // d = damage, b = defender won melee flag, c 
 	let o = b ? pawn[game.target[0][2]] : game.actor, u;
 	// 1. Set attacker as target if defender won melee
 	if (b) game.target = [[ti(game.actor.x), ti(game.actor.y), game.actor.id]];
-	// ******************************
 	// 2. Stop sound
-	if (o.range == "shoot" && o.audio != null) o.stopSound(); // NEW
-	// ******************************
+	if (o.range == "shoot" && o.audio != null) o.stopSound();
 	// 3. Play buffet animation
 	if (o.range == "shoot" && hasBlastWeapon(o)) playBuffet(game.point.x, game.point.y, "blast");
 	// 4. Explode bomber

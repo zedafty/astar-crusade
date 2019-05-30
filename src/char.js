@@ -55,7 +55,7 @@ class Char extends Pawn {
 		this.weapon = weapon || null;
 		this.last_weapon = null;
 		this.attack = {};
-		this.condition = {"invisible" : false, "frenzy" : false, "elite" : false}; // NEW
+		this.condition = {"invisible" : false, "frenzy" : false, "elite" : false};
 
 		// * Action
 		this.range = null; // move, shoot, melee, door
@@ -989,7 +989,7 @@ class Char extends Pawn {
 			// A. Open Door
 			door.open(instant);
 			// B. Update sight for all here and alive marines
-			updateMarineSight(); // NEW
+			updateMarineSight();
 		}
 	}
 
@@ -1240,7 +1240,7 @@ class Char extends Pawn {
 			let o = this;
 			let u = pawn[next_cell[1]];
 			shakeScreen(1, 0.125);
-			playSound("stumble"); // NEW
+			playSound("stumble");
 			if (u !== undefined && !isGone(u) && u instanceof Char) {
 				u.turnTo(reverseDir(next_dir));
 				u.playAnimation("stumble");
@@ -1374,7 +1374,7 @@ class Char extends Pawn {
 
 			// 1. Play sound effect
 			if (!this.hidden) {
-				playSound("step_" + (this.unseen ? "bleep" : this.move.count % 2 == 0 ? "even" : "odd")); // NEW
+				playSound("step_" + (this.unseen ? "bleep" : this.move.count % 2 == 0 ? "even" : "odd"));
 			}
 
 			// 2. Increment move count
@@ -1675,7 +1675,7 @@ class Marine extends Char {
 
 	die() {
 		// * Play sound effect
-		playSound("die"); // NEW
+		playSound("die");
 		super.die();
 		let team = getTypeKey(this);
 		// * Set member state
@@ -1863,7 +1863,7 @@ class Alien extends Char {
 		else if (isLimbo(this)) k += "_limbo";
 		else if (isRobot(this)) k += "_robot";
 		else if (isXeno(this)) k += "_xeno";
-		playSound(k); // NEW
+		playSound(k);
 		super.die();
 	}
 

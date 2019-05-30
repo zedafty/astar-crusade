@@ -109,7 +109,7 @@ document.addEventListener("keydown", function(e) {
 	// * Prompt (main shown)
 	// ---------------------------------------------------------------------------
 
-	if (!main.shown) return; // WARNING
+	if (!main.shown) return; // WARNING : key prompt
 
 	// * Fullscreen
 	if (isTriggered(l.fullscreen)) forceClick("screen_enlarge"); // Key F (70)
@@ -118,7 +118,7 @@ document.addEventListener("keydown", function(e) {
 	// * Prompt (main ready)
 	// ---------------------------------------------------------------------------
 
-	if (!main.ready) return; // WARNING
+	if (!main.ready) return; // WARNING : key prompt
 
 	// * Quicksave
 	if (isTriggered(l.quicksave)) { // F8 (119)
@@ -139,13 +139,13 @@ document.addEventListener("keydown", function(e) {
 	// * Prompt (main pause)
 	// ---------------------------------------------------------------------------
 
-	if (main.pause) return; // WARNING
+	if (main.pause) return; // WARNING : key prompt
 
 	// ---------------------------------------------------------------------------
 	// * Prompt (modal active)
 	// ---------------------------------------------------------------------------
 
-	if (mdal.active) return; // WARNING
+	if (mdal.active) return; // WARNING : key prompt
 
 	// * Fire
 	if (isTriggered(13) || isTriggered(32)) { // Key Enter or Key Space -- WARNING : hard key code
@@ -170,7 +170,7 @@ document.addEventListener("keydown", function(e) {
 
 	// * Scroll by keyboard
 	if ((k == 16 || (k == l.scroll_left || k == l.scoll_up || k == l.scroll_right || k == l.scroll_down)) && !isScrollLocked()) {
-		e.preventDefault(); // WARNING
+		e.preventDefault(); // WARNING : browser feature override
 		let x, y, v = conf.scen.scrl.key_power;
 		if (isPressed(16)) v += conf.scen.scrl.shift_power; // Shift (16) -- WARNING : hard key code
 		if (isPressed(l.scroll_left)) x = v; // Key Left (37)
@@ -183,7 +183,7 @@ document.addEventListener("keydown", function(e) {
 	// * Zoom
 	if (k == l.zoom_reset || k == l.zoom_in || k == l.zoom_out) {
 		if (!e.ctrlKey) { // TEMP
-			e.preventDefault(); // WARNING
+			e.preventDefault(); // WARNING : browser feature override
 			if (isTriggered(l.zoom_reset)) resetScale(); // Keypad Star (106)
 			else if (k == l.zoom_in) zoomIn(); // Keypad Plus (107)
 			else if (k == l.zoom_out) zoomOut(); // Keypad Minus (109)
@@ -192,7 +192,7 @@ document.addEventListener("keydown", function(e) {
 
 	// * Select
 	if (k == l.select_commander || k == l.select_trooper_1 || k == l.select_trooper_2 || k == l.select_trooper_3 || k == l.select_trooper_4) {
-		e.preventDefault() // WARNING
+		e.preventDefault() // WARNING : browser feature override
 		if (isDoubleTriggered(l.select_commander)) bindSelectButton(document.getElementById("member_1"), true); // Double Key 1 (49)
 		else if (isDoubleTriggered(l.select_trooper_1)) bindSelectButton(document.getElementById("member_2"), true); // Double Key 2 (50)
 		else if (isDoubleTriggered(l.select_trooper_2)) bindSelectButton(document.getElementById("member_3"), true); // Double Key 3 (51)
@@ -214,7 +214,7 @@ document.addEventListener("keydown", function(e) {
 	else if (isTriggered(l.switch_door)) forceClick("action_switch_door");// Key D (68)
 	else if (isTriggered(l.scan)) forceClick("action_scan");// Key K (75)
 	else if (isTriggered(l.end_turn)) {
-		e.preventDefault() // WARNING
+		e.preventDefault() // WARNING : browser feature override
 		forceClick("action_end_turn");// Key End (35)
 	}
 

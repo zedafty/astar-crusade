@@ -194,7 +194,7 @@ const conf = {
 	//////////////////////////////////////////////////////////////////////////////
 	// @ Storage
 	//////////////////////////////////////////////////////////////////////////////
-	
+
 	"storage": {
 		"filename" : "astar-crusade-storage", // name of the storage exported storage file -- Default : "astar-crusade-storage"
 		"filesize_max" : 2000000, // maximum size in bytes of the exported storage file -- Default : 2000000 (null for none)
