@@ -73,6 +73,9 @@ function selectMarine(o, f) { // o = entity, f = force flag
 	// * Check action buttons
 	checkActionButtons(o);
 
+	// * Play sound effect
+	playSound("member_select"); // NEW
+
 	if (game.xeno_sensor.active) stopXenoSensor();
 
 }
@@ -310,6 +313,9 @@ function performAttack() {
 					if (o.attack.assault_blade && isDiag(getDirEnt(o, u))) n++; // reduce one die on defender roll
 					if (o.subt == "trooper" && hasOrderActive("photon_grenades")) n++;// reduce one more die on defender roll
 					setFrameTimeout("attack_def", conf.game.delay.defense, function() {
+						// * Reset timer
+						term.roll.timer = 0;
+						// * Roll dice for defender
 						rollDice(u, "melee", n);
 					});
 				} else { // resolve opposite roll
@@ -961,9 +967,18 @@ function bindActionButton(e, s, b) { // e = DOM object, s = action key, b = no a
 			e.classList.add("active");
 			// * Start this action
 			startAction(o, s);
+			// * Play sound effect
+			if (s == "move"
+			 || s == "attack_range"
+			 || s == "attack_melee"
+			 || s == "switch_door"
+			 || s == "end_turn") playSound("member_action"); // NEW
 		} else {
 			// * Cancel this action
 			cancelAction(o, s);
+			// * Play sound effect
+			if (s != "give_order"
+			 && s != "use_equipment") playSound("action_cancel"); // NEW
 			// * Deactivate this action button
 			e.classList.remove("active");
 		}

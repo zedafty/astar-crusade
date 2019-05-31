@@ -997,6 +997,21 @@ function getSoundResource(k) { // k = sound key ; returns sound resource (null i
 		// * User Commands
 		case "pause_in"       : k = "pipa"; break;
 		case "pause_out"      : k = "pipb"; break;
+		// User Interface
+		case "roll"           : k = "di" + leadZero(Math.floor(Math.random() * 20 + 1)); break;
+		case "noise_in"       : k = "noia"; break;
+		case "noise_out"      : k = "noib"; break;
+		case "choice"         : k = "uie2"; break;
+		case "identify"       : k = "uie3"; break;
+		case "update_choice"  : k = "uie4"; break;
+		case "member_select"  : k = "msel"; break;
+		case "member_action"  : k = "mact"; break;
+		case "action_cancel"  : k = "mcan"; break;
+		// * Storage
+		case "import_storage" : k = "hddl"; break;
+		case "export_storage" : k = "hdds"; break;
+		case "load_game"      : k = "flop"; break;
+		case "save_game"      : k = null; break;
 		default               : k = null;
 	} return k;
 }
@@ -1459,6 +1474,8 @@ function loadGame(k) { // k = savegame key
 		scen.stop();
 		// * Restart scene
 		restartScene(save.game, save.main, save.scen, save.term, save.tool, save.pawn);
+		// * Play Sound
+		playSound("load_game"); // NEW
 		// * Show caption
 		showCaption(lang["game_loaded"]);
 		console.info("%c" + k + " loaded (data retrieved from web storage) [" + date.toLocaleDateString() + " " + date.toLocaleTimeString() + "]", conf.console["debug"]); // DEBUG
@@ -1529,6 +1546,11 @@ function exportStorage() {
 		a.setAttribute("download", conf.storage.filename + ".json");
 		a.click();
 		o.removeChild(a);
+		// -------------------------------------------------------------------
+		// * Export Storage Callback
+		// -------------------------------------------------------------------
+		playSound("export_storage"); // NEW
+		// -------------------------------------------------------------------
 		showStorageReport(lang.storage.export_success);
 		console.info("%cStorage export succeed", conf.console["debug"]); // DEBUG
 	}
@@ -1562,13 +1584,14 @@ function importStorage() {
 				if (!isValidStorageFormat(v)) {
 					hideStorageReport();
 					for (k in v) setLocalStorageItem(k, v[k]);
-					showStorageReport(lang.storage.import_success);
-					console.info("%cStorage import succeed", conf.console["debug"]); // DEBUG
 					// -------------------------------------------------------------------
 					// * Import Storage Callback
 					// -------------------------------------------------------------------
 					retrieveAudioSettings(true); // VERY TEMP
+					playSound("import_storage"); // NEW
 					// -------------------------------------------------------------------
+					showStorageReport(lang.storage.import_success);
+					console.info("%cStorage import succeed", conf.console["debug"]); // DEBUG
 				} else {
 					showStorageReport(lang.storage.wrong_data_format, "error");
 					console.error("Storage import failed: invalid storage format"); // DEBUG

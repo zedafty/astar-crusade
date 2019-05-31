@@ -148,7 +148,7 @@ function closeModal() {
 	mdal.topic = null;
 	mdal.active = false;
 	if (mdal.pause) {
-		stopPause();
+		if (main.pause) stopPause();
 		mdal.pause = false;
 	} main.keymap = getLocalStorageItem("settings").keymap; // WARNING : keymap registration
 }

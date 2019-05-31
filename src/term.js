@@ -340,6 +340,7 @@ function showNoise(b, f) { // b = easter egg flag, f = callback function
 	q.style.display = "";
 	q.style.opacity = "1.0";
 	q.style.backgroundPosition = "0 0";
+	playSound(b ? "noise_in" : "noise_out"); // NEW
 	setFrameInterval("noise", i, function() {
 		term.noise.count++;
 		q.style.opacity = (1 / term.noise.count + 0.25).toString();
@@ -381,7 +382,7 @@ function getChoiceList(s) { // s = choice string (order, equipment or weapon)
 	updateChoice();
 }
 
-function updateChoice(e, n) { // e = HTML caller, n = choice index increment
+function updateChoice(e, n, b) { // e = HTML caller, n = choice index increment, b = play sound flag
 	if (main.pause || (e !== undefined && e.style.opacity == "0")) return;
 	n = n || 0;
 	let q = document.getElementById("choice");
@@ -390,6 +391,7 @@ function updateChoice(e, n) { // e = HTML caller, n = choice index increment
 	q.querySelector(".next").style.opacity = typeof(term.choice.list[term.choice.index + 1]) !== "undefined" ? "1" : "0";
 	q.querySelector("div").setAttribute("class", term.choice.list[term.choice.index]);
 	q.querySelector("p").innerHTML = lang[term.choice.list[term.choice.index]];
+	if (b) playSound("update_choice"); // NEW
 }
 
 function confirmChoice(s) { // s = choice string (weapon name)
@@ -404,6 +406,7 @@ function confirmChoice(s) { // s = choice string (weapon name)
 		game.actor.weapon = choice;
 		term.choice.weapon = choice;
 	}
+	playSound("choice"); // NEW
 	setFrameTimeout("choice", conf.term.choice.delay, function() {
 		if (term.choice.type == "weapon") game.actor.drawShootRange();
 		hideChoice();
@@ -437,8 +440,8 @@ function hideChoice() {
 // @ Events
 ////////////////////////////////////////////////////////////////////////////////
 
-document.querySelector("#choice .prev").addEventListener("click", function() {updateChoice(this, -1)});
-document.querySelector("#choice .next").addEventListener("click", function() {updateChoice(this, 1)});
+document.querySelector("#choice .prev").addEventListener("click", function() {updateChoice(this, -1, true)});
+document.querySelector("#choice .next").addEventListener("click", function() {updateChoice(this, 1, true)});
 document.querySelectorAll("#choice div").forEach(function(e) {
 	e.addEventListener("click", function() {confirmChoice(e.getAttribute("class"))});
 });
@@ -504,6 +507,8 @@ function rollDie(b, e, i, a) { // b = reroll flag, e = HTML element, i = HTML no
 		term.roll.delay = t;
 		// 8. Increment counter
 		if (!b) term.roll.timer++;
+		// 9. Play sound effect
+		playSound("roll"); // NEW
 	} else {
 		e.style.display = "none";
 	}

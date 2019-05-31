@@ -189,26 +189,26 @@
 ================================================================================
 
   # User Experience
-    > gameplay => Classic | Modern
+    ? gameplay => Classic | Modern
 
   # User Interface
-    > interface => Skeuomorphism | Flat Design
-    > fullscreen => On | Off
-    > animated_cursor => On | Off
-    > (tool)tips => On | Off
+    ? interface => Skeuomorphism | Flat Design
+    ? fullscreen => On | Off
+    ? animated_cursor => On | Off
+    ? (tool)tips => On | Off
 
   # Audio
-    > sounds => On | Off
-    > music => On | Off
+    ° sounds => On | Off + VU Meter
+    ° music => On | Off + VU Meter
 
   # Visual
-    > resolution => x1 (800x600) | x2 (1600x1200) | x4 (5600x4800)
+    ? resolution => x1 (800x600) | x2 (1600x1200) | x4 (5600x4800)
 
   # Input
-    > keyboard_layout => Qwerty | Azerty
+    ? keyboard_layout => Qwerty | Azerty
 
   # Language
-    > lang => En | Fr
+    ~ lang => En | Fr
 
 ================================================================================
 --------------------------------------------------------------------------------
@@ -398,13 +398,15 @@
     Continue (load last savegame)
     Load Game (load any savegame)
     Settings
+    Keymap
 
   # Ingame (hit Escape)
-    Load Game
-    Save Game
-    Settings
-    Restart
-    Quit
+  ° Load Game
+  ° Save Game
+  ~ Restart
+  ° Settings
+  ° Keymap
+  ! Quit
 
 ================================================================================
 --------------------------------------------------------------------------------
@@ -720,7 +722,7 @@
   * attack_melee            *               *       *
   * give_order              *               *       *
   * use_equipment           *               *       *
-  ? switch_door             *               *       sfx_movement_dooropen1
+  * switch_door             *               *       *
   ° scan_commander          wsh1            o       Whoosh_Electric_02
   ° scan_trooper            wsh2            o       Whoosh_Electric_00
   * end_turn                *               *       *
@@ -734,8 +736,8 @@
   * heavy_weapon            *               *       *
 
   # Equipement              Filename        Loop    Source
-  ? flash_grenade           *               *       sfx_sound_vaporizing
-  ? fission_bomb            *               *       sfx_sound_vaporizing
+  ? flash_grenade           *               *       (sfx_sound_vaporizing)
+  ? fission_bomb            *               *       (sfx_sound_vaporizing)
   ? med_pack                *               *       *
   ? xeno_sensor             *               *       *
 
@@ -750,8 +752,8 @@
 	? intercom_malfunc        *               *       *
 	? equipment_malfunc       *               *       *
 	? report_in               *               *       *
-	? weapons_jammed          *               *       sfx_wpn_noammo3
-	? out_of_ammo             *               *       sfx_wpn_noammo3
+	? weapons_jammed          *               *       (sfx_wpn_noammo3)
+	? out_of_ammo             *               *       (sfx_wpn_noammo3)
 	? lure_of_limbo           *               *       *
 	? psychic_attack          *               *       *
 	? robotic_fault           *               *       *
@@ -761,8 +763,8 @@
 	? self_destruction        *               *       *
 	? gremkin_grenater        *               *       *
 	? scrof_mechatek          *               *       *
-	? re_deploy               *               *       sfx_movement_portal3
-	? alien_teleporter        *               *       sfx_movement_portal3
+	? re_deploy               *               *       (sfx_movement_portal3)
+	? alien_teleporter        *               *       (sfx_movement_portal3)
 	? alien_task_force        *               *       *
 	? fleshripper             *               *       *
 
@@ -771,12 +773,21 @@
   ° pause_out               pipb            *       sfx_sounds_pause5_out
 
   # User Interface          Filename        Loop    Source
-  ? roll                    *               *       *
-  ? member_select           *               *       *
-  ? member_action           *               *       *
-  ? identify (monitor)      *               *       *
-  ? noise (terminal)        *               *       *
-  ? choice (terminal)       *               *       *
+  ° roll                    di01 to di20    *       dice-1 to dice-20
+  ° noise_in                noia            *       [white noise generated through Audacity]
+  ° noise_out               noib            *       [white noise generated through Audacity]
+  ° choice                  uie2            *       UI_Electric_05
+  ° identify                uie3            *       UI_Electric_03
+  ° update_choice           uie4            *       sfx_menu_move4
+  ° member_select           msel            *       sfx_sounds_interaction3
+  ° member_action           mact            *       sfx_sounds_interaction2
+  ° action_cancel           mcan            *       sfx_sounds_interaction9
+
+  # Storage                 Filename        Loop    Source
+  ° import_storage          hddl            *       hdd_load_thrice
+  ° export_storage          hdds            *       hdd_scratch
+  ° load_game               flop            *       floppy_insert
+  * save_game               *               *       *
 
 ================================================================================
 --------------------------------------------------------------------------------
