@@ -19,7 +19,7 @@
 
   # Libraries
     A* algorithm by Brian Grinstead [https://github.com/bgrins/javascript-astar]
-    Lufi by Luc Didry, [https://github.com/ldidry/lufi]
+    Lufi by Luc Didry [https://github.com/ldidry/lufi]
 
   # Fonts
     Pixel Sagas GoSub by Neale Davidson [http://www.pixelsagas.com/]
@@ -30,7 +30,8 @@
     Retro Video Game Sound Effects Collection by Juhani Junkala [https://juhanijunkala.com/]
     Electric Sound Effects Library by Little Robot Sound Factory [http://www.littlerobotsoundfactory.com]
     Electronic Device Loop by Iwan Gabovitch [http://qubodup.net]
-    FS-UAE Amiga Emulator Sounds by Frode Solheim [https://fs-uae.net/]
+    FS-UAE Amiga Emulator Floppy Sounds by Frode Solheim [https://github.com/FrodeSolheim]
+    Dice Roll Sounds by RPG [https://opengameart.org/content/2-dice-roll-29-throws]
 
   # Musics
     Retro Video Game Music Pack by Juhani Junkala [https://juhanijunkala.com/]
@@ -47,7 +48,6 @@
   Stopped on November 20th, 2018
   Studied on April 30th, 2019
   Pursued on May 6th, 2019
-  Pending on May 24th, 2019
 
 ================================================================================
 --------------------------------------------------------------------------------
@@ -88,6 +88,8 @@
   ! Retro Video Game Sound Effects & Music Packs by Juhani Junkala [https://juhanijunkala.com/]
   ! Electric Sound Effects Library by Little Robot Sound Factory [http://www.littlerobotsoundfactory.com]
   ! Electronic Device Loop by Iwan Gabovitch [http://qubodup.net]
+  ! FS-UAE Amiga Emulator Floppy Sounds by Frode Solheim [https://github.com/FrodeSolheim]
+  ! Dice Roll Sounds by RPG [https://opengameart.org/content/2-dice-roll-29-throws]
   );
 
   this.isCraftedWith (
@@ -100,7 +102,6 @@
   );
 
   this.canBeThanksTo (
-    FS-UAE Amiga Emulator, [https://fs-uae.net/]
     MDN Web Docs, [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference]
     W3CSchools, [https://www.w3schools.com/jsref/default.asp]
     StackOverflow, [https://stackoverflow.com/]

@@ -4,7 +4,7 @@
 
 ### Status
 
-  * pending 2019-05-30
+  * pending 2019-05-31
 
 ### Milestone
 
@@ -33,6 +33,8 @@
   * Retro Video Game Sound Effects Collection by [Juhani Junkala](https://juhanijunkala.com/)
   * Electric Sound Effects Library by [Little Robot Sound Factory](http://www.littlerobotsoundfactory.com)
   * Electronic Device Loop by [Iwan Gabovitch](http://qubodup.net)
+  * FS-UAE Amiga Emulator Floppy Sounds by [Frode Solheim](https://github.com/FrodeSolheim)
+  * Dice Roll Sounds by [RPG](https://opengameart.org/content/2-dice-roll-29-throws)
 
 ### Musics
   * Retro Video Game Music Pack by [Juhani Junkala](https://juhanijunkala.com/)

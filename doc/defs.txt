@@ -677,117 +677,117 @@
 --------------------------------------------------------------------------------
 ================================================================================
 
-  # Doors                   Filename        Loop    Source
-  ° open_door               bbbr            o       qubodup-edev
-  ° close_door              bbbr            o       qubodup-edev
+  # Doors                   Filename        Loop    Source                          Album
+  ° open_door               bbbr            o       qubodup-edev                    Electronic Device Loop
+  ° close_door              bbbr            o       qubodup-edev                    Electronic Device Loop
 
-  # Movement                Filename        Loop    Source
-  ° stumble                 poch            *       sfx_sounds_impact11
-  ° step_odd                futa            *       sfx_movement_footsteps1a
-  ° step_even               futb            *       sfx_movement_footsteps1b
-  ° step_bleep              futx            *       sfx_movement_footsteps5
+  # Movement                Filename        Loop    Source                          Album
+  ° stumble                 poch            *       sfx_sounds_impact11             Retro Video Game Sound Effects
+  ° step_odd                futa            *       sfx_movement_footsteps1a        Retro Video Game Sound Effects
+  ° step_even               futb            *       sfx_movement_footsteps1b        Retro Video Game Sound Effects
+  ° step_bleep              futx            *       sfx_movement_footsteps5         Retro Video Game Sound Effects
 
-  # Weapons                 Filename        Loop    Source
-  ° draw                    pwii            *       sfx_sounds_interaction10
-  ° crush                   pock            *       sfx_wpn_punch4
-  ° slash                   sshh            *       sfx_wpn_sword1
-  ° stab                    sswe            *       sfx_wpn_dagger
-  ° fire                    pang            *       sfx_weapon_singleshot8
-  ° laser                   zbrr            *       sfx_wpn_laser5
-  ° rocket                  psho            *       sfx_wpn_missilelaunch
-  ° throw                   wezz            *       sfx_wpn_grenadewhistle1
+  # Weapons                 Filename        Loop    Source                          Album
+  ° draw                    pwii            *       sfx_sounds_interaction10        Retro Video Game Sound Effects
+  ° crush                   pock            *       sfx_wpn_punch4                  Retro Video Game Sound Effects
+  ° slash                   sshh            *       sfx_wpn_sword1                  Retro Video Game Sound Effects
+  ° stab                    sswe            *       sfx_wpn_dagger                  Retro Video Game Sound Effects
+  ° fire                    pang            *       sfx_weapon_singleshot8          Retro Video Game Sound Effects
+  ° laser                   zbrr            *       sfx_wpn_laser5                  Retro Video Game Sound Effects
+  ° rocket                  psho            *       sfx_wpn_missilelaunch           Retro Video Game Sound Effects
+  ° throw                   wezz            *       sfx_wpn_grenadewhistle1         Retro Video Game Sound Effects
 
-  # Impacts                 Filename        Loop    Source
-  ° blast                   kbom            *       sfx_exp_medium5
-  ° explode                 boom            *       sfx_exp_short_hard6
-  ° hit                     bump            *       sfx_damage_hit2
-  ° wound                   hoop            *       sfx_sounds_impact10
+  # Impacts                 Filename        Loop    Source                          Album
+  ° blast                   kbom            *       sfx_exp_medium5                 Retro Video Game Sound Effects
+  ° explode                 boom            *       sfx_exp_short_hard6             Retro Video Game Sound Effects
+  ° hit                     bump            *       sfx_damage_hit2                 Retro Video Game Sound Effects
+  ° wound                   hoop            *       sfx_sounds_impact10             Retro Video Game Sound Effects
 
-  # Death Screams           Filename        Loop    Source
-  ° die                     argh            *       sfx_deathscream_human14
-  ° die_green               argg            *       sfx_deathscream_alien1
-  ° die_limbo               argl            *       sfx_deathscream_human5
-  ° die_robot               argr            *       sfx_deathscream_robot1
-  ° die_xeno                argx            *       sfx_deathscream_alien2
+  # Death Screams           Filename        Loop    Source                          Album
+  ° die                     argh            *       sfx_deathscream_human14         Retro Video Game Sound Effects
+  ° die_green               argg            *       sfx_deathscream_alien1          Retro Video Game Sound Effects
+  ° die_limbo               argl            *       sfx_deathscream_human5          Retro Video Game Sound Effects
+  ° die_robot               argr            *       sfx_deathscream_robot1          Retro Video Game Sound Effects
+  ° die_xeno                argx            *       sfx_deathscream_alien2          Retro Video Game Sound Effects
 
-  # Visibility              Filename        Loop    Source
-  * hide                    *               *       *
-  ° unhide                  blip            *       sfx_sounds_Blip1
-  * conceal                 *               *       *
-  * reveal                  *               *       *
+  # Visibility              Filename        Loop    Source                          Album
+  * hide                    *               *       *                               *
+  ° unhide                  blip            *       sfx_sounds_Blip1                Retro Video Game Sound Effects
+  * conceal                 *               *       *                               *
+  * reveal                  *               *       *                               *
 
-  # Actions                 Filename        Loop    Source
-  * move                    *               *       *
-  * attack_range            *               *       *
-  * attack_melee            *               *       *
-  * give_order              *               *       *
-  * use_equipment           *               *       *
-  * switch_door             *               *       *
-  ° scan_commander          wsh1            o       Whoosh_Electric_02
-  ° scan_trooper            wsh2            o       Whoosh_Electric_00
-  * end_turn                *               *       *
+  # Actions                 Filename        Loop    Source                          Album
+  * move                    *               *       *                               *
+  * attack_range            *               *       *                               *
+  * attack_melee            *               *       *                               *
+  * give_order              *               *       *                               *
+  * use_equipment           *               *       *                               *
+  * switch_door             *               *       *                               *
+  ° scan_commander          wsh1            o       Whoosh_Electric_02              Electric Sound Effects
+  ° scan_trooper            wsh2            o       Whoosh_Electric_00              Electric Sound Effects
+  * end_turn                *               *       *                               *
 
-  # Orders                  Filename        Loop    Source
-  * fire                    *               *       *
-  * move_it                 *               *       *
-  * by_sections             *               *       *
-  * close_assault           *               *       *
-  * photon_grenades         *               *       *
-  * heavy_weapon            *               *       *
+  # Orders                  Filename        Loop    Source                          Album
+  * fire                    *               *       *                               *
+  * move_it                 *               *       *                               *
+  * by_sections             *               *       *                               *
+  * close_assault           *               *       *                               *
+  * photon_grenades         *               *       *                               *
+  * heavy_weapon            *               *       *                               *
 
-  # Equipement              Filename        Loop    Source
-  ? flash_grenade           *               *       (sfx_sound_vaporizing)
-  ? fission_bomb            *               *       (sfx_sound_vaporizing)
-  ? med_pack                *               *       *
-  ? xeno_sensor             *               *       *
+  # Equipement              Filename        Loop    Source                          Album
+  ? flash_grenade           *               *       (sfx_sound_vaporizing)          (Retro Video Game Sound Effects)
+  ? fission_bomb            *               *       (sfx_sound_vaporizing)          (Retro Video Game Sound Effects)
+  ? med_pack                *               *       *                               *
+  ? xeno_sensor             *               *       *                               *
 
-  # Alien Events            Filename        Loop    Source
-	? mothership_trans        *               *       *
-	? mothership_scan         *               *       *
-	? airlock_control         *               *       *
-	? auto_defence            *               *       *
-	? exploding_trap          *               *       *
-	? new_order               *               *       *
-	? battle_plan             *               *       *
-	? intercom_malfunc        *               *       *
-	? equipment_malfunc       *               *       *
-	? report_in               *               *       *
-	? weapons_jammed          *               *       (sfx_wpn_noammo3)
-	? out_of_ammo             *               *       (sfx_wpn_noammo3)
-	? lure_of_limbo           *               *       *
-	? psychic_attack          *               *       *
-	? robotic_fault           *               *       *
-	? robotic_assault         *               *       *
-	? frenzy                  *               *       *
-	? alien_elite             *               *       *
-	? self_destruction        *               *       *
-	? gremkin_grenater        *               *       *
-	? scrof_mechatek          *               *       *
-	? re_deploy               *               *       (sfx_movement_portal3)
-	? alien_teleporter        *               *       (sfx_movement_portal3)
-	? alien_task_force        *               *       *
-	? fleshripper             *               *       *
+  # Alien Events            Filename        Loop    Source                          Album
+	? mothership_trans        *               *       *                               *
+	? mothership_scan         *               *       *                               *
+	? airlock_control         *               *       *                               *
+	? auto_defence            *               *       *                               *
+	? exploding_trap          *               *       *                               *
+	? new_order               *               *       *                               *
+	? battle_plan             *               *       *                               *
+	? intercom_malfunc        *               *       *                               *
+	? equipment_malfunc       *               *       *                               *
+	? report_in               *               *       *                               *
+	? weapons_jammed          *               *       (sfx_wpn_noammo3)               (Retro Video Game Sound Effects)
+	? out_of_ammo             *               *       (sfx_wpn_noammo3)               (Retro Video Game Sound Effects)
+	? lure_of_limbo           *               *       *                               *
+	? psychic_attack          *               *       *                               *
+	? robotic_fault           *               *       *                               *
+	? robotic_assault         *               *       *                               *
+	? frenzy                  *               *       *                               *
+	? alien_elite             *               *       *                               *
+	? self_destruction        *               *       *                               *
+	? gremkin_grenater        *               *       *                               *
+	? scrof_mechatek          *               *       *                               *
+	? re_deploy               *               *       (sfx_movement_portal3)          (Retro Video Game Sound Effects)
+	? alien_teleporter        *               *       (sfx_movement_portal3)          (Retro Video Game Sound Effects)
+	? alien_task_force        *               *       *                               *
+	? fleshripper             *               *       *                               *
 
-  # User Commands
-  ° pause_in                pipa            *       sfx_sounds_pause5_in
-  ° pause_out               pipb            *       sfx_sounds_pause5_out
+  # User Commands                                                                   Album
+  ° pause_in                pipa            *       sfx_sounds_pause5_in            Retro Video Game Sound Effects
+  ° pause_out               pipb            *       sfx_sounds_pause5_out           Retro Video Game Sound Effects
 
-  # User Interface          Filename        Loop    Source
-  ° roll                    di01 to di20    *       dice-1 to dice-20
-  ° noise_in                noia            *       [white noise generated through Audacity]
-  ° noise_out               noib            *       [white noise generated through Audacity]
-  ° choice                  uie2            *       UI_Electric_05
-  ° identify                uie3            *       UI_Electric_03
-  ° update_choice           uie4            *       sfx_menu_move4
-  ° member_select           msel            *       sfx_sounds_interaction3
-  ° member_action           mact            *       sfx_sounds_interaction2
-  ° action_cancel           mcan            *       sfx_sounds_interaction9
+  # User Interface          Filename        Loop    Source                          Album
+  ° roll                    di01 to di20    *       dice-1 to dice-20               Dice Roll Sounds
+  ° noise_in                noia            *       White Noise (1)                 Audacity
+  ° noise_out               noib            *       White Noise (2)                 Audacity
+  ° choice                  uie1            *       UI_Electric_05                  Electric Sound Effects
+  ° identify                uie2            *       UI_Electric_03                  Electric Sound Effects
+  ° update_choice           uie3            *       sfx_menu_move4                  Retro Video Game Sound Effects
+  ° member_select           msel            *       sfx_sounds_interaction3         Retro Video Game Sound Effects
+  ° member_action           mact            *       sfx_sounds_interaction2         Retro Video Game Sound Effects
+  ° action_cancel           mcan            *       sfx_sounds_interaction9         Retro Video Game Sound Effects
 
-  # Storage                 Filename        Loop    Source
-  ° import_storage          hddl            *       hdd_load_thrice
-  ° export_storage          hdds            *       hdd_scratch
-  ° load_game               flop            *       floppy_insert
-  * save_game               *               *       *
+  # Storage                 Filename        Loop    Source                          *
+  ° import_storage          hddl            *       hdd_load_thrice                 FS-UAE Amiga Emulator Floppy Sounds
+  ° export_storage          hdds            *       hdd_scratch                     FS-UAE Amiga Emulator Floppy Sounds
+  ° load_game               flop            *       floppy_insert                   FS-UAE Amiga Emulator Floppy Sounds
+  * save_game               *               *       *                               *
 
 ================================================================================
 --------------------------------------------------------------------------------
@@ -795,9 +795,9 @@
 --------------------------------------------------------------------------------
 ================================================================================
 
-  # Music                   Filename        Loop    Source
-    marine_theme            marine_theme    o       Juhani Junkala [Retro Game Music Pack] Ending
-    alien_theme             alien_theme     o       Juhani Junkala [Retro Game Music Pack] Title Screen
+  # Music                   Filename        Loop    Source                          Album
+    marine_theme            marine_theme    o       Ending                          Retro Video Game Music Pack
+    alien_theme             alien_theme     o       Title Screen                    Retro Video Game Music Pack
 
 ================================================================================
 --------------------------------------------------------------------------------

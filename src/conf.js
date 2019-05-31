@@ -36,11 +36,11 @@ const conf = {
 			"detect" : false, // draw sight and sense ranges on move -- Default : false
 		},
 		"skip" : {
-			"marine_quit" : false, // skip marine quit phase (i.e. show marine at docking claws leaving) -- Default : false
+			"marine_quit" : true, // skip marine quit phase (i.e. show marine at docking claws leaving) -- Default : false
 			"game_turn" : false, // skip game turn phase (i.e. display remaining turn and waiting for input) -- Default : false
-			"alien_event" : false, // skip alien event phase (i.e. display picked up event and apply its effect) -- Default : false
+			"alien_event" : true, // skip alien event phase (i.e. display picked up event and apply its effect) -- Default : false
 			"alien_play" : false, // skip alien play phase (i.e. enact alien team members) -- Default : false
-			"alien_reinforcement" : false // skip alien reinforcement phase (i.e. spawn aliens at unseen locations) -- Default : false
+			"alien_reinforcement" : true // skip alien reinforcement phase (i.e. spawn aliens at unseen locations) -- Default : false
 		},
 		"time" : {
 			"los" : false, // log line of sight computing time in console -- Default : false
