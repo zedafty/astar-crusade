@@ -1,6 +1,6 @@
 ## A* Crusade
 
-  Space Crusade(tm) HTML Game Clone.
+  Space Crusade:tm: HTML Game Clone.
 
 ### Status
 
@@ -41,6 +41,6 @@
 
 ### License
 
-  Original video game produced by Gremlin Interactive(tm) in 1992.
+  Original video game produced by Gremlin Interactive:tm: in 1992.
 
-  Original product rights owned by Milton Bradley(tm) & Games Workshop(tm) since 1990.
+  Original product rights owned by Milton Bradley:tm: & Games Workshop:tm: since 1990.
