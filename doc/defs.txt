@@ -172,16 +172,16 @@
   ~ Escape      [cancel]                        trigger                         *
   ~ Back        [cancel]                        trigger                         *
   ~ Shift       (scroll arrow multiplier)       repeat                          *
-  - F1          keymap                          trigger                         *
-  ! F2          settings                        trigger                         *
+  - F1          keymap                          trigger                         Help [Opera|Brave]
+  - F2          settings                        trigger                         *
   - Key T       toolbar                         trigger                         *
   * F5          *                               trigger                         Reload Page (standard)
-  - F8          save_game                       trigger                         *
+  - F8          save_game                       trigger                         Debugger Pause Script Execution [Chrome|Brave]
   - F9          load_game                       trigger                         *
   - Key Q       quicksave (override)            trigger                         *
   - Key L       quickload                       trigger                         *
-  - F10         mute_audio                      trigger                         Show Menu (Firefox)
-  * F12         quit                            trigger                         Console (Firefox)
+  - F10         mute_audio                      trigger                         Show Menu [Firefox]
+  * F12         quit                            trigger                         Console [Firefox]
   - Pause       pause                           trigger                         *
   - Key F       fullscreen                      trigger                         *
   - Key C       center_to_focus                 trigger                         *

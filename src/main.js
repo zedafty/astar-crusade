@@ -997,7 +997,7 @@ function getSoundResource(k) { // k = sound key ; returns sound resource (null i
 		// * User Commands
 		case "pause_in"       : k = "pipa"; break;
 		case "pause_out"      : k = "pipb"; break;
-		// User Interface
+		// * User Interface
 		case "roll"           : k = "di" + leadZero(Math.floor(Math.random() * 20 + 1)); break;
 		case "noise_in"       : k = "noia"; break;
 		case "noise_out"      : k = "noib"; break;

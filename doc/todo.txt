@@ -22,6 +22,7 @@
   ! Test
 
   * Sounds
+  ! TODO : display mute on/off on scene hint
   ! BUG  : music/sound volume differents when game is loaded => volume shoud be restored from settings, not save
   ? ENH  : deactivate offscreen sounds
   ? ENH  : vu-meter keyboard interaction ; lock keyboard like keymap then use arrow to increase/decrease volume
@@ -75,13 +76,13 @@
       > this will require to write only one door on minimap bitmap, that will complicate the map creation process for a not so great enhancement
     ? move range enhancement
       > reduce path finding to the only tiles in a (10-20) radius ; if above, set up closest flag OR skip move
-      > need to check what happen for long path with closest flag
+        need to check what happen for long path with closest flag
     ? scan rect draw ; create a proper method instead of whole execution block under function
     ? canvas performance
-      > do not update sprites whose bitmap hasn't changed
-      > instead, make a save of current frame at each scene update
-      > then restore at the next scene update
-      > and clear/update only tile of focused char when needed
+      ? do not update sprites whose bitmap hasn't changed
+        instead, make a save of current frame at each scene update
+        then restore at the next scene update
+        and clear/update only tile of focused char when needed
 
   > Ideas
     ? move all muppets blocks contained in Char class under child class Alien
@@ -96,7 +97,7 @@
 # User Interface
 
   > Tooltips
-    ° custom tooltip box to replace native tooltips
+    ° custom tooltip box to replace native tooltips (os-like behaviour, not web-like)
 
   > Modal
     ° Keymap
@@ -158,26 +159,28 @@
       * try to match a multiple of 7 when screen is scaled (like 600+7+7 etc.) => incorrect in any way ; forgive that
       ? use another font, like a 10px based one or a full scalable one (SVG or TrueType WoFF)
       > margin removed on fullscreen which result in a maximum affordable compatibility ; for other enlarged screen case (like menu bar or console shown), the issue won't be fixed (too complex)
-    ° Webkit die roll zero animation glitch => border-color with !important flag set to initial in animation flaws
+    ° [Webkit] die roll zero animation glitch => border-color with !important flag set to initial in animation flaws
       > added specific die roll zero animation with fixed border-color property
-    ° Webkit mouse third button event not triggered => mouse event 'click' is only fired with left mouse button
+    ° [Webkit] mouse third button event not triggered => mouse event 'click' is only fired with left mouse button
       > use mouse event 'mouseup' instead of 'click'
-    ~ Webkit CORS policy with local hosted images => tainted canvas due to pixel manipulation from local host
+    ~ [Webkit] CORS policy with local hosted images => tainted canvas due to pixel manipulation from local host
       * use '--allow-file-access-from-files' argument on browser (only dev)
       > encode images which are to be affected by pixel manipulation into base64 (i.e. embedded in script ; no conflict)
-    ~ Webkit save game fail due to thumbnail exception => tainted canvas may not be exported
+    ~ [Webkit] save game fail due to thumbnail exception => tainted canvas may not be exported
       > no fix right now, thumbnail feature deactivated and dummy image displayed of screenshot
-    ` Brave security policy prevents local storage usage
+    ` [Brave] security policy prevents local storage usage
       * no fix right now ; eventually, go to brave://settings/ and under 'Brave shields defaults' header set 'Cookie Control' to 'Allow all cookies'
-    ! Brave slow scrolling and mouse cursor image lag
+    ! [Brave] slow scrolling and mouse cursor image lag
       > no fix right now ; those performance issues need to be checked in detail
     ~ Fullscreen exits on Esc key pressed when browser fullscreen is enabled (whilst it should only show 'Menu') => hard coded feature (security issue)
       > by default, feature disabled
-    ! Firefox Choice arrows misplacement while on fullscreen => transform scale mess with border based arrow
+    ! [Firefox] Choice arrows misplacement while on fullscreen => transform scale mess with border based arrow
       > no fix right now ; this is considered a minor bug
-    ? Firefox SVG misplacement while screen is resized => transform scale mess with SVG
+    ? [Firefox] SVG misplacement while screen is resized => transform scale mess with SVG
       ? use full joined path instead of multiple squares
       ? draw icon into canvas instead of external div
+    ` [Chrome] modal close misplaced when modal size is changed (e.g. switching from settings to keymap and respectively) => something seems to be messed up with css position absolute when class 'tiny' is removed/added
+      > modal close is now (re)created on-the-fly when a modal topic is displayed
 
 # Juggernaut
   > Features

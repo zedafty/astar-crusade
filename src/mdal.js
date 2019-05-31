@@ -90,6 +90,69 @@ function focusModalClose() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// @ Events Bindings
+////////////////////////////////////////////////////////////////////////////////
+
+function bindModalCloseEvents() {
+	let o = document.getElementById("modal");
+	o.querySelector("#close").addEventListener("click", function() {
+		closeModal();
+	});
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// @ Content Modifications
+////////////////////////////////////////////////////////////////////////////////
+
+function eraseModalContent() {
+	document.getElementById("modal_content").innerHTML = "";
+}
+
+function removeModalClose() {
+	let o = document.getElementById("close");
+	if (o != null) o.remove();
+}
+
+function createModalClose() {
+	let o = document.getElementById("modal");
+	let u = document.createElement("button");
+	u.id = "close";
+	u.classList.add("revert");
+	u.innerHTML = "Close";
+	o.appendChild(u)
+	bindModalCloseEvents();
+}
+
+function createModalHeader(s) { // s = header text
+	let o = document.getElementById("modal_content");
+	let h = document.createElement("h4");
+	h.innerHTML = s;
+	o.appendChild(h);
+}
+
+function createModalSubHeader(s) { // s = header text ; returns HTML element
+	let h = document.createElement("h4");
+	h.innerHTML = s;
+	h.classList.add("subheader");
+	return h;
+}
+
+function createModalContent(s) { // s = modal topic
+	let o = document.getElementById("modal");
+	o.removeAttribute("class");
+	eraseModalContent();
+	removeModalClose();
+	createModalClose();
+	switch(s) {
+		case "menu"      : createModalMenu(); o.setAttribute("class", "tiny"); break;
+		case "keymap"    : createModalKeymap(); break;
+		case "settings"  : createModalSettings(); o.setAttribute("class", "tiny"); break;
+		case "save_game" : createModalSaveGame(); break;
+		case "load_game" : createModalLoadGame(); break;
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // @ Position
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -153,18 +216,6 @@ function closeModal() {
 	} main.keymap = getLocalStorageItem("settings").keymap; // WARNING : keymap registration
 }
 
-function createModalContent(s) { // s = modal topic
-	let o = document.getElementById("modal");
-	o.removeAttribute("class");
-	switch(s) {
-		case "menu"      : createModalMenu(); o.setAttribute("class", "tiny"); break;
-		case "keymap"    : createModalKeymap(); break;
-		case "settings"  : createModalSettings(); o.setAttribute("class", "tiny"); break;
-		case "save_game" : createModalSaveGame(); break;
-		case "load_game" : createModalLoadGame(); break;
-	}
-}
-
 function toggleModal(s) { // s = modal topic
 	if (mdal.active && mdal.topic == s) closeModal();
 	else {
@@ -173,28 +224,6 @@ function toggleModal(s) { // s = modal topic
 		focusModalClose();
 		centerModal();
 	}
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// @ Content Modifications
-////////////////////////////////////////////////////////////////////////////////
-
-function eraseModalContent() {
-	document.getElementById("modal_content").innerHTML = "";
-}
-
-function createModalHeader(s) { // s = header text
-	let o = document.getElementById("modal_content");
-	let h = document.createElement("h4");
-	h.innerHTML = s;
-	o.appendChild(h);
-}
-
-function createModalSubHeader(s) { // s = header text ; returns HTML element
-	let h = document.createElement("h4");
-	h.innerHTML = s;
-	h.classList.add("subheader");
-	return h;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -493,7 +522,6 @@ function createModalMenuButtons() {
 
 function createModalMenu() {
 	if (conf.debug.time.modal_topic) console.time("createModalMenu"); // DEBUG
-	eraseModalContent();
 	createModalHeader(lang["menu"]);
 	createModalMenuButtons();
 	setKeyboardNavigation();
@@ -896,7 +924,6 @@ function createModalKeymapButtons() {
 
 function createModalKeymap() {
 	if (conf.debug.time.modal_topic) console.time("createModalKeymap"); // DEBUG
-	eraseModalContent();
 	createModalHeader(lang["keymap"]);
 	createModalKeymapKeys();
 	createModalKeymapButtons();
@@ -1147,7 +1174,6 @@ function createModalSettingsLanguage() {
 
 function createModalSettings() {
 	if (conf.debug.time.modal_topic) console.time("createModalSettings"); // DEBUG
-	eraseModalContent();
 	createModalHeader(lang["settings"]);
 	createModalSettingsAudio();
 	createModalSettingsLanguage();
@@ -1370,7 +1396,6 @@ function createModalSaveLoad(s) { // s = save/load key
 
 function createModalSaveGame() {
 	if (conf.debug.time.modal_topic) console.time("createModalSaveGame"); // DEBUG
-	eraseModalContent();
 	createModalHeader(lang["save_game"]);
 	createModalSaveLoad("save");
 	if (conf.debug.time.modal_topic) console.timeEnd("createModalSaveGame"); // DEBUG
@@ -1378,7 +1403,6 @@ function createModalSaveGame() {
 
 function createModalLoadGame() {
 	if (conf.debug.time.modal_topic) console.time("createModalLoadGame"); // DEBUG
-	eraseModalContent();
 	createModalHeader(lang["load_game"]);
 	createModalSaveLoad("load");
 	if (conf.debug.time.modal_topic) console.timeEnd("createModalLoadGame"); // DEBUG
@@ -1405,10 +1429,6 @@ document.getElementById("modal_wrap").addEventListener("click", function(e) {
 	if (e.target == this) {
 		closeModal();
 	}
-});
-
-document.getElementById("close").addEventListener("click", function() {
-	closeModal();
 });
 
 ////////////////////////////////////////////////////////////////////////////////

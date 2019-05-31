@@ -12,7 +12,7 @@
 
 ### File System
 
-  * doc -> documents (txt, odg)
+  * doc -> documents (txt, odg, ods)
   * lib -> libraries (js)
   * res -> resources (css, woff, png, ogg, mp3)
   * src -> sources (js)
