@@ -1267,7 +1267,7 @@ function setMusicVolume(n) { // n = float (0.0 to 1.0)
 	});
 }
 
-function setAudioMute(b) { // b = muted flag
+function setAudioMute(b) { // b = mute flag
 	main.audio.mute = b;
 	document.querySelectorAll("audio").forEach(function(o) {
 		o.muted = b;
@@ -1275,7 +1275,9 @@ function setAudioMute(b) { // b = muted flag
 }
 
 function toggleAudioMute() {
-	setAudioMute(main.audio.mute ? false : true);
+	let b = main.audio.mute;
+	setAudioMute(b ? false : true);
+	showHint(lang["mute_" + (b ? "off" : "on")]);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

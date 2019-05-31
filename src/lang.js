@@ -28,6 +28,10 @@ const lang = {
 	"docked"                : "Docked",
 	"undocked"              : "Undocked",
 
+	// * Audio
+	"mute_on"               : "Mute On",
+	"mute_off"              : "Mute Off",
+
 	// * Loading
 	"loading"               : ".: Loading :.",
 
