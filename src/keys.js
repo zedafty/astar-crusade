@@ -86,12 +86,17 @@ document.addEventListener("keydown", function(e) {
 
 	// * Keymap
 	if (isTriggered(l.keymap)) { // F1 (112) -- TEMP
-		e.preventDefault(); // TEMP
+		e.preventDefault(); // WARNING : browser feature override
 		toggleModal("keymap");
 	}
 
+	// * Settings
+	if (isTriggered(l.settings)) { // F2 (113) -- TEMP
+		toggleModal("settings");
+	}
+
 	// * Toolbar
-	if (isTriggered(l.toolbar)) { // F2 (113) -- TEMP
+	if (isTriggered(l.toolbar)) { // Key T (84) -- DEBUG
 		forceClick("tool_menu");
 	}
 
@@ -103,6 +108,15 @@ document.addEventListener("keydown", function(e) {
 	// * Load Game
 	else if (isTriggered(l.load_game)) { // F9 (120)
 		toggleModal("load_game");
+	}
+
+	// * Mute Audio
+	else if (isTriggered(l.mute_audio)) { // F10 (121)
+		e.preventDefault(); // WARNING : browser feature override
+		// TEST
+		forceClick("mute_audio");
+		// STABLE
+		// toggleAudioMute();
 	}
 
 	// ---------------------------------------------------------------------------

@@ -34,11 +34,11 @@ var tempstorage = { // VERY TEMP
 		"keymap" : {},
 		"audio" : {
 			"sound" : {
-				"enabled" : false,
-				"volume" : 0.25
+				"enabled" : true,
+				"volume" : 0.5
 			},
 			"music" : {
-				"enabled" : false,
+				"enabled" : true,
 				"volume" : 0.5
 			}
 		}
@@ -75,7 +75,7 @@ var tempstorage = { // VERY TEMP
 
 function initializeStorage() {
 	// ---------------------------------------------------------------------------
-	// * TEST : feed local storage with defaults values
+	// TEST : feed local storage with defaults values
 	// ---------------------------------------------------------------------------
 	let l = tempstorage, k;
 	for (k in l) {

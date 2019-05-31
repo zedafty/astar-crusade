@@ -4,7 +4,7 @@
 
 ### Status
 
-  * pending 2019-05-31
+  * standby 2019-06-01
 
 ### Milestone
 

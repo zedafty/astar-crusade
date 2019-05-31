@@ -36,9 +36,10 @@
 ================================================================================
 
   // DEBUG        something serving debugging purpose (mostly console output)
-  // TEST         something serving testing purpose (exclude from release)
   // TODO         something to do ; should not stay for long
   // TEMP         something temporary, tricky, messy or potentially critical
+  // TEST         something used for test stage (exclude from stable)
+  // STABLE       something used only on stable stage (opposed to test)
   // WARNING      something especially tricky, unusual or critical
   // VERY TEMP    something especially temporary ; should not stay for long
 

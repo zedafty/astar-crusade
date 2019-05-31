@@ -192,7 +192,7 @@ class Char extends Pawn {
 
 	conceal(b) { // b = update minimap flag
 		// * Reset four-tiles sprite size
-		if (hasFourTiles(this)) { // TEMP -- only if not hidden or not size doubled ?
+		if (hasFourTiles(this)) { // TEMP : only if not hidden or not size doubled ?
 			this.width /= 2;
 			this.height /= 2;
 		}
@@ -207,7 +207,7 @@ class Char extends Pawn {
 
 	reveal(b, s) { // b = update minimap flag, s = entity id
 		// * Reset four-tiles sprite size
-		if (hasFourTiles(this)) { // TEMP -- only if hidden or size doubled ?
+		if (hasFourTiles(this)) { // TEMP : only if hidden or size doubled ?
 			this.width *= 2;
 			this.height *= 2;
 		}

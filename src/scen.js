@@ -306,7 +306,7 @@ var scen = {
 		for (k in ents.Text) ents.Text[k].update();
 
 		// * Update miniscope
-		term.updateMiniScope(); // TEMP -- done each frame
+		term.updateMiniScope(); // TEMP : done each frame
 
 		// * Update minimap
 		if (scen.frame_count == 1 || term.minimap.update.pending) {
@@ -643,12 +643,12 @@ function checkMouseHilite(p) { // p = mouse position (tile)
 				let o = pawn[c[1]];
 				if (conf.Rect.hilite_point && isPawn(o, true) && !o.hidden) ents.Rect.hilite.fill = conf.color.board.hilite_point;
 				else if (conf.Rect.hilite_blank) ents.Rect.hilite.fill = conf.color.board.hilite_blank;
-				else ents.Rect.hilite.fill = "transparent"; // TEMP -- should be hidden
+				else ents.Rect.hilite.fill = "transparent"; // TEMP : should be hidden
 			}
 			else if (ents.Rect.hilite.pattern == "square") ents.Rect.hilite.resetSquare();
 			else if (ents.Rect.hilite.pattern == "line") ents.Rect.hilite.resetLine();
-			if (game.actor != null && game.actor.moving) { // TEMP -- repetition
-				scen.scrl.mouse.ready = false; // ALREADY IS
+			if (game.actor != null && game.actor.moving) { // TEMP : repetition
+				scen.scrl.mouse.ready = false; // already is
 				ents.Rect.hilite.fill = conf.color.board.hilite_blank; // TEMP
 			} else if ((game.actor != null && game.actor.range != null) || game.xeno_sensor.active) {
 				if (hasPoint(ents.Rect.range.list, p.x, p.y)) { // tile in range

@@ -470,7 +470,7 @@ function createModalMenuButtons() {
 	b1.innerHTML = lang["load_game"] + createModalMenuKeyString("load_game");
 	b2.innerHTML = lang["save_game"] + createModalMenuKeyString("save_game");
 	b3.innerHTML = lang["restart"];
-	b4.innerHTML = lang["settings"];
+	b4.innerHTML = lang["settings"] + createModalMenuKeyString("settings");
 	b5.innerHTML = lang["keymap"] + createModalMenuKeyString("keymap");
 	b1.dataset.topic = "load_game";
 	b2.dataset.topic = "save_game";
@@ -638,7 +638,7 @@ function isModifierKey(k) { // k = key code ; returns boolean
 function preventDefaultKeys(e) { // e = event
 	let a = getInteractionKeys().concat(getModifierKeys());
 	let k = e.which;
-	if (!a.includes(k)) e.preventDefault(); // TEMP
+	if (!a.includes(k)) e.preventDefault(); // WARNING : browser feature override
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1139,7 +1139,7 @@ function createModalSettingsLanguage() {
 	let d = document.createElement("div");
 	let p = document.createElement("p");
 	d.id = "setting_language"; // TEMP
-	p.innerHTML = lang["lang"]["en"];
+	p.innerHTML = lang["lang"]["en"]; // VERY TEMP
 	d.appendChild(h);
 	d.appendChild(p);
 	o.appendChild(d);

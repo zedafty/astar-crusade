@@ -288,12 +288,14 @@ const lang = {
 	// * Commands
 	"commands" : {
 		"keymap"           : "<u>Key</u>map", // HTML
+		"settings"         : "<u>Set</u>tings", // HTML
 		"toolbar"          : "<u>Tool</u>bar", // HTML
 		"save_game"        : "<u>Save</u> game", // HTML
 		"load_game"        : "<u>Load</u> game", // HTML
 		"quicksave"        : "Quick<u>save</u>", // HTML
 		"quickload"        : "Quick<u>load</u>", // HTML
 		"pause"            : "<u>Pause</u>", // HTML
+		"mute_audio"       : "<u>Mute</u> audio", // HTML
 		"fullscreen"       : "<u>Full</u>screen", // HTML
 		"center_to_focus"  : "<u>Center</u> to focus", // HTML
 		"scroll_by_mouse"  : "<u>Scroll</u> by mouse", // HTML
@@ -414,6 +416,7 @@ const lang = {
 		// FStr-KBd            : {"tip" : "Hit %1", "var" : {"kbd" : "keymap"}}                         => "<p>Hit <kbd>F1</kbd></p>"
 		// -------------------------------------------------------------------------
 		// * Tool
+		"tool_menu"            : {"tip" : "Toolbar %1", "var" : {"kbd" : "toolbar"}}, // fstr
 		"scroll_cc"            : "Center to focus",
 		"move_cc"              : "Show move range",
 		"zoom_out"             : "Zoom out",

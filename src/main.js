@@ -551,14 +551,14 @@ function loadResources(s, p, f) { // s = resource stack, p = progress key (spin 
 	var j = 0;
 	while (i < main.load.count) {
 		// -------------------------------------------------------------------------
-		// * TEST : load resources
+		// TEST : load resources
 		// -------------------------------------------------------------------------
 		setTimeout(function() {
 			loadImage(a[j][0], a[j][1]);
 			j++;
 		}, (p == "spin" ? conf.main.load.spin_latency * i : conf.main.load.load_latency * i));
 		// -------------------------------------------------------------------------
-		// * STABLE : load resources
+		// STABLE : load resources
 		// -------------------------------------------------------------------------
 		// loadImage(a[i][0], a[i][1]);
 		// -------------------------------------------------------------------------

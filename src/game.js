@@ -90,13 +90,13 @@ var game = {
 		"red" : {
 			"state" : null,
 			"members" : {
-				// * STABLE
+				// STABLE
 				"red01" : { "subt" : "commander", "weapon" : "glove_sword"        , "name" : "Mason"    , "state" : null },
 				"red02" : { "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Connor"   , "state" : null },
 				"red03" : { "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Teller"   , "state" : null },
 				"red04" : { "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Dogget"   , "state" : null },
 				"red05" : { "subt" : "trooper"  , "weapon" : "rocket_launcher"    , "name" : "Brian "   , "state" : null },
-				// * TEST
+				// TEST
 				// "red01" : { "subt" : "commander", "weapon" : "unarmed"            , "name" : "Mason"    , "state" : null },
 				// "red02" : { "subt" : "trooper"  , "weapon" : "cyborg_rifle"       , "name" : "Connor"   , "state" : null },
 				// "red03" : { "subt" : "trooper"  , "weapon" : "claw"               , "name" : "Teller"   , "state" : null },
@@ -142,13 +142,13 @@ var game = {
 		"gold" : {
 			"state" : null,
 			"members" : {
-				// * STABLE
+				// STABLE
 				"gold01": { "subt" : "commander", "weapon" : "heavy_bloter"       , "name" : "Kellog"   , "state" : null },
 				"gold02": { "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Bergson"  , "state" : null },
 				"gold03": { "subt" : "trooper"  , "weapon" : "machine_gun"        , "name" : "Cooker"   , "state" : null },
 				"gold04": { "subt" : "trooper"  , "weapon" : "rocket_launcher"    , "name" : "Reyce"    , "state" : null },
 				"gold05": { "subt" : "trooper"  , "weapon" : "plasma_cannon"      , "name" : "Clark"    , "state" : null }
-				// * TEST
+				// TEST
 				// "gold01": { "subt" : "commander", "weapon" : "heavy_bloter"       , "name" : "Kellog"   , "state" : null },
 				// "gold02": { "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Bergson"  , "state" : null },
 				// "gold03": { "subt" : "trooper"  , "weapon" : "machine_gun"        , "name" : "Cooker"   , "state" : "awol" },
@@ -191,13 +191,13 @@ var game = {
 		"blue" : {
 			"state" : null,
 			"members" : {
-				// * STABLE
+				// STABLE
 				"blue01" : { "subt" : "commander", "weapon" : "pistol_axe"         , "name" : "Lockhart" , "state" : null },
 				"blue02" : { "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Pfeifer"  , "state" : null },
 				"blue03" : { "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Bolton"   , "state" : null },
 				"blue04" : { "subt" : "trooper"  , "weapon" : "rocket_launcher"    , "name" : "Quaker"   , "state" : null },
 				"blue05" : { "subt" : "trooper"  , "weapon" : "plasma_cannon"      , "name" : "Hartman"  , "state" : null }
-				// * TEST
+				// TEST
 				// "blue01" : { "subt" : "commander", "weapon" : "pistol_axe"         , "name" : "Lockhart" , "state" : null },
 				// "blue02" : { "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Pfeifer"  , "state" : null },
 				// "blue03" : { "subt" : "trooper"  , "weapon" : "bloter"             , "name" : "Bolton"   , "state" : "awol" },

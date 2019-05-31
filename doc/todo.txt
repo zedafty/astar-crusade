@@ -10,7 +10,7 @@
   ° Score
   ° Savegame Manager
   ° Tooltips
-  ~ Sounds
+  ° Sounds
   ! Game Setup
   ! Team Setup
   ! Debrief
@@ -22,6 +22,7 @@
   ! Test
 
   * Sounds
+  ! BUG  : music/sound volume differents when game is loaded => volume shoud be restored from settings, not save
   ? ENH  : deactivate offscreen sounds
   ? ENH  : vu-meter keyboard interaction ; lock keyboard like keymap then use arrow to increase/decrease volume
 
@@ -437,54 +438,6 @@
   ° <targeter> icon is also displayed on commanders weapons (instead of no icon)
   ° <close_assault> properly works on any trooper in team equipped with <bloter> which can fire then attack in melee or attack in melee twice (instead of only first trooper attacking)
   ° <assault_blade> propery works on a non team target that also as an <assault_blade> equipped (instead of giving benefit of the equipment only to defender)
-
-================================================================================
---------------------------------------------------------------------------------
-# Keymap
---------------------------------------------------------------------------------
-================================================================================
-
-  # Key     Command                         Activation                      Browser
-  ~ Space   fire                            trigger                         Click (trigger/impulse)
-  ~ Enter   fire                            trigger                         Click (press/repeat)
-  ~ Escape  cancel                          trigger                         *
-  ~ Back    cancel                          trigger                         *
-  ~ Shift   scroll key increase             repeat                          *
-  - F1      show keymap                     trigger                         *
-  - F2      show tool                       trigger                         *
-  * F5      quicksave game (override)       trigger                         Reload Page (standard)
-  - F8      save game                       trigger                         *
-  - F9      load game                       trigger                         *
-  ? F10     toggle sound/music              trigger                         Show Menu (Firefox)
-  * F12     quit                            trigger                         Console (Firefox)
-    Plus    zoom in                         repeat                          *
-    Minus   zoom out                        repeat                          *
-    Star    reset zoom                      trigger                         *
-  ! PageUp  next member                     trigger                         *
-  ! PageDn  previous member                 trigger                         *
-  - Up      scroll up one tile              repeat                          *
-  - Left    scroll left one tile            repeat                          *
-  - Right   scroll right one tile           repeat                          *
-  - Down    scroll down one tile            repeat                          *
-  - Pause   [Pause] game                    trigger                         *
-  ? Key Q   Quicksave (override)            trigger                         *
-  ? Key L   Quickload                       trigger                         *
-  - Key F   [F]ullscreen                    trigger                         *
-  - Key C   [C]enter to focus               trigger                         *
-  - Key S   [S]croll by mouse               repeat                          *
-  - Key 1   select member [1]               trigger + double-trigger        *
-  - Key 2   select member [2]               trigger + double-trigger        *
-  - Key 3   select member [3]               trigger + double-trigger        *
-  - Key 4   select member [4]               trigger + double-trigger        *
-  - Key 5   select member [5]               trigger + double-trigger        *
-  - Key M   [M]ove                          trigger                         *
-  - Key R   attack [R]ange                  trigger                         *
-  - Key A   [A]ttack melee                  trigger                         *
-  - Key O   give [O]rder                    trigger                         *
-  - Key E   use [E]quipment                 trigger                         *
-  - Key D   switch [D]oor                   trigger                         *
-  - Key K   s[K]an                          trigger                         *
-  - End     [End] turn                      trigger                         *
 
 ================================================================================
 --------------------------------------------------------------------------------

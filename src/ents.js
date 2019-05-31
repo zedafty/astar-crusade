@@ -490,7 +490,7 @@ function getDoorAround(o, c, b) { // o = entity, c = closed door only flag, b = 
 				if (isDoor(k[0], c)) { // found a door in grid
 					return b ? true : k[1];
 				} else if (!c && (isMarine(k[0]) || isAlien(k[0]))) { // search in character properties
-					if (isDoor(pawn[k[1]].last_tile[2][0])) { // TEMP -- do not work for four-tiles pawns
+					if (isDoor(pawn[k[1]].last_tile[2][0])) { // TEMP : do not work for four-tiles pawns
 						return b ? true : pawn[k[1]].last_tile[2][1];
 					}
 				}

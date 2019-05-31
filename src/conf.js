@@ -36,11 +36,11 @@ const conf = {
 			"detect" : false, // draw sight and sense ranges on move -- Default : false
 		},
 		"skip" : {
-			"marine_quit" : true, // skip marine quit phase (i.e. show marine at docking claws leaving) -- Default : false
+			"marine_quit" : false, // skip marine quit phase (i.e. show marine at docking claws leaving) -- Default : false
 			"game_turn" : false, // skip game turn phase (i.e. display remaining turn and waiting for input) -- Default : false
-			"alien_event" : true, // skip alien event phase (i.e. display picked up event and apply its effect) -- Default : false
+			"alien_event" : false, // skip alien event phase (i.e. display picked up event and apply its effect) -- Default : false
 			"alien_play" : false, // skip alien play phase (i.e. enact alien team members) -- Default : false
-			"alien_reinforcement" : true // skip alien reinforcement phase (i.e. spawn aliens at unseen locations) -- Default : false
+			"alien_reinforcement" : false // skip alien reinforcement phase (i.e. spawn aliens at unseen locations) -- Default : false
 		},
 		"time" : {
 			"los" : false, // log line of sight computing time in console -- Default : false
@@ -331,15 +331,17 @@ const conf = {
 
 	"keymap" : {
 		"keymap"           : 112, // F1
-		"toolbar"          : 113, // F2
+		"settings"         : 113, // F2
+		"toolbar"          : 84,  // Key T
 		"save_game"        : 119, // F8
 		"load_game"        : 120, // F9
-		"quicksave"        : 81,  // Q
-		"quickload"        : 76,  // L
+		"quicksave"        : 81,  // Key Q
+		"quickload"        : 76,  // Key L
 		"pause"            : 19,  // Pause
-		"fullscreen"       : 70,  // F
-		"center_to_focus"  : 67,  // C
-		"scroll_by_mouse"  : 83,  // S
+		"mute_audio"       : 121, // F10
+		"fullscreen"       : 70,  // Key F
+		"center_to_focus"  : 67,  // Key C
+		"scroll_by_mouse"  : 83,  // Key S
 		"scroll_left"      : 37,  // Left
 		"scoll_up"         : 38,  // Up
 		"scroll_right"     : 39,  // Right
@@ -347,18 +349,18 @@ const conf = {
 		"zoom_in"          : 107, // KP_Plus
 		"zoom_out"         : 109, // KP_Minus
 		"zoom_reset"       : 106, // KP_Star
-		"select_commander" : 49,  // 1
-		"select_trooper_1" : 50,  // 2
-		"select_trooper_2" : 51,  // 3
-		"select_trooper_3" : 52,  // 4
-		"select_trooper_4" : 53,  // 5
-		"move"             : 77,  // M
-		"attack_range"     : 82,  // A
-		"attack_melee"     : 65,  // R
-		"give_order"       : 79,  // O
-		"use_equipment"    : 69,  // U
-		"switch_door"      : 68,  // D
-		"scan"             : 75,  // K
+		"select_commander" : 49,  // Key 1
+		"select_trooper_1" : 50,  // Key 2
+		"select_trooper_2" : 51,  // Key 3
+		"select_trooper_3" : 52,  // Key 4
+		"select_trooper_4" : 53,  // Key 5
+		"move"             : 77,  // Key M
+		"attack_range"     : 82,  // Key A
+		"attack_melee"     : 65,  // Key R
+		"give_order"       : 79,  // Key O
+		"use_equipment"    : 69,  // Key U
+		"switch_door"      : 68,  // Key D
+		"scan"             : 75,  // Key K
 		"end_turn"         : 35   // End
 	},
 
@@ -591,13 +593,13 @@ const conf = {
 			"height" : 32 // cursor image height in pixels -- Default : 32
 		},
 		"load" : {
-			// * STABLE
+			// STABLE
 			"spin_latency" : 0, // loading user interface resources latency in milliseconds -- Default : 0
 			"load_latency" : 0, // loading sprites resources latency in milliseconds -- Default : 0
-			// * TEST (A) -- Short
+			// TEST (A) : Short
 			// "spin_latency" : 50,
 			// "load_latency" : 25,
-			// * TEST (B) -- Long
+			// TEST (B) : Long
 			// "spin_latency" : 250,
 			// "load_latency" : 500,
 			"spin" : {
@@ -828,8 +830,9 @@ const conf = {
 			"brightness" : 1.1, // identify brightness modifier (float ; 0.5 for one half darker, 1.5 for one half lighter) -- Default : 1.1
 		},
 		"turn" : {
-			// * TEST -- Short
+			// TEST : Short
 			// "delay" : 15,
+			// STABLE : None
 			"delay" : 0, // number of frames elapsed between turn prompt and alien event -- Default : 0
 		},
 		"alien" : {

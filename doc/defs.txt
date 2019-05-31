@@ -140,6 +140,77 @@
 
 ================================================================================
 --------------------------------------------------------------------------------
+# Menus
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Main
+    Campaign
+    Skirmish
+    Continue (load last savegame)
+    Load Game (load any savegame)
+    Settings
+    Keymap
+
+  # Ingame (hit Escape)
+  ° Load Game
+  ° Save Game
+  ~ Restart
+  ° Settings
+  ° Keymap
+  ! Quit
+
+================================================================================
+--------------------------------------------------------------------------------
+# Keymap
+--------------------------------------------------------------------------------
+================================================================================
+
+  # Key         Command                         Activation                      Browser
+  ~ Space       [fire]                          trigger                         Click (trigger/impulse)
+  ~ Enter       [fire]                          trigger                         Click (press/repeat)
+  ~ Escape      [cancel]                        trigger                         *
+  ~ Back        [cancel]                        trigger                         *
+  ~ Shift       (scroll arrow multiplier)       repeat                          *
+  - F1          keymap                          trigger                         *
+  ! F2          settings                        trigger                         *
+  - Key T       toolbar                         trigger                         *
+  * F5          *                               trigger                         Reload Page (standard)
+  - F8          save_game                       trigger                         *
+  - F9          load_game                       trigger                         *
+  - Key Q       quicksave (override)            trigger                         *
+  - Key L       quickload                       trigger                         *
+  - F10         mute_audio                      trigger                         Show Menu (Firefox)
+  * F12         quit                            trigger                         Console (Firefox)
+  - Pause       pause                           trigger                         *
+  - Key F       fullscreen                      trigger                         *
+  - Key C       center_to_focus                 trigger                         *
+  - Key S       scroll_by_mouse                 trigger                         *
+  - Left        scroll_left                     repeat                          *
+  - Up          scroll_up                       repeat                          *
+  - Right       scroll_right                    repeat                          *
+  - Down        scroll_down                     repeat                          *
+    KP_Plus     zoom_in                         repeat                          *
+    KP_Minus    zoom_out                        repeat                          *
+    KP_Star     zoom_reset                      trigger                         *
+  ! PageUp      next_member                     trigger                         *
+  ! PageDn      previous_member                 trigger                         *
+  - Key 1       select_commander                trigger + double-trigger        *
+  - Key 2       select_trooper_1                trigger + double-trigger        *
+  - Key 3       select_trooper_2                trigger + double-trigger        *
+  - Key 4       select_trooper_3                trigger + double-trigger        *
+  - Key 5       select_trooper_4                trigger + double-trigger        *
+  - Key M       move                            trigger                         *
+  - Key R       attack_range                    trigger                         *
+  - Key A       attack_melee                    trigger                         *
+  - Key O       give_order                      trigger                         *
+  - Key E       use_equipment                   trigger                         *
+  - Key D       switch_door                     trigger                         *
+  - Key K       scan                            trigger                         *
+  - End         end_turn                        trigger                         *
+
+================================================================================
+--------------------------------------------------------------------------------
 # Savegame Manager
 --------------------------------------------------------------------------------
 ================================================================================
@@ -385,28 +456,6 @@
       }
     }
   }
-
-================================================================================
---------------------------------------------------------------------------------
-# Menus
---------------------------------------------------------------------------------
-================================================================================
-
-  # Main
-    Campaign
-    Skirmish
-    Continue (load last savegame)
-    Load Game (load any savegame)
-    Settings
-    Keymap
-
-  # Ingame (hit Escape)
-  ° Load Game
-  ° Save Game
-  ~ Restart
-  ° Settings
-  ° Keymap
-  ! Quit
 
 ================================================================================
 --------------------------------------------------------------------------------
@@ -668,7 +717,7 @@
 ================================================================================
 
   # Kind                    Folder          Type
-    Sound                   sfx             shot / loop
+    Sound                   snd             shot / loop
     Music                   mus             long
 
 ================================================================================
@@ -727,13 +776,40 @@
   ° scan_trooper            wsh2            o       Whoosh_Electric_00              Electric Sound Effects
   * end_turn                *               *       *                               *
 
+  # User Commands                                                                   Album
+  ° pause_in                pipa            *       sfx_sounds_pause5_in            Retro Video Game Sound Effects
+  ° pause_out               pipb            *       sfx_sounds_pause5_out           Retro Video Game Sound Effects
+
+  # User Interface          Filename        Loop    Source                          Album
+  ° roll                    di01 to di20    *       dice-1 to dice-20               Dice Roll Sounds
+  ° noise_in                noia            *       White Noise (1)                 Audacity
+  ° noise_out               noib            *       White Noise (2)                 Audacity
+  ° choice                  uie1            *       UI_Electric_05                  Electric Sound Effects
+  ° identify                uie2            *       UI_Electric_03                  Electric Sound Effects
+  ° update_choice           uie3            *       sfx_menu_move4                  Retro Video Game Sound Effects
+  ° member_select           msel            *       sfx_sounds_interaction3         Retro Video Game Sound Effects
+  ° member_action           mact            *       sfx_sounds_interaction2         Retro Video Game Sound Effects
+  ° action_cancel           mcan            *       sfx_sounds_interaction9         Retro Video Game Sound Effects
+
+  # Storage                 Filename        Loop    Source                          Album
+  ° import_storage          hddl            *       hdd_load_thrice                 FS-UAE Amiga Emulator Floppy Sounds
+  ° export_storage          hdds            *       hdd_scratch                     FS-UAE Amiga Emulator Floppy Sounds
+  ° load_game               flop            *       floppy_insert                   FS-UAE Amiga Emulator Floppy Sounds
+  * save_game               *               *       *                               *
+
+================================================================================
+--------------------------------------------------------------------------------
+# Extra Sounds
+--------------------------------------------------------------------------------
+================================================================================
+
   # Orders                  Filename        Loop    Source                          Album
-  * fire                    *               *       *                               *
-  * move_it                 *               *       *                               *
-  * by_sections             *               *       *                               *
-  * close_assault           *               *       *                               *
-  * photon_grenades         *               *       *                               *
-  * heavy_weapon            *               *       *                               *
+  ? fire                    *               *       *                               *
+  ? move_it                 *               *       *                               *
+  ? by_sections             *               *       *                               *
+  ? close_assault           *               *       *                               *
+  ? photon_grenades         *               *       *                               *
+  ? heavy_weapon            *               *       *                               *
 
   # Equipement              Filename        Loop    Source                          Album
   ? flash_grenade           *               *       (sfx_sound_vaporizing)          (Retro Video Game Sound Effects)
@@ -767,27 +843,6 @@
 	? alien_teleporter        *               *       (sfx_movement_portal3)          (Retro Video Game Sound Effects)
 	? alien_task_force        *               *       *                               *
 	? fleshripper             *               *       *                               *
-
-  # User Commands                                                                   Album
-  ° pause_in                pipa            *       sfx_sounds_pause5_in            Retro Video Game Sound Effects
-  ° pause_out               pipb            *       sfx_sounds_pause5_out           Retro Video Game Sound Effects
-
-  # User Interface          Filename        Loop    Source                          Album
-  ° roll                    di01 to di20    *       dice-1 to dice-20               Dice Roll Sounds
-  ° noise_in                noia            *       White Noise (1)                 Audacity
-  ° noise_out               noib            *       White Noise (2)                 Audacity
-  ° choice                  uie1            *       UI_Electric_05                  Electric Sound Effects
-  ° identify                uie2            *       UI_Electric_03                  Electric Sound Effects
-  ° update_choice           uie3            *       sfx_menu_move4                  Retro Video Game Sound Effects
-  ° member_select           msel            *       sfx_sounds_interaction3         Retro Video Game Sound Effects
-  ° member_action           mact            *       sfx_sounds_interaction2         Retro Video Game Sound Effects
-  ° action_cancel           mcan            *       sfx_sounds_interaction9         Retro Video Game Sound Effects
-
-  # Storage                 Filename        Loop    Source                          *
-  ° import_storage          hddl            *       hdd_load_thrice                 FS-UAE Amiga Emulator Floppy Sounds
-  ° export_storage          hdds            *       hdd_scratch                     FS-UAE Amiga Emulator Floppy Sounds
-  ° load_game               flop            *       floppy_insert                   FS-UAE Amiga Emulator Floppy Sounds
-  * save_game               *               *       *                               *
 
 ================================================================================
 --------------------------------------------------------------------------------
