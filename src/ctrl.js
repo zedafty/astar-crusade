@@ -74,7 +74,7 @@ function selectMarine(o, f) { // o = entity, f = force flag
 	checkActionButtons(o);
 
 	// * Play sound effect
-	playSound("member_select"); // NEW
+	playSound("member_select");
 
 	if (game.xeno_sensor.active) stopXenoSensor();
 
@@ -972,13 +972,13 @@ function bindActionButton(e, s, b) { // e = DOM object, s = action key, b = no a
 			 || s == "attack_range"
 			 || s == "attack_melee"
 			 || s == "switch_door"
-			 || s == "end_turn") playSound("member_action"); // NEW
+			 || s == "end_turn") playSound("member_action");
 		} else {
 			// * Cancel this action
 			cancelAction(o, s);
 			// * Play sound effect
 			if (s != "give_order"
-			 && s != "use_equipment") playSound("action_cancel"); // NEW
+			 && s != "use_equipment") playSound("action_cancel");
 			// * Deactivate this action button
 			e.classList.remove("active");
 		}

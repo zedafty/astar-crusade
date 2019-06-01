@@ -340,7 +340,7 @@ function showNoise(b, f) { // b = easter egg flag, f = callback function
 	q.style.display = "";
 	q.style.opacity = "1.0";
 	q.style.backgroundPosition = "0 0";
-	playSound(b ? "noise_in" : "noise_out"); // NEW
+	playSound(b ? "noise_in" : "noise_out");
 	setFrameInterval("noise", i, function() {
 		term.noise.count++;
 		q.style.opacity = (1 / term.noise.count + 0.25).toString();
@@ -391,7 +391,7 @@ function updateChoice(e, n, b) { // e = HTML caller, n = choice index increment,
 	q.querySelector(".next").style.opacity = typeof(term.choice.list[term.choice.index + 1]) !== "undefined" ? "1" : "0";
 	q.querySelector("div").setAttribute("class", term.choice.list[term.choice.index]);
 	q.querySelector("p").innerHTML = lang[term.choice.list[term.choice.index]];
-	if (b) playSound("update_choice"); // NEW
+	if (b) playSound("update_choice");
 }
 
 function confirmChoice(s) { // s = choice string (weapon name)
@@ -406,7 +406,7 @@ function confirmChoice(s) { // s = choice string (weapon name)
 		game.actor.weapon = choice;
 		term.choice.weapon = choice;
 	}
-	playSound("choice"); // NEW
+	playSound("choice");
 	setFrameTimeout("choice", conf.term.choice.delay, function() {
 		if (term.choice.type == "weapon") game.actor.drawShootRange();
 		hideChoice();
@@ -508,7 +508,7 @@ function rollDie(b, e, i, a) { // b = reroll flag, e = HTML element, i = HTML no
 		// 8. Increment counter
 		if (!b) term.roll.timer++;
 		// 9. Play sound effect
-		playSound("roll"); // NEW
+		playSound("roll");
 	} else {
 		e.style.display = "none";
 	}

@@ -211,7 +211,7 @@ function showIdentify(o) { // o = entity
 	moni.identify.active = true;
 	if (o != null) identify(o);
 	q.style.display = "";
-	playSound("identify"); // NEW
+	playSound("identify");
 }
 
 function hideIdentify() {
